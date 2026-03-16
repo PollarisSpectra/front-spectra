@@ -1,0 +1,89 @@
+.container-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+
+.card-login {
+    background-color: white;
+    padding: 50px;
+    border-radius: 40px; /* Bordas bem arredondadas como na imagem */
+    width: 100%;
+    max-width: 550px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.login-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 40px;
+}
+
+.login-header h1 {
+    font-size: 2.8rem;
+    font-weight: 900;
+    font-style: italic; /* O texto parece estar levemente inclinado no design */
+    line-height: 1.1;
+    margin: 0;
+    color: #000;
+}
+
+.login-logo {
+    width: 130px;
+}
+
+/* Inputs com linha embaixo */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+}
+
+.input-group label {
+    font-weight: 800;
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+.input-group input {
+    border: none;
+    border-bottom: 2px solid #555; /* Linha um pouco mais suave */
+    padding: 10px 0;
+    outline: none;
+    font-size: 16px;
+}
+
+/* Link de Recuperar */
+.esquecer-senha {
+    margin-top: -15px;
+    margin-bottom: 40px;
+}
+
+.esquecer-senha p {
+    font-size: 12px;
+    color: #888;
+    font-weight: 600;
+}
+
+.esquecer-senha a {
+    color: #ff1a1a;
+    text-decoration: none;
+    font-weight: 800;
+}
+
+/* Botão Vermelho */
+.btn-entrar {
+    background-color: #ff1a1a;
+    color: white;
+    border: none;
+    width: 60%; /* O botão do login parece ser um pouco menor/centralizado */
+    display: block;
+    margin: 0 auto;
+    padding: 15px;
+    font-weight: 900;
+    border-radius: 4px;
+    cursor: pointer;
+    letter-spacing: 1px;
+}

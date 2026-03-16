@@ -1,8 +1,11 @@
 import Card from '../components/Card.jsx';
+import Banner from "../components/Banner/Banner.jsx";
 
 export default function Home() {
     return (
         <div>
+
+            < Banner />
 
             <h3 style={{paddingLeft: '50px', color: 'white', fontFamily: 'Montserrat, sans-serif', position: 'relative', top: '30px', fontSize: '17px'}}> -Filmes em Destaque</h3>
             <div style={{ padding: '40px', display: 'flex', gap: '20px' }}>

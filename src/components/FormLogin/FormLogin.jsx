@@ -1,4 +1,4 @@
-import './FormLogin.css';
+import './FormLogin.module.css';
 
 export default function FormLogin() {
     return (

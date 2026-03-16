@@ -1,0 +1,28 @@
+.botao {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background-color: #f71938; /* Vermelho similar ao da imagem */
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 16px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    transition: background-color 0.2s ease;
+    height: 30px;
+}
+
+.botao:hover {
+    background-color: #d1122b;
+}
+
+.texto {
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.icone {
+    color: #ffffff;
+}

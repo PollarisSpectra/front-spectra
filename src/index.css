@@ -6,6 +6,10 @@
   text-decoration: none;
 }
 
+body {
+  background-color: #1f2127;
+}
+
 .footer {
   background-color: #ff1a1a; /* O tom de vermelho do print */
   color: white;

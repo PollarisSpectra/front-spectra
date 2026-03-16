@@ -2,10 +2,10 @@ import Card from '../components/Card.jsx';
 
 export default function Home() {
     return (
-        <div style={{ backgroundColor: '#1f2127' }}>
+        <div>
 
-            <h3 style={{color: 'white', fontFamily: 'Montserrat, sans-serif'}}> -Filmes em Destaque</h3>
-            <div style={{ padding: '40px', backgroundColor: '#1f2127', display: 'flex', gap: '20px' }}>
+            <h3 style={{paddingLeft: '50px', color: 'white', fontFamily: 'Montserrat, sans-serif', position: 'relative', top: '30px', fontSize: '17px'}}> -Filmes em Destaque</h3>
+            <div style={{ padding: '40px', display: 'flex', gap: '20px' }}>
                 <Card
                     imagem="/scarface.png"
                     classificacao="18"

@@ -11,6 +11,7 @@
     cursor: pointer;
     font-family: 'Montserrat', sans-serif;
     transition: background-color 0.2s ease;
+    height: 30px;
 }
 
 .botao:hover {
@@ -18,7 +19,7 @@
 }
 
 .texto {
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 700;
 }
 

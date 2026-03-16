@@ -1,39 +1,43 @@
+import css from './FormCadastro.module.css';
+
 export default function FormCadastro() {
     return (
-        <div className="container-form">
-            <div className="card-cadastro">
-                <header className="form-header">
-                    <h1>Conclua seu <br /> Cadastro</h1>
-                    <img src="/icons.svg" alt="Logo Estrela" className="form-logo" />
-                </header>
+        <div className={css.containerMain}>
+            {/* Imagem de fundo gigante */}
+            <img src="/LogoVermelha.png" alt="" className={css.logoBackground} />
 
-                <form>
-                    <div className="input-group">
-                        <label>Nome</label>
-                        <input type="text" />
-                    </div>
+            {/* Seção do formulário alinhada à direita */}
+            <div className={css.formSection}>
+                <div className={css.cardCadastro}>
+                    <header className={css.formHeader + " d-flex align-items-centerx"}>
+                        <h1>Conclua seu <br /> Cadastro</h1>
+                        <img src="/Logo-Cortada.png" alt="Logo Estrela" className={css.formLogo} />
+                    </header>
 
-                    <div className="input-group">
-                        <label>E-mail</label>
-                        <input type="email" />
-                    </div>
+                    <form>
+                        <div className={css.inputGroup}>
+                            <label>Nome</label>
+                            <input type="text" />
+                        </div>
+                        <div className={css.inputGroup}>
+                            <label>E-mail</label>
+                            <input type="email" />
+                        </div>
+                        <div className={css.inputGroup}>
+                            <label>Data de nascimento</label>
+                            <input type="text" />
+                        </div>
+                        <div className={css.inputGroup}>
+                            <label>Senha</label>
+                            <input type="password" />
+                        </div>
+                        <button type="submit" className={css.btnCadastrar}>CADASTRAR</button>
+                    </form>
 
-                    <div className="input-group">
-                        <label>Data de nascimento</label>
-                        <input type="text" />
-                    </div>
-
-                    <div className="input-group">
-                        <label>Senha</label>
-                        <input type="password" />
-                    </div>
-
-                    <button type="submit" className="btn-cadastrar">CADASTRAR</button>
-                </form>
-
-                <footer className="form-footer">
-                    <p>Já tem conta? <a href="#">Faça seu login aqui</a></p>
-                </footer>
+                    <footer className={css.formFooter}>
+                        <p>Já tem conta? <a href="#">Faça seu login aqui</a></p>
+                    </footer>
+                </div>
             </div>
         </div>
     );

@@ -1,31 +1,39 @@
-import './FormLogin.module.css';
+import css from './FormLogin.module.css';
 
 export default function FormLogin() {
     return (
-        <div className="container-login">
-            <div className="card-login">
-                <header className="login-header">
-                    <h1>Bem-vindo <br /> de Volta!!!</h1>
-                    <img src="/icons.svg" alt="Logo Estrela" className="login-logo" />
-                </header>
+        <div className={css.containerMain}>
+            {/* Imagem de fundo gigante (mesma lógica do cadastro) */}
+            <img src="/LogoVermelha.png" alt="" className={css.logoBackground} />
 
-                <form>
-                    <div className="input-group">
-                        <label>E-mail</label>
-                        <input type="email" />
-                    </div>
+            {/* Seção do formulário alinhada à direita */}
+            <div className={css.formSection}>
+                <div className={css.cardCadastro}>
+                    <header className={css.formHeader}>
+                        <h1>Bem-vindo <br /> de Volta!!!</h1>
+                        <img src="/Logo-Cortada.png" alt="Logo Estrela" className={css.formLogo} />
+                    </header>
 
-                    <div className="input-group">
-                        <label>Senha</label>
-                        <input type="password" />
-                    </div>
+                    <form>
+                        <div className={css.inputGroup}>
+                            <label>E-mail</label>
+                            <input type="email" />
+                        </div>
 
-                    <div className="esquecer-senha">
-                        <p>Esqueceu sua senha? <a href="#">Recuperar</a></p>
-                    </div>
+                        <div className={css.inputGroup}>
+                            <label>Senha</label>
+                            <input type="password" />
+                        </div>
 
-                    <button type="submit" className="btn-entrar">ENTRAR</button>
-                </form>
+                        {/* Link de recuperar senha que tem no seu print de login */}
+                        <div className={css.esquecerSenha}>
+                            <span>Esqueceu sua senha? </span>
+                            <a href="#">Recuperar</a>
+                        </div>
+
+                        <button type="submit" className={css.btnCadastrar}>ENTRAR</button>
+                    </form>
+                </div>
             </div>
         </div>
     );

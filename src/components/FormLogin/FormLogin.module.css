@@ -87,3 +87,29 @@
     cursor: pointer;
     letter-spacing: 1px;
 }
+
+/* Adicione isso ao final do seu arquivo .module.css atual */
+
+.esquecerSenha {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    margin-top: -10px; /* Puxa para perto do input de senha */
+}
+
+.esquecerSenha span {
+    color: #888;
+}
+
+.esquecerSenha a {
+    color: #ff1a1a;
+    text-decoration: none;
+    font-weight: 800;
+}
+
+/* Se quiser que o botão de ENTRAR seja menor/centralizado como no design: */
+.btnEntrar {
+    width: 70%;
+    margin: 0 auto;
+    display: block;
+}

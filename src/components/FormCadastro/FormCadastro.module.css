@@ -1,82 +1,101 @@
-/* Container para centralizar o card na página */
-.container-form {
+.containerMain {
+    position: relative; /* Necessário para posicionar a logo de fundo */
     display: flex;
-    justify-content: center;
+    justify-content: flex-end; /* Empurra o conteúdo (o form) para a direita */
     align-items: center;
-    min-height: 80vh;
-    padding: 20px;
+    min-height: 90vh;
+    background-color: #121417;
+    overflow: hidden; /* Corta a logo que sobrar para fora da tela */
+    padding-right: 10%; /* Espaço entre o card e a borda direita da tela */
 }
 
-.card-cadastro {
-    background-color: white;
-    padding: 40px;
-    border-radius: 30px; /* Bordas arredondadas do card */
+/* A Mágica do Background */
+.logoBackground {
+    position: absolute;
+    left: -150px; /* Ajuste para esconder parte da logo na esquerda como no Figma */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 80%; /* Tamanho gigante */
+    opacity: 1; /* Se quiser que ela fique mais discreta, mude para 0.5 */
+    z-index: 0; /* Fica atrás do formulário */
+    pointer-events: none; /* Não interfere nos cliques do mouse */
+}
+
+.formSection {
+    position: relative;
+    z-index: 1; /* Garante que o form fique acima da logo */
     width: 100%;
     max-width: 500px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-.form-header {
+.cardCadastro {
+    background-color: white;
+    padding: 40px;
+    border-radius: 30px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    color: black;
+}
+
+/* --- Resto dos estilos (Header, Input, Botão) --- */
+
+.formHeader {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 30px;
 }
 
-.form-header h1 {
-    font-size: 2.5rem;
+.formHeader h1 {
+    font-size: 2.2rem;
     font-weight: 800;
     line-height: 1;
     margin: 0;
-    color: #000;
 }
 
-.form-logo {
-    width: 120px;
+.formLogo {
+    width: 80px;
 }
 
-/* Estilização dos Inputs (Apenas linha inferior) */
-.input-group {
+.inputGroup {
     display: flex;
     flex-direction: column;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
-.input-group label {
+.inputGroup label {
     font-weight: 700;
     font-size: 14px;
     margin-bottom: 5px;
 }
 
-.input-group input {
+.inputGroup input {
     border: none;
-    border-bottom: 2px solid #000; /* A linha preta do design */
+    border-bottom: 2px solid #000;
     padding: 8px 0;
     outline: none;
     font-size: 16px;
+    background: transparent;
 }
 
-/* Botão Vermelho */
-.btn-cadastrar {
+.btnCadastrar {
     background-color: #ff1a1a;
     color: white;
     border: none;
     width: 100%;
     padding: 15px;
     font-weight: 900;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
-    margin-top: 20px;
-    letter-spacing: 1px;
+    margin-top: 10px;
 }
 
-.form-footer {
+.formFooter {
     text-align: center;
     margin-top: 20px;
     font-weight: 700;
 }
 
-.form-footer a {
+.formFooter a {
     color: #ff1a1a;
     text-decoration: none;
 }

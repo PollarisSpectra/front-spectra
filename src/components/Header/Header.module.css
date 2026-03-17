@@ -34,4 +34,12 @@
     height: 20px;
 }
 
+.link {
+    transition: all .2s;
+}
+
+.link:hover {
+    background-color: rgba(var(--cor-selection), .7);
+}
+
 

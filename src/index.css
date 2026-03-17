@@ -3,7 +3,13 @@
 * {
   margin: 0;
   padding: 0;
-  text-decoration: none;
+  text-decoration: none !important;
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+:root {
+  --vermelho-spectra: 255, 0, 0;
+  --cor-selection: 30, 30, 30;
 }
 
 body {
@@ -41,4 +47,13 @@ body {
   border-top: 1px solid rgba(255, 255, 255, 0.2); /* Opcional: uma linha bem sutil */
   padding-top: 20px;
   font-size: 12px;
+}
+
+.fs-6 {
+  font-size: 13px;
+}
+
+button {
+  border: none;
+  outline: none;
 }

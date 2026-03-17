@@ -1,14 +1,20 @@
-import Card from '../components/Card.jsx';
-import Banner from "../components/Banner/Banner.jsx";
+import Card from '../components/Card/Card.jsx';
+// import Banner from "../components/Banner/Banner.jsx";
+import TestingBanner from '../components/Banner/TestingBanner.jsx';
 
 export default function Home() {
     return (
-        <div>
+        <>
+        {/* <Banner /> */}
+        <TestingBanner />
 
-            < Banner />
+        <div className="container d-flex flex-column my-5">
+            <div className="d-flex align-items-center gap-2 mb-2">
+                <span style={{width: 50, height: 3}} className="bg-white"></span>
+                <span style={{color: 'white', fontFamily: 'Montserrat, sans-serif', position: 'relative', fontSize: '17px'}}>Filmes em Destaque</span>
+            </div>
 
-            <h3 style={{paddingLeft: '50px', color: 'white', fontFamily: 'Montserrat, sans-serif', position: 'relative', top: '30px', fontSize: '17px'}}> -Filmes em Destaque</h3>
-            <div style={{ padding: '40px', display: 'flex', gap: '20px' }}>
+            <div className="d-flex gap-2 flex-wrap">
                 <Card
                     imagem="/scarface.png"
                     classificacao="18"
@@ -28,7 +34,7 @@ export default function Home() {
                 <Card
                     imagem="/fracos.png"
                     classificacao="16"
-                    titulo="ONDE OS FRACOS NÃO TEM VEZ"
+                    titulo="Onde os fracos não tem vez"
                     estrelas={5}
                     horario="17:00 - 19:50"
                 />
@@ -51,5 +57,6 @@ export default function Home() {
             </div>
 
         </div>
+        </>
     );
 }

@@ -1,5 +1,5 @@
 import estilo from './Card.module.css';
-import Botao from './Botao';
+import Botao from '../Botao/Botao';
 
 export default function Card({
                                  imagem,
@@ -26,7 +26,7 @@ export default function Card({
     };
 
     return (
-        <div className={estilo.card}>
+        <div className={estilo.card + " col-2 border border-light border-opacity-25"}>
             <div className={estilo.containerImagem}>
                 <img src={imagem} alt={`Pôster do filme ${titulo}`} className={estilo.imagem} />
 

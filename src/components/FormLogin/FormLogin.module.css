@@ -112,4 +112,17 @@ body, html {
     font-weight: 900;
     border-radius: 5px;
     cursor: pointer;
+    transition: 0.3s;
+}
+
+.btnCadastrar:hover {
+    background-color: #cd1423;
+}
+
+.linkLogin:hover {
+    color: var(--vermelho-selecionado);
+}
+
+.linkLogin {
+    transition: 0.3s;
 }

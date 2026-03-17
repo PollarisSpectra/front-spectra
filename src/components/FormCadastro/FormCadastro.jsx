@@ -1,6 +1,11 @@
 import css from './FormCadastro.module.css';
 
-export default function FormCadastro() {
+export default function FormCadastro({
+                                        setCadastro,
+                                     }) {
+
+
+
     return (
         <div className={css.containerMain}>
             {/* Imagem de fundo gigante */}
@@ -31,11 +36,11 @@ export default function FormCadastro() {
                             <label>Senha</label>
                             <input type="password" />
                         </div>
-                        <button type="submit" className={css.btnCadastrar}>CADASTRAR</button>
+                        <button onClick={() => setCadastro(true)} type="button" className={css.btnCadastrar}>CADASTRAR</button>
                     </form>
 
                     <footer className={css.formFooter}>
-                        <p>Já tem conta? <a href="#">Faça seu login aqui</a></p>
+                        <p>Já tem conta? <a className={css.linkLogin} href="#">Faça seu login aqui</a></p>
                     </footer>
                 </div>
             </div>

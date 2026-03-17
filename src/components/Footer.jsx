@@ -5,12 +5,12 @@ export default function Footer() {
     return (
         <footer className="footer">
             <div className="footer-content">
-                {/* Lado Esquerdo: Logo */}
+                {/* Lado Esquerdo, Logo */}
                 <div className="footer-logo">
                     <img src={logo} alt="Spectra Logo" />
                 </div>
 
-                {/* Lado Direito: Informações de Contato */}
+                {/* Lado Direito, Informações de Contato */}
                 <div className="footer-info">
                     <p>Avenida João Cernach, 2180, Vila Troncoso</p>
                     <p>(18) 3643-1700</p>

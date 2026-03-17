@@ -10,6 +10,8 @@
 :root {
   --vermelho-spectra: 255, 0, 0;
   --cor-selection: 30, 30, 30;
+  --cinza: #383838;
+  --vermelho-selecionado: #cd1423;
 }
 
 body {

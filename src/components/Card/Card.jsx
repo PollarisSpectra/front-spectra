@@ -22,7 +22,7 @@ export default function Card({
     const getTamanhoFonte = (texto) => {
         if (texto.length > 22) return '11px'; // Títulos muito grandes
         if (texto.length > 15) return '13px'; // Títulos médios
-        return '15px'; // Títulos curtos (tamanho padrão original)
+        return '15px'; // Títulos curtos (tamanho padrão figma)
     };
 
     return (
@@ -48,7 +48,7 @@ export default function Card({
 
                     {/* Estrelas e horário lado a lado */}
                     <div className={estilo.detalhesSecundarios}>
-                        <div className={estilo.estrelas} aria-label={`${estrelas} estrelas`}>
+                        <div className={estilo.estrelas} aria-label={estrelas + " estrelas"}>
                             {'★'.repeat(estrelas)}
                             {'☆'.repeat(5 - estrelas)}
                         </div>

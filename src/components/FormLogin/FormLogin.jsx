@@ -1,6 +1,8 @@
 import css from './FormLogin.module.css';
 
-export default function FormLogin() {
+export default function FormLogin({
+                                    setCadastro,
+                                  }) {
     return (
         <div className={css.containerMain}>
             {/* Logo de fundo */}
@@ -26,10 +28,10 @@ export default function FormLogin() {
 
                         <div className={css.esquecerSenha}>
                             <span>Esqueceu sua senha? </span>
-                            <a href="#">Recuperar</a>
+                            <a className={css.linkLogin} href="#">Recuperar</a>
                         </div>
 
-                        <button type="submit" className={css.btnCadastrar}>ENTRAR</button>
+                        <button onClick={() => setCadastro(true)} type="button" className={css.btnCadastrar}>ENTRAR</button>
                     </form>
                 </div>
             </div>

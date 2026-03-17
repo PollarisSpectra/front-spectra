@@ -36,10 +36,21 @@
 
 .link {
     transition: all .2s;
+    margin-right: 6px;
 }
 
 .link:hover {
     background-color: rgba(var(--cor-selection), .7);
+    color: rgb(var(--vermelho-spectra)) !important;
+}
+
+.login {
+
+    transition: all .2s;
+}
+
+.login:hover {
+    background-color: rgba(255, 255, 255, .8) !important;
 }
 
 .headerContainer {

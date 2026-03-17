@@ -42,4 +42,54 @@
     background-color: rgba(var(--cor-selection), .7);
 }
 
+.headerContainer {
+    /* Linha vermelha com brilho (drop shadow) */
+    border-bottom: 2px solid #ff1d1d;
+    box-shadow: 0px 4px 10px rgba(255, 29, 29, 0.4);
+    position: relative;
+    z-index: 1000;
+}
+
+.logoImg {
+    width: 100px;
+}
+
+/* Responsividade da logo para telas pequenas */
+@media (max-width: 576px) {
+    .logoImg {
+        width: 80px;
+    }
+}
+
+.loginIcon {
+    width: 16px;
+    height: 16px;
+}
+
+.link {
+    transition: all .2s;
+    letter-spacing: 0.5px;
+    font-size: 13px;
+}
+
+.link:hover {
+    color: #ff1d1d !important; /* Fica vermelho ao passar o mouse */
+}
+
+/* Ajuste para telas de 320px até 375px */
+@media (max-width: 375px) {
+    .logoImg {
+        width: 75px; /* Logo menor para não empurrar os botões */
+    }
+
+    .link {
+        font-size: 11px; /* Texto um pouco menor */
+        padding: 0 4px;
+    }
+
+    .loginIcon {
+        width: 14px;
+        height: 14px;
+    }
+}
 

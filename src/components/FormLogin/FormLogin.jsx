@@ -3,10 +3,9 @@ import css from './FormLogin.module.css';
 export default function FormLogin() {
     return (
         <div className={css.containerMain}>
-            {/* Imagem de fundo gigante (mesma lógica do cadastro) */}
+            {/* Logo de fundo */}
             <img src="/LogoVermelha.png" alt="" className={css.logoBackground} />
 
-            {/* Seção do formulário alinhada à direita */}
             <div className={css.formSection}>
                 <div className={css.cardCadastro}>
                     <header className={css.formHeader}>
@@ -25,7 +24,6 @@ export default function FormLogin() {
                             <input type="password" />
                         </div>
 
-                        {/* Link de recuperar senha que tem no seu print de login */}
                         <div className={css.esquecerSenha}>
                             <span>Esqueceu sua senha? </span>
                             <a href="#">Recuperar</a>

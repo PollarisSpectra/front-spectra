@@ -1,25 +1,37 @@
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.svg';
-import Vector from '../../assets/Vector.svg'
+import Vector from '../../assets/Vector.svg';
 import styles from './Header.module.css';
 
 export default function Header() {
     return (
-        <header className="container-fluid bg-black d-flex">
-            <div className="container py-2 d-flex justify-content-between">
-                <Link to={"/"}>
-                    <img src={logo} width={100} alt="logo" />
+        /* Adicionei a classe border-bottom-red personalizada para a linha vermelha */
+        <header className={`${styles.headerContainer} container-fluid bg-black`}>
+            <div className="container py-2 d-flex justify-content-between align-items-center">
+
+                {/* Logo: Diminui um pouco no mobile para sobrar espaço */}
+                <Link to={"/"} className="d-flex align-items-center">
+                    <img src={logo} className={styles.logoImg} alt="logo" />
                 </Link>
-                <div className={styles["header-actions"] + " d-flex align-items-center justify-content-between gap-1"}>
-                    <Link to={"/cadastro"} className={styles.link + " text-white px-2 py-1 rounded-3 "}>
-                        Cadastrar
+
+                <div className="d-flex align-items-center gap-2 gap-md-4">
+                    <Link
+                        to={"/cadastro"}
+                        className={`${styles.link} text-white text-decoration-none fw-bold small`}
+                    >
+                        CADASTRAR
                     </Link>
-                    <Link to={"/login"} className={"text-black fs-6 bg-white fw-semibold px-2 py-1 rounded-3 d-flex align-items-center gap-1"}>
-                        <img src={Vector} alt="login" className={styles["Vector"]} />
-                        Login
+
+                    <Link
+                        to={"/login"}
+                        className="btn btn-light btn-sm fw-bold d-flex align-items-center gap-2 px-3 py-1"
+                    >
+                        <img src={Vector} alt="login" className={styles.loginIcon} />
+                        <span className="d-none d-sm-inline">LOGIN</span>
                     </Link>
                 </div>
+
             </div>
         </header>
-    )
+    );
 }

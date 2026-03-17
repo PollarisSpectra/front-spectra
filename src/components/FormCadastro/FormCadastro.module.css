@@ -1,32 +1,37 @@
 .containerMain {
-    position: relative; /* Necessário para posicionar a logo de fundo */
+    position: relative;
     display: flex;
-    justify-content: flex-end; /* Empurra o conteúdo (o form) para a direita */
+    justify-content: flex-end;
     align-items: center;
-    min-height: 90vh;
+    /* Ajustado para 100vh para cobrir a tela inteira como no login */
+    min-height: 100vh;
     background-color: #121417;
-    overflow: hidden; /* Corta a logo que sobrar para fora da tela */
-    padding-right: 10%; /* Espaço entre o card e a borda direita da tela */
+    overflow: hidden;
+    padding-right: 10%;
 }
 
-/* A Mágica do Background */
 .logoBackground {
     position: absolute;
-    left: -150px; /* Ajuste para esconder parte da logo na esquerda como no Figma */
-    top: 50%;
-    transform: translateY(-50%);
-    width: 80%; /* Tamanho gigante */
-    opacity: 1; /* Se quiser que ela fique mais discreta, mude para 0.5 */
-    z-index: 0; /* Fica atrás do formulário */
-    pointer-events: none; /* Não interfere nos cliques do mouse */
+    /* Mudamos de 'left: -150px' para preenchimento total */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Isso garante que a estrela não seja cortada de forma estranha */
+    object-fit: cover;
+    object-position: left center;
+    z-index: 0;
+    pointer-events: none;
 }
 
 .formSection {
     position: relative;
-    z-index: 1; /* Garante que o form fique acima da logo */
+    z-index: 1;
     width: 100%;
     max-width: 500px;
 }
+
+/* ... o restante do seu CSS de card, inputs e botões pode continuar igual ... */
 
 .cardCadastro {
     background-color: white;

@@ -1,115 +1,115 @@
-.container-login {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 80vh;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.card-login {
-    background-color: white;
-    padding: 50px;
-    border-radius: 40px; /* Bordas bem arredondadas como na imagem */
+body, html {
     width: 100%;
-    max-width: 550px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    background-color: #121417; /* Evita flashes brancos ao carregar */
 }
 
-.login-header {
+.containerMain {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #121417;
+    overflow: hidden;
+    padding-right: 8%;
+}
+
+.logoBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    pointer-events: none;
+    object-position: left center;
+}
+
+.formSection {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 500px;
+    /* Adicione uma margem se quiser que ele nunca encoste no topo/baixo */
+    margin: 40px 0;
+}
+
+
+.cardCadastro {
+    background-color: white;
+    padding: 40px;
+    border-radius: 30px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    color: black;
+}
+
+.formHeader {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 40px;
-}
-
-.login-header h1 {
-    font-size: 2.8rem;
-    font-weight: 900;
-    font-style: italic; /* O texto parece estar levemente inclinado no design */
-    line-height: 1.1;
-    margin: 0;
-    color: #000;
-}
-
-.login-logo {
-    width: 130px;
-}
-
-/* Inputs com linha embaixo */
-.input-group {
-    display: flex;
-    flex-direction: column;
     margin-bottom: 30px;
 }
 
-.input-group label {
+.formHeader h1 {
+    font-size: 2.5rem;
+    font-weight: 900;
+    line-height: 1.1;
+    margin: 0;
+}
+
+.formLogo {
+    width: 100px;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+}
+
+.inputGroup label {
     font-weight: 800;
-    font-size: 15px;
+    font-size: 14px;
     margin-bottom: 5px;
 }
 
-.input-group input {
+.inputGroup input {
     border: none;
-    border-bottom: 2px solid #555; /* Linha um pouco mais suave */
-    padding: 10px 0;
+    border-bottom: 2px solid #000;
+    padding: 8px 0;
     outline: none;
-    font-size: 16px;
 }
-
-/* Link de Recuperar */
-.esquecer-senha {
-    margin-top: -15px;
-    margin-bottom: 40px;
-}
-
-.esquecer-senha p {
-    font-size: 12px;
-    color: #888;
-    font-weight: 600;
-}
-
-.esquecer-senha a {
-    color: #ff1a1a;
-    text-decoration: none;
-    font-weight: 800;
-}
-
-/* Botão Vermelho */
-.btn-entrar {
-    background-color: #ff1a1a;
-    color: white;
-    border: none;
-    width: 60%; /* O botão do login parece ser um pouco menor/centralizado */
-    display: block;
-    margin: 0 auto;
-    padding: 15px;
-    font-weight: 900;
-    border-radius: 4px;
-    cursor: pointer;
-    letter-spacing: 1px;
-}
-
-/* Adicione isso ao final do seu arquivo .module.css atual */
 
 .esquecerSenha {
     font-size: 12px;
-    font-weight: 600;
     margin-bottom: 30px;
-    margin-top: -10px; /* Puxa para perto do input de senha */
-}
-
-.esquecerSenha span {
-    color: #888;
+    margin-top: -10px;
 }
 
 .esquecerSenha a {
     color: #ff1a1a;
     text-decoration: none;
-    font-weight: 800;
+    font-weight: bold;
 }
 
-/* Se quiser que o botão de ENTRAR seja menor/centralizado como no design: */
-.btnEntrar {
+.btnCadastrar {
+    background-color: #ff1a1a;
+    color: white;
+    border: none;
     width: 70%;
     margin: 0 auto;
     display: block;
+    padding: 15px;
+    font-weight: 900;
+    border-radius: 5px;
+    cursor: pointer;
 }

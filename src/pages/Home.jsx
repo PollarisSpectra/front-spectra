@@ -14,7 +14,7 @@ export default function Home() {
                 <span style={{color: 'white', fontFamily: 'Montserrat, sans-serif', position: 'relative', fontSize: '17px'}}>Filmes em Destaque</span>
             </div>
 
-            <div className="d-flex gap-2 flex-wrap">
+            <div className="d-flex gap-2 flex-wrap row">
                 <Card
                     imagem="/scarface.png"
                     classificacao="18"

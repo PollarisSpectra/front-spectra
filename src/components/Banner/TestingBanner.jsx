@@ -28,13 +28,13 @@ export default function TestingBanner() {
     return (
         <div
             className={styles.banner + " container-fluid"}
-            style={{backgroundImage: `url(${imagens[indiceAtual].url})`, height: 400}}
+            style={{backgroundImage: `url(${imagens[indiceAtual].url})`, height: '40vh'}}
             >
-            <div className="container text-white">
+            <div className="container text-white d-flex flex-column align-items-start">
                 <div className="d-flex flex-column py-5">
-                    <span className="fs-2 text-uppercase">Em cartaz</span>
-                    <span className="fw-bold" style={{fontSize: 80}}>{imagens[indiceAtual].titulo}</span>
-                    <span className="fs-5">{imagens[indiceAtual].legenda}</span>
+                    <span className="fs-responsive-4 fw-semibold text-white text-opacity-75">Em cartaz</span>
+                    <h1 className="fw-bold fs-responsive-1">{imagens[indiceAtual].titulo}</h1>
+                    <span className="fs-responsive-5 text-white text-opacity-50">{imagens[indiceAtual].legenda}</span>
                 </div>
                 <div className="w-100 d-flex gap-2 justify-content-between">
                     <div className="d-flex gap-2 align-items-center">

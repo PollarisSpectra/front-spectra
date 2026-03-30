@@ -1,0 +1,106 @@
+.header-actions{
+    gap: 16px;
+}
+
+.header-cadastrar {
+    background: transparent;
+    border: none;
+    color: #ff1d1d;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+}
+
+
+.header-login {
+    background: #ffffff;
+    color: #111111;
+    border: none;
+    border-radius: 5px;
+    padding: 3px 5px;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.login-icon{
+    width: 20px;
+    height: 20px;
+}
+
+.link {
+    transition: all .2s;
+    margin-right: 6px;
+}
+
+.link:hover {
+    background-color: rgba(var(--cor-selection), .7);
+    color: rgb(var(--vermelho-spectra)) !important;
+}
+
+.login {
+
+    transition: all .2s;
+}
+
+.login:hover {
+    background-color: rgba(255, 255, 255, .8) !important;
+}
+
+.headerContainer {
+    /* Linha vermelha com brilho (drop shadow) */
+    border-bottom: 2px solid #ff1d1d;
+    box-shadow: 0px 4px 10px rgba(255, 29, 29, 0.4);
+    position: relative;
+    z-index: 1000;
+}
+
+.logoImg {
+    width: 100px;
+}
+
+/* Responsividade da logo para telas pequenas */
+@media (max-width: 576px) {
+    .logoImg {
+        width: 80px;
+    }
+}
+
+.loginIcon {
+    width: 16px;
+    height: 16px;
+}
+
+.link {
+    transition: all .2s;
+    letter-spacing: 0.5px;
+    font-size: 13px;
+}
+
+.link:hover {
+    color: #ff1d1d !important; /* Fica vermelho ao passar o mouse */
+}
+
+/* Ajuste para telas de 320px até 375px */
+@media (max-width: 375px) {
+    .logoImg {
+        width: 75px; /* Logo menor para não empurrar os botões */
+    }
+
+    .link {
+        font-size: 11px; /* Texto um pouco menor */
+        padding: 0 4px;
+    }
+
+    .loginIcon {
+        width: 14px;
+        height: 14px;
+    }
+}
+

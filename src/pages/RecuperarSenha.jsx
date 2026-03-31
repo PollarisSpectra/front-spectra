@@ -57,7 +57,7 @@ export default function RecuperarSenha() {
         }
     }
 
-    async function confirmarCodigo() {
+    async function ConfirmarCodigo() {
         try {
             const resposta = await fetch("http://10.92.3.165:5000/recuperar_senha", {
                 method: "POST",

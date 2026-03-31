@@ -116,3 +116,113 @@
     color: #ff1a1a;
     text-decoration: none;
 }
+
+/* Garante que o card seja a referência para o posicionamento da mensagem */
+.cardCadastro {
+    position: relative;
+    /* Mantenha seus estilos originais aqui */
+}
+
+.flashMessage {
+    position: fixed; /* Mudamos para fixed para ela ignorar o scroll e o corte do card */
+    top: 100px;      /* Aumentamos para ficar abaixo da altura do Header (ajuste se necessário) */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ff1a1a;
+    color: #fff;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    white-space: nowrap;
+    -index: 9999;
+    animation: slideDown 0.4s ease-out forwards;
+}
+{
+    /* Animação de entrada suave */
+    animation: slideDown 0.4s ease-out forwards;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        top: 70px;
+    }
+    to {
+        opacity: 1;
+        top: 100px;
+    }
+}
+
+
+/* --- Estilos do Scarface com Gradiente Radial de fora para dentro --- */
+.imageWrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60%; /* Ajuste a largura conforme seu layout da esquerda */
+    height: 100%;
+    z-index: 1; /* Fica atrás do card mas na frente do body */
+    overflow: hidden;
+}
+
+.backgroundImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Garante que a imagem preencha sem distorcer */
+}
+
+/* O "Pulo do Gato" para o gradiente de fora para dentro */
+.radialOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    /* Radial Gradient: O centro é transparente, a borda é preta (#000) */
+    background: radial-gradient(
+            circle at center,
+            rgba(0, 0, 0, 0) 20%, /* Centro transparente */
+            rgba(0, 0, 0, 1) 100% /* Borda preta total */
+    );
+}
+
+/* --- Estilos da Seção de Foto de Perfil (Figma) --- */
+.fotoPerfilSection {
+    text-align: center;
+    margin-bottom: 25px; /* Espaço para o primeiro input */
+}
+
+.fotoPerfilTitle {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #000;
+    margin-bottom: 8px;
+    line-height: 1.2;
+}
+
+.fotoUploadArea {
+    width: 100px; /* Tamanho fixo do quadrado */
+    height: 80px;
+    background-color: #E6E6E6; /* Cinza claro do Figma */
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin: 0 auto; /* Centraliza horizontalmente */
+    transition: background-color 0.2s;
+    overflow: hidden; /* Garante que o preview respeite o border-radius */
+}
+
+.fotoUploadArea:hover {
+    background-color: #dcdcdc;
+}
+
+.fotoPreview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Corta a imagem para preencher o quadrado sem distorcer */
+}

@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from "./Cadastro.module.css";
 
 export default function RecuperarSenha() {
@@ -8,6 +8,8 @@ export default function RecuperarSenha() {
     const [codigo, setCodigo] = useState(Array(6).fill(''));
     const inputs = useRef([]);
     const [novaSenha, setNovaSenha] = useState("");
+
+    const navigate = useNavigate();
 
     function handleChange(value, index) {
         if (!/^\d?$/.test(value)) return;
@@ -39,7 +41,7 @@ export default function RecuperarSenha() {
         e.preventDefault();
 
         try {
-            const resposta = await fetch("http://10.92.3.165:5000/recuperar_senha", {
+            const resposta = await fetch("http://127.0.0.1:5000/recuperar_senha", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -57,22 +59,28 @@ export default function RecuperarSenha() {
         }
     }
 
-    async function ConfirmarCodigo() {
+    async function confirmarCodigo() {
         try {
-            const resposta = await fetch("http://10.92.3.165:5000/recuperar_senha", {
+            const resposta = await fetch("http://127.0.0.1:5000/recuperar_senha", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
                     "email": email,
-                    "senha": codigo,
+                    "codigo": codigo.join(''),
+                    "nova_senha": novaSenha
                 }),
             })
 
-            if (resposta.ok) {
-                setEtapa(1);
+            if (!resposta.ok) {
+                console.log(await resposta.json());
+                return;
             }
+
+            setTimeout(() => {
+                navigate("/login");
+            }, 2000)
         } catch (error) {
             console.log(error);
         }
@@ -128,7 +136,6 @@ export default function RecuperarSenha() {
 
                         <button
                             type="submit"
-                            onSubmit={recuperarSenha}
                             className="btn fw-bold mt-3"
                             style={{
                                 backgroundColor: '#ff1a1a',
@@ -189,19 +196,17 @@ export default function RecuperarSenha() {
                         </div>
 
                         <input
-                            // ref={el => inputs.current[index] = el}
-                            className={`${styles.pswInput} rounded-2 mb-4 px-2 py-0`}
+                            className={`${styles.pswInput} w-100 rounded-2 mb-4 px-2 py-0`}
                             type="password"
                             placeholder={"Sua nova senha aqui..."}
                             value={novaSenha}
                             onChange={e => setNovaSenha(e.target.value)}
-                            // onKeyDown={e => handleKeyDown(e, index)}
                             autoComplete="none"
                             onPaste={handlePaste}
                         />
 
                         <button
-                            onClick={() => {}}
+                            onClick={confirmarCodigo}
                             className={`${styles.confirmBtn} ${styles.bgRed} btn text-white rounded-1 w-100 py-2 text-uppercase`}
                             disabled={filled < 6}
                         >

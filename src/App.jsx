@@ -6,6 +6,7 @@ import Cadastro from "./pages/Cadastro.jsx";
 import Login from "./pages/Login.jsx";
 import NotFound from "./components/Erro/NotFound.jsx";
 import RecuperarSenha from "./pages/RecuperarSenha.jsx";
+import { Dashboard } from './pages/Dashboard.jsx';
 
 function App() {
     return (
@@ -16,6 +17,7 @@ function App() {
                 <Route path="/cadastro" element={<Cadastro />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/recuperar-senha" element={<RecuperarSenha />} />
+                <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
             <Footer />

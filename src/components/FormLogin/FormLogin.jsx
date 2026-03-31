@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { Link } from 'react-router-dom'; // Adicione este import no topo
+import { Link, useNavigate } from 'react-router-dom'; // Adicione este import no topo
 import css from './FormLogin.module.css';
 
 export default function FormLogin({ setCadastro }) {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
     const [mensagem, setMensagem] = useState("");
+
+    const navigate = useNavigate();
 
     async function fazerLogin(e) {
         e.preventDefault();
@@ -15,7 +17,7 @@ export default function FormLogin({ setCadastro }) {
         formData.append("senha", senha);
 
         try {
-            const resposta = await fetch("http://10.92.3.165:5000/login", {
+            const resposta = await fetch("http://localhost:5000/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -32,11 +34,14 @@ export default function FormLogin({ setCadastro }) {
                 setMensagem("Login realizado com sucesso!");
                 setCadastro(true);
 
-                // opcional: salvar usuário
                 localStorage.setItem("usuario", JSON.stringify(dados.usuario));
 
                 setEmail("");
                 setSenha("");
+
+                setTimeout(() => {
+                    navigate("/dashboard");
+                }, 2000)
             } else {
                 setMensagem(dados.error || dados.message || "Erro no login");
             }

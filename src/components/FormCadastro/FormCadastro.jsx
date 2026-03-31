@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from "react"; // Adicionado useRef
+import { Link } from "react-router-dom";
 import css from './FormCadastro.module.css';
 
-export default function FormCadastro({ setEtapa }) {
+export default function FormCadastro({ setEtapa, setEmail, email }) {
     const [nome, setNome] = useState("");
-    const [email, setEmail] = useState("");
+    // const [email, setEmail] = useState("");
     const [dataNascimento, setDataNascimento] = useState("");
     const [senha, setSenha] = useState("");
     const [mensagem, setMensagem] = useState("");
@@ -122,7 +123,12 @@ export default function FormCadastro({ setEtapa }) {
                     </form>
 
                     <footer className={css.formFooter}>
-                        <p>Já tem conta? <a className={css.linkLogin} href="#">Faça seu login aqui</a></p>
+                        <p>
+                            Já tem conta?{" "}
+                            <Link className={css.linkLogin} to="/login">
+                                Faça seu login aqui
+                            </Link>
+                        </p>
                     </footer>
                 </div>
             </div>

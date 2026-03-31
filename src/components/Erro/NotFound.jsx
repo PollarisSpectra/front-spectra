@@ -11,8 +11,6 @@ export default function NotFound() {
                 <h2 className={css.subtitulo}>Página não encontrada</h2>
             </main>
 
-            <Footer />
-
         </div>
     );
 }

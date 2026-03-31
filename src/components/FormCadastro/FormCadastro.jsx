@@ -1,7 +1,7 @@
 import { useState } from "react";
 import css from './FormCadastro.module.css';
 
-export default function FormCadastro({ setCadastro }) {
+export default function FormCadastro({ setEtapa }) {
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
     const [dataNascimento, setDataNascimento] = useState("");
@@ -27,7 +27,7 @@ export default function FormCadastro({ setCadastro }) {
 
             if (resposta.ok) {
                 setMensagem("Usuário cadastrado com sucesso!");
-                setCadastro(true);
+                setEtapa(1);
 
                 setNome("");
                 setEmail("");
@@ -90,7 +90,7 @@ export default function FormCadastro({ setCadastro }) {
                         </div>
 
                         <button type="submit" className={css.btnCadastrar}>
-                            CADASTRAR
+                            AVANÇAR
                         </button>
                     </form>
 

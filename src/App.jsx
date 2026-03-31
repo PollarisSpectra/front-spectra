@@ -4,21 +4,22 @@ import Header from './components/Header/Header.jsx'
 import Footer from './components/Footer.jsx'
 import Cadastro from "./pages/Cadastro.jsx";
 import Login from "./pages/Login.jsx";
+import NotFound from "./components/Erro/NotFound.jsx";
+import RecuperarSenha from "./pages/RecuperarSenha.jsx";
 
 function App() {
-  return (
-    <>
-      <Header />
-      <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/cadastro" element={<Cadastro />} />
-          <Route path="/login" element={<Login />} />
-
-          <Route path="*" element={<NotFound />} />
-      </Routes>
-      <Footer />
-    </>
-  )
+    return (
+        <>
+            <Header />
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/cadastro" element={<Cadastro />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/recuperar-senha" element={<RecuperarSenha />} />
+                <Route path="*" element={<NotFound />} />
+            </Routes>
+            <Footer />
+        </>
+    )
 }
-
 export default App

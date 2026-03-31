@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from 'react-router-dom'; // Adicione este import no topo
 import css from './FormLogin.module.css';
 
 export default function FormLogin({ setCadastro }) {
@@ -76,7 +77,7 @@ export default function FormLogin({ setCadastro }) {
 
                         <div className={css.esquecerSenha}>
                             <span>Esqueceu sua senha? </span>
-                            <a className={css.linkLogin} href="#">Recuperar</a>
+                            <Link className={css.linkLogin} to="/recuperar-senha">Recuperar</Link>
                         </div>
 
                         <button type="submit" className={css.btnCadastrar}>

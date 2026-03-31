@@ -1,9 +1,86 @@
-import React from 'react';
+import React, {useRef, useState} from 'react';
 import { Link } from 'react-router-dom';
+import styles from "./Cadastro.module.css";
 
 export default function RecuperarSenha() {
+    const [etapa, setEtapa] = useState(0);
+    const [email, setEmail] = useState("");
+    const [codigo, setCodigo] = useState(Array(6).fill(''));
+    const inputs = useRef([]);
+    const [novaSenha, setNovaSenha] = useState("");
+
+    function handleChange(value, index) {
+        if (!/^\d?$/.test(value)) return;
+        const novo = [...codigo];
+        novo[index] = value;
+        setCodigo(novo);
+        if (value && index < 5) inputs.current[index + 1].focus();
+    }
+
+    function handleKeyDown(e, index) {
+        if (e.key === 'Backspace' && !codigo[index] && index > 0) {
+            inputs.current[index - 1].focus();
+        }
+    }
+
+    function handlePaste(e) {
+        const pasted = e.clipboardData.getData('text').slice(0, 6).split('');
+        if (pasted.some(c => !/\d/.test(c))) return;
+        const novo = Array(6).fill('');
+        pasted.forEach((c, i) => novo[i] = c);
+        setCodigo(novo);
+        inputs.current[Math.min(pasted.length, 5)].focus();
+        e.preventDefault();
+    }
+
+    const filled = codigo.filter(Boolean).length;
+
+    async function recuperarSenha(e) {
+        e.preventDefault();
+
+        try {
+            const resposta = await fetch("http://10.92.3.165:5000/recuperar_senha", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    "email": email,
+                }),
+            })
+
+            if (resposta.ok) {
+                setEtapa(1);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async function confirmarCodigo() {
+        try {
+            const resposta = await fetch("http://10.92.3.165:5000/recuperar_senha", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    "email": email,
+                    "senha": codigo,
+                }),
+            })
+
+            if (resposta.ok) {
+                setEtapa(1);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
-        <main className="d-flex align-items-start justify-content-center"
+        etapa === 0 ? (
+            <main className="d-flex align-items-start justify-content-center"
               style={{
                   minHeight: '100vh',
                   backgroundColor: '#000',
@@ -29,7 +106,7 @@ export default function RecuperarSenha() {
                         RECUPERAÇÃO DE <br /> SENHA
                     </h1>
 
-                    <form className="d-flex flex-column align-items-center">
+                    <form className="d-flex flex-column align-items-center" onSubmit={recuperarSenha}>
                         <div className="text-start mb-5 w-100">
                             {/* Label: REDUZIDO */}
                             <label className="fw-bold mb-1" style={{ fontSize: '1rem', color: '#ccc' }}>Email</label>
@@ -43,12 +120,15 @@ export default function RecuperarSenha() {
                                     boxShadow: 'none',
                                     paddingBottom: '10px'
                                 }}
+                                value={email}
+                                onChange={e => setEmail(e.target.value)}
                                 required
                             />
                         </div>
 
                         <button
                             type="submit"
+                            onSubmit={recuperarSenha}
                             className="btn fw-bold mt-3"
                             style={{
                                 backgroundColor: '#ff1a1a',
@@ -66,5 +146,77 @@ export default function RecuperarSenha() {
                 </div>
             </div>
         </main>
+        ) : (
+            <div className={`d-flex flex-column min-vh-100 ${styles.page}`}>
+                <main className="flex-grow-1 d-flex align-items-center justify-content-center py-5 px-3">
+                    <div className="text-center w-100" style={{ maxWidth: '360px' }}>
+
+                        <button className={`${styles.backBtn} mb-4`} onClick={() => setEtapa(0)}>
+                            ← Voltar
+                        </button>
+
+                        <h2 className={`${styles.fontMontserrat} fw-bold text-white text-uppercase mb-4`}
+                            style={{ fontSize: '1.15rem', letterSpacing: '0.12em' }}>
+                            Confirmar Código
+                        </h2>
+
+                        <p className={`${styles.fontInter} text-secondary mb-4`}
+                           style={{ fontSize: '0.78rem', lineHeight: 1.5 }}>
+                            Digite o código de recuperação de 6 dígitos enviado para o seu e-mail.
+                        </p>
+
+                        <span className={`${styles.fontMontserrat} text-uppercase text-secondary d-block mb-3`}
+                              style={{ fontSize: '0.72rem', letterSpacing: '0.1em' }}>
+                            Código
+                        </span>
+
+                        <div className="d-flex justify-content-center gap-2 mb-3">
+                            {codigo.map((digito, index) => (
+                                <input
+                                    key={index}
+                                    ref={el => inputs.current[index] = el}
+                                    className={`${styles.otpInput} text-center rounded-2${digito ? ` ${styles.filled}` : ''}`}
+                                    type="text"
+                                    inputMode="numeric"
+                                    maxLength={1}
+                                    value={digito}
+                                    onChange={e => handleChange(e.target.value, index)}
+                                    onKeyDown={e => handleKeyDown(e, index)}
+                                    autoComplete="none"
+                                    onPaste={handlePaste}
+                                />
+                            ))}
+                        </div>
+
+                        <input
+                            // ref={el => inputs.current[index] = el}
+                            className={`${styles.pswInput} rounded-2 mb-4 px-2 py-0`}
+                            type="password"
+                            placeholder={"Sua nova senha aqui..."}
+                            value={novaSenha}
+                            onChange={e => setNovaSenha(e.target.value)}
+                            // onKeyDown={e => handleKeyDown(e, index)}
+                            autoComplete="none"
+                            onPaste={handlePaste}
+                        />
+
+                        <button
+                            onClick={() => {}}
+                            className={`${styles.confirmBtn} ${styles.bgRed} btn text-white rounded-1 w-100 py-2 text-uppercase`}
+                            disabled={filled < 6}
+                        >
+                            CONFIRMAR
+                        </button>
+
+                        {/*<p className={`${styles.fontInter} mt-3 mb-0`} style={{ fontSize: '0.72rem', color: '#555' }}>*/}
+                        {/*    Não recebeu?{' '}*/}
+                        {/*    <span className={styles.textRed} style={{ cursor: 'pointer', textDecoration: 'underline' }}>*/}
+                        {/*        Reenviar código*/}
+                        {/*    </span>*/}
+                        {/*</p>*/}
+                    </div>
+                </main>
+            </div>
+        )
     );
 }

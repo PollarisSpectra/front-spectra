@@ -15,7 +15,7 @@ export default function FormLogin({ setCadastro }) {
         formData.append("senha", senha);
 
         try {
-            const resposta = await fetch("http://127.0.0.1:5000/login", {
+            const resposta = await fetch("http://10.92.3.165:5000/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

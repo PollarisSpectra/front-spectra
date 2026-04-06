@@ -1,6 +1,7 @@
 import React, {useRef, useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from "./Cadastro.module.css";
+import Modal from '../components/Modal/Modal';
 
 export default function RecuperarSenha() {
     const [etapa, setEtapa] = useState(0);
@@ -8,6 +9,10 @@ export default function RecuperarSenha() {
     const [codigo, setCodigo] = useState(Array(6).fill(''));
     const inputs = useRef([]);
     const [novaSenha, setNovaSenha] = useState("");
+    const [modal, setModal] = useState({
+        "active": false,
+        "message": "",
+    });
 
     const navigate = useNavigate();
 
@@ -78,6 +83,8 @@ export default function RecuperarSenha() {
                 return;
             }
 
+            setModal({'active': true, 'message': "Código confirmado com sucesso"})
+
             setTimeout(() => {
                 navigate("/login");
             }, 2000)
@@ -87,6 +94,9 @@ export default function RecuperarSenha() {
     }
 
     return (
+        <>
+        {modal.active && <Modal titulo={modal.message} />}
+        {
         etapa === 0 ? (
             <main className="d-flex align-items-start justify-content-center"
               style={{
@@ -223,5 +233,7 @@ export default function RecuperarSenha() {
                 </main>
             </div>
         )
+        }
+        </>
     );
 }

@@ -17,7 +17,7 @@ export default function FormLogin({ setCadastro }) {
         formData.append("senha", senha);
 
         try {
-            const resposta = await fetch("http://localhost:5000/login", {
+            const resposta = await fetch("http:///10.92.3.117:5000/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -52,7 +52,7 @@ export default function FormLogin({ setCadastro }) {
 
     return (
         <div className={css.containerMain}>
-            <img src="/LogoVermelha.png" alt="" className={css.logoBackground} />
+            <img src="/badwinlogin.png" alt="Background" className={css.logoBackground} />
 
             <div className={css.formSection}>
                 <div className={css.cardCadastro}>

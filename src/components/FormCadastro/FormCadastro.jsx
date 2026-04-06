@@ -1,96 +1,113 @@
-import { useState, useEffect, useRef } from "react"; // Adicionado useRef
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import css from './FormCadastro.module.css';
 
 export default function FormCadastro({ setEtapa, setEmail, email }) {
     const [nome, setNome] = useState("");
-    // const [email, setEmail] = useState("");
-    const [dataNascimento, setDataNascimento] = useState("");
     const [senha, setSenha] = useState("");
     const [mensagem, setMensagem] = useState("");
+    const [tipoMensagem, setTipoMensagem] = useState(""); // Novo estado para cor
 
-    // Novas variáveis de estado para a foto de perfil
+    // Estados para os Dropdowns de Data
+    const [dia, setDia] = useState("");
+    const [mes, setMes] = useState("");
+    const [ano, setAno] = useState("");
+
     const [fotoPerfil, setFotoPerfil] = useState(null);
     const [previewFoto, setPreviewFoto] = useState(null);
-    const inputFotoRef = useRef(null); // Referência para o input de arquivo escondido
+    const inputFotoRef = useRef(null);
 
-    // Efeito para limpar a mensagem flash
+    // Geradores de opções
+    const dias = Array.from({ length: 31 }, (_, i) => String(i + 1).padStart(2, '0'));
+    const meses = Array.from({ length: 12 }, (_, i) => String(i + 1).padStart(2, '0'));
+    const anos = Array.from({ length: 100 }, (_, i) => String(new Date().getFullYear() - i));
+
     useEffect(() => {
         if (mensagem) {
-            const timer = setTimeout(() => { setMensagem(""); }, 5000);
+            const timer = setTimeout(() => {
+                setMensagem("");
+                setTipoMensagem("");
+            }, 5000);
             return () => clearTimeout(timer);
         }
     }, [mensagem]);
 
-    // Função para lidar com a seleção da imagem
     function handleFotoChange(e) {
         const arquivo = e.target.files[0];
         if (arquivo) {
             setFotoPerfil(arquivo);
-            // Cria uma URL temporária para mostrar o preview na tela
             const reader = new FileReader();
-            reader.onloadend = () => {
-                setPreviewFoto(reader.result);
-            };
+            reader.onloadend = () => setPreviewFoto(reader.result);
             reader.readAsDataURL(arquivo);
         }
     }
 
     async function cadastrarUsuario(e) {
         e.preventDefault();
+
+        if (!dia || !mes || !ano) {
+            setMensagem("Selecione a data completa.");
+            setTipoMensagem("erro");
+            return;
+        }
+
+        const dataParaOBackEnd = `${ano}-${mes}-${dia}`;
         const formData = new FormData();
         formData.append("nome", nome);
         formData.append("email", email);
-        formData.append("data_nascimento", dataNascimento);
+        formData.append("data_nascimento", dataParaOBackEnd);
         formData.append("senha", senha);
 
-        // Adiciona a foto ao FormData se houver
         if (fotoPerfil) {
             formData.append("foto_perfil", fotoPerfil);
         }
 
         try {
-            const resposta = await fetch("http://127.0.0.1:5000/cadastro_usuario", {
+            const resposta = await fetch("http://10.92.3.117:5000/cadastro_usuario", {
                 method: "POST",
                 body: formData
             });
+
             const dados = await resposta.json();
 
             if (resposta.ok) {
-                setMensagem("USUÁRIO CADASTARDO COM SUCESSO!");
-                setEtapa(1);
+                setMensagem("USUÁRIO CADASTRADO COM SUCESSO!");
+                setTipoMensagem("sucesso");
+                setTimeout(() => setEtapa(1), 2000);
             } else {
                 setMensagem(dados.error || dados.message || "ERRO AO CADASTRAR");
+                setTipoMensagem("erro");
             }
-        } catch (erro) {
+        } catch (error) {
             setMensagem("ERRO AO CONECTAR COM A API");
+            setTipoMensagem("erro");
         }
     }
 
     return (
         <div className={css.containerMain}>
-            {}
             <div className={css.imageWrapper}>
-                <img src="/cadastro.png" alt="Tony Montana" className={css.backgroundImg} />
-                {}
+                <img src="/cadastro.png" alt="Background" className={css.backgroundImg} />
                 <div className={css.radialOverlay}></div>
             </div>
 
             <div className={css.formSection}>
                 <div className={css.cardCadastro}>
-                    {}
-                    {mensagem && ( <div className={css.flashMessage}>{mensagem}</div> )}
 
-                    <header className={css.formHeader + " d-flex align-items-center justify-content-between"}>
+                    {/* Mensagem de Feedback com Classe Dinâmica */}
+                    {mensagem && (
+                        <div className={`${css.flashMessage} ${tipoMensagem === "sucesso" ? css.success : css.error}`}>
+                            {mensagem}
+                        </div>
+                    )}
+
+                    <header className={css.formHeader}>
                         <h1>Conclua seu <br /> Cadastro</h1>
-                        <img src="/Logo-Cortada.png" alt="Logo Estrela" className={css.formLogo} />
+                        <img src="/Logo-Cortada.png" alt="Logo" className={css.formLogo} />
                     </header>
 
-                    {/* 2. NOVO CAMPO DE ADICIONAR FOTO DE PERFIL (Figma style) */}
                     <div className={css.fotoPerfilSection}>
                         <p className={css.fotoPerfilTitle}>ADICIONE UMA FOTO <br /> DE PERFIL</p>
-
-                        {/* Input de arquivo escondido */}
                         <input
                             type="file"
                             accept="image/*"
@@ -98,37 +115,61 @@ export default function FormCadastro({ setEtapa, setEmail, email }) {
                             style={{ display: 'none' }}
                             onChange={handleFotoChange}
                         />
-
-                        {/* Área clicável do upload */}
                         <div className={css.fotoUploadArea} onClick={() => inputFotoRef.current.click()}>
                             {previewFoto ? (
-                                <img src={previewFoto} alt="Preview Foto de Perfil" className={css.fotoPreview} />
+                                <img src={previewFoto} alt="Preview" className={css.fotoPreview} />
                             ) : (
-                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#666" viewBox="0 0 16 16">
-                                    <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-                                    <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#999" viewBox="0 0 16 16">
+                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
                                 </svg>
                             )}
                         </div>
                     </div>
 
                     <form onSubmit={cadastrarUsuario}>
-                        {/* Seus inputs originais aqui... */}
-                        <div className={css.inputGroup}><label>Nome</label><input type="text" value={nome} onChange={(e) => setNome(e.target.value)} /></div>
-                        <div className={css.inputGroup}><label>E-mail</label><input type="email" value={email} onChange={(e) => setEmail(e.target.value)} /></div>
-                        <div className={css.inputGroup}><label>Data de nascimento</label><input type="text" value={dataNascimento} onChange={(e) => setDataNascimento(e.target.value)} /></div>
-                        <div className={css.inputGroup}><label>Senha</label><input type="password" value={senha} onChange={(e) => setSenha(e.target.value)} /></div>
+                        <div className={css.inputGroup}>
+                            <label>Nome</label>
+                            <input type="text" value={nome} onChange={(e) => setNome(e.target.value)} required />
+                        </div>
+
+                        <div className={css.inputGroup}>
+                            <label>E-mail</label>
+                            <input
+                                type="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                            />
+                        </div>
+
+                        <div className={css.inputGroup}>
+                            <label>Data de nascimento</label>
+                            <div className={css.dataContainer}>
+                                <select className={css.dataSelect} value={dia} onChange={(e) => setDia(e.target.value)} required>
+                                    <option value="">Dia</option>
+                                    {dias.map(d => <option key={d} value={d}>{d}</option>)}
+                                </select>
+                                <select className={css.dataSelect} value={mes} onChange={(e) => setMes(e.target.value)} required>
+                                    <option value="">Mês</option>
+                                    {meses.map(m => <option key={m} value={m}>{m}</option>)}
+                                </select>
+                                <select className={css.dataSelect} value={ano} onChange={(e) => setAno(e.target.value)} required>
+                                    <option value="">Ano</option>
+                                    {anos.map(a => <option key={a} value={a}>{a}</option>)}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div className={css.inputGroup}>
+                            <label>Senha</label>
+                            <input type="password" value={senha} onChange={(e) => setSenha(e.target.value)} required />
+                        </div>
 
                         <button type="submit" className={css.btnCadastrar}>CADASTRAR</button>
                     </form>
 
                     <footer className={css.formFooter}>
-                        <p>
-                            Já tem conta?{" "}
-                            <Link className={css.linkLogin} to="/login">
-                                Faça seu login aqui
-                            </Link>
-                        </p>
+                        <p>Já tem conta? <Link to="/login">Faça seu login aqui</Link></p>
                     </footer>
                 </div>
             </div>

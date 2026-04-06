@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 
 export function Dashboard() {
     const navigate = useNavigate();
-    const [usuario, setUsuario] = useState(JSON.parse(localStorage.getItem("usuario")));
+    const [usuario] = useState(JSON.parse(localStorage.getItem("usuario")));
 
     useEffect(() => {
         if (!localStorage.getItem("usuario")) {
@@ -12,7 +12,7 @@ export function Dashboard() {
     }, [])
 
     async function handleLogout() {
-        const resposta = await fetch("http://127.0.0.1:5000/logout", {
+        const resposta = await fetch("http://10.92.3.117:5000/logout", {
             method: "POST",
         });
 

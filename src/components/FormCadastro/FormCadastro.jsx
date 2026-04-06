@@ -1,12 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import css from './FormCadastro.module.css';
+import FlashMessage from '../FlashMessage/FlashMessage';
 
-export default function FormCadastro({ setEtapa, setEmail, email }) {
+export default function FormCadastro({ setEtapa, setEmail, email, mensagem, setMensagem }) {
     const [nome, setNome] = useState("");
     const [senha, setSenha] = useState("");
-    const [mensagem, setMensagem] = useState("");
-    const [tipoMensagem, setTipoMensagem] = useState(""); // Novo estado para cor
 
     // Estados para os Dropdowns de Data
     const [dia, setDia] = useState("");
@@ -23,10 +22,9 @@ export default function FormCadastro({ setEtapa, setEmail, email }) {
     const anos = Array.from({ length: 100 }, (_, i) => String(new Date().getFullYear() - i));
 
     useEffect(() => {
-        if (mensagem) {
+        if (mensagem.mensagem) {
             const timer = setTimeout(() => {
-                setMensagem("");
-                setTipoMensagem("");
+                setMensagem({ mensagem: "", tipoMensagem: "" });
             }, 5000);
             return () => clearTimeout(timer);
         }
@@ -46,8 +44,7 @@ export default function FormCadastro({ setEtapa, setEmail, email }) {
         e.preventDefault();
 
         if (!dia || !mes || !ano) {
-            setMensagem("Selecione a data completa.");
-            setTipoMensagem("erro");
+            setMensagem({ mensagem: "Selecione a data completa.", tipoMensagem: "erro" });
             return;
         }
 
@@ -71,16 +68,13 @@ export default function FormCadastro({ setEtapa, setEmail, email }) {
             const dados = await resposta.json();
 
             if (resposta.ok) {
-                setMensagem("USUÁRIO CADASTRADO COM SUCESSO!");
-                setTipoMensagem("sucesso");
+                setMensagem({ mensagem: "USUÁRIO CADASTRADO COM SUCESSO!", tipoMensagem: "sucesso" });
                 setTimeout(() => setEtapa(1), 2000);
             } else {
-                setMensagem(dados.error || dados.message || "ERRO AO CADASTRAR");
-                setTipoMensagem("erro");
+                setMensagem({ mensagem: dados.error || dados.message || "ERRO AO CADASTRAR", tipoMensagem: "erro" });
             }
         } catch (error) {
-            setMensagem("ERRO AO CONECTAR COM A API");
-            setTipoMensagem("erro");
+            setMensagem({ mensagem: "ERRO AO CONECTAR COM A API", tipoMensagem: "erro" });
         }
     }
 
@@ -94,12 +88,11 @@ export default function FormCadastro({ setEtapa, setEmail, email }) {
             <div className={css.formSection}>
                 <div className={css.cardCadastro}>
 
-                    {/* Mensagem de Feedback com Classe Dinâmica */}
-                    {mensagem && (
-                        <div className={`${css.flashMessage} ${tipoMensagem === "sucesso" ? css.success : css.error}`}>
-                            {mensagem}
-                        </div>
-                    )}
+                    <FlashMessage
+                        mensagem={mensagem.mensagem}
+                        tipo={mensagem.tipoMensagem}
+                        onClose={() => setMensagem({ mensagem: "", tipoMensagem: "" })}
+                    />
 
                     <header className={css.formHeader}>
                         <h1>Conclua seu <br /> Cadastro</h1>

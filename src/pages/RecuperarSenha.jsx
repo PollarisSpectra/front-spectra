@@ -2,6 +2,7 @@ import React, {useRef, useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from "./Cadastro.module.css";
 import Modal from '../components/Modal/Modal';
+import FlashMessage from '../components/FlashMessage/FlashMessage';
 
 export default function RecuperarSenha() {
     const [etapa, setEtapa] = useState(0);
@@ -13,6 +14,8 @@ export default function RecuperarSenha() {
         "active": false,
         "message": "",
     });
+    const [mensagem, setMensagem] = useState("");
+    const [tipoMensagem, setTipoMensagem] = useState("");
 
     const navigate = useNavigate();
 
@@ -78,8 +81,12 @@ export default function RecuperarSenha() {
                 }),
             })
 
+            const dados = await resposta.json();
+            const erro = dados?.error;
+
             if (!resposta.ok) {
-                console.log(await resposta.json());
+                setMensagem(erro || "Houve um erro ao confirmar código");
+                setTipoMensagem("erro")
                 return;
             }
 
@@ -166,6 +173,14 @@ export default function RecuperarSenha() {
         ) : (
             <div className={`d-flex flex-column min-vh-100 ${styles.page}`}>
                 <main className="flex-grow-1 d-flex align-items-center justify-content-center py-5 px-3">
+                    <FlashMessage
+                        mensagem={mensagem}
+                        tipo={tipoMensagem}
+                        onClose={() => {
+                            setMensagem("");
+                            setTipoMensagem("");
+                        }}
+                    />
                     <div className="text-center w-100" style={{ maxWidth: '360px' }}>
 
                         <button className={`${styles.backBtn} mb-4`} onClick={() => setEtapa(0)}>

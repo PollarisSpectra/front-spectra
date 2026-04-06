@@ -3,6 +3,7 @@ import FormCadastro from "../components/FormCadastro/FormCadastro.jsx";
 import styles from "./Cadastro.module.css";
 import Modal from "../components/Modal/Modal.jsx"
 import { useNavigate } from "react-router-dom";
+import FlashMessage from "../components/FlashMessage/FlashMessage.jsx";
 
 export default function Cadastro() {
     const [etapa, setEtapa] = useState(0);
@@ -10,6 +11,13 @@ export default function Cadastro() {
     const [email, setEmail] = useState("");
     const [modal, setModal] = useState(false);
     const inputs = useRef([]);
+    // const [mensagem, setMensagem] = useState("");
+    // const [tipoMensagem, setTipoMensagem] = useState("");
+
+    const [mensagem, setMensagem] = useState({
+        "mensagem": "",
+        "tipoMensagem": ""
+    });
 
     const navigate = useNavigate();
 
@@ -64,9 +72,23 @@ export default function Cadastro() {
     return (
         <>
         {modal && <Modal />}
+        <FlashMessage
+            mensagem={mensagem}
+            tipo={tipoMensagem}
+            onClose={() => {
+                setMensagem("");
+                setTipoMensagem("");
+            }}
+        />
         {etapa === 0 ? (
         <div>
-            <FormCadastro setEmail={setEmail} email={email} setEtapa={setEtapa} />
+            <FormCadastro
+                setEmail={setEmail}
+                email={email}
+                setEtapa={setEtapa}
+                mensagem={mensagem}
+                setMensagem={setMensagem}
+            />
         </div>
         ) : (
         <div className={`d-flex flex-column min-vh-100 ${styles.page}`}>

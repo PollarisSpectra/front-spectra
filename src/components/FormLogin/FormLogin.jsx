@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from 'react-router-dom'; // Adicione este import no topo
 import css from './FormLogin.module.css';
 
-export default function FormLogin({ setCadastro }) {
+export default function FormLogin({ setCadastro, usuario, setUsuario }) {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
     const [mensagem, setMensagem] = useState("");
@@ -17,7 +17,7 @@ export default function FormLogin({ setCadastro }) {
         formData.append("senha", senha);
 
         try {
-            const resposta = await fetch("http:///10.92.3.117:5000/login", {
+            const resposta = await fetch("http://10.92.3.129:5000/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -35,6 +35,8 @@ export default function FormLogin({ setCadastro }) {
                 setCadastro(true);
 
                 localStorage.setItem("usuario", JSON.stringify(dados.usuario));
+                setUsuario(localStorage.getItem("usuario"));
+
 
                 setEmail("");
                 setSenha("");

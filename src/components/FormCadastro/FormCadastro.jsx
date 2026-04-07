@@ -60,7 +60,7 @@ export default function FormCadastro({ setEtapa, setEmail, email, mensagem, setM
         }
 
         try {
-            const resposta = await fetch("http://10.92.3.117:5000/cadastro_usuario", {
+            const resposta = await fetch("http://10.92.3.129:5000/cadastro_usuario", {
                 method: "POST",
                 body: formData
             });

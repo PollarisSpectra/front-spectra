@@ -22,7 +22,7 @@ export default function Cadastro() {
     const navigate = useNavigate();
 
     async function validarEmail() {
-        const retorno = await fetch("http://127.0.0.1:5000/validar_email", {
+        const retorno = await fetch("http://10.92.3.129:5000/validar_email", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

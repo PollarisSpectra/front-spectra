@@ -12,7 +12,7 @@ export function Dashboard() {
     }, [])
 
     async function handleLogout() {
-        const resposta = await fetch("http://10.92.3.117:5000/logout", {
+        const resposta = await fetch("http://10.92.3.129:5000/logout", {
             method: "POST",
         });
 

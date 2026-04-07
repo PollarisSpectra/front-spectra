@@ -7,15 +7,20 @@ import Login from "./pages/Login.jsx";
 import NotFound from "./components/Erro/NotFound.jsx";
 import RecuperarSenha from "./pages/RecuperarSenha.jsx";
 import { Dashboard } from './pages/Dashboard.jsx';
+import HeaderLogado from "./components/HeaderLogado/HeaderLogado.jsx";
+import {useState} from "react";
 
 function App() {
+    const [usuario, setUsuario] = useState(null);
+
     return (
         <>
             <Header />
+            <HeaderLogado />
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/cadastro" element={<Cadastro />} />
-                <Route path="/login" element={<Login />} />
+                <Route path="/login" element={<Login usuario={usuario} setUsuario={setUsuario} />} />
                 <Route path="/recuperar-senha" element={<RecuperarSenha />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="*" element={<NotFound />} />

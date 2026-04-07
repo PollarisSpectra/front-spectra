@@ -1,0 +1,139 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    background-color: #121417; /* Evita flashes brancos ao carregar */
+}
+
+.containerMain {
+    position: relative;
+    display: flex;
+    justify-content: flex-end; /* Empurra o formulário para a direita */
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #000; /* Fundo preto para a parte onde a imagem não chega */
+    overflow: hidden;
+    padding-right: 5%; /* Ajuste o recuo do card conforme o Figma */
+}
+
+.logoBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* Aqui está o pulo do gato: a imagem não ocupa 100% da largura */
+    width: 60%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    pointer-events: none;
+    object-position: left center; /* Garante que o rosto do personagem apareça */
+}
+
+/* OPCIONAL: Adicionar o degradê suave para o preto (Fade out) */
+.containerMain::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 65%; /* Um pouco maior que a imagem para o fade */
+    height: 100%;
+    background: linear-gradient(to right, rgba(0,0,0,0) 70%, #000 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.formSection {
+    position: relative;
+    z-index: 2; /* Garante que o card fique acima da imagem e do fade */
+    width: 100%;
+    max-width: 500px;
+}
+
+.cardCadastro {
+    background-color: white;
+    padding: 40px;
+    border-radius: 30px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    color: black;
+}
+
+.formHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 30px;
+}
+
+.formHeader h1 {
+    font-size: 2.5rem;
+    font-weight: 900;
+    line-height: 1.1;
+    margin: 0;
+}
+
+.formLogo {
+    width: 100px;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+}
+
+.inputGroup label {
+    font-weight: 800;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.inputGroup input {
+    border: none;
+    border-bottom: 2px solid #000;
+    padding: 8px 0;
+    outline: none;
+}
+
+.esquecerSenha {
+    font-size: 12px;
+    margin-bottom: 30px;
+    margin-top: -10px;
+}
+
+.esquecerSenha a {
+    color: #ff1a1a;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.btnCadastrar {
+    background-color: #ff1a1a;
+    color: white;
+    border: none;
+    width: 70%;
+    margin: 0 auto;
+    display: block;
+    padding: 15px;
+    font-weight: 900;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btnCadastrar:hover {
+    background-color: #cd1423;
+}
+
+.linkLogin:hover {
+    color: var(--vermelho-selecionado);
+}
+
+.linkLogin {
+    transition: 0.3s;
+}

@@ -11,13 +11,8 @@ export default function Cadastro() {
     const [email, setEmail] = useState("");
     const [modal, setModal] = useState(false);
     const inputs = useRef([]);
-    // const [mensagem, setMensagem] = useState("");
-    // const [tipoMensagem, setTipoMensagem] = useState("");
-
-    const [mensagem, setMensagem] = useState({
-        "mensagem": "",
-        "tipoMensagem": ""
-    });
+    const [mensagem, setMensagem] = useState("");
+    const [tipoMensagem, setTipoMensagem] = useState("");
 
     const navigate = useNavigate();
 

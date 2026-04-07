@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Link, useNavigate } from 'react-router-dom'; // Adicione este import no topo
 import css from './FormLogin.module.css';
+import FlashMessage from "../FlashMessage/FlashMessage";
 
 export default function FormLogin({ setCadastro, usuario, setUsuario }) {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
     const [mensagem, setMensagem] = useState("");
+    const [tipoMensagem, setTipoMensagem] = useState("");
 
     const navigate = useNavigate();
 
@@ -17,7 +19,7 @@ export default function FormLogin({ setCadastro, usuario, setUsuario }) {
         formData.append("senha", senha);
 
         try {
-            const resposta = await fetch("http://10.92.3.129:5000/login", {
+            const resposta = await fetch("http://localhost:5000/auth/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -32,6 +34,7 @@ export default function FormLogin({ setCadastro, usuario, setUsuario }) {
 
             if (resposta.ok) {
                 setMensagem("Login realizado com sucesso!");
+                setTipoMensagem("sucesso");
                 setCadastro(true);
 
                 localStorage.setItem("usuario", JSON.stringify(dados.usuario));
@@ -46,14 +49,18 @@ export default function FormLogin({ setCadastro, usuario, setUsuario }) {
                 }, 2000)
             } else {
                 setMensagem(dados.error || dados.message || "Erro no login");
+                setTipoMensagem("error");
             }
         } catch (erro) {
             setMensagem("Erro ao conectar com a API");
+            setTipoMensagem("error");
         }
     }
 
     return (
         <div className={css.containerMain}>
+            <FlashMessage mensagem={mensagem} tipo={tipoMensagem} />
+            
             <img src="/badwinlogin.png" alt="Background" className={css.logoBackground} />
 
             <div className={css.formSection}>
@@ -91,8 +98,6 @@ export default function FormLogin({ setCadastro, usuario, setUsuario }) {
                             ENTRAR
                         </button>
                     </form>
-
-                    {mensagem && <p>{mensagem}</p>}
                 </div>
             </div>
         </div>

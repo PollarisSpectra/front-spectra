@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none !important;
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+:root {
+  --vermelho-spectra: 255, 0, 0;
+  --cor-selection: 30, 30, 30;
+  --cinza: #383838;
+  --vermelho-selecionado: #cd1423;
+}
+
+body {
+  background-color: #1f2127;
+}
+
+.footer {
+  background-color: #ff1a1a; /* O tom de vermelho do print */
+  color: white;
+  padding: 40px 10%;
+  font-family: sans-serif; /* Ajuste para a fonte que você usa no projeto */
+}
+
+.footer-content {
+  display: flex;
+  justify-content: flex-start; /* Alinha os blocos à esquerda */
+  align-items: center;
+  gap: 80px; /* Espaço entre a logo e o texto */
+  margin-bottom: 30px;
+}
+
+.footer-logo img {
+  max-width: 250px; /* Ajuste conforme o tamanho original da sua logo */
+  height: auto;
+}
+
+.footer-info p {
+  margin: 8px 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.2); /* Opcional: uma linha bem sutil */
+  padding-top: 20px;
+  font-size: 12px;
+}
+
+.fs-6 {
+  font-size: 13px;
+}
+
+button {
+  border: none;
+  outline: none;
+}

@@ -1,0 +1,31 @@
+
+.flashMessage {
+    position: fixed;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ff1a1a; /* Vermelho padrão (erro) */
+    color: #fff;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    white-space: nowrap;
+    z-index: 9999;
+    animation: slideDown 0.4s ease-out forwards;
+}
+
+.success {
+    background-color: #28a745; /* Verde sucesso */
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        top: 0px;
+    }
+    to {
+        opacity: 1;
+        top: 30px;
+    }
+}

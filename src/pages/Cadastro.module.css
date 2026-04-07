@@ -1,0 +1,102 @@
+.page {
+    background: #1a1a1a;
+    font-family: 'Inter', sans-serif;
+}
+
+.pswInput {
+    background: #2a2a2a;
+    border: 1.5px solid #444;
+    color: #fff;
+    /*font-size: 1.5rem;*/
+    /*font-weight: 600;*/
+    font-family: 'Montserrat', sans-serif;
+    /*caret-color: #e63329;*/
+    transition: border-color 0.15s, background 0.15s;
+}
+
+.otpInput {
+    width: 52px;
+    height: 52px;
+    background: #2a2a2a;
+    border: 1.5px solid #444;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    caret-color: #e63329;
+    transition: border-color 0.15s, background 0.15s;
+}
+.otpInput:focus {
+    border-color: #e63329 !important;
+    background: #222;
+    box-shadow: none !important;
+    outline: none;
+}
+.otpInput.filled {
+    border-color: #888;
+}
+
+.confirmBtn {
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 0.12em;
+    font-size: 0.85rem;
+    font-weight: 700;
+    transition: background 0.15s, transform 0.1s;
+}
+.confirmBtn:hover:not(:disabled) {
+    background-color: #c9261d !important;
+}
+.confirmBtn:active {
+    transform: scale(0.98);
+}
+.confirmBtn:disabled {
+    cursor: not-allowed;
+}
+
+.fontMontserrat { font-family: 'Montserrat', sans-serif; }
+.fontInter      { font-family: 'Inter', sans-serif; }
+.textRed        { color: #e63329; }
+.bgRed          { background-color: #e63329; }
+
+.backBtn {
+    background: none;
+    border: none;
+    color: #888;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.15s;
+    padding: 0;
+}
+.backBtn:hover {
+    color: #fff;
+}
+
+.errorToast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #ff1a1a; /* Vermelho Spectra */
+    color: white;
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-weight: bold;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+
+    /* Animação de entrada e saída */
+    animation: slideIn 0.5s ease-out, fadeOut 0.5s linear 4.5s;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}

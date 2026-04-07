@@ -1,0 +1,525 @@
+.containerMain {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    /* Ajustado para 100vh para cobrir a tela inteira como no login */
+    min-height: 100vh;
+    background-color: #121417;
+    overflow: hidden;
+    padding-right: 10%;
+}
+
+.logoBackground {
+    position: absolute;
+    /* Mudamos de 'left: -150px' para preenchimento total */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Isso garante que a estrela não seja cortada de forma estranha */
+    object-fit: cover;
+    object-position: left center;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.formSection {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 500px;
+}
+
+/* ... o restante do seu CSS de card, inputs e botões pode continuar igual ... */
+
+
+
+
+.formHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 30px;
+}
+
+.formHeader h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    line-height: 1;
+    margin: 0;
+}
+
+.formLogo {
+    width: 80px;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.inputGroup label {
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.inputGroup input {
+    border: none;
+    border-bottom: 2px solid #000;
+    padding: 8px 0;
+    outline: none;
+    font-size: 16px;
+    background: transparent;
+}
+
+.btnCadastrar {
+    background-color: #ff1a1a;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 15px;
+    font-weight: 900;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.btnCadastrar:hover {
+    background-color: #cd1423;
+}
+
+.linkLogin:hover {
+    color: var(--vermelho-selecionado);
+}
+
+.linkLogin {
+    transition: 0.3s;
+}
+
+.formFooter {
+    text-align: center;
+    margin-top: 20px;
+    font-weight: 700;
+}
+
+.formFooter a {
+    color: #ff1a1a;
+    text-decoration: none;
+}
+
+/* Garante que o card seja a referência para o posicionamento da mensagem */
+.cardCadastro {
+    position: relative;
+    /* Mantenha seus estilos originais aqui */
+}
+
+.flashMessage {
+    position: fixed; /* Mudamos para fixed para ela ignorar o scroll e o corte do card */
+    top: 100px;      /* Aumentamos para ficar abaixo da altura do Header (ajuste se necessário) */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ff1a1a;
+    color: #fff;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    white-space: nowrap;
+    -index: 9999;
+    animation: slideDown 0.4s ease-out forwards;
+}
+{
+/* Animação de entrada suave */
+    animation: slideDown 0.4s ease-out forwards;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        top: 70px;
+    }
+    to {
+        opacity: 1;
+        top: 100px;
+    }
+}
+
+
+/* --- Estilos do Scarface com Gradiente Radial de fora para dentro --- */
+.imageWrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60%; /* Ajuste a largura conforme seu layout da esquerda */
+    height: 100%;
+    z-index: 1; /* Fica atrás do card mas na frente do body */
+    overflow: hidden;
+}
+
+.backgroundImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Garante que a imagem preencha sem distorcer */
+}
+
+/* O "Pulo do Gato" para o gradiente de fora para dentro */
+.radialOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    /* Radial Gradient: O centro é transparente, a borda é preta (#000) */
+    background: radial-gradient(
+            circle at center,
+            rgba(0, 0, 0, 0) 20%, /* Centro transparente */
+            rgba(0, 0, 0, 1) 100% /* Borda preta total */
+    );
+}
+
+/* --- Estilos da Seção de Foto de Perfil (Figma) --- */
+.fotoPerfilSection {
+    text-align: center;
+    margin-bottom: 25px; /* Espaço para o primeiro input */
+}
+
+.fotoPerfilTitle {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #000;
+    margin-bottom: 8px;
+    line-height: 1.2;
+}
+
+.fotoUploadArea {
+    width: 100px; /* Tamanho fixo do quadrado */
+    height: 80px;
+    background-color: #E6E6E6; /* Cinza claro do Figma */
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin: 0 auto; /* Centraliza horizontalmente */
+    transition: background-color 0.2s;
+    overflow: hidden; /* Garante que o preview respeite o border-radius */
+}
+
+.fotoUploadArea:hover {
+    background-color: #dcdcdc;
+}
+
+.fotoPreview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Corta a imagem para preencher o quadrado sem distorcer */
+}
+
+.dataContainer {
+    display: flex;
+    gap: 15px; /* Espaço entre Dia, Mês e Ano */
+    width: 100%;
+    margin-top: 5px;
+}
+
+.dataSelect {
+    flex: 1;
+    border: none;
+    border-bottom: 2px solid #000; /* Mesma linha dos outros inputs */
+    padding: 8px 0;
+    font-size: 16px;
+    background: transparent;
+    outline: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.dataSelect:focus {
+    border-bottom-color: #ff1a1a; /* Linha fica vermelha ao clicar */
+}
+
+/* Estilo para as opções dentro do dropdown */
+.dataSelect option {
+    background-color: #fff;
+    color: #000;
+}
+/* Mantenha sua .flashMessage original (ela será o padrão de erro) */
+.flashMessage {
+    position: fixed;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ff1a1a; /* Vermelho Erro */
+    color: #fff;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    white-space: nowrap;
+    z-index: 9999;
+    animation: slideDown 0.4s ease-out forwards;
+}
+
+/* NOVA CLASSE PARA SUCESSO */
+.flashMessage.success {
+    background-color: #28a745; /* Verde Sucesso */
+}
+
+/* Estilos dos Dropdowns que faltavam no seu código */
+.dataContainer {
+    display: flex;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.dataSelect {
+    flex: 1;
+    border: none;
+    border-bottom: 2px solid #000;
+    padding: 8px 0;
+    background: transparent;
+    outline: none;
+    font-family: inherit;
+}
+/* --- Container Principal --- */
+.containerMain {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #121417;
+    overflow: hidden;
+    padding-right: 10%;
+}
+
+/* --- Imagem e Efeito Radial (Scarface Style) --- */
+.imageWrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60%;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.backgroundImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.radialOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Gradiente de fora para dentro: centro transparente, bordas pretas */
+    background: radial-gradient(
+            circle at center,
+            rgba(0, 0, 0, 0) 20%,
+            rgba(18, 20, 23, 1) 100%
+    );
+}
+
+/* --- Seção do Formulário --- */
+.formSection {
+    position: relative;
+    z-index: 10; /* Garante que fique acima do overlay */
+    width: 100%;
+    max-width: 500px;
+}
+
+.cardCadastro {
+    position: relative;
+    background-color: white;
+    padding: 40px;
+    border-radius: 31px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    color: black;
+}
+
+.formHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 30px;
+}
+
+.formHeader h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    line-height: 1;
+    margin: 0;
+}
+
+.formLogo {
+    width: 80px;
+}
+
+/* --- Foto de Perfil --- */
+.fotoPerfilSection {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.fotoPerfilTitle {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #000;
+    margin-bottom: 8px;
+    line-height: 1.2;
+}
+
+.fotoUploadArea {
+    width: 100px;
+    height: 80px;
+    background-color: #E6E6E6;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin: 0 auto;
+    transition: background-color 0.2s;
+    overflow: hidden;
+}
+
+.fotoUploadArea:hover {
+    background-color: #dcdcdc;
+}
+
+.fotoPreview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* --- Inputs e Grupos --- */
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.inputGroup label {
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.inputGroup input {
+    border: none;
+    border-bottom: 2px solid #000;
+    padding: 8px 0;
+    outline: none;
+    font-size: 16px;
+    background: transparent;
+    transition: border-color 0.3s;
+}
+
+.inputGroup input:focus {
+    border-bottom-color: #ff1a1a;
+}
+
+/* --- Data de Nascimento --- */
+.dataContainer {
+    display: flex;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.dataSelect {
+    flex: 1;
+    border: none;
+    border-bottom: 2px solid #000;
+    padding: 8px 0;
+    background: transparent;
+    outline: none;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.dataSelect:focus {
+    border-bottom-color: #ff1a1a;
+}
+
+/* --- Botão e Footer --- */
+.btnCadastrar {
+    background-color: #ff1a1a;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 15px;
+    font-weight: 900;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.btnCadastrar:hover {
+    background-color: #cd1423;
+}
+
+.formFooter {
+    text-align: center;
+    margin-top: 20px;
+    font-weight: 700;
+}
+
+.formFooter a {
+    color: #ff1a1a;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.formFooter a:hover {
+    text-decoration: underline;
+}
+
+/* --- Mensagens de Feedback (Flash Messages) --- */
+.flashMessage {
+    position: fixed;
+    top: 30px; /* Ajustado para aparecer no topo da tela */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ff1a1a; /* Vermelho padrão (erro) */
+    color: #fff;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    white-space: nowrap;
+    z-index: 9999;
+    animation: slideDown 0.4s ease-out forwards;
+}
+
+.success {
+    background-color: #28a745 !important; /* Verde Sucesso */
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        top: 0px;
+    }
+    to {
+        opacity: 1;
+        top: 30px;
+    }
+}
+@media (max-width: 320px) {
+    .cardCadastro {
+        border-radius: 1px;
+    }
+}

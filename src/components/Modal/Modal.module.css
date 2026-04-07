@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+.fundoOpaco {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%; height: 100%;
+    z-index: 1;
+}
+
+.modalContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%; height: 100%;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal {
+    position: fixed;
+    max-width: 95%;
+    width: 600px; height: 300px;
+    background: var(--cinza);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    gap: 20px; /* Espaçamento entre o texto e o ícone */
+    border-radius: 20px;
+}
+
+.textoModal {
+    color: white;
+    font-family: "Montserrat", sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+.fundoOpaco {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7); /* Escureci um pouco para dar mais foco ao modal */
+    z-index: 999;
+}
+
+.modalContainer {
+    position: fixed; /* Mudado para fixed para garantir que fique centralizado na tela toda */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none; /* Permite clicar no fundo se necessário */
+}
+
+.modal {
+    pointer-events: all; /* Reativa o clique dentro do modal */
+    width: 90%;          /* Ocupa 90% da tela no mobile */
+    max-width: 500px;    /* Limite para desktop */
+    min-height: 250px;   /* Altura mínima em vez de fixa */
+    height: auto;        /* Deixa o conteúdo crescer se o texto for longo */
+
+    background: #2a2a2a; /* Cor cinza padrão (ajuste se usar variável) */
+    padding: 30px 20px;  /* Espaçamento interno para não grudar o texto */
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    gap: 20px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.textoModal {
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+}
+
+/* AJUSTES PARA TELAS PEQUENAS (320px) */
+@media (max-width: 400px) {
+    .modal {
+        padding: 25px 15px;
+        width: 95%;
+    }
+
+    .textoModal {
+        font-size: 18px; /* Diminui um pouco a fonte em celulares muito pequenos */
+    }
+}
+

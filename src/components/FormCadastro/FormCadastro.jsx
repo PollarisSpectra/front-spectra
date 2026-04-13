@@ -6,7 +6,6 @@ import FlashMessage from '../FlashMessage/FlashMessage';
 export default function FormCadastro({ setEtapa, setEmail, email }) {
     const [nome, setNome] = useState("");
     const [senha, setSenha] = useState("");
-
     const [mensagem, setMensagem] = useState("");
     const [tipoMensagem, setTipoMensagem] = useState("");
 
@@ -158,12 +157,10 @@ export default function FormCadastro({ setEtapa, setEmail, email }) {
                                     <option value="">Dia</option>
                                     {dias.map(d => <option key={d} value={d}>{d}</option>)}
                                 </select>
-
                                 <select className={css.dataSelect} value={mes} onChange={(e) => setMes(e.target.value)} required>
                                     <option value="">Mês</option>
                                     {meses.map(m => <option key={m} value={m}>{m}</option>)}
                                 </select>
-
                                 <select className={css.dataSelect} value={ano} onChange={(e) => setAno(e.target.value)} required>
                                     <option value="">Ano</option>
                                     {anos.map(a => <option key={a} value={a}>{a}</option>)}
@@ -173,23 +170,14 @@ export default function FormCadastro({ setEtapa, setEmail, email }) {
 
                         <div className={css.inputGroup}>
                             <label>Senha</label>
-                            <input
-                                type="password"
-                                value={senha}
-                                onChange={(e) => setSenha(e.target.value)}
-                                required
-                            />
+                            <input type="password" value={senha} onChange={(e) => setSenha(e.target.value)} required />
                         </div>
 
-                        <button type="submit" className={css.btnCadastrar}>
-                            CADASTRAR
-                        </button>
+                        <button type="submit" className={css.btnCadastrar}>CADASTRAR</button>
                     </form>
 
                     <footer className={css.formFooter}>
-                        <p>
-                            Já tem conta? <Link to="/login">Faça seu login aqui</Link>
-                        </p>
+                        <p>Já tem conta? <Link to="/login">Faça seu login aqui</Link></p>
                     </footer>
                 </div>
             </div>

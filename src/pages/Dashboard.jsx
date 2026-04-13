@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom"
 
 export function Dashboard({ usuario, setUsuario }) {
     const navigate = useNavigate();
-    // const [usuario] = useState(null);
 
     useEffect(() => {
         const usuarioSessao = localStorage.getItem("usuario")

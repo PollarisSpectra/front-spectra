@@ -4,7 +4,6 @@ import Vector from '../../assets/Vector.svg'
 import styles from './Header.module.css';
 
 export default function Header({ usuario, setUsuario }) {
-
     const navigate = useNavigate();
 
     async function handleLogout() {

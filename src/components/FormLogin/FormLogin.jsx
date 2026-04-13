@@ -1,33 +1,24 @@
 import { useState } from "react";
-import { Link, useNavigate } from 'react-router-dom'; // Adicione este import no topo
+import { Link, useNavigate } from 'react-router-dom';
+import FlashMessage from "../FlashMessage/FlashMessage.jsx"; // Importe o componente
 import css from './FormLogin.module.css';
-import FlashMessage from "../FlashMessage/FlashMessage";
 
-export default function FormLogin({ setCadastro, usuario, setUsuario }) {
+export default function FormLogin({ setCadastro }) {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
     const [mensagem, setMensagem] = useState("");
-    const [tipoMensagem, setTipoMensagem] = useState("");
+    const [tipoMensagem, setTipoMensagem] = useState(""); // Novo estado para definir cor (erro ou sucesso)
 
     const navigate = useNavigate();
 
     async function fazerLogin(e) {
         e.preventDefault();
 
-        const formData = new FormData();
-        formData.append("email", email);
-        formData.append("senha", senha);
-
         try {
-            const resposta = await fetch("http://localhost:5000/auth/login", {
+            const resposta = await fetch("http://10.92.3.120:5000/login", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    email,
-                    senha
-                })
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, senha })
             });
 
             const dados = await resposta.json();
@@ -39,7 +30,6 @@ export default function FormLogin({ setCadastro, usuario, setUsuario }) {
 
                 localStorage.setItem("usuario", JSON.stringify(dados.usuario));
                 setUsuario(localStorage.getItem("usuario"));
-
 
                 setEmail("");
                 setSenha("");
@@ -77,6 +67,7 @@ export default function FormLogin({ setCadastro, usuario, setUsuario }) {
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
+                                required
                             />
                         </div>
 
@@ -86,6 +77,7 @@ export default function FormLogin({ setCadastro, usuario, setUsuario }) {
                                 type="password"
                                 value={senha}
                                 onChange={(e) => setSenha(e.target.value)}
+                                required
                             />
                         </div>
 

@@ -1,11 +1,14 @@
 .containerMain {
     display: flex;
     background-color: #000;
+    /* Mudamos de min-height fixo para permitir que o conteúdo empurre o footer */
     min-height: 100vh;
     align-items: center;
     justify-content: center;
     gap: 50px;
-    padding: 40px;
+    /* Padding generoso no topo e no fundo para descolar do header/footer */
+    padding: 80px 40px;
+    box-sizing: border-box;
 }
 
 /* Preview à esquerda */
@@ -60,6 +63,8 @@
     padding: 40px;
     border-radius: 25px;
     width: 450px;
+    /* Adicionamos uma margem de segurança */
+    margin: 20px 0;
 }
 
 .tituloForm {
@@ -96,4 +101,40 @@
     border-radius: 5px;
     margin-top: 20px;
     cursor: pointer;
+}
+@media (max-width: 850px) {
+    .containerMain {
+        flex-direction: column;
+        gap: 40px;
+        /* Aumentamos o respiro lateral e vertical no mobile */
+        padding: 60px 25px;
+    }
+
+    .cardForm {
+        width: 100%;
+        max-width: 450px;
+        /* Forçamos uma margem nas laterais para não encostar na parede */
+        margin: 0 auto;
+        box-sizing: border-box;
+    }
+
+    .previewSection {
+        width: 100%;
+        max-width: 300px;
+        order: 2;
+        /* Margem no fundo do preview para não colidir com o que vier abaixo */
+        margin-bottom: 40px;
+    }
+}
+
+@media (max-width: 320px) {
+    .containerMain {
+        /* Espaço extra para telas minúsculas */
+        padding: 50px 15px;
+    }
+
+    .cardForm {
+        padding: 30px 20px;
+        border-radius: 15px;
+    }
 }

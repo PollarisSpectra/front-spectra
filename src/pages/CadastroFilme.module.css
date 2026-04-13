@@ -80,3 +80,53 @@
     cursor: pointer;
     margin-top: 20px;
 }
+
+@media (max-width: 850px) {
+    .containerMain {
+        flex-direction: column; /* Coloca o Preview e o Form um sobre o outro */
+        gap: 30px;
+        padding: 40px 20px;
+        align-items: center;
+    }
+
+    .formCard {
+        width: 100%;
+        max-width: 450px;
+    }
+
+    .previewContainer {
+        width: 100%;
+        max-width: 280px;
+        order: 2; /* Opcional: coloca o preview abaixo do formulário no mobile */
+    }
+}
+
+
+@media (max-width: 320px) {
+    .containerMain {
+        padding: 20px 10px; /* Reduz margens externas ao mínimo */
+    }
+
+    .formCard {
+        padding: 25px 15px; /* Reduz o padding interno do card branco */
+        border-radius: 15px;
+    }
+
+    .formTitulo {
+        font-size: 1.4rem; /* Título menor para não quebrar muitas linhas */
+        margin-bottom: 20px;
+    }
+
+    .inputBox label {
+        font-size: 12px;
+    }
+
+    .capaArea {
+        height: 320px; /* Reduz um pouco a altura da imagem no preview */
+    }
+
+    .btnCadastrar {
+        padding: 12px;
+        font-size: 14px;
+    }
+}

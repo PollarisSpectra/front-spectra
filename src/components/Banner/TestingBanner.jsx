@@ -28,7 +28,7 @@ export default function TestingBanner() {
     return (
         <div
             className={styles.banner + " container-fluid"}
-            style={{backgroundImage: `url(${imagens[indiceAtual].url})`, height: 400}}
+            style={{backgroundImage: `url(${imagens[indiceAtual].url})`, height: 260}}
             >
             <div className="container text-white d-flex flex-column align-items-start">
                 <div className="d-flex flex-column py-5">

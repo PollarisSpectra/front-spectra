@@ -9,6 +9,7 @@ import RecuperarSenha from "./pages/RecuperarSenha.jsx";
 import { Dashboard } from './pages/Dashboard.jsx';
 import {useState} from "react";
 import CadastroFilme from "./pages/CadastroFilme.jsx";
+import CadastroSala from "./pages/CadastroSala.jsx";
 
 function App() {
     const [usuario, setUsuario] = useState(null);
@@ -23,6 +24,7 @@ function App() {
                 <Route path="/recuperar-senha" element={<RecuperarSenha />} />
                 <Route path="/dashboard" element={<Dashboard usuario={usuario} setUsuario={setUsuario} />} />
                 <Route path={"/cadastro-filme"} element={<CadastroFilme />} />
+                <Route path={"/cadastro-sala"} element={<CadastroSala />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
             <Footer />

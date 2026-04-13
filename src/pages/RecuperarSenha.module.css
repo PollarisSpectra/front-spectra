@@ -1,76 +1,136 @@
-@media ( max-width: 320px ) {
-
-}
 .page {
     background-color: #000;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-family: sans-serif;
 }
 
-/* ===== TÍTULO ===== */
-.tituloRecuperar {
-    font-weight: 700;
-    text-align: center;
-    color: white;
-    line-height: 1.1;
-    letter-spacing: 1.5px;
-    margin-bottom: 80px;
-
-    /* RESPONSIVO */
-    font-size: clamp(2.2rem, 7vw, 3.5rem);
-}
-
-/* ===== LABEL EMAIL ===== */
-.labelEmail {
-    font-weight: bold;
-    color: #ccc;
-    margin-bottom: 6px;
-
-    font-size: clamp(0.9rem, 2.5vw, 1rem);
-}
-
-/* ===== INPUT EMAIL ===== */
-.inputEmail {
+.cardRecuperacao {
+    background-color: #fff;
     width: 100%;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid white;
-    color: white;
-    outline: none;
-    padding-bottom: 10px;
-
-    font-size: clamp(0.95rem, 2.5vw, 1rem);
+    max-width: 500px;
+    padding: 60px 40px;
+    border-radius: 30px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
-/* ===== BOTÃO ===== */
-.botaoEnviar {
-    background-color: #ff1a1a;
-    color: white;
+.backBtn {
+    position: absolute;
+    left: 20px;
+    top: 25px;
+    background: none;
     border: none;
-    font-weight: bold;
-    letter-spacing: 1px;
     cursor: pointer;
+    color: #000;
+}
 
-    /* RESPONSIVO */
+.tituloRecuperar {
+    color: #000;
+    font-weight: 900;
+    text-align: center;
+    font-style: italic;
+    font-size: 2.5rem;
+    line-height: 1;
+    margin-bottom: 40px;
+    letter-spacing: -1px;
+}
+
+.subtitulo {
+    color: #666;
+    font-size: 0.9rem;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.formulario { width: 100%; }
+
+.inputGroup {
     width: 100%;
-    max-width: 300px;
-    padding: 14px 0;
-    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+}
 
+.inputGroup label {
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
+
+.inputGroup input {
+    border: none;
+    border-bottom: 2px solid #000;
+    padding: 8px 0;
+    outline: none;
+    font-size: 1rem;
+    background: transparent;
+}
+
+/* Estilo OTP (Código de 6 dígitos) */
+.otpContainer {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 30px;
+}
+
+.otpContainer input {
+    width: 40px;
+    height: 45px;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+}
+
+.otpContainer input:focus {
+    border-color: #ff1a1a;
+}
+
+.btnPrincipal {
+    background-color: #ff1a1a;
+    color: #fff;
+    border: none;
+    padding: 15px;
+    width: 100%;
+    max-width: 280px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
     transition: 0.3s;
 }
 
-.botaoEnviar:hover {
-    opacity: 0.9;
+.btnPrincipal:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
 }
 
-/* ===== AJUSTE MOBILE ===== */
-@media (max-width: 320px) {
+/* Responsividade para 320px */
+@media (max-width: 380px) {
+    .cardRecuperacao {
+        padding: 40px 20px;
+        border-radius: 20px;
+    }
 
     .tituloRecuperar {
-        margin-bottom: 30px;
+        font-size: 1.8rem;
     }
 
-    .botaoEnviar {
-        max-width: 100%;
+    .otpContainer {
+        gap: 4px;
     }
 
+    .otpContainer input {
+        width: 35px;
+        height: 40px;
+    }
 }

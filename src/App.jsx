@@ -8,6 +8,7 @@ import NotFound from "./components/Erro/NotFound.jsx";
 import RecuperarSenha from "./pages/RecuperarSenha.jsx";
 import { Dashboard } from './pages/Dashboard.jsx';
 import {useState} from "react";
+import CadastroFilme from "./pages/CadastroFilme.jsx";
 
 function App() {
     const [usuario, setUsuario] = useState(null);
@@ -21,6 +22,7 @@ function App() {
                 <Route path="/login" element={<Login usuario={usuario} setUsuario={setUsuario} />} />
                 <Route path="/recuperar-senha" element={<RecuperarSenha />} />
                 <Route path="/dashboard" element={<Dashboard usuario={usuario} setUsuario={setUsuario} />} />
+                <Route path={"/cadastro-filme"} element={<CadastroFilme />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
             <Footer />

@@ -137,3 +137,9 @@ body, html {
 .linkLogin {
     transition: 0.3s;
 }
+
+@media (max-width: 320px) {
+    .cardCadastro {
+        border-radius: 1px;
+    }
+}

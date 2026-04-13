@@ -15,7 +15,6 @@ function App() {
     return (
         <>
             <Header usuario={usuario} setUsuario={setUsuario} />
-            {/* <HeaderLogado /> */}
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/cadastro" element={<Cadastro />} />

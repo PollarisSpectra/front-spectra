@@ -1,0 +1,105 @@
+.header-actions{
+    gap: 16px;
+}
+
+.header-cadastrar {
+    background: transparent;
+    border: none;
+    color: #ff1d1d;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+}
+
+
+.header-login {
+    background: #ffffff;
+    color: #111111;
+    border: none;
+    border-radius: 5px;
+    padding: 3px 5px;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.login-icon{
+    width: 20px;
+    height: 20px;
+}
+
+.link {
+    transition: all .2s;
+    margin-right: 6px;
+}
+
+.link:hover {
+    background-color: rgba(var(--cor-selection), .7);
+    color: rgb(var(--vermelho-spectra)) !important;
+}
+
+.login {
+
+    transition: all .2s;
+}
+
+.login:hover {
+    background-color: rgba(255, 255, 255, .8) !important;
+}
+
+.headerContainer {
+    background-color: #000; /* Fundo preto */
+    border-bottom: 2px solid #ff1a1a; /* A linha sólida */
+    box-shadow: 0px 4px 15px rgba(255, 26, 26, 0.3); /* O brilho (glow) abaixo da linha */
+    width: 100%;
+}
+
+.logoImg {
+    width: 100px;
+}
+
+/* Responsividade da logo para telas pequenas */
+@media (max-width: 576px) {
+    .logoImg {
+        width: 80px;
+    }
+}
+
+.loginIcon {
+    width: 16px;
+    height: 16px;
+}
+
+.link {
+    transition: all .2s;
+    letter-spacing: 0.5px;
+    font-size: 13px;
+}
+
+.link:hover {
+    color: #ff1d1d !important; /* Fica vermelho ao passar o mouse */
+}
+
+/* Ajuste para telas de 320px até 375px */
+@media (max-width: 375px) {
+    .logoImg {
+        width: 75px; /* Logo menor para não empurrar os botões */
+    }
+
+    .link {
+        font-size: 11px; /* Texto um pouco menor */
+        padding: 0 4px;
+    }
+
+    .loginIcon {
+        width: 14px;
+        height: 14px;
+    }
+}
+

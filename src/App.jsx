@@ -7,7 +7,6 @@ import Login from "./pages/Login.jsx";
 import NotFound from "./components/Erro/NotFound.jsx";
 import RecuperarSenha from "./pages/RecuperarSenha.jsx";
 import { Dashboard } from './pages/Dashboard.jsx';
-import HeaderLogado from "./components/HeaderLogado/HeaderLogado.jsx";
 import {useState} from "react";
 
 function App() {

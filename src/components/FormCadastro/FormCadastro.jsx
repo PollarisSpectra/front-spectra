@@ -24,7 +24,7 @@ export default function FormCadastro({ setEtapa, setEmail, email }) {
     const anos = Array.from({ length: 100 }, (_, i) => String(new Date().getFullYear() - i));
 
     useEffect(() => {
-        if (mensagem.mensagem) {
+        if (mensagem) {
             const timer = setTimeout(() => {
                 setMensagem("");
                 setTipoMensagem("");
@@ -64,7 +64,7 @@ export default function FormCadastro({ setEtapa, setEmail, email }) {
         }
 
         try {
-            const resposta = await fetch("http://10.92.3.120:5000/cadastro_usuario", {
+            const resposta = await fetch("http://localhost:5000/auth/cadastro", {
                 method: "POST",
                 body: formData
             });
@@ -73,7 +73,7 @@ export default function FormCadastro({ setEtapa, setEmail, email }) {
 
             if (resposta.ok) {
                 setMensagem("USUÁRIO CADASTRADO COM SUCESSO!");
-                setTipoMensagem("sucesso")
+                setTipoMensagem("sucesso");
                 setTimeout(() => setEtapa(1), 2000);
             } else {
                 setMensagem(dados.error || dados.message || "ERRO AO CADASTRAR");
@@ -132,7 +132,12 @@ export default function FormCadastro({ setEtapa, setEmail, email }) {
                     <form onSubmit={cadastrarUsuario}>
                         <div className={css.inputGroup}>
                             <label>Nome</label>
-                            <input type="text" value={nome} onChange={(e) => setNome(e.target.value)} required />
+                            <input
+                                type="text"
+                                value={nome}
+                                onChange={(e) => setNome(e.target.value)}
+                                required
+                            />
                         </div>
 
                         <div className={css.inputGroup}>

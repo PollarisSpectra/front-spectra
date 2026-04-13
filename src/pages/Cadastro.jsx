@@ -11,18 +11,13 @@ export default function Cadastro() {
     const [email, setEmail] = useState("");
     const [modal, setModal] = useState(false);
     const inputs = useRef([]);
-    // const [mensagem, setMensagem] = useState("");
-    // const [tipoMensagem, setTipoMensagem] = useState("");
-
-    const [mensagem, setMensagem] = useState({
-        "mensagem": "",
-        "tipoMensagem": ""
-    });
+    const [mensagem, setMensagem] = useState("");
+    const [tipoMensagem, setTipoMensagem] = useState("");
 
     const navigate = useNavigate();
 
     async function validarEmail() {
-        const retorno = await fetch("http://10.92.3.121:5000/validar_email", {
+        const retorno = await fetch("http://10.92.3.129:5000/validar_email", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -72,19 +67,14 @@ export default function Cadastro() {
     return (
         <>
         {modal && <Modal />}
-            <FlashMessage
-                mensagem={mensagem.mensagem}
-                tipo={mensagem.tipoMensagem}
-                onClose={() => {
-                    setMensagem({
-                        mensagem: "",
-                        tipoMensagem: ""
-                    });
-                }}
-            />
-
-
-
+        <FlashMessage
+            mensagem={mensagem}
+            tipo={tipoMensagem}
+            onClose={() => {
+                setMensagem("");
+                setTipoMensagem("");
+            }}
+        />
         {etapa === 0 ? (
         <div>
             <FormCadastro

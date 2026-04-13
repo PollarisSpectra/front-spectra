@@ -25,34 +25,32 @@ export default function FormLogin({ setCadastro }) {
 
             if (resposta.ok) {
                 setMensagem("Login realizado com sucesso!");
-                setTipoMensagem("sucesso"); // Define como sucesso
+                setTipoMensagem("sucesso");
                 setCadastro(true);
 
                 localStorage.setItem("usuario", JSON.stringify(dados.usuario));
+                setUsuario(localStorage.getItem("usuario"));
+
+                setEmail("");
+                setSenha("");
 
                 setTimeout(() => {
                     navigate("/dashboard");
-                }, 2000);
+                }, 2000)
             } else {
-                // Caso o usuário não tenha confirmado e-mail ou senha errada
                 setMensagem(dados.error || dados.message || "Erro no login");
-                setTipoMensagem("erro");
+                setTipoMensagem("error");
             }
         } catch (erro) {
             setMensagem("Erro ao conectar com a API");
-            setTipoMensagem("erro");
+            setTipoMensagem("error");
         }
     }
 
     return (
         <div className={css.containerMain}>
-            {/* O FlashMessage deve ficar aqui para aparecer sobre o fundo */}
-            <FlashMessage
-                mensagem={mensagem}
-                tipo={tipoMensagem}
-                onClose={() => setMensagem("")}
-            />
-
+            <FlashMessage mensagem={mensagem} tipo={tipoMensagem} />
+            
             <img src="/badwinlogin.png" alt="Background" className={css.logoBackground} />
 
             <div className={css.formSection}>
@@ -92,8 +90,6 @@ export default function FormLogin({ setCadastro }) {
                             ENTRAR
                         </button>
                     </form>
-
-                    {/* Remova o <p>{mensagem}</p> antigo daqui */}
                 </div>
             </div>
         </div>

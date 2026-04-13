@@ -33,7 +33,13 @@
 
 /* ... o restante do seu CSS de card, inputs e botões pode continuar igual ... */
 
-
+.cardCadastro {
+    background-color: white;
+    padding: 40px;
+    border-radius: 30px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    color: black;
+}
 
 
 .formHeader {
@@ -130,10 +136,6 @@
     font-weight: 700;
     white-space: nowrap;
     -index: 9999;
-    animation: slideDown 0.4s ease-out forwards;
-}
-{
-/* Animação de entrada suave */
     animation: slideDown 0.4s ease-out forwards;
 }
 
@@ -342,7 +344,7 @@
     position: relative;
     background-color: white;
     padding: 40px;
-    border-radius: 31px;
+    border-radius: 30px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
     color: black;
 }

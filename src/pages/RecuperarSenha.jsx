@@ -49,7 +49,7 @@ export default function RecuperarSenha() {
         e.preventDefault();
 
         try {
-            const resposta = await fetch("http://10.92.3.121:5000/recuperar_senha", {
+            const resposta = await fetch("http://10.92.3.129:5000/recuperar_senha", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

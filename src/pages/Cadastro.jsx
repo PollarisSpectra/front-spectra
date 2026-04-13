@@ -17,7 +17,7 @@ export default function Cadastro() {
     const navigate = useNavigate();
 
     async function validarEmail() {
-        const retorno = await fetch("http://10.92.3.129:5000/validar_email", {
+        const retorno = await fetch("http://localhost:5000/auth/validar_email", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -66,7 +66,7 @@ export default function Cadastro() {
 
     return (
         <>
-        {modal && <Modal />}
+        {modal && <Modal titulo={"Email confirmado com sucesso"} />}
         <FlashMessage
             mensagem={mensagem}
             tipo={tipoMensagem}

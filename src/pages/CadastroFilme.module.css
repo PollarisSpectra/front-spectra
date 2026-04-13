@@ -1,0 +1,73 @@
+.containerMain {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #000; /* Fundo preto como na imagem */
+    padding: 20px;
+}
+
+.cardCadastro {
+    background-color: #fff;
+    width: 100%;
+    max-width: 450px;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+}
+
+.tituloPagina {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 900;
+    margin-bottom: 30px;
+    font-style: italic;
+    color: #000;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.inputGroup label {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #000;
+}
+
+.inputGroup input, .inputGroup textarea {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    padding: 8px 0;
+    outline: none;
+    font-size: 1rem;
+    background: transparent;
+}
+
+.inputGroup input:focus {
+    border-bottom-color: #ff1a1a;
+}
+
+.inputGroup textarea {
+    height: 60px;
+    resize: none;
+}
+
+.btnCadastrar {
+    background-color: #ff1a1a;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 12px;
+    font-weight: 800;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    text-transform: uppercase;
+}
+
+.btnCadastrar:hover {
+    background-color: #d10000;
+}

@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import FlashMessage from "../FlashMessage/FlashMessage.jsx"; // Importe o componente
 import css from './FormLogin.module.css';
 
-export default function FormLogin({ setCadastro }) {
+export default function FormLogin({ setCadastro, setUsuario }) {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
     const [mensagem, setMensagem] = useState("");
@@ -15,7 +15,7 @@ export default function FormLogin({ setCadastro }) {
         e.preventDefault();
 
         try {
-            const resposta = await fetch("http://10.92.3.120:5000/login", {
+            const resposta = await fetch("http://localhost:5000/auth/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, senha })
@@ -24,8 +24,6 @@ export default function FormLogin({ setCadastro }) {
             const dados = await resposta.json();
 
             if (resposta.ok) {
-                setMensagem("Login realizado com sucesso!");
-                setTipoMensagem("sucesso");
                 setCadastro(true);
 
                 localStorage.setItem("usuario", JSON.stringify(dados.usuario));
@@ -49,7 +47,7 @@ export default function FormLogin({ setCadastro }) {
 
     return (
         <div className={css.containerMain}>
-            <FlashMessage mensagem={mensagem} tipo={tipoMensagem} />
+            <FlashMessage mensagem={mensagem} tipo={tipoMensagem} onClose={() => setMensagem("")} />
             
             <img src="/badwinlogin.png" alt="Background" className={css.logoBackground} />
 

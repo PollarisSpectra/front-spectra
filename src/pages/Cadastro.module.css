@@ -1,12 +1,11 @@
+/* ─── Layout principal do formulário de cadastro ─── */
 .containerMain {
     display: flex;
     background-color: #000;
-    /* Mudamos de min-height fixo para permitir que o conteúdo empurre o footer */
     min-height: 100vh;
     align-items: center;
     justify-content: center;
     gap: 50px;
-    /* Padding generoso no topo e no fundo para descolar do header/footer */
     padding: 80px 40px;
     box-sizing: border-box;
 }
@@ -63,7 +62,6 @@
     padding: 40px;
     border-radius: 25px;
     width: 450px;
-    /* Adicionamos uma margem de segurança */
     margin: 20px 0;
 }
 
@@ -102,18 +100,133 @@
     margin-top: 20px;
     cursor: pointer;
 }
+
+/* ─── Etapa de validação de e-mail (padrão RecuperarSenha) ─── */
+.page {
+    background-color: #000;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-family: sans-serif;
+}
+
+.cardValidacao {
+    background-color: #fff;
+    width: 100%;
+    max-width: 500px;
+    padding: 60px 40px;
+    border-radius: 30px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.backBtn {
+    position: absolute;
+    left: 20px;
+    top: 25px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #000;
+    font-size: 0.95rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.tituloValidar {
+    color: #000;
+    font-weight: 900;
+    text-align: center;
+    font-style: italic;
+    font-size: 2.5rem;
+    line-height: 1;
+    margin-bottom: 16px;
+    letter-spacing: -1px;
+}
+
+.subtitulo {
+    color: #666;
+    font-size: 0.9rem;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.labelCodigo {
+    font-weight: bold;
+    color: #000;
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+/* OTP */
+.otpContainer {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 30px;
+}
+
+.otpInput {
+    width: 40px;
+    height: 45px;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    background: transparent;
+    transition: border-color 0.2s;
+}
+
+.otpInput:focus {
+    border-color: #ff1a1a;
+}
+
+.otpInput.filled {
+    border-color: #ff1a1a;
+    background-color: #fff5f5;
+}
+
+.confirmBtn {
+    background-color: #ff1a1a;
+    color: #fff;
+    border: none;
+    padding: 15px;
+    width: 100%;
+    max-width: 280px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: opacity 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.confirmBtn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* ─── Responsividade ─── */
 @media (max-width: 850px) {
     .containerMain {
         flex-direction: column;
         gap: 40px;
-        /* Aumentamos o respiro lateral e vertical no mobile */
         padding: 60px 25px;
     }
 
     .cardForm {
         width: 100%;
         max-width: 450px;
-        /* Forçamos uma margem nas laterais para não encostar na parede */
         margin: 0 auto;
         box-sizing: border-box;
     }
@@ -122,14 +235,32 @@
         width: 100%;
         max-width: 300px;
         order: 2;
-        /* Margem no fundo do preview para não colidir com o que vier abaixo */
         margin-bottom: 40px;
+    }
+}
+
+@media (max-width: 380px) {
+    .cardValidacao {
+        padding: 40px 20px;
+        border-radius: 20px;
+    }
+
+    .tituloValidar {
+        font-size: 1.8rem;
+    }
+
+    .otpContainer {
+        gap: 4px;
+    }
+
+    .otpInput {
+        width: 35px;
+        height: 40px;
     }
 }
 
 @media (max-width: 320px) {
     .containerMain {
-        /* Espaço extra para telas minúsculas */
         padding: 50px 15px;
     }
 

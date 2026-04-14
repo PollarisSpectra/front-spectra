@@ -19,18 +19,15 @@ export default function Cadastro() {
     async function validarEmail() {
         const retorno = await fetch("http://localhost:5000/auth/validar_email", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 'email': email,
                 'codigo': codigo.join('')
             })
-        })
-        
+        });
+
         if (retorno.ok) {
             setModal(true);
-
             setTimeout(() => {
                 setModal(false);
                 navigate("/login");
@@ -66,85 +63,77 @@ export default function Cadastro() {
 
     return (
         <>
-        {modal && <Modal titulo={"Email confirmado com sucesso"} />}
-        <FlashMessage
-            mensagem={mensagem}
-            tipo={tipoMensagem}
-            onClose={() => {
-                setMensagem("");
-                setTipoMensagem("");
-            }}
-        />
-        {etapa === 0 ? (
-        <div>
-            <FormCadastro
-                setEmail={setEmail}
-                email={email}
-                setEtapa={setEtapa}
+            {modal && <Modal titulo={"Email confirmado com sucesso"} />}
+            <FlashMessage
                 mensagem={mensagem}
-                setMensagem={setMensagem}
+                tipo={tipoMensagem}
+                onClose={() => {
+                    setMensagem("");
+                    setTipoMensagem("");
+                }}
             />
-        </div>
-        ) : (
-        <div className={`d-flex flex-column min-vh-100 ${styles.page}`}>
-            <main className="flex-grow-1 d-flex align-items-center justify-content-center py-5 px-3">
-                <div className="text-center w-100" style={{ maxWidth: '360px' }}>
 
-                    <button className={`${styles.backBtn} mb-4`} onClick={() => setEtapa(0)}>
-                        ← Voltar
-                    </button>
-
-                    <h2 className={`${styles.fontMontserrat} fw-bold text-white text-uppercase mb-4`}
-                        style={{ fontSize: '1.15rem', letterSpacing: '0.12em' }}>
-                        Validar Email
-                    </h2>
-
-                    <p className={`${styles.fontInter} text-secondary mb-4`}
-                        style={{ fontSize: '0.78rem', lineHeight: 1.5 }}>
-                        Digite o código de 6 dígitos enviado para o seu e-mail.
-                    </p>
-
-                    <span className={`${styles.fontMontserrat} text-uppercase text-secondary d-block mb-3`}
-                        style={{ fontSize: '0.72rem', letterSpacing: '0.1em' }}>
-                        Código
-                    </span>
-
-                    <div className="d-flex justify-content-center gap-2 mb-3">
-                        {codigo.map((digito, index) => (
-                            <input
-                                key={index}
-                                ref={el => inputs.current[index] = el}
-                                className={`${styles.otpInput} text-center rounded-2${digito ? ` ${styles.filled}` : ''}`}
-                                type="text"
-                                inputMode="numeric"
-                                maxLength={1}
-                                value={digito}
-                                onChange={e => handleChange(e.target.value, index)}
-                                onKeyDown={e => handleKeyDown(e, index)}
-                                autoComplete="none"
-                                onPaste={handlePaste}
-                            />
-                        ))}
-                    </div>
-
-                    <button
-                        onClick={validarEmail}
-                        className={`${styles.confirmBtn} ${styles.bgRed} btn text-white rounded-1 w-100 py-2 text-uppercase`}
-                        disabled={filled < 6}
-                    >
-                        CONFIRMAR
-                    </button>
-
-                    {/* <p className={`${styles.fontInter} mt-3 mb-0`} style={{ fontSize: '0.72rem', color: '#555' }}>
-                        Não recebeu?{' '}
-                        <span className={styles.textRed} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
-                            Reenviar código
-                        </span>
-                    </p> */}
+            {etapa === 0 ? (
+                <div>
+                    <FormCadastro
+                        setEmail={setEmail}
+                        email={email}
+                        setEtapa={setEtapa}
+                        mensagem={mensagem}
+                        setMensagem={setMensagem}
+                    />
                 </div>
-            </main>
-        </div>
-        )}
+            ) : (
+                <div className={styles.page}>
+                    <div className={styles.cardValidacao}>
+
+                        <button
+                            className={styles.backBtn}
+                            onClick={() => setEtapa(0)}
+                        >
+                            <svg width="24" height="24" viewBox="0 0 16 16" fill="currentColor">
+                                <path d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                            </svg>
+                        </button>
+
+                        <h1 className={styles.tituloValidar}>
+                            VALIDAR <br /> EMAIL
+                        </h1>
+
+                        <p className={styles.subtitulo}>
+                            Digite o código de 6 dígitos enviado para o seu e-mail.
+                        </p>
+
+                        <span className={styles.labelCodigo}>Código</span>
+
+                        <div className={styles.otpContainer}>
+                            {codigo.map((digito, index) => (
+                                <input
+                                    key={index}
+                                    ref={el => inputs.current[index] = el}
+                                    className={`${styles.otpInput}${digito ? ` ${styles.filled}` : ''}`}
+                                    type="text"
+                                    inputMode="numeric"
+                                    maxLength={1}
+                                    value={digito}
+                                    onChange={e => handleChange(e.target.value, index)}
+                                    onKeyDown={e => handleKeyDown(e, index)}
+                                    autoComplete="none"
+                                    onPaste={handlePaste}
+                                />
+                            ))}
+                        </div>
+
+                        <button
+                            onClick={validarEmail}
+                            className={styles.confirmBtn}
+                            disabled={filled < 6}
+                        >
+                            CONFIRMAR
+                        </button>
+                    </div>
+                </div>
+            )}
         </>
     );
 }

@@ -1,6 +1,6 @@
 import estilo from './Botao.module.css';
 
-export default function Botao({ texto = "VER DETALHES", onClick }) {
+export default function Botao({ texto = "DETALHES", onClick }) {
     return (
         <button className={estilo.botao} onClick={onClick}>
             <span className={estilo.texto}>{texto}</span>

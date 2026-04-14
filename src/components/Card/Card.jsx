@@ -59,7 +59,7 @@ export default function Card({
             </div>
 
             <div className={estilo.containerBotao}>
-                <Botao texto="VER DETALHES" />
+                <Botao texto="DETALHES" />
             </div>
         </div>
     );

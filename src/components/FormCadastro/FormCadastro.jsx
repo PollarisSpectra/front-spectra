@@ -64,7 +64,7 @@ export default function FormCadastro({ setEtapa, setEmail, email }) {
         }
 
         try {
-            const resposta = await fetch("http://localhost:5000/auth/cadastro", {
+            const resposta = await fetch("http://10.92.3.175:5000/auth/cadastro", {
                 method: "POST",
                 body: formData
             });

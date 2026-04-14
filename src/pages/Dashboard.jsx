@@ -15,7 +15,7 @@ export function Dashboard({ usuario, setUsuario }) {
     }, [])
 
     async function handleLogout() {
-        const resposta = await fetch("http://localhost:5000/auth/logout", {
+        const resposta = await fetch("http://10.92.3.175:5000/auth/logout", {
             method: "POST",
         });
 

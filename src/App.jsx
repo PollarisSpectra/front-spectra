@@ -14,6 +14,7 @@ import CadastroFilme from "./components/CadastroFilme/CadastroFilme.jsx";
 import CadastroSala from "./components/CadastroSala/CadastroSala.jsx";
 import EditarSessao from "./components/EditarSessao/EditarSessao.jsx";
 import CadastroSessao from "./components/CadastroSessao/CadastroSessao.jsx";
+import DashboardAdm from "./pages/DashboardAdm.jsx";
 
 function App() {
   const [usuario, setUsuario] = useState(null);
@@ -27,8 +28,6 @@ function App() {
         <Route path="/login" element={<Login usuario={usuario} setUsuario={setUsuario} />} />
         <Route path="/recuperar-senha" element={<RecuperarSenha />} />
         <Route path="/dashboard" element={<Dashboard usuario={usuario} setUsuario={setUsuario} />} />
-
-        {/* Rotas de cadastro e edição */}
         <Route path="/cadastro-filme" element={<CadastroFilme />} />
         <Route path="/cadastro-sala" element={<CadastroSala />} />
         <Route path="/editarfilme" element={<EditarFilme />} />
@@ -37,6 +36,7 @@ function App() {
         <Route path="/cadastrosala" element={<CadastroSala />} />
         <Route path="/Editarsessao" element={<EditarSessao />} />
         <Route path="/Cadastrossessao" element={<CadastroSessao />} />
+        <Route path="/dashboardAdm" element={<DashboardAdm />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

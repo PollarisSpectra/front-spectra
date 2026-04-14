@@ -44,7 +44,7 @@ export default function RecuperarSenha() {
     async function enviarEmail(e) {
         e.preventDefault();
         try {
-            const resposta = await fetch("http://localhost:5000/auth/recuperar_senha", {
+            const resposta = await fetch("http://10.92.3.175:5000/auth/recuperar_senha", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email }),
@@ -65,7 +65,7 @@ export default function RecuperarSenha() {
     async function confirmarCodigo(e) {
         e.preventDefault();
         try {
-            const resposta = await fetch("http://localhost:5000/auth/recuperar_senha", {
+            const resposta = await fetch("http://10.92.3.175:5000/auth/recuperar_senha", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

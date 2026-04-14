@@ -65,6 +65,75 @@
     margin: 20px 0;
 }
 
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+.containerMain {
+    display: flex;
+    background-color: #000;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    padding: 40px;
+}
+
+/* Preview à esquerda */
+.previewSection {
+    color: white;
+    width: 300px;
+}
+
+.cardPreview {
+    background-color: #2a2d31;
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.capaContainer {
+    position: relative;
+    width: 100%;
+    height: 350px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.imgPrincipal { width: 100%; height: 100%; object-fit: cover; }
+
+.uploadPlaceholder { color: #000; opacity: 0.6; }
+
+.badgeClassificacao {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: #d63031;
+    color: white;
+    padding: 5px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.infoPreview { padding: 15px; }
+.infoPreview h3 { font-size: 1.1rem; margin-bottom: 10px; }
+.stars { color: #f1c40f; font-size: 0.8rem; }
+.rowInfo { display: flex; gap: 20px; font-size: 0.8rem; }
+.sinopsePreview { font-size: 0.9rem; opacity: 0.8; }
+
+/* Formulário à direita */
+.cardForm {
+    background-color: white;
+    padding: 40px;
+    border-radius: 25px;
+    width: 450px;
+}
+
 .tituloForm {
     text-align: center;
     font-weight: 900;

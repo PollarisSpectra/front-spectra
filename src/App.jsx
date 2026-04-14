@@ -28,7 +28,9 @@ function App() {
         <Route path="/recuperar-senha" element={<RecuperarSenha />} />
         <Route path="/dashboard" element={<Dashboard usuario={usuario} setUsuario={setUsuario} />} />
 
-        {/* Rotas novas da outra branch */}
+        {/* Rotas de cadastro e edição */}
+        <Route path="/cadastro-filme" element={<CadastroFilme />} />
+        <Route path="/cadastro-sala" element={<CadastroSala />} />
         <Route path="/editarfilme" element={<EditarFilme />} />
         <Route path="/editarsala" element={<EditarSala />} />
         <Route path="/cadastrofilme" element={<CadastroFilme />} />

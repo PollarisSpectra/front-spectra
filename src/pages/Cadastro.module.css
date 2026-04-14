@@ -1,99 +1,70 @@
-.page {
-    background: #1a1a1a;
-    font-family: 'Inter', sans-serif;
+.containerMain {
+    display: flex;
+    background-color: #000;
+    /* Mudamos de min-height fixo para permitir que o conteúdo empurre o footer */
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    /* Padding generoso no topo e no fundo para descolar do header/footer */
+    padding: 80px 40px;
+    box-sizing: border-box;
 }
 
-.pswInput {
-    background: #2a2a2a;
-    border: 1.5px solid #444;
-    color: #fff;
-    /*font-size: 1.5rem;*/
-    /*font-weight: 600;*/
-    font-family: 'Montserrat', sans-serif;
-    /*caret-color: #e63329;*/
-    transition: border-color 0.15s, background 0.15s;
+/* Preview à esquerda */
+.previewSection {
+    color: white;
+    width: 300px;
 }
 
-.otpInput {
-    width: 52px;
-    height: 52px;
-    background: #2a2a2a;
-    border: 1.5px solid #444;
-    color: #fff;
-    font-size: 1.5rem;
-    font-weight: 600;
-    font-family: 'Montserrat', sans-serif;
-    caret-color: #e63329;
-    transition: border-color 0.15s, background 0.15s;
-}
-.otpInput:focus {
-    border-color: #e63329 !important;
-    background: #222;
-    box-shadow: none !important;
-    outline: none;
-}
-.otpInput.filled {
-    border-color: #888;
+.cardPreview {
+    background-color: #2a2d31;
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 20px;
 }
 
-.confirmBtn {
-    font-family: 'Montserrat', sans-serif;
-    letter-spacing: 0.12em;
-    font-size: 0.85rem;
-    font-weight: 700;
-    transition: background 0.15s, transform 0.1s;
-}
-.confirmBtn:hover:not(:disabled) {
-    background-color: #c9261d !important;
-}
-.confirmBtn:active {
-    transform: scale(0.98);
-}
-.confirmBtn:disabled {
-    cursor: not-allowed;
-}
-
-.fontMontserrat { font-family: 'Montserrat', sans-serif; }
-.fontInter      { font-family: 'Inter', sans-serif; }
-.textRed        { color: #e63329; }
-.bgRed          { background-color: #e63329; }
-
-.backBtn {
-    background: none;
-    border: none;
-    color: #888;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.78rem;
-    cursor: pointer;
+.capaContainer {
+    position: relative;
+    width: 100%;
+    height: 350px;
+    background-color: #fff;
     display: flex;
     align-items: center;
-    gap: 6px;
-    transition: color 0.15s;
-    padding: 0;
-}
-.backBtn:hover {
-    color: #fff;
+    justify-content: center;
+    cursor: pointer;
 }
 
-.errorToast {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: #ff1a1a; /* Vermelho Spectra */
+.imgPrincipal { width: 100%; height: 100%; object-fit: cover; }
+
+.uploadPlaceholder { color: #000; opacity: 0.6; }
+
+.badgeClassificacao {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: #d63031;
     color: white;
-    padding: 12px 24px;
+    padding: 5px 8px;
     border-radius: 4px;
     font-weight: bold;
-    z-index: 1000;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-
-    /* Animação de entrada e saída */
-    animation: slideIn 0.5s ease-out, fadeOut 0.5s linear 4.5s;
+    font-size: 12px;
 }
 
-@keyframes slideIn {
-    from { transform: translateX(100%); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
+.infoPreview { padding: 15px; }
+.infoPreview h3 { font-size: 1.1rem; margin-bottom: 10px; }
+.stars { color: #f1c40f; font-size: 0.8rem; }
+.rowInfo { display: flex; gap: 20px; font-size: 0.8rem; }
+.sinopsePreview { font-size: 0.9rem; opacity: 0.8; }
+
+/* Formulário à direita */
+.cardForm {
+    background-color: white;
+    padding: 40px;
+    border-radius: 25px;
+    width: 450px;
+    /* Adicionamos uma margem de segurança */
+    margin: 20px 0;
 }
 
 @keyframes fadeOut {
@@ -199,4 +170,40 @@
     border-radius: 5px;
     margin-top: 20px;
     cursor: pointer;
+}
+@media (max-width: 850px) {
+    .containerMain {
+        flex-direction: column;
+        gap: 40px;
+        /* Aumentamos o respiro lateral e vertical no mobile */
+        padding: 60px 25px;
+    }
+
+    .cardForm {
+        width: 100%;
+        max-width: 450px;
+        /* Forçamos uma margem nas laterais para não encostar na parede */
+        margin: 0 auto;
+        box-sizing: border-box;
+    }
+
+    .previewSection {
+        width: 100%;
+        max-width: 300px;
+        order: 2;
+        /* Margem no fundo do preview para não colidir com o que vier abaixo */
+        margin-bottom: 40px;
+    }
+}
+
+@media (max-width: 320px) {
+    .containerMain {
+        /* Espaço extra para telas minúsculas */
+        padding: 50px 15px;
+    }
+
+    .cardForm {
+        padding: 30px 20px;
+        border-radius: 15px;
+    }
 }

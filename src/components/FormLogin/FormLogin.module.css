@@ -138,8 +138,70 @@ body, html {
     transition: 0.3s;
 }
 
+/* --- RESPONSIVIDADE PARA CELULARES --- */
+
+@media (max-width: 850px) {
+    .containerMain {
+        justify-content: center; /* Centraliza o card */
+        padding-right: 0; /* Remove o recuo da direita */
+        padding: 20px;
+    }
+
+    .logoBackground, .containerMain::after {
+        display: none; /* Esconde a imagem e o degradê no mobile */
+    }
+
+    .formSection {
+        max-width: 100%;
+    }
+}
+
+/* --- AJUSTE CRÍTICO PARA 320px --- */
 @media (max-width: 320px) {
+    .containerMain {
+        padding: 10px; /* Margem mínima de segurança */
+        align-items: flex-start; /* Alinha o card no topo se a tela for muito baixa */
+        overflow-y: auto; /* Permite scroll se o teclado do celular abrir */
+    }
+
     .cardCadastro {
-        border-radius: 1px;
+        padding: 30px 15px;
+        border-radius: 15px; /* Arredondado menor para ganhar espaço interno */
+        width: 100%;
+    }
+
+    .formHeader {
+        flex-direction: column-reverse; /* Logo em cima, título embaixo */
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+
+    .formHeader h1 {
+        font-size: 1.8rem; /* Diminui o título para não quebrar feio */
+        text-align: center;
+    }
+
+    .formLogo {
+        width: 70px; /* Logo menor */
+    }
+
+    .inputGroup {
+        margin-bottom: 15px; /* Reduz espaço entre campos */
+    }
+
+    .inputGroup label {
+        font-size: 12px;
+    }
+
+    .btnCadastrar {
+        width: 100%; /* No 320px, o botão precisa ser largo para ser fácil de clicar */
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .esquecerSenha {
+        text-align: center;
+        margin-top: 5px;
     }
 }

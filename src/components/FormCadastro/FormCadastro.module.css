@@ -525,3 +525,110 @@
         border-radius: 1px;
     }
 }
+/* --- ADICIONE ESTE BLOCO AO FINAL DO SEU ARQUIVO CSS --- */
+
+/* Ajuste para Tablets (Geral) */
+@media (max-width: 1024px) {
+    .containerMain {
+        padding-right: 5%;
+        justify-content: center; /* Centraliza o card em tablets */
+    }
+
+    .imageWrapper {
+        width: 100%; /* Imagem passa a ocupar o fundo todo */
+        opacity: 0.4; /* Diminui a opacidade para não brigar com o formulário */
+    }
+}
+
+/* Ajuste para Celulares Médios/Pequenos */
+@media (max-width: 768px) {
+    .containerMain {
+        padding: 20px;
+        justify-content: center;
+        overflow-y: auto; /* Permite scroll se o formulário for alto */
+    }
+
+    .imageWrapper {
+        display: none; /* Remove a imagem pesada no mobile para focar no cadastro */
+    }
+
+    .formSection {
+        max-width: 100%;
+    }
+
+    .cardCadastro {
+        padding: 30px 20px;
+    }
+
+    .formHeader h1 {
+        font-size: 1.8rem;
+    }
+}
+
+/* Ajuste Crítico para 320px (iPhone SE / Celulares Antigos) */
+@media (max-width: 320px) {
+    .containerMain {
+        padding: 10px; /* Margem mínima para não grudar na tela */
+        background-color: #121417; /* Garante o fundo sólido */
+    }
+
+    .cardCadastro {
+        padding: 20px 15px;
+        border-radius: 15px; /* Arredondado menor para aproveitar espaço */
+    }
+
+    .formHeader {
+        flex-direction: column-reverse; /* Logo em cima do título no mobile */
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .formHeader h1 {
+        font-size: 1.4rem;
+        text-align: center;
+    }
+
+    .formLogo {
+        width: 60px;
+    }
+
+    /* Ajuste da Foto de Perfil */
+    .fotoUploadArea {
+        width: 80px;
+        height: 65px;
+    }
+
+    /* Ajuste dos Dropdowns de Data */
+    .dataContainer {
+        flex-direction: column; /* Empilha Dia, Mês e Ano para não esmagar */
+        gap: 5px;
+    }
+
+    .dataSelect {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    .inputGroup label {
+        font-size: 12px;
+    }
+
+    .btnCadastrar {
+        padding: 12px;
+        font-size: 0.9rem;
+    }
+
+    .formFooter {
+        font-size: 0.8rem;
+    }
+
+
+    .flashMessage {
+        width: 90%;
+        padding: 10px;
+        font-size: 0.8rem;
+        white-space: normal; /* Permite quebrar linha se o erro for longo */
+        text-align: center;
+    }
+}

@@ -1,0 +1,188 @@
+.mainContainer {
+    background-color: #000;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    font-family: sans-serif;
+}
+
+.cardCadastro {
+    background-color: #fff;
+    width: 100%;
+    max-width: 600px;
+    border-radius: 20px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.titulo {
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 30px;
+    color: #000;
+    text-align: center;
+}
+
+.formulario {
+    width: 100%;
+}
+
+.inputBox {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.inputBox label {
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.inputBox input {
+    border: none;
+    border-bottom: 2px solid #ccc;
+    padding: 8px 0;
+    outline: none;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.inputBox input:focus {
+    border-bottom-color: #ff1a1a;
+}
+
+/* Estilo do Mapa de Cadeiras */
+.mapaAssentos {
+    margin: 30px 0;
+    max-height: 300px;
+    overflow: auto; /* Permite scroll se a sala for muito grande */
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.fila {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    gap: 10px;
+}
+
+.letraFila {
+    font-weight: bold;
+    font-size: 12px;
+    width: 15px;
+}
+
+.assentosContainer {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+.assento {
+    width: 22px;
+    height: 22px;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    color: #555;
+    font-weight: bold;
+}
+
+.placeholder {
+    color: #999;
+    font-size: 13px;
+    text-align: center;
+}
+
+.btnCadastrar {
+    width: 100%;
+    background-color: #ff1a1a;
+    color: #fff;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btnCadastrar:hover {
+    background-color: #d61515;
+}
+/* --- MANTENHA SEU CSS ORIGINAL ACIMA --- */
+
+/* Ajustes para Tablets e Celulares Médios (até 768px) */
+@media (max-width: 768px) {
+    .mainContainer {
+        padding: 20px; /* Reduz o respiro lateral */
+    }
+
+    .cardCadastro {
+        padding: 25px; /* Reduz o preenchimento interno do card */
+    }
+
+    .titulo {
+        font-size: 1.5rem; /* Título um pouco menor */
+    }
+}
+
+/* Ajustes Críticos para Celulares Pequenos (320px) */
+@media (max-width: 380px) {
+    .mainContainer {
+        padding: 10px;
+    }
+
+    .cardCadastro {
+        padding: 15px;
+        border-radius: 12px; /* Cantos menos arredondados para ganhar espaço */
+    }
+
+    .titulo {
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+    }
+
+    /* Ajuste no Mapa de Assentos para não quebrar o layout */
+    .mapaAssentos {
+        padding: 5px;
+        margin: 20px 0;
+        /* Garante que o scroll horizontal apareça se as cadeiras não couberem */
+        overflow-x: auto;
+    }
+
+    .assentosContainer {
+        /* Impede que as cadeiras pulem para a linha de baixo,
+           forçando o scroll lateral na fileira se necessário */
+        flex-wrap: nowrap;
+        gap: 3px;
+    }
+
+    .assento {
+        /* Diminui levemente o tamanho das cadeiras em telas mínimas */
+        min-width: 18px;
+        height: 18px;
+        font-size: 8px;
+    }
+
+    .letraFila {
+        font-size: 10px;
+        width: 12px;
+    }
+
+    .btnCadastrar {
+        padding: 12px;
+        font-size: 14px;
+    }
+}

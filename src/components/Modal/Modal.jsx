@@ -11,7 +11,6 @@ export default function Modal({ titulo }) {
                     <img src={"/Icone-Sucesso.png"} alt="Ícone de Sucesso" />
                 </div>
             </div>
-
         </>
     )
 }

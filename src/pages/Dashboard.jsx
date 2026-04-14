@@ -21,6 +21,7 @@ export function Dashboard({ usuario, setUsuario }) {
 
         if (resposta.ok) {
             localStorage.removeItem("usuario");
+            setUsuario(null);
             navigate("/");
         }
     }

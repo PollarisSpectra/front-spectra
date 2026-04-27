@@ -1,0 +1,66 @@
+.section {
+    padding: 40px 24px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.sectionHeader {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.headerLine {
+    display: inline-block;
+    width: 50px;
+    height: 3px;
+    background-color: #fff;
+    flex-shrink: 0;
+}
+
+.headerLabel {
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 17px;
+}
+
+/* Grid responsivo: repete colunas com mínimo de 180px */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+}
+
+/* Telas grandes: limita em 5 colunas naturalmente pelo minmax */
+@media (max-width: 768px) {
+    .section {
+        padding: 32px 16px;
+    }
+
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .section {
+        padding: 24px 12px;
+    }
+
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+}
+
+@media (max-width: 320px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    .section {
+        padding: 20px 10px;
+    }
+}

@@ -1,0 +1,340 @@
+/* ─── Layout principal do formulário de cadastro ─── */
+.containerMain {
+    display: flex;
+    background-color: #000;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    padding: 80px 40px;
+    box-sizing: border-box;
+}
+
+/* Preview à esquerda */
+.previewSection {
+    color: white;
+    width: 300px;
+}
+
+.cardPreview {
+    background-color: #2a2d31;
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.capaContainer {
+    position: relative;
+    width: 100%;
+    height: 350px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.imgPrincipal { width: 100%; height: 100%; object-fit: cover; }
+
+.uploadPlaceholder { color: #000; opacity: 0.6; }
+
+.badgeClassificacao {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: #d63031;
+    color: white;
+    padding: 5px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.infoPreview { padding: 15px; }
+.infoPreview h3 { font-size: 1.1rem; margin-bottom: 10px; }
+.stars { color: #f1c40f; font-size: 0.8rem; }
+.rowInfo { display: flex; gap: 20px; font-size: 0.8rem; }
+.sinopsePreview { font-size: 0.9rem; opacity: 0.8; }
+
+/* Formulário à direita */
+.cardForm {
+    background-color: white;
+    padding: 40px;
+    border-radius: 25px;
+    width: 450px;
+    margin: 20px 0;
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+.containerMain {
+    display: flex;
+    background-color: #000;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    padding: 40px;
+}
+
+/* Preview à esquerda */
+.previewSection {
+    color: white;
+    width: 300px;
+}
+
+.cardPreview {
+    background-color: #2a2d31;
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.capaContainer {
+    position: relative;
+    width: 100%;
+    height: 350px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.imgPrincipal { width: 100%; height: 100%; object-fit: cover; }
+
+.uploadPlaceholder { color: #000; opacity: 0.6; }
+
+.badgeClassificacao {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: #d63031;
+    color: white;
+    padding: 5px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.infoPreview { padding: 15px; }
+.infoPreview h3 { font-size: 1.1rem; margin-bottom: 10px; }
+.stars { color: #f1c40f; font-size: 0.8rem; }
+.rowInfo { display: flex; gap: 20px; font-size: 0.8rem; }
+.sinopsePreview { font-size: 0.9rem; opacity: 0.8; }
+
+/* Formulário à direita */
+.cardForm {
+    background-color: white;
+    padding: 40px;
+    border-radius: 25px;
+    width: 450px;
+}
+
+.tituloForm {
+    text-align: center;
+    font-weight: 900;
+    margin-bottom: 30px;
+    font-style: italic;
+    line-height: 1;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.inputGroup label { font-weight: bold; font-size: 14px; margin-bottom: 5px; }
+
+.inputGroup input, .selectInput {
+    border: none;
+    border-bottom: 1px solid #000;
+    padding: 5px 0;
+    outline: none;
+    background: transparent;
+}
+
+.btnCadastrar {
+    width: 100%;
+    background-color: #e61e25;
+    color: white;
+    border: none;
+    padding: 12px;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+/* ─── Etapa de validação de e-mail (padrão RecuperarSenha) ─── */
+.page {
+    background-color: #000;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-family: sans-serif;
+}
+
+.cardValidacao {
+    background-color: #fff;
+    width: 100%;
+    max-width: 500px;
+    padding: 60px 40px;
+    border-radius: 30px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.backBtn {
+    position: absolute;
+    left: 20px;
+    top: 25px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #000;
+    font-size: 0.95rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.tituloValidar {
+    color: #000;
+    font-weight: 900;
+    text-align: center;
+    font-style: italic;
+    font-size: 2.5rem;
+    line-height: 1;
+    margin-bottom: 16px;
+    letter-spacing: -1px;
+}
+
+.subtitulo {
+    color: #666;
+    font-size: 0.9rem;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.labelCodigo {
+    font-weight: bold;
+    color: #000;
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+/* OTP */
+.otpContainer {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 30px;
+}
+
+.otpInput {
+    width: 40px;
+    height: 45px;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    background: transparent;
+    transition: border-color 0.2s;
+}
+
+.otpInput:focus {
+    border-color: #ff1a1a;
+}
+
+.otpInput.filled {
+    border-color: #ff1a1a;
+    background-color: #fff5f5;
+}
+
+.confirmBtn {
+    background-color: #ff1a1a;
+    color: #fff;
+    border: none;
+    padding: 15px;
+    width: 100%;
+    max-width: 280px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: opacity 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.confirmBtn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* ─── Responsividade ─── */
+@media (max-width: 850px) {
+    .containerMain {
+        flex-direction: column;
+        gap: 40px;
+        padding: 60px 25px;
+    }
+
+    .cardForm {
+        width: 100%;
+        max-width: 450px;
+        margin: 0 auto;
+        box-sizing: border-box;
+    }
+
+    .previewSection {
+        width: 100%;
+        max-width: 300px;
+        order: 2;
+        margin-bottom: 40px;
+    }
+}
+
+@media (max-width: 380px) {
+    .cardValidacao {
+        padding: 40px 20px;
+        border-radius: 20px;
+    }
+
+    .tituloValidar {
+        font-size: 1.8rem;
+    }
+
+    .otpContainer {
+        gap: 4px;
+    }
+
+    .otpInput {
+        width: 35px;
+        height: 40px;
+    }
+}
+
+@media (max-width: 320px) {
+    .containerMain {
+        padding: 50px 15px;
+    }
+
+    .cardForm {
+        padding: 30px 20px;
+        border-radius: 15px;
+    }
+}

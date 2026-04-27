@@ -1,0 +1,170 @@
+.container {
+    min-height: 100vh;
+    background-color: #000;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.main {
+    width: 93%;
+    margin: 0 auto;
+    padding-top: 105px;
+}
+
+.tituloArea {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-bottom: 95px;
+}
+
+.tituloArea h1 {
+    font-size: 32px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: white;
+}
+
+.voltar {
+    position: absolute;
+    left: 30px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.lista {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.cardSessao {
+    width: 100%;
+}
+
+.topoSessao {
+    height: 58px;
+    background-color: #363636;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 72px;
+    cursor: pointer;
+}
+
+.topoSessao div {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.topoSessao span {
+    font-size: 11px;
+    font-weight: bold;
+    color:white;
+    margin-top: 1px;
+}
+
+.topoSessao strong {
+    background-color: #fff;
+    color: #000;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 5px;
+}
+
+.topoSessao p {
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    margin-top: 18px;
+}
+
+.topoSessao button {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.conteudoSessao {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 30px 45px 15px;
+    color: white;
+}
+
+.infoFilme {
+    display: flex;
+    gap: 14px;
+}
+
+.infoFilme img {
+    width: 78px;
+    height: 115px;
+    object-fit: cover;
+}
+
+.infoFilme h3 {
+    font-size: 15px;
+    max-width: 230px;
+    margin-bottom: 4px;
+}
+
+.infoFilme p {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.acoes {
+    display: flex;
+    gap: 22px;
+    margin-right: 12px;
+}
+
+.acoes button {
+    width: 29px;
+    height: 29px;
+    background-color: #fff;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.adicionarArea {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+    margin-top: 22px;
+    padding-right: 35px;
+}
+
+.adicionarTexto {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.adicionarBtn {
+    width: 32px;
+    border-radius: 66px;
+    border: none;
+    background-color: #fff;
+    color: #000;
+    font-size: 28px;
+    font-weight: bold;
+
+
+}

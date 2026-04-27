@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"
+import DashboardAdm from "./DashboardAdm";
 
 export function Dashboard({ usuario, setUsuario }) {
     const navigate = useNavigate();
@@ -15,7 +16,7 @@ export function Dashboard({ usuario, setUsuario }) {
     }, [])
 
     async function handleLogout() {
-        const resposta = await fetch("http://10.92.3.175:5000/auth/logout", {
+        const resposta = await fetch("http://localhost:5000/auth/logout", {
             method: "POST",
         });
 
@@ -26,12 +27,12 @@ export function Dashboard({ usuario, setUsuario }) {
         }
     }
 
-    return (
+    return usuario?.tipo !== 0 ? (
         <div className="container text-white py-5" style={{minHeight: '100vh '}}>
             <div className="d-flex align-items-center justify-content-start gap-2">
                 <h2>Olá, {usuario?.nome}</h2>
                 <button className="bg-white fw-semibold px-2 rounded-2" onClick={handleLogout}>Sair</button>
             </div>
         </div>
-    )
+    ) : <DashboardAdm />
 }

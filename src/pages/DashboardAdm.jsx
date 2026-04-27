@@ -1,7 +1,6 @@
 import React from "react";
+import { Film, Ticket, CircleDollarSign, Settings, Search } from 'lucide-react';
 import css from './DashboardAdm.module.css';
-
-
 
 export default function DashboardAdm() {
     const registros = [
@@ -32,57 +31,57 @@ export default function DashboardAdm() {
     const valorMaximo = 200;
 
     return (
-        <div className="dashboard">
-            <div className="topLine"></div>
+        <div className={"container " + css.dashboard}>
+            <div className={css.topLine}></div>
 
-            <header className="dashboardHeader">
+            <header className={css.dashboardHeader}>
                 <div></div>
-                <div className="tituloArea">
+                <div className={css.tituloArea}>
                     <h1>DASHBOARD</h1>
                     <h2>ADMINISTRADOR</h2>
                 </div>
-                <button className="iconButton">
+                <button className={css.iconButton}>
                     <Settings size={16} />
                 </button>
             </header>
 
-            <section className="section">
-                <h3 className="sectionTitle">
+            <section className={css.section}>
+                <h3 className={css.sectionTitle}>
                     ESTATÍSTICAS DO ADM <span>- Dados diários</span>
                 </h3>
 
-                <div className="statsGrid">
-                    <div className="statCard">
+                <div className={css.statsGrid}>
+                    <div className={css.statCard}>
                         <p>FILMES NO CARTAZ</p>
                         <strong>8</strong>
                     </div>
 
-                    <div className="statCard">
+                    <div className={css.statCard}>
                         <p>INGRESSOS VENDIDOS</p>
                         <strong>24</strong>
                     </div>
 
-                    <div className="statCard">
+                    <div className={css.statCard}>
                         <p>SESSÕES ATIVAS</p>
                         <strong>4</strong>
                     </div>
 
-                    <div className="statCard">
+                    <div className={css.statCard}>
                         <p>TOTAL DE CLIENTES</p>
                         <strong>24</strong>
                     </div>
                 </div>
             </section>
 
-            <section className="section">
-                <h3 className="sectionTitle">REGISTROS GERAIS</h3>
+            <section className={css.section}>
+                <h3 className={css.sectionTitle}>REGISTROS GERAIS</h3>
 
-                <div className="registrosLista">
+                <div className={css.registrosLista}>
                     {registros.map((item, index) => (
-                        <div className="registroItem" key={index}>
+                        <div className={css.registroItem} key={index}>
                             <span>{item.nome}</span>
 
-                            <button className="searchBtn">
+                            <button className={css.searchBtn}>
                                 <Search size={16} />
                             </button>
                         </div>
@@ -90,27 +89,27 @@ export default function DashboardAdm() {
                 </div>
             </section>
 
-            <section className="section">
-                <h3 className="sectionTitle">RELATÓRIOS</h3>
+            <section className={css.section}>
+                <h3 className={css.sectionTitle}>RELATÓRIOS</h3>
 
-                <div className="relatoriosGrid">
+                <div className={css.relatoriosGrid}>
                     {relatorios.map((item, index) => (
-                        <div className="relatorioCard" key={index}>
+                        <div className={css.relatorioCard} key={index}>
                             <p>{item.titulo}</p>
-                            <button className="relatorioBtn">{item.icon}</button>
+                            <button className={css.relatorioBtn}>{item.icon}</button>
                         </div>
                     ))}
                 </div>
             </section>
 
-            <section className="section">
-                <h3 className="sectionTitle">GRÁFICO</h3>
+            <section className={css.section}>
+                <h3 className={css.sectionTitle}>GRÁFICO</h3>
 
-                <div className="graficoBox">
+                <div className={css.graficoBox}>
                     <h4>Fluxo de Público Diário</h4>
 
-                    <div className="graficoArea">
-                        <div className="eixoY">
+                    <div className={css.graficoArea}>
+                        <div className={css.eixoY}>
                             <span>200</span>
                             <span>100</span>
                             <span>50</span>
@@ -118,8 +117,8 @@ export default function DashboardAdm() {
                             <span>10</span>
                         </div>
 
-                        <div className="graficoConteudo">
-                            <div className="linhasHorizontais">
+                        <div className={css.graficoConteudo}>
+                            <div className={css.linhasHorizontais}>
                                 <div></div>
                                 <div></div>
                                 <div></div>
@@ -127,11 +126,11 @@ export default function DashboardAdm() {
                                 <div></div>
                             </div>
 
-                            <div className="barras">
+                            <div className={css.barras}>
                                 {grafico.map((item, index) => (
-                                    <div className="barraItem" key={index}>
+                                    <div className={css.barraItem} key={index}>
                                         <div
-                                            className="barra"
+                                            className={css.barra}
                                             style={{ height: `${(item.valor / valorMaximo) * 220}px` }}
                                         ></div>
                                         <span>{item.dia}</span>
@@ -141,7 +140,7 @@ export default function DashboardAdm() {
                         </div>
                     </div>
 
-                    <div className="labelVertical">Total de público</div>
+                    <div className={css.labelVertical}>Total de público</div>
                 </div>
             </section>
         </div>

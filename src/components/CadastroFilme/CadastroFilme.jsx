@@ -20,7 +20,6 @@ export default function CadastroFilme() {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFilme({ ...filme, [name]: value });
-        // Limpa mensagem ao digitar
         if (message.text) setMessage({ text: '', type: '' });
     };
 
@@ -31,6 +30,7 @@ export default function CadastroFilme() {
         }
     };
 
+    // Cores das badges conforme o Figma
     const getBadgeColor = (classificacao) => {
         switch (classificacao) {
             case "L": return "#00a650";
@@ -48,42 +48,48 @@ export default function CadastroFilme() {
         setLoading(true);
         setMessage({ text: '', type: '' });
 
-        // Validação frontend
+        // Validação básica
         if (!filme.titulo.trim() || !filme.sinopse.trim()) {
             setMessage({ text: 'Título e sinopse são obrigatórios!', type: 'error' });
             setLoading(false);
             return;
         }
 
+        // Criando FormData para enviar texto + arquivo (imagem)
         const formData = new FormData();
-        formData.append('titulo', filme.titulo.trim().toLowerCase());
-        formData.append('sinopse', filme.sinopse.trim().toLowerCase());
-        formData.append('genero', filme.genero || '');
-        formData.append('duracao', filme.duracao || '');
-        formData.append('classificacao', filme.classificacao || '');
-        formData.append('data_lancamento', filme.data_lancamento || '');
-        formData.append('trailer', filme.trailer || '');
+        formData.append('titulo', filme.titulo);
+        formData.append('sinopse', filme.sinopse);
+        formData.append('genero', filme.genero);
+        formData.append('duracao', filme.duracao);
+        formData.append('classificacao', filme.classificacao);
+        formData.append('data_lancamento', filme.data_lancamento);
+        formData.append('trailer', filme.trailer);
+
+        // Adicionando o arquivo de imagem conforme o backend espera: request.files.get('imagem')
+        if (fileInputRef.current.files[0]) {
+            formData.append('imagem', fileInputRef.current.files[0]);
+        }
 
         try {
             const response = await fetch('http://localhost:5000/filmes/cadastro_filme', {
                 method: 'POST',
                 body: formData,
-                credentials: 'include' // Mantém cookies (token)
+                credentials: 'include' // Envia cookies de autenticação
             });
 
             const data = await response.json();
 
             if (response.ok) {
                 setMessage({ text: data.message, type: 'success' });
+                // Limpa o formulário após sucesso
                 setFilme({ titulo: "", genero: "", duracao: "", classificacao: "", sinopse: "", data_lancamento: "", trailer: "" });
                 setPreviewCapa(null);
                 fileInputRef.current.value = '';
             } else {
-                console.log(data.error)
-                setMessage({ text: data.error || 'Erro no cadastro!', type: 'error' });
+                setMessage({ text: data.error || data.message || 'Erro no cadastro!', type: 'error' });
             }
         } catch (error) {
-            setMessage({ text: 'Erro de conexão!', type: 'error' });
+            setMessage({ text: 'Erro de conexão com o servidor!', type: 'error' });
         } finally {
             setLoading(false);
         }
@@ -91,7 +97,7 @@ export default function CadastroFilme() {
 
     return (
         <div className={css.containerMain}>
-            {/* PREVIEW */}
+            {/* ÁREA DE PREVIEW (Lado Esquerdo) */}
             <div className={css.previewContainer}>
                 <div className={css.cardPreview}>
                     <div className={css.capaArea} onClick={() => fileInputRef.current.click()}>
@@ -99,10 +105,7 @@ export default function CadastroFilme() {
                             <img src={previewCapa} alt="Preview" className={css.imgPreview} />
                         ) : (
                             <div className={css.uploadPlaceholder}>
-                                <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="1.5">
-                                    <circle cx="12" cy="12" r="10" />
-                                    <path d="M12 8v8M8 12l4 4 4-4" />
-                                </svg>
+                                <span>CLIQUE PARA UPLOAD DA CAPA</span>
                             </div>
                         )}
                         {filme.classificacao && (
@@ -120,8 +123,7 @@ export default function CadastroFilme() {
 
                     <div className={css.infoPreview}>
                         <div className={css.tituloRow}>
-                            <h3>{filme.titulo || "TITULO DO FILME"}</h3>
-                            <span className={css.estrelas}>★★★★★</span>
+                            <h3>{filme.titulo || "TÍTULO DO FILME"}</h3>
                         </div>
                         <div className={css.detalhesRow}>
                             <span><strong>Gênero:</strong> {filme.genero || "..."}</span>
@@ -129,23 +131,20 @@ export default function CadastroFilme() {
                         </div>
                     </div>
                 </div>
-                <p className={css.sinopseTexto}
-                    style={{
-                        wordWrap: 'break-word',
-                        overflowWrap: 'break-word', 
-                        whiteSpace: 'normal'
-                    }}>
+                <p className={css.sinopseTexto}>
                     <strong>Sinopse:</strong> {filme.sinopse || "..."}
                 </p>
             </div>
 
-            {/* FORMULÁRIO */}
+            {/* FORMULÁRIO (Lado Direito) */}
             <div className={css.formCard}>
                 <h1 className={css.formTitulo}>CADASTRO DE FILME</h1>
 
                 <form className={css.formulario} onSubmit={handleSubmit}>
+                    {/* Input de arquivo escondido, acionado pelo clique na capa do preview */}
                     <input
                         type="file"
+                        name="imagem"
                         ref={fileInputRef}
                         onChange={handleImageChange}
                         style={{ display: 'none' }}
@@ -155,11 +154,19 @@ export default function CadastroFilme() {
                     {message.text && (
                         <div className={css.message} style={{
                             backgroundColor: message.type === 'success' ? '#d4edda' : '#f8d7da',
-                            color: message.type === 'success' ? '#155724' : '#721c24'
+                            color: message.type === 'success' ? '#155724' : '#721c24',
+                            padding: '10px',
+                            borderRadius: '4px',
+                            marginBottom: '15px'
                         }}>
                             {message.text}
                         </div>
                     )}
+
+                    <div className={css.inputBox}>
+                        <label>Título do filme *</label>
+                        <input type="text" name="titulo" value={filme.titulo} onChange={handleChange} required />
+                    </div>
 
                     <div className={css.inputBox}>
                         <label>Gênero</label>
@@ -167,13 +174,8 @@ export default function CadastroFilme() {
                     </div>
 
                     <div className={css.inputBox}>
-                        <label>Título do filme *</label>
-                        <input type="text" name="titulo" value={filme.titulo} onChange={handleChange} />
-                    </div>
-
-                    <div className={css.inputBox}>
                         <label>Duração</label>
-                        <input type="text" name="duracao" value={filme.duracao} onChange={handleChange} />
+                        <input type="text" name="duracao" value={filme.duracao} onChange={handleChange} placeholder="Ex: 2h 30min" />
                     </div>
 
                     <div className={css.inputBox}>
@@ -191,12 +193,12 @@ export default function CadastroFilme() {
 
                     <div className={css.inputBox}>
                         <label>Sinopse *</label>
-                        <input 
-                            type="text" 
-                            name="sinopse" 
-                            value={filme.sinopse} 
+                        <textarea
+                            name="sinopse"
+                            value={filme.sinopse}
                             onChange={handleChange}
-                            placeholder="Digite a sinopse do filme..."
+                            placeholder="Digite a sinopse..."
+                            required
                         />
                     </div>
 
@@ -206,16 +208,16 @@ export default function CadastroFilme() {
                     </div>
 
                     <div className={css.inputBox}>
-                        <label>Link do trailer</label>
+                        <label>Link do Trailer</label>
                         <input type="text" name="trailer" value={filme.trailer} onChange={handleChange} />
                     </div>
 
-                    <button 
-                        type="submit" 
+                    <button
+                        type="submit"
                         className={css.btnCadastrar}
                         disabled={loading}
                     >
-                        {loading ? 'CADASTRANDO...' : 'CADASTRAR'}
+                        {loading ? 'CADASTRANDO...' : 'CADASTRAR FILME'}
                     </button>
                 </form>
             </div>

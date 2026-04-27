@@ -7,7 +7,7 @@ export default function DashboardAdm() {
     const registros = [
         { nome: "SESSÕES", rota: "/sessoes" },
         { nome: "CLIENTES" },
-        { nome: "FILMES" },
+        { nome: "FILMES", rota: "/filmes" },
         { nome: "SALAS" },
         { nome: "PROMOÇÕES" },
         { nome: "BANNER" },

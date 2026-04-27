@@ -16,6 +16,7 @@ import EditarSessao from "./components/EditarSessao/EditarSessao.jsx";
 import CadastroSessao from "./components/CadastroSessao/CadastroSessao.jsx";
 import DashboardAdm from "./pages/DashboardAdm.jsx";
 import ListarSessao from './pages/ListarSessao.jsx';
+import ListarFilmes from "./pages/ListarFilmes.jsx";
 
 function App() {
   const [usuario, setUsuario] = useState(null);
@@ -40,6 +41,7 @@ function App() {
         <Route path="/dashboardAdm" element={<DashboardAdm />} />
 
         <Route path="/sessoes" element={<ListarSessao />} />
+        <Route path="/filmes" element={<ListarFilmes />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

@@ -36,7 +36,7 @@ function App() {
         <Route path="/cadastrofilme" element={<CadastroFilme />} />
         {/* <Route path="/cadastrosala" element={<CadastroSala />} /> */}
         <Route path="/Editarsessao" element={<EditarSessao />} />
-        <Route path="/Cadastrossessao" element={<CadastroSessao />} />
+        <Route path="/sessoes/criar" element={<CadastroSessao />} />
         <Route path="/dashboardAdm" element={<DashboardAdm />} />
 
         <Route path="/sessoes" element={<ListarSessao />} />

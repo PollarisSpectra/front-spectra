@@ -1,10 +1,11 @@
 import React from "react";
 import { Film, Ticket, CircleDollarSign, Settings, Search } from 'lucide-react';
 import css from './DashboardAdm.module.css';
+import {Link} from "react-router-dom";
 
 export default function DashboardAdm() {
     const registros = [
-        { nome: "SESSÕES" },
+        { nome: "SESSÕES", rota: "/sessoes" },
         { nome: "CLIENTES" },
         { nome: "FILMES" },
         { nome: "SALAS" },
@@ -78,13 +79,20 @@ export default function DashboardAdm() {
 
                 <div className={css.registrosLista}>
                     {registros.map((item, index) => (
-                        <div className={css.registroItem} key={index}>
+                        // <div className={css.registroItem} key={index}>
+                        //     <span>{item.nome}</span>
+                        //
+                        //     <button className={css.searchBtn}>
+                        //         <Search size={16} />
+                        //     </button>
+                        // </div>
+                        <Link to={item.rota} className={css.registroItem} key={index}>
                             <span>{item.nome}</span>
 
                             <button className={css.searchBtn}>
                                 <Search size={16} />
                             </button>
-                        </div>
+                        </Link>
                     ))}
                 </div>
             </section>

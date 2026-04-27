@@ -1,97 +1,117 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import css from "./ListarSessao.module.css";
 
 export default function ListarSessao() {
-    const [aberta, setAberta] = useState(1);
+    const [aberta, setAberta] = useState(null);
+    const [sessoes, setSessoes] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
-    const sessoes = [
-        {
-            id: 1,
-            horario: "19:30",
-            filme: "Missão: Impossível - O Acerto Final",
-            hoje: "19:30",
-            total: "R$57,99",
-            imagem: "/missaofilme.png"
-        },
-        {
-            id: 2,
-            horario: "19:30",
-            filme: "Missão: Impossível - O Acerto Final",
-            hoje: "19:30",
-            total: "R$57,99",
-            imagem: "/missaofilme.png"
-        },
-        {
-            id: 3,
-            horario: "19:30",
-            filme: "Missão: Impossível - O Acerto Final",
-            hoje: "19:30",
-            total: "R$57,99",
-            imagem: "/missaofilme.png"
-        },
-        {
-            id: 4,
-            horario: "19:30",
-            filme: "Missão: Impossível - O Acerto Final",
-            hoje: "19:30",
-            total: "R$57,99",
-            imagem: "/missaofilme.png"
+    // Função para buscar as sessões do backend
+    const buscarSessoes = async () => {
+        try {
+            const response = await fetch("http://127.0.0.1:5000/sessao/listar_sessao");
+            const data = await response.json();
+            if (response.ok) {
+                setSessoes(data.sessao);
+            }
+        } catch (error) {
+            console.error("Erro ao buscar sessões:", error);
+        } finally {
+            setLoading(false);
         }
-    ];
+    };
+
+    useEffect(() => {
+        buscarSessoes();
+    }, []);
+
+    const handleExcluir = async (id) => {
+        if (!window.confirm("Tem certeza que deseja excluir esta sessão?")) return;
+
+        try {
+            const response = await fetch(`http://127.0.0.1:5000/sessao/excluir_sessao/${id}`, {
+                method: 'DELETE',
+            });
+            const data = await response.json();
+
+            if (response.ok) {
+                alert("Sessão excluída!");
+                buscarSessoes(); // Atualiza a lista
+            } else {
+                alert(data.error || "Erro ao excluir");
+            }
+        } catch (error) {
+            alert("Erro na requisição");
+        }
+    };
 
     return (
-            <main className={css.main}>
-                <div className={css.tituloArea}>
-                    <button className={css.voltar}>←</button>
-                    <h1>SESSÕES</h1>
-                </div>
+        <main className={css.main}>
+            <div className={css.tituloArea}>
+                <button className={css.voltar} onClick={() => navigate("/dashboard")}>←</button>
+                <h1>SESSÕES</h1>
+            </div>
 
-                <section className={css.lista}>
-                    {sessoes.map((sessao) => (
-                        <div key={sessao.id} className={css.cardSessao}>
-                            <div
-                                className={css.topoSessao}
-                                onClick={() =>
-                                    setAberta(aberta === sessao.id ? null : sessao.id)
-                                }
-                            >
-                                <div>
-                                    <span>SESSÃO</span>
-                                    <strong>{sessao.id}</strong>
-                                    <p>{sessao.horario}</p>
+            <section className={css.lista}>
+                {loading ? <p className="text-white">Carregando...</p> :
+                    sessoes.length === 0 ? <p className="text-white">Nenhuma sessão encontrada.</p> :
+                        sessoes.map((sessao) => (
+                            <div key={sessao.id_sessao} className={css.cardSessao}>
+                                <div
+                                    className={css.topoSessao}
+                                    onClick={() => setAberta(aberta === sessao.id_sessao ? null : sessao.id_sessao)}
+                                >
+                                    <div>
+                                        <span>SESSÃO</span>
+                                        <strong>{sessao.id_sessao}</strong>
+                                        <p>{sessao.horario}</p>
+                                    </div>
+                                    <button className={css.seta + " bg-transparent text-white"}>
+                                        {aberta === sessao.id_sessao ? "⌃" : "⌄"}
+                                    </button>
                                 </div>
 
-                                <button>
-                                    {aberta === sessao.id ? "⌃" : "⌄"}
-                                </button>
-                            </div>
+                                {aberta === sessao.id_sessao && (
+                                    <div className={css.conteudoSessao}>
+                                        <div className={css.infoFilme}>
+                                            {/* Caso não tenha imagem no banco, usamos um placeholder */}
+                                            <img src={sessao.imagem || "/missaofilme.png"} alt={sessao.filme} />
+                                            <div>
+                                                <h3>{sessao.filme}</h3>
+                                                <p>Sala: {sessao.sala}</p>
+                                                <p>Data: {sessao.data}</p>
+                                                <p>Valor: R$ {sessao.valor_assento.toFixed(2)}</p>
+                                            </div>
+                                        </div>
 
-                            {aberta === sessao.id && sessao.filme && (
-                                <div className={css.conteudoSessao}>
-                                    <div className={css.infoFilme}>
-                                        <img src={sessao.imagem} alt={sessao.filme} />
-
-                                        <div>
-                                            <h3>{sessao.filme}</h3>
-                                            <p>Hoje às {sessao.hoje}</p>
-                                            <p>Total: {sessao.total}</p>
+                                        <div className={css.acoes}>
+                                            <button
+                                                className={css.btnEditar}
+                                                onClick={() => navigate(`/editar-sessao/${sessao.id_sessao}`)}
+                                            >
+                                                ✎
+                                            </button>
+                                            <button
+                                                className={css.btnExcluir}
+                                                onClick={() => handleExcluir(sessao.id_sessao)}
+                                            >
+                                                🗑
+                                            </button>
                                         </div>
                                     </div>
+                                )}
+                            </div>
+                        ))}
+            </section>
 
-                                    <div className={css.acoes}>
-                                        <button>✎</button>
-                                        <button>🗑</button>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                    ))}
-                </section>
-
-                <div className={css.adicionarArea}>
-                    <button className={css.adicionarTexto}>ADICIONAR SESSÃO</button>
-                    <button className={css.adicionarBtn}>+</button>
-                </div>
-            </main>
+            <div className={css.adicionarArea}>
+                <button className={css.adicionarTexto + " px-3 py-1 rounded-3 fw-semibold"} onClick={() => navigate("/sessoes/criar")}>
+                    ADICIONAR SESSÃO
+                </button>
+                <button className={css.adicionarBtn} onClick={() => navigate("/sessoes/criar")}>+</button>
+            </div>
+        </main>
     );
 }

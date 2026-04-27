@@ -89,7 +89,7 @@ export default function ListarSessao() {
                                         <div className={css.acoes}>
                                             <button
                                                 className={css.btnEditar}
-                                                onClick={() => navigate(`/editar-sessao/${sessao.id_sessao}`)}
+                                                onClick={() => navigate(`/sessoes/${sessao.id_sessao}/editar`)}
                                             >
                                                 ✎
                                             </button>

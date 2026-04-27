@@ -1,7 +1,12 @@
 import { useState } from "react";
 import css from "./EditarSessao.module.css";
+import { useParams } from "react-router-dom";
 
 export default function editarSessao() {
+    const { id } = useParams();
+
+    console.log(id);
+
     const [sessao, setSessao] = useState({
         filme: "",
         sala: "",

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import css from "./ListarSessao.module.css";
 import ModalDecisao from "../../../../components/ModalDecisao/ModalDecisao";
-
+import FlashMessage from "../../../../components/FlashMessage/FlashMessage.jsx"; // Importe o componente
 
 export default function ListarSessao() {
     const [aberta, setAberta] = useState(null);
@@ -10,10 +10,13 @@ export default function ListarSessao() {
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
+    // Estados para a FlashMessage
+    const [mensagem, setMensagem] = useState("");
+    const [tipoMensagem, setTipoMensagem] = useState("");
+
     // Modal de exclusão
     const [exibirModalExcluir, setExibirModalExcluir] = useState(false);
     const [idParaExcluir, setIdParaExcluir] = useState(null);
-
 
     const buscarSessoes = async () => {
         try {
@@ -24,25 +27,24 @@ export default function ListarSessao() {
                 setSessoes(data.sessao);
             }
         } catch (error) {
-            console.error("Erro ao buscar sessões:", error);
+            setMensagem("Erro ao carregar a lista de sessões.");
+            setTipoMensagem("erro");
         } finally {
             setLoading(false);
         }
     };
 
-
     useEffect(() => {
         buscarSessoes();
     }, []);
-
 
     const gatilhoExcluir = (id) => {
         setIdParaExcluir(id);
         setExibirModalExcluir(true);
     };
 
-
     const confirmarExclusao = async () => {
+        setMensagem(""); // Limpa mensagens anteriores
         try {
             const response = await fetch(`http://localhost:5000/sessao/excluir_sessao/${idParaExcluir}`, {
                 method: 'DELETE',
@@ -52,21 +54,33 @@ export default function ListarSessao() {
             const data = await response.json();
 
             if (response.ok) {
+                setMensagem("Sessão excluída com sucesso!");
+                setTipoMensagem("sucesso");
                 buscarSessoes(); // Atualiza lista
             } else {
-                alert(data.error || "Erro ao excluir sessão.");
+                setMensagem(data.error || "Erro ao excluir sessão.");
+                setTipoMensagem("erro");
             }
         } catch (error) {
-            alert("Erro de conexão com o servidor.");
+            setMensagem("Erro de conexão com o servidor.");
+            setTipoMensagem("erro");
         } finally {
             setExibirModalExcluir(false);
             setIdParaExcluir(null);
         }
     };
 
-
     return (
         <main className={css.container}>
+            {/* Componente FlashMessage */}
+            <FlashMessage 
+                mensagem={mensagem} 
+                tipo={tipoMensagem} 
+                onClose={() => {
+                    setMensagem("");
+                    setTipoMensagem("");
+                }} 
+            />
 
             {/* Modal de confirmação */}
             {exibirModalExcluir && (
@@ -80,12 +94,10 @@ export default function ListarSessao() {
                 />
             )}
 
-
             <section className={css.header}>
                 <button className={css.voltar} onClick={() => navigate(-1)}>←</button>
                 <h1 className={css.formTitulo}>SESSÕES</h1>
             </section>
-
 
             <section className={css.lista}>
                 {loading ? (
@@ -100,14 +112,13 @@ export default function ListarSessao() {
                                 onClick={() => setAberta(aberta === sessao.id_sessao ? null : sessao.id_sessao)}
                             >
                                 <div className={css.sessaoLabel}>
-                                    SESSÃO <span>Id: {sessao.id_sessao}</span>
+                                    SESSÃO <span>Filme: {sessao.filme}</span>
                                 </div>
                                 <span className={css.horarioSessao}>{sessao.horario}</span>
                                 <span className={css.seta}>
                                     {aberta === sessao.id_sessao ? "▲" : "▼"}
                                 </span>
                             </div>
-
 
                             {aberta === sessao.id_sessao && (
                                 <div className={css.sessaoDetalhes}>
@@ -126,7 +137,6 @@ export default function ListarSessao() {
                                                 R$ {Number(sessao.valor_assento || 0).toFixed(2)}
                                             </p>
                                         </div>
-
 
                                         <div className={css.acoes}>
                                             <button
@@ -154,14 +164,12 @@ export default function ListarSessao() {
                 )}
             </section>
 
-
             <button
                 className={css.btnAdd}
                 onClick={() => navigate("/app/sessoes/criar")}
             >
                 ADICIONAR SESSÃO <span className={css.plusIcon}>+</span>
             </button>
-
         </main>
     );
 }

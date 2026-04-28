@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import css from "./EditarSessao.module.css";
 import { useParams, useNavigate } from "react-router-dom";
+import FlashMessage from "../../../../components/FlashMessage/FlashMessage.jsx";
 
 export default function EditarSessao() {
     const { id } = useParams();
@@ -18,7 +19,9 @@ export default function EditarSessao() {
         valor_assento: ""
     });
 
-    const [mensagem, setMensagem] = useState({ texto: "", tipo: "" });
+    // Estados para a FlashMessage
+    const [mensagem, setMensagem] = useState("");
+    const [tipoMensagem, setTipoMensagem] = useState("");
 
     useEffect(() => {
         carregarDados();
@@ -52,7 +55,6 @@ export default function EditarSessao() {
                     id: s.id_sala,
                     nome: s.nome
                 })));
-                console.log(listaSalas);
             }
 
             if (resSessoes.ok) {
@@ -73,7 +75,8 @@ export default function EditarSessao() {
             }
 
         } catch (error) {
-            setMensagem({ texto: "Erro ao carregar dados.", tipo: "erro" });
+            setMensagem("Erro ao carregar dados.");
+            setTipoMensagem("erro");
         }
     }
 
@@ -84,6 +87,7 @@ export default function EditarSessao() {
 
     async function handleSubmit(e) {
         e.preventDefault();
+        setMensagem("");
 
         try {
             const response = await fetch(`http://localhost:5000/sessao/editar_sessao/${id}`, {
@@ -98,21 +102,25 @@ export default function EditarSessao() {
             const data = await response.json();
 
             if (response.ok) {
-                setMensagem({ texto: "Sessão editada com sucesso!", tipo: "sucesso" });
+                setMensagem("Sessão editada com sucesso!");
+                setTipoMensagem("sucesso");
 
                 setTimeout(() => {
                     navigate("/app/sessoes");
                 }, 1500);
             } else {
-                setMensagem({ texto: data.error || "Erro ao editar sessão.", tipo: "erro" });
+                setMensagem(data.error || "Erro ao editar sessão.");
+                setTipoMensagem("erro");
             }
         } catch (error) {
-            setMensagem({ texto: "Erro de conexão com o servidor.", tipo: "erro" });
+            setMensagem("Erro de conexão com o servidor.");
+            setTipoMensagem("erro");
         }
     }
 
     async function handleExcluir() {
         if (!window.confirm("Tem certeza que deseja excluir esta sessão?")) return;
+        setMensagem("");
 
         try {
             const response = await fetch(`http://localhost:5000/sessao/excluir_sessao/${id}`, {
@@ -123,36 +131,41 @@ export default function EditarSessao() {
             const data = await response.json();
 
             if (response.ok) {
-                setMensagem({ texto: "Sessão excluída com sucesso!", tipo: "sucesso" });
+                setMensagem("Sessão excluída com sucesso!");
+                setTipoMensagem("sucesso");
 
                 setTimeout(() => {
                     navigate("/app/sessoes");
                 }, 1500);
             } else {
-                setMensagem({ texto: data.error || "Erro ao excluir sessão.", tipo: "erro" });
+                setMensagem(data.error || "Erro ao excluir sessão.");
+                setTipoMensagem("erro");
             }
         } catch (error) {
-            setMensagem({ texto: "Erro de conexão com o servidor.", tipo: "erro" });
+            setMensagem("Erro de conexão com o servidor.");
+            setTipoMensagem("erro");
         }
     }
 
     return (
         <div className={`${css.containerMain} ${css.darkMode}`}>
-            <div className={`${css.formCard} ${css.formDark}`}>
+            {/* Componente FlashMessage Integrado */}
+            <FlashMessage 
+                mensagem={mensagem} 
+                tipo={tipoMensagem} 
+                onClose={() => {
+                    setMensagem("");
+                    setTipoMensagem("");
+                }} 
+            />
 
+            <div className={`${css.formCard} ${css.formDark}`}>
                 <div className={css.header}>
                     <button type="button" className={css.btnVoltar} onClick={() => navigate(-1)}>
                         ←
                     </button>
-
                     <h1 className={css.formTitulo}>EDIÇÃO DE SESSÃO</h1>
                 </div>
-
-                {mensagem.texto && (
-                    <div className={`${css.statusMsg} ${css[mensagem.tipo]}`}>
-                        {mensagem.texto}
-                    </div>
-                )}
 
                 <form onSubmit={handleSubmit}>
                     <div className={css.inputBox}>
@@ -257,4 +270,4 @@ export default function EditarSessao() {
             </div>
         </div>
     );
-}
+}   

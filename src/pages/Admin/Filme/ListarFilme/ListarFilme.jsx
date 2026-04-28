@@ -2,12 +2,17 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import css from "./ListarFilme.module.css";
 import ModalDecisao from "../../../../components/ModalDecisao/ModalDecisao";
+import FlashMessage from "../../../../components/FlashMessage/FlashMessage.jsx";
 
 export default function ListarFilme() {
     const navigate = useNavigate();
     const [filmes, setFilmes] = useState([]);
     const [filmeAberto, setFilmeAberto] = useState(null);
     const [carregando, setCarregando] = useState(false);
+
+    // Estados para a FlashMessage
+    const [mensagem, setMensagem] = useState("");
+    const [tipoMensagem, setTipoMensagem] = useState("");
 
     const [buscaTexto, setBuscaTexto] = useState("");
     const [filtroTipo, setFiltroTipo] = useState("titulo");
@@ -24,6 +29,7 @@ export default function ListarFilme() {
     };
 
     const confirmarExclusao = async () => {
+        setMensagem("");
         try {
             const response = await fetch(`http://localhost:5000/filmes/excluir_filme/${idParaExcluir}`, {
                 method: 'DELETE',
@@ -31,9 +37,10 @@ export default function ListarFilme() {
             });
 
             if (response.ok) {
+                setMensagem("Filme excluído com sucesso!");
+                setTipoMensagem("sucesso");
                 setFilmeAberto(null);
 
-                // verifica antes de atualizar lista
                 const paginaVaiFicarVazia = filmes.length === 1 && paginaAtual > 1;
 
                 if (paginaVaiFicarVazia) {
@@ -43,10 +50,12 @@ export default function ListarFilme() {
                 }
             } else {
                 const data = await response.json();
-                alert(data.error || "Erro ao excluir filme.");
+                setMensagem(data.error || "Erro ao excluir filme.");
+                setTipoMensagem("erro");
             }
         } catch (err) {
-            alert("Erro de conexão com o servidor.");
+            setMensagem("Erro de conexão com o servidor.");
+            setTipoMensagem("erro");
         } finally {
             setExibirModalExcluir(false);
             setIdParaExcluir(null);
@@ -70,9 +79,14 @@ export default function ListarFilme() {
                 setPaginaAtual(pagina);
             } else {
                 setFilmes([]);
+                if (buscaTexto) {
+                    setMensagem("Nenhum filme encontrado para essa busca.");
+                    setTipoMensagem("erro");
+                }
             }
         } catch (error) {
-            console.error("Erro ao buscar filmes:", error);
+            setMensagem("Erro ao carregar filmes.");
+            setTipoMensagem("erro");
         } finally {
             setCarregando(false);
         }
@@ -90,6 +104,7 @@ export default function ListarFilme() {
 
     const dispararBusca = (e) => {
         e.preventDefault();
+        setMensagem(""); // Limpa avisos ao iniciar nova busca
         setPaginaAtual(1);
         buscarFilmes(1);
     };
@@ -105,6 +120,15 @@ export default function ListarFilme() {
 
     return (
         <main className={css.container}>
+            <FlashMessage 
+                mensagem={mensagem} 
+                tipo={tipoMensagem} 
+                onClose={() => {
+                    setMensagem("");
+                    setTipoMensagem("");
+                }} 
+            />
+
             {exibirModalExcluir && (
                 <ModalDecisao 
                     titulo="Tem certeza que deseja excluir este filme?"

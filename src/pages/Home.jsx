@@ -1,5 +1,6 @@
 import Card from '../components/Card/Card.jsx';
-import TestingBanner from '../components/Banner/TestingBanner.jsx';
+import TestingBanner from '../components/Banner/Banner.jsx';
+import Banner from '../components/Banner/Banner.jsx';
 import styles from './Home.module.css';
 
 export default function Home() {

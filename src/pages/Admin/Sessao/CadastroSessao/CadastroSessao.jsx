@@ -77,7 +77,7 @@ export default function CadastroSessao() {
 
             if (response.ok) {
                 setMensagem({ texto: "Sessão cadastrada com sucesso!", tipo: "sucesso" });
-                setTimeout(() => navigate("/sessoes"), 2000);
+                setTimeout(() => navigate("/app/sessoes"), 2000);
             } else {
                 setMensagem({ texto: data.error || "Erro ao cadastrar", tipo: "erro" });
             }

@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import estilo from './Banner.module.css';
+import { useState } from "react";
+import styles from './Banner.module.css';
 
-export default function Banner() {
+export default function TestingBanner() {
     const [indiceAtual, setIndiceAtual] = useState(0);
-
+    
     const imagens = [
         {
             url: '/banner-interstellar.png',
@@ -26,36 +26,33 @@ export default function Banner() {
     };
 
     return (
-        <section className={estilo.bannerContainer}>
-            <div
-                className={estilo.slide}
-                style={{ backgroundImage: `url(${imagens[indiceAtual].url})` }}
+        <div
+            className={styles.banner + " container-fluid"}
+            style={{backgroundImage: `url(${imagens[indiceAtual].url})`, height: 260}}
             >
-                <div className={estilo.overlay}>
-                    <div className={estilo.conteudo}>
-                        <h2 className={estilo.status}>EM CARTAZ</h2>
-                        <h1 className={estilo.tituloPrincipal}>{imagens[indiceAtual].titulo}</h1>
-                        <p className={estilo.subtitulo}>{imagens[indiceAtual].legenda}</p>
+            <div className="container text-white d-flex flex-column align-items-start">
+                <div className="d-flex flex-column py-5">
+                    <span className="fs-responsive-4 fw-semibold text-white text-opacity-75">Em cartaz</span>
+                    <h1 className="fw-bold fs-responsive-1">{imagens[indiceAtual].titulo}</h1>
+                    <span className="fs-responsive-5 text-white text-opacity-50">{imagens[indiceAtual].legenda}</span>
+                </div>
+                <div className="w-100 d-flex gap-2 justify-content-between">
+                    <div className="d-flex gap-2 align-items-center">
+                        {imagens.map((_, index) => (
+                            <span
+                                key={index} 
+                                className={`${styles.ponto} bg-white ${(indiceAtual === index) ? "bg-opacity-1" : "bg-opacity-25"}`}
+                                onClick={() => setIndiceAtual(index)}
+                                >
+                            </span>
+                        ))}
+                    </div>
+                    <div className="d-flex gap-2">
+                        <button className={"btn px-3 py-2 border " + styles.setaButton} onClick={slideAnterior}>&#10094;</button>
+                        <button className={"btn px-3 py-2 border " + styles.setaButton} onClick={proximoSlide}>&#10095;</button>
                     </div>
                 </div>
-
-                {/* Indicadores (Bolinhas) */}
-                <div className={estilo.indicadores}>
-                    {imagens.map((_, index) => (
-                        <span
-                            key={index}
-                            className={`${estilo.ponto} ${index === indiceAtual ? estilo.pontoAtivo : ''}`}
-                            onClick={() => setIndiceAtual(index)}
-                        ></span>
-                    ))}
-                </div>
-
-                {/* Controles de Navegação */}
-                <div className={estilo.navegacao}>
-                    <button onClick={slideAnterior} className={estilo.botaoNav}>&#10094;</button>
-                    <button onClick={proximoSlide} className={estilo.botaoNav}>&#10095;</button>
-                </div>
             </div>
-        </section>
-    );
+        </div>
+    )
 }

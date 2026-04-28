@@ -1,4 +1,4 @@
-import Footer from "../Footer.jsx";
+import Footer from "../../components/Footer.jsx";
 import css from "./NotFound.module.css";
 
 

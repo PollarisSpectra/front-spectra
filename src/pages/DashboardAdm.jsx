@@ -5,10 +5,10 @@ import {Link} from "react-router-dom";
 
 export default function DashboardAdm() {
     const registros = [
-        { nome: "SESSÕES", rota: "/sessoes" },
+        { nome: "SESSÕES", rota: "/app/sessoes" },
         { nome: "CLIENTES" },
-        { nome: "FILMES", rota: "/filmes" },
-        { nome: "SALAS" },
+        { nome: "FILMES", rota: "/app/filmes" },
+        { nome: "SALAS", rota: "/app/salas" },
         { nome: "PROMOÇÕES" },
         { nome: "BANNER" },
     ];
@@ -79,13 +79,6 @@ export default function DashboardAdm() {
 
                 <div className={css.registrosLista}>
                     {registros.map((item, index) => (
-                        // <div className={css.registroItem} key={index}>
-                        //     <span>{item.nome}</span>
-                        //
-                        //     <button className={css.searchBtn}>
-                        //         <Search size={16} />
-                        //     </button>
-                        // </div>
                         <Link to={item.rota} className={css.registroItem} key={index}>
                             <span>{item.nome}</span>
 

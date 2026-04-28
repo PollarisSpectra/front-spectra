@@ -88,7 +88,7 @@ export default function CadastroFilme() {
             } else {
                 setMessage({ text: data.error || data.message || 'Erro no cadastro!', type: 'error' });
             }
-        } catch (error) {
+        } catch {
             setMessage({ text: 'Erro de conexão com o servidor!', type: 'error' });
         } finally {
             setLoading(false);

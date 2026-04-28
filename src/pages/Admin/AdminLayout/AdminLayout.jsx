@@ -1,7 +1,7 @@
-import { Navigate } from "react-router-dom";
-import NotFound from "../../../components/Erro/NotFound";
+import { Navigate, Outlet } from "react-router-dom";
+import NotFound from "../../NotFound/NotFound";
 
-export default function AdminLayout({ children }) {
+export default function AdminLayout() {
     const usuario = localStorage.getItem('usuario');
 
     if (!usuario) return <Navigate to={"/login"} replace />;
@@ -12,5 +12,5 @@ export default function AdminLayout({ children }) {
         return <NotFound />
     }
 
-    return children;
+    return <Outlet />;
 }

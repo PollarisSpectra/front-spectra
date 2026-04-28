@@ -48,7 +48,7 @@ export default function ListarSessao() {
     };
 
     return (
-        <main className={css.main}>
+        <main className={css.main + " container"}>
             <div className={css.tituloArea}>
                 <button className={css.voltar} onClick={() => navigate("/dashboard")}>←</button>
                 <h1>SESSÕES</h1>
@@ -89,7 +89,7 @@ export default function ListarSessao() {
                                         <div className={css.acoes}>
                                             <button
                                                 className={css.btnEditar}
-                                                onClick={() => navigate(`/sessoes/${sessao.id_sessao}/editar`)}
+                                                onClick={() => navigate(`/app/sessoes/${sessao.id_sessao}/editar`)}
                                             >
                                                 ✎
                                             </button>
@@ -107,10 +107,10 @@ export default function ListarSessao() {
             </section>
 
             <div className={css.adicionarArea}>
-                <button className={css.adicionarTexto + " px-3 py-1 rounded-3 fw-semibold"} onClick={() => navigate("/sessoes/criar")}>
+                <button className={css.adicionarTexto + " px-3 py-1 rounded-3 fw-semibold"} onClick={() => navigate("/app/sessoes/criar")}>
                     ADICIONAR SESSÃO
                 </button>
-                <button className={css.adicionarBtn} onClick={() => navigate("/sessoes/criar")}>+</button>
+                <button className={css.adicionarBtn} onClick={() => navigate("/app/sessoes/criar")}>+</button>
             </div>
         </main>
     );

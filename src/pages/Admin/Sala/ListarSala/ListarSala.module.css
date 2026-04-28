@@ -1,0 +1,193 @@
+.container {
+    background: linear-gradient(to bottom, #0b0f14, #000);
+    min-height: 100vh;
+    padding: 60px 80px;
+    color: #fff;
+    font-family: sans-serif;
+}
+
+/* HEADER */
+.header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 50px;
+}
+
+.voltar {
+    background: transparent;
+    color: #fff;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.formTitulo {
+    font-size: 3rem;
+    font-weight: 900;
+    letter-spacing: 4px;
+}
+
+/* FILTRO */
+.filtroBarra {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.inputBusca {
+    background: transparent;
+    border: 1px solid #444;
+    border-radius: 10px;
+    padding: 10px 15px;
+    color: #fff;
+    width: 250px;
+}
+
+.btnBusca {
+    background: #fff;
+    color: #000;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* LISTA */
+.lista {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* CARD */
+.card {
+    background: #2c2c2c;
+    border-radius: 14px;
+    overflow: hidden;
+    transition: 0.2s;
+}
+
+.card:hover {
+    background: #3a3a3a;
+}
+
+.headerCard {
+    padding: 20px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 900;
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+.headerCard span {
+    background: #fff;
+    color: #000;
+    padding: 3px 8px;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+/* DETALHES */
+.detalhes {
+    padding: 20px 25px;
+    border-top: 1px solid #444;
+    font-size: 14px;
+}
+
+.detalhes p {
+    margin-bottom: 8px;
+}
+
+/* AÇÕES */
+.acoes {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.acoes button {
+    background: #fff;
+    color: #000;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* PAGINAÇÃO */
+.paginacao {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.paginacao button {
+    background: transparent;
+    border: 1px solid #fff;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.paginacao button:disabled {
+    opacity: 0.3;
+}
+
+/* BOTÃO ADD */
+.btnAdd {
+    position: fixed;
+    right: 60px;
+    bottom: 40px;
+    background: #fff;
+    color: #000;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btnAdd::after {
+    content: "+";
+    background: #000;
+    color: #fff;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* MENSAGEM */
+
+.messageBox {
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid;
+    font-weight: 500;
+}
+
+.success {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+}
+
+.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+}

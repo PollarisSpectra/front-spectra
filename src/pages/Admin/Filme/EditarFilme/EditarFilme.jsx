@@ -1,19 +1,74 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import css from './EditarFilme.module.css';
 
 export default function EditarFilme() {
-    const [filme, setFilme] = useState({
-        titulo: "",
-        genero: "",
-        duracao: "",
-        classificacao: "",
-        sinopse: "",
-        data_lancamento: "",
-        trailer: ""
-    });
+    const { id } = useParams();
+    const navigate = useNavigate();
 
+    const formatarData = (dataStr) => {
+        if (!dataStr) return "";
+        const d = new Date(dataStr);
+        if (isNaN(d)) return "";
+        return d.toISOString().split('T')[0];
+    };
+
+    const estadoVazio = {
+        titulo: "", genero: "", duracao: "", classificacao: "",
+        sinopse: "", data_lancamento: "", trailer: ""
+    };
+
+    const [filme, setFilme] = useState(estadoVazio);
+    const [estadoInicial, setEstadoInicial] = useState(estadoVazio);
+    const [capaOriginal, setCapaOriginal] = useState(null);
     const [previewCapa, setPreviewCapa] = useState(null);
+    const [imagemFile, setImagemFile] = useState(null);
+    const [imagemAlterada, setImagemAlterada] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [carregando, setCarregando] = useState(true);
+    const [mensagem, setMensagem] = useState(null);
     const fileInputRef = useRef(null);
+
+    useEffect(() => {
+        const buscarFilme = async () => {
+            setCarregando(true);
+            try {
+                const response = await fetch(`http://localhost:5000/filmes/${id}`, {
+                    credentials: 'include'
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    setMensagem({ tipo: 'erro', texto: data.error || "Erro ao carregar filme." });
+                    return;
+                }
+
+                const f = data.filme;
+                const estado = {
+                    titulo: f.titulo || "",
+                    genero: f.genero || "",
+                    duracao: f.duracao || "",
+                    classificacao: f.classificacao || "",
+                    sinopse: f.sinopse || "",
+                    data_lancamento: formatarData(f.data_lancamento),
+                    trailer: f.trailer || ""
+                };
+                const capa = f.imagem_url || null;
+
+                setFilme(estado);
+                setEstadoInicial(estado);
+                setCapaOriginal(capa);
+                setPreviewCapa(capa);
+            } catch (err) {
+                setMensagem({ tipo: 'erro', texto: "Erro de conexão com o servidor." });
+            } finally {
+                setCarregando(false);
+            }
+        };
+
+        buscarFilme();
+    }, [id]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -23,7 +78,85 @@ export default function EditarFilme() {
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
+            setImagemFile(file);
             setPreviewCapa(URL.createObjectURL(file));
+            setImagemAlterada(true);
+        }
+    };
+
+    const handleCancelarImagem = () => {
+        setImagemFile(null);
+        setPreviewCapa(capaOriginal);
+        setImagemAlterada(false);
+        fileInputRef.current.value = "";
+    };
+
+    const handleCancelarEdicao = () => navigate("/app/filmes");
+
+    const handleSalvar = async () => {
+        setLoading(true);
+        setMensagem(null);
+
+        try {
+            const formData = new FormData();
+            formData.append('titulo', filme.titulo);
+            formData.append('sinopse', filme.sinopse);
+            formData.append('genero', filme.genero);
+            formData.append('duracao', filme.duracao);
+            formData.append('classificacao', filme.classificacao);
+            formData.append('data_lancamento', filme.data_lancamento);
+            formData.append('trailer', filme.trailer);
+
+            if (imagemFile) {
+                formData.append('imagem', imagemFile);
+            }
+
+            const response = await fetch(`http://localhost:5000/filmes/editar_filme/${id}`, {
+                method: 'PUT',
+                credentials: 'include',
+                body: formData
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                setMensagem({ tipo: 'erro', texto: data.error || "Erro ao salvar filme." });
+            } else {
+                setEstadoInicial(filme); // atualiza referência do cancelar
+                setImagemAlterada(false);
+                setImagemFile(null);
+                setMensagem({ tipo: 'sucesso', texto: data.message });
+            }
+        } catch (err) {
+            setMensagem({ tipo: 'erro', texto: "Erro de conexão com o servidor." });
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleExcluir = async () => {
+        if (!window.confirm("Tem certeza que deseja excluir este filme?")) return;
+
+        setLoading(true);
+        setMensagem(null);
+
+        try {
+            const response = await fetch(`http://localhost:5000/filmes/excluir_filme/${id}`, {
+                method: 'DELETE',
+                credentials: 'include'
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                setMensagem({ tipo: 'erro', texto: data.error || "Erro ao excluir filme." });
+            } else {
+                navigate('/app/filmes');
+            }
+        } catch (err) {
+            setMensagem({ tipo: 'erro', texto: "Erro de conexão com o servidor." });
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -39,11 +172,13 @@ export default function EditarFilme() {
         }
     };
 
+    if (carregando) return <div style={{ color: "white", textAlign: "center", marginTop: "100px" }}>Carregando...</div>;
+
     return (
         <div className={css.containerMain}>
             <div className={css.previewContainer}>
                 <div className={css.cardPreview}>
-                    <div className={css.capaArea} onClick={() => fileInputRef.current.click()}>
+                    <div className={css.capaArea}>
                         {previewCapa ? (
                             <img src={previewCapa} alt="Preview" className={css.imgPreview} />
                         ) : (
@@ -54,6 +189,18 @@ export default function EditarFilme() {
                                 </svg>
                             </div>
                         )}
+
+                        <div className={css.capaOverlay}>
+                            {imagemAlterada ? (
+                                <button type="button" className={css.btnCancelarImagem} onClick={handleCancelarImagem}>
+                                    ✕ Cancelar
+                                </button>
+                            ) : (
+                                <button type="button" className={css.btnTrocarImagem} onClick={() => fileInputRef.current.click()}>
+                                    ✎ Trocar imagem
+                                </button>
+                            )}
+                        </div>
 
                         {filme.classificacao && (
                             <div
@@ -88,14 +235,21 @@ export default function EditarFilme() {
             <div className={css.formCard}>
                 <h1 className={css.formTitulo}>EDIÇÃO DE FILME</h1>
 
+                {mensagem && (
+                    <div style={{
+                        padding: "10px 15px",
+                        marginBottom: "15px",
+                        borderRadius: "6px",
+                        backgroundColor: mensagem.tipo === 'sucesso' ? "#d4edda" : "#f8d7da",
+                        color: mensagem.tipo === 'sucesso' ? "#155724" : "#721c24",
+                        border: `1px solid ${mensagem.tipo === 'sucesso' ? "#c3e6cb" : "#f5c6cb"}`
+                    }}>
+                        {mensagem.texto}
+                    </div>
+                )}
+
                 <form className={css.formulario}>
-                    <input
-                        type="file"
-                        ref={fileInputRef}
-                        onChange={handleImageChange}
-                        style={{ display: 'none' }}
-                        accept="image/*"
-                    />
+                    <input type="file" ref={fileInputRef} onChange={handleImageChange} style={{ display: 'none' }} accept="image/*" />
 
                     <div className={css.inputBox}>
                         <label>Gênero</label>
@@ -114,12 +268,7 @@ export default function EditarFilme() {
 
                     <div className={css.inputBox}>
                         <label>Idade Indicativa</label>
-                        <select
-                            name="classificacao"
-                            value={filme.classificacao}
-                            onChange={handleChange}
-                            className={css.selectStyle}
-                        >
+                        <select name="classificacao" value={filme.classificacao} onChange={handleChange} className={css.selectStyle}>
                             <option value="">Selecione a idade</option>
                             <option value="L">Livre</option>
                             <option value="10">10</option>
@@ -146,12 +295,11 @@ export default function EditarFilme() {
                     </div>
 
                     <div style={{ display: "flex", gap: "15px", marginTop: "20px" }}>
-                        <button type="button" className={css.btnCadastrar} style={{ marginTop: 0 }}>
-                            SALVAR
+                        <button type="button" className={css.btnCadastrar + " px-2 py-1"} style={{ marginTop: 0 }} onClick={handleSalvar} disabled={loading}>
+                            {loading ? "SALVANDO..." : "SALVAR"}
                         </button>
-
-                        <button type="button" className={css.btnExcluir} style={{ marginTop: 0 }}>
-                            EXCLUIR FILME
+                        <button type="button" className={css.btnCancelar + " px-2 py-1"} style={{ marginTop: 0 }} onClick={handleCancelarEdicao} disabled={loading}>
+                            CANCELAR
                         </button>
                     </div>
                 </form>

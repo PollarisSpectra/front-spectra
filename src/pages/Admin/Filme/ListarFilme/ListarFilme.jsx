@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import css from "./ListarFilme.module.css";
+import ModalDecisao from "../../../../components/ModalDecisao/ModalDecisao";
 
 export default function ListarFilme() {
     const navigate = useNavigate();
@@ -10,20 +11,59 @@ export default function ListarFilme() {
 
     // Estados para Filtros e Paginação
     const [buscaTexto, setBuscaTexto] = useState("");
-    const [filtroTipo, setFiltroTipo] = useState("titulo"); // Define qual campo o input vai filtrar
+    const [filtroTipo, setFiltroTipo] = useState("titulo"); 
     const [paginaAtual, setPaginaAtual] = useState(1);
     const [totalPaginas, setTotalPaginas] = useState(1);
     const [menuFiltroAtivo, setMenuFiltroAtivo] = useState(false);
 
-    // Função unificada para buscar filmes
+    // ESTADOS PARA O MODAL DE EXCLUSÃO
+    const [exibirModalExcluir, setExibirModalExcluir] = useState(false);
+    const [idParaExcluir, setIdParaExcluir] = useState(null);
+
+    // 1. Abre o modal e guarda o ID do filme selecionado
+    const gatilhoExcluir = (id) => {
+        setIdParaExcluir(id);
+        setExibirModalExcluir(true);
+    };
+
+    // 2. Executa a exclusão após confirmação no modal
+    const confirmarExclusao = async () => {
+        try {
+            const response = await fetch(`http://localhost:5000/filmes/excluir_filme/${idParaExcluir}`, {
+                method: 'DELETE',
+                credentials: 'include'
+            });
+
+            if (response.ok) {
+                // 1. Fecha o detalhe do filme se ele estiver aberto
+                setFilmeAberto(null);
+                
+                // 2. Recarrega a página atual para trazer novos dados do banco
+                // Isso preenche a lacuna do item deletado com o próximo da fila
+                await buscarFilmes(paginaAtual);
+                
+                // Opcional: Se a página ficar vazia (excluiu o último item da última página), 
+                // você pode voltar para a página anterior:
+                if (filmes.length === 1 && paginaAtual > 1) {
+                    setPaginaAtual(paginaAtual - 1);
+                }
+            } else {
+                const data = await response.json();
+                alert(data.error || "Erro ao excluir filme.");
+            }
+        } catch (err) {
+            alert("Erro de conexão com o servidor.");
+        } finally {
+            setExibirModalExcluir(false);
+            setIdParaExcluir(null);
+        }
+    };
+
     const buscarFilmes = async (pagina = 1) => {
         setCarregando(true);
         try {
-            // Construímos os parâmetros dinamicamente baseados no filtro selecionado
             let queryParams = `page_number=${pagina}&page_size=10`;
-            
             if (buscaTexto) {
-                // Se o filtro selecionado for 'titulo', 'genero' ou 'classificacao'
                 queryParams += `&${filtroTipo}=${encodeURIComponent(buscaTexto)}`;
             }
 
@@ -44,7 +84,6 @@ export default function ListarFilme() {
         }
     };
 
-    // Busca inicial e sempre que a página mudar
     useEffect(() => {
         buscarFilmes(paginaAtual);
     }, [paginaAtual]);
@@ -53,9 +92,8 @@ export default function ListarFilme() {
         titulo: 'Título',
         classificacao: 'Classificação',
         genero: 'Gênero'
-    }
+    };
 
-    // Gatilho para o botão de lupa ou Enter
     const dispararBusca = (e) => {
         e.preventDefault();
         setPaginaAtual(1);
@@ -67,13 +105,24 @@ export default function ListarFilme() {
     };
 
     const getBadgeClass = (classificacao) => {
-        console.log(classificacao, typeof(classificacao));
         const badges = { 'L': css.badgeL, '10': css.badge10, '12': css.badge12, '14': css.badge14 };
         return badges[classificacao] || css.badge18;
     };
 
     return (
         <main className={css.container}>
+            {/* RENDERIZAÇÃO DO MODAL */}
+            {exibirModalExcluir && (
+                <ModalDecisao 
+                    titulo="Tem certeza que deseja excluir este filme?"
+                    textoConfirmar="Sim, excluir"
+                    textoCancelar="Cancelar"
+                    tipoAcao="perigo"
+                    aoConfirmar={confirmarExclusao}
+                    aoCancelar={() => setExibirModalExcluir(false)}
+                />
+            )}
+
             <section className={css.header}>
                 <button className={css.voltar} onClick={() => navigate(-1)}>←</button>
                 <h1 className={css.formTitulo}>FILMES</h1>
@@ -81,7 +130,6 @@ export default function ListarFilme() {
 
             <section className={css.filtroBarra}>
                 <section className={css.filtroBarra + " d-flex align-items-center justify-content-between w-100 gap-3"}>
-                    {/* Lado Esquerdo: Input e Botão */}
                     <form className="d-flex align-items-center gap-2" onSubmit={dispararBusca}>
                         <input
                             type="text" 
@@ -95,7 +143,6 @@ export default function ListarFilme() {
                         </button>
                     </form>
 
-                    {/* Lado Direito: O Seletor (Dropdown) */}
                     <div className="d-flex align-items-center gap-2">
                         <span className="text-secondary small">Filtrar por:</span>
                         <div className={css.ordenarWrapper}>
@@ -114,11 +161,6 @@ export default function ListarFilme() {
                         </div>
                     </div>
                 </section>
-
-
-                <div>
-                    
-                </div>
             </section>
 
             <section className={css.lista}>
@@ -129,7 +171,7 @@ export default function ListarFilme() {
                         <div key={filme.id_filme} className={css.filmeCard}>
                             <div className={css.filmeHeader} onClick={() => toggleAccordion(filme.id_filme)}>
                                 <div className={css.filmeLabel}>
-                                    FILME <span>{(paginaAtual - 1) * 10 + (index + 1)}</span>
+                                    FILME <span>Id: {filme.id_filme}</span>
                                 </div>
                                 <span className={css.seta}>{filmeAberto === filme.id_filme ? "▲" : "▼"}</span>
                             </div>
@@ -137,7 +179,7 @@ export default function ListarFilme() {
                             {filmeAberto === filme.id_filme && (
                                 <div className={css.filmeDetalhes}>
                                     <div className={css.posterContainer}>
-                                        <img src={filme.imagem || "https://via.placeholder.com/150"} alt={filme.titulo} className={css.poster} />
+                                        <img src={`http://localhost:5000/filmes${filme?.imagem_url}` || "https://via.placeholder.com/150"} alt={filme.titulo} className={css.poster} />
                                     </div>
                                     <div className={css.infoGrid}>
                                         <div className={css.colEsquerda}>
@@ -153,8 +195,16 @@ export default function ListarFilme() {
                                             <p className={css.sinopse}><strong>Sinopse:</strong> {filme.sinopse}</p>
                                         </div>
                                         <div className={css.acoes}>
-                                            <button className={css.btnEdit} onClick={() => navigate(`/admin/filmes/${filme.id_filme}/editar`)}>✎</button>
-                                            <button className={css.btnDelete + " px-2 py-1 rounded-3 fw-semibold"}>🗑Excluir</button>
+                                            <button className={css.btnEdit} onClick={() => navigate(`/app/filmes/${filme.id_filme}/editar`, { state: { filme } })}>✎</button>
+                                            <button
+                                                className={css.btnDelete + " px-2 py-1 rounded-3 fw-semibold"}
+                                                onClick={(e) => { 
+                                                    e.stopPropagation(); 
+                                                    gatilhoExcluir(filme.id_filme); 
+                                                }}
+                                            >
+                                                Excluir
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -166,7 +216,6 @@ export default function ListarFilme() {
                 )}
             </section>
 
-            {/* Controles de Paginação */}
             {totalPaginas > 1 && (
                 <section className={css.paginacao + " d-flex justify-content-center align-items-center gap-3 mt-5"}>
                     <button className={`rounded-3 px-2 py-1 ${paginaAtual === 1 ? "text-white" : ""}`} disabled={paginaAtual === 1} onClick={() => setPaginaAtual(p => p - 1)}>Anterior</button>

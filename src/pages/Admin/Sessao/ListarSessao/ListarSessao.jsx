@@ -33,6 +33,7 @@ export default function ListarSessao() {
         try {
             const response = await fetch(`http://localhost:5000/sessao/excluir_sessao/${id}`, {
                 method: 'DELETE',
+                credentials: 'include'
             });
 
             const data = await response.json();
@@ -40,6 +41,7 @@ export default function ListarSessao() {
             if (response.ok) {
                 buscarSessoes();
             } else {
+                console.log(data);
                 alert(data.error || "Erro ao excluir sessão");
             }
         } catch (error) {
@@ -77,14 +79,11 @@ export default function ListarSessao() {
 
                             {aberta === sessao.id_sessao && (
                                 <div className={css.sessaoDetalhes}>
-                                    <div className={css.posterContainer}>
-                                        <img
-                                            src={sessao.imagem || "https://via.placeholder.com/150"}
-                                            alt={sessao.filme}
-                                            className={css.poster}
-                                        />
-                                    </div>
-
+                                    <img
+                                        className={css.poster}
+                                        src={`http://localhost:5000/sessao/imagem_filme/${sessao.id_filme}.jpg`}
+                                        alt={sessao.filme}
+                                    />
                                     <div className={css.infoGrid}>
                                         <div className={css.colEsquerda}>
                                             <h3 className={css.sessaoTitulo}>{sessao.filme}</h3>

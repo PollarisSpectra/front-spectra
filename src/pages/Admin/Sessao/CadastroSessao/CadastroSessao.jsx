@@ -42,7 +42,7 @@ export default function CadastroSessao() {
 
                 if (resSalas.ok) {
                     // Mapeia Sala: [0]=ID, [1]=Nome
-                    setListaSalas(dadosSalas.salas.map(s => ({ id: s[0], nome: s[1] })));
+                    setListaSalas(dadosSalas.salas.map(s => ({ id: s.id_sala, nome: s.nome })));
                 } else if (resSalas.status === 403) {
                     setMensagem({ texto: "Acesso negado: Apenas administradores podem carregar salas.", tipo: "erro" });
                 }

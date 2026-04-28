@@ -14,72 +14,75 @@ export default function EditarSessao() {
         id_sala: "",
         horario: "",
         data: "",
+        status: "",
         valor_assento: ""
     });
 
     const [mensagem, setMensagem] = useState({ texto: "", tipo: "" });
 
     useEffect(() => {
-        const carregarDados = async () => {
-            try {
-                const options = {
-                    method: "GET",
-                    credentials: "include"
-                };
-
-                const resFilmes = await fetch("http://localhost:5000/filmes/listar_filme", options);
-                const dadosFilmes = await resFilmes.json();
-
-                const resSalas = await fetch("http://localhost:5000/salas/listar_sala", options);
-                const dadosSalas = await resSalas.json();
-
-                const resSessoes = await fetch("http://localhost:5000/sessao/listar_sessao", options);
-                const dadosSessoes = await resSessoes.json();
-
-                if (resFilmes.ok) {
-                    setListaFilmes(dadosFilmes.filmes.map(f => ({
-                        id: f[0],
-                        titulo: f[1]
-                    })));
-                }
-
-                if (resSalas.ok) {
-                    setListaSalas(dadosSalas.salas.map(s => ({
-                        id: s[0],
-                        nome: s[1]
-                    })));
-                }
-
-                if (resSessoes.ok) {
-                    const sessaoEncontrada = dadosSessoes.sessao.find(
-                        item => item.id_sessao == id
-                    );
-
-                    if (sessaoEncontrada) {
-                        setSessao({
-                            id_filme: sessaoEncontrada.id_filme || "",
-                            id_sala: sessaoEncontrada.id_sala || "",
-                            horario: sessaoEncontrada.horario || "",
-                            data: sessaoEncontrada.data || "",
-                            valor_assento: sessaoEncontrada.valor_assento || ""
-                        });
-                    }
-                }
-
-            } catch (error) {
-                setMensagem({ texto: "Erro ao carregar dados.", tipo: "erro" });
-            }
-        };
-
         carregarDados();
     }, [id]);
 
-    const handleChange = (e) => {
+    async function carregarDados() {
+        try {
+            const options = {
+                method: "GET",
+                credentials: "include"
+            };
+
+            const resFilmes = await fetch("http://localhost:5000/filmes/listar_filme", options);
+            const dadosFilmes = await resFilmes.json();
+
+            const resSalas = await fetch("http://localhost:5000/salas/listar_sala", options);
+            const dadosSalas = await resSalas.json();
+
+            const resSessoes = await fetch("http://localhost:5000/sessao/listar_sessao", options);
+            const dadosSessoes = await resSessoes.json();
+
+            if (resFilmes.ok) {
+                setListaFilmes(dadosFilmes.filmes.map(f => ({
+                    id: f[0],
+                    titulo: f[1]
+                })));
+            }
+
+            if (resSalas.ok) {
+                setListaSalas(dadosSalas.salas.map(s => ({
+                    id: s.id_sala,
+                    nome: s.nome
+                })));
+                console.log(listaSalas);
+            }
+
+            if (resSessoes.ok) {
+                const sessaoEncontrada = dadosSessoes.sessao.find(
+                    item => item.id_sessao == id
+                );
+
+                if (sessaoEncontrada) {
+                    setSessao({
+                        id_filme: sessaoEncontrada.id_filme || "",
+                        id_sala: sessaoEncontrada.id_sala || "",
+                        horario: sessaoEncontrada.horario || "",
+                        data: sessaoEncontrada.data || "",
+                        status: sessaoEncontrada.status || "",
+                        valor_assento: sessaoEncontrada.valor_assento || ""
+                    });
+                }
+            }
+
+        } catch (error) {
+            setMensagem({ texto: "Erro ao carregar dados.", tipo: "erro" });
+        }
+    }
+
+    function handleChange(e) {
         const { name, value } = e.target;
         setSessao({ ...sessao, [name]: value });
-    };
+    }
 
-    const handleSubmit = async (e) => {
+    async function handleSubmit(e) {
         e.preventDefault();
 
         try {
@@ -96,16 +99,19 @@ export default function EditarSessao() {
 
             if (response.ok) {
                 setMensagem({ texto: "Sessão editada com sucesso!", tipo: "sucesso" });
-                setTimeout(() => navigate("/app/sessoes"), 1500);
+
+                setTimeout(() => {
+                    navigate("/app/sessoes");
+                }, 1500);
             } else {
                 setMensagem({ texto: data.error || "Erro ao editar sessão.", tipo: "erro" });
             }
         } catch (error) {
             setMensagem({ texto: "Erro de conexão com o servidor.", tipo: "erro" });
         }
-    };
+    }
 
-    const handleExcluir = async () => {
+    async function handleExcluir() {
         if (!window.confirm("Tem certeza que deseja excluir esta sessão?")) return;
 
         try {
@@ -128,14 +134,17 @@ export default function EditarSessao() {
         } catch (error) {
             setMensagem({ texto: "Erro de conexão com o servidor.", tipo: "erro" });
         }
-    };
+    }
 
     return (
         <div className={`${css.containerMain} ${css.darkMode}`}>
             <div className={`${css.formCard} ${css.formDark}`}>
 
                 <div className={css.header}>
-                    <button type="button" className={css.btnVoltar} onClick={() => navigate(-1)}>←</button>
+                    <button type="button" className={css.btnVoltar} onClick={() => navigate(-1)}>
+                        ←
+                    </button>
+
                     <h1 className={css.formTitulo}>EDIÇÃO DE SESSÃO</h1>
                 </div>
 
@@ -205,9 +214,25 @@ export default function EditarSessao() {
                     </div>
 
                     <div className={css.inputBox}>
+                        <label>Status:</label>
+                        <select
+                            name="status"
+                            value={sessao.status}
+                            onChange={handleChange}
+                            className={css.selectStyle}
+                        >
+                            <option value="">Selecione</option>
+                            <option value="Ativa">Ativa</option>
+                            <option value="Inativa">Inativa</option>
+                            <option value="Cancelada">Cancelada</option>
+                        </select>
+                    </div>
+
+                    <div className={css.inputBox}>
                         <label>Preço por assento:</label>
                         <input
-                            type="text"
+                            type="number"
+                            step="0.01"
                             name="valor_assento"
                             value={sessao.valor_assento}
                             onChange={handleChange}

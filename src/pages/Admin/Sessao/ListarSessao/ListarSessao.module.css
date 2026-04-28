@@ -104,14 +104,13 @@
     margin-bottom: 8px;
 }
 
-/* --- AÇÕES E BOTÕES (IGUAL AO DE FILMES) --- */
+/* AÇÕES */
 .acoes {
     display: flex;
     align-items: flex-end;
-    gap: 15px; /* Espaçamento entre os dois botões */
+    gap: 15px;
 }
 
-/* Base para os botões redondos e brancos */
 .btnEdit,
 .btnDelete {
     background-color: #fff;
@@ -124,48 +123,45 @@
     align-items: center;
     justify-content: center;
     font-size: 1.2rem;
-    color: #000; /* Cor do ícone */
+    color: #000;
     transition: transform 0.2s, background-color 0.2s, color 0.2s;
 }
 
-/* Efeito de hover geral para ambos */
 .btnEdit:hover,
 .btnDelete:hover {
-    transform: scale(1.1); /* Dá um leve zoom ao passar o mouse */
+    transform: scale(1.1);
 }
 
-/* Efeito específico para o botão de excluir no hover */
 .btnDelete:hover {
-    background-color: #ff4d4d; /* Fica vermelho */
-    color: #fff; /* Ícone fica branco */
+    background-color: #ff4d4d;
+    color: #fff;
 }
 
-/* BOTÃO ADICIONAR PADRONIZADO */
+/* BOTÃO ADICIONAR */
 .btnAdd {
     position: fixed;
     right: 60px;
     bottom: 40px;
-    background-color: #fff; /* Fundo branco do botão */
-    color: #000;            /* Texto em preto */
+    background-color: #fff;
+    color: #000;
     border: none;
-    padding: 10px 10px 10px 25px; /* Mais espaço na esquerda para o texto */
-    border-radius: 40px;    /* Deixa o botão bem arredondado (padrão pílula) */
-    font-weight: 900;       /* Texto bem negrito */
+    padding: 10px 10px 10px 25px;
+    border-radius: 40px;
+    font-weight: 900;
     font-size: 14px;
     letter-spacing: 1px;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 15px;              /* Espaço entre o texto e o círculo do + */
+    gap: 15px;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    z-index: 1000;          /* Garante que fique acima de tudo */
+    z-index: 1000;
 }
 
-/* O círculo preto com o símbolo de + */
 .plusIcon {
-    background-color: #000; /* Fundo preto do círculo */
-    color: #fff;            /* Cor branca do sinal + */
-    border-radius: 50%;     /* Círculo perfeito */
+    background-color: #000;
+    color: #fff;
+    border-radius: 50%;
     width: 32px;
     height: 32px;
     display: flex;
@@ -175,9 +171,8 @@
     font-weight: bold;
 }
 
-/* Efeito ao passar o mouse */
 .btnAdd:hover {
-    transform: scale(1.05); /* Leve aumento */
+    transform: scale(1.05);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 

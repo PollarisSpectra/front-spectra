@@ -1,12 +1,19 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import css from "./ListarSessao.module.css";
+import ModalDecisao from "../../../../components/ModalDecisao/ModalDecisao";
+
 
 export default function ListarSessao() {
     const [aberta, setAberta] = useState(null);
     const [sessoes, setSessoes] = useState([]);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
+
+    // Modal de exclusão
+    const [exibirModalExcluir, setExibirModalExcluir] = useState(false);
+    const [idParaExcluir, setIdParaExcluir] = useState(null);
+
 
     const buscarSessoes = async () => {
         try {
@@ -23,15 +30,21 @@ export default function ListarSessao() {
         }
     };
 
+
     useEffect(() => {
         buscarSessoes();
     }, []);
 
-    const handleExcluir = async (id) => {
-        if (!window.confirm("Tem certeza que deseja excluir esta sessão?")) return;
 
+    const gatilhoExcluir = (id) => {
+        setIdParaExcluir(id);
+        setExibirModalExcluir(true);
+    };
+
+
+    const confirmarExclusao = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/sessao/excluir_sessao/${id}`, {
+            const response = await fetch(`http://localhost:5000/sessao/excluir_sessao/${idParaExcluir}`, {
                 method: 'DELETE',
                 credentials: 'include'
             });
@@ -39,22 +52,40 @@ export default function ListarSessao() {
             const data = await response.json();
 
             if (response.ok) {
-                buscarSessoes();
+                buscarSessoes(); // Atualiza lista
             } else {
-                console.log(data);
-                alert(data.error || "Erro ao excluir sessão");
+                alert(data.error || "Erro ao excluir sessão.");
             }
         } catch (error) {
-            alert("Erro na requisição");
+            alert("Erro de conexão com o servidor.");
+        } finally {
+            setExibirModalExcluir(false);
+            setIdParaExcluir(null);
         }
     };
 
+
     return (
         <main className={css.container}>
+
+            {/* Modal de confirmação */}
+            {exibirModalExcluir && (
+                <ModalDecisao 
+                    titulo="Tem certeza que deseja excluir esta sessão?"
+                    textoConfirmar="Sim, excluir"
+                    textoCancelar="Cancelar"
+                    tipoAcao="perigo"
+                    aoConfirmar={confirmarExclusao}
+                    aoCancelar={() => setExibirModalExcluir(false)}
+                />
+            )}
+
+
             <section className={css.header}>
                 <button className={css.voltar} onClick={() => navigate(-1)}>←</button>
                 <h1 className={css.formTitulo}>SESSÕES</h1>
             </section>
+
 
             <section className={css.lista}>
                 {loading ? (
@@ -77,6 +108,7 @@ export default function ListarSessao() {
                                 </span>
                             </div>
 
+
                             {aberta === sessao.id_sessao && (
                                 <div className={css.sessaoDetalhes}>
                                     <img
@@ -95,21 +127,23 @@ export default function ListarSessao() {
                                             </p>
                                         </div>
 
+
                                         <div className={css.acoes}>
                                             <button
-                                                className={css.btnEdit}
+                                                className="px-2 py-1 rounded-3 fw-semibold"
                                                 onClick={() => navigate(`/app/sessoes/${sessao.id_sessao}/editar`)}
-                                                title="Editar"
                                             >
-                                                ✎
+                                                Editar
                                             </button>
 
                                             <button
-                                                className={css.btnDelete}
-                                                onClick={() => handleExcluir(sessao.id_sessao)}
-                                                title="Excluir"
+                                                className={" px-2 py-1 rounded-3 fw-semibold"}
+                                                onClick={(e) => { 
+                                                    e.stopPropagation(); 
+                                                    gatilhoExcluir(sessao.id_sessao); 
+                                                }}
                                             >
-                                                🗑
+                                                Excluir
                                             </button>
                                         </div>
                                     </div>
@@ -120,9 +154,14 @@ export default function ListarSessao() {
                 )}
             </section>
 
-            <button className={css.btnAdd} onClick={() => navigate("/app/sessoes/criar")}>
+
+            <button
+                className={css.btnAdd}
+                onClick={() => navigate("/app/sessoes/criar")}
+            >
                 ADICIONAR SESSÃO <span className={css.plusIcon}>+</span>
             </button>
+
         </main>
     );
 }

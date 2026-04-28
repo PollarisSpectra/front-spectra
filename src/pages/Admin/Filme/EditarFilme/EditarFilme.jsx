@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import css from './EditarFilme.module.css';
+import FlashMessage from "../../../../components/FlashMessage/FlashMessage.jsx";
 
 export default function EditarFilme() {
     const { id } = useParams();
@@ -26,7 +27,11 @@ export default function EditarFilme() {
     const [imagemAlterada, setImagemAlterada] = useState(false);
     const [loading, setLoading] = useState(false);
     const [carregando, setCarregando] = useState(true);
-    const [mensagem, setMensagem] = useState(null);
+    
+    // Estados para a FlashMessage
+    const [mensagem, setMensagem] = useState("");
+    const [tipoMensagem, setTipoMensagem] = useState("");
+
     const fileInputRef = useRef(null);
 
     useEffect(() => {
@@ -40,7 +45,8 @@ export default function EditarFilme() {
                 const data = await response.json();
 
                 if (!response.ok) {
-                    setMensagem({ tipo: 'erro', texto: data.error || "Erro ao carregar filme." });
+                    setMensagem(data.error || "Erro ao carregar filme.");
+                    setTipoMensagem("erro");
                     return;
                 }
 
@@ -61,7 +67,8 @@ export default function EditarFilme() {
                 setCapaOriginal(capa);
                 setPreviewCapa(capa);
             } catch (err) {
-                setMensagem({ tipo: 'erro', texto: "Erro de conexão com o servidor." });
+                setMensagem("Erro de conexão com o servidor.");
+                setTipoMensagem("erro");
             } finally {
                 setCarregando(false);
             }
@@ -95,7 +102,7 @@ export default function EditarFilme() {
 
     const handleSalvar = async () => {
         setLoading(true);
-        setMensagem(null);
+        setMensagem("");
 
         try {
             const formData = new FormData();
@@ -120,41 +127,18 @@ export default function EditarFilme() {
             const data = await response.json();
 
             if (!response.ok) {
-                setMensagem({ tipo: 'erro', texto: data.error || "Erro ao salvar filme." });
+                setMensagem(data.error || "Erro ao salvar filme.");
+                setTipoMensagem("erro");
             } else {
-                setEstadoInicial(filme); // atualiza referência do cancelar
+                setEstadoInicial(filme);
                 setImagemAlterada(false);
                 setImagemFile(null);
-                setMensagem({ tipo: 'sucesso', texto: data.message });
+                setMensagem(data.message || "Filme atualizado com sucesso!");
+                setTipoMensagem("sucesso");
             }
         } catch (err) {
-            setMensagem({ tipo: 'erro', texto: "Erro de conexão com o servidor." });
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const handleExcluir = async () => {
-        if (!window.confirm("Tem certeza que deseja excluir este filme?")) return;
-
-        setLoading(true);
-        setMensagem(null);
-
-        try {
-            const response = await fetch(`http://localhost:5000/filmes/excluir_filme/${id}`, {
-                method: 'DELETE',
-                credentials: 'include'
-            });
-
-            const data = await response.json();
-
-            if (!response.ok) {
-                setMensagem({ tipo: 'erro', texto: data.error || "Erro ao excluir filme." });
-            } else {
-                navigate('/app/filmes');
-            }
-        } catch (err) {
-            setMensagem({ tipo: 'erro', texto: "Erro de conexão com o servidor." });
+            setMensagem("Erro de conexão com o servidor.");
+            setTipoMensagem("erro");
         } finally {
             setLoading(false);
         }
@@ -176,6 +160,16 @@ export default function EditarFilme() {
 
     return (
         <div className={css.containerMain}>
+            {/* Implementação da FlashMessage */}
+            <FlashMessage 
+                mensagem={mensagem} 
+                tipo={tipoMensagem} 
+                onClose={() => {
+                    setMensagem("");
+                    setTipoMensagem("");
+                }} 
+            />
+
             <div className={css.previewContainer}>
                 <div className={css.cardPreview}>
                     <div className={css.capaArea}>
@@ -234,19 +228,6 @@ export default function EditarFilme() {
 
             <div className={css.formCard}>
                 <h1 className={css.formTitulo}>EDIÇÃO DE FILME</h1>
-
-                {mensagem && (
-                    <div style={{
-                        padding: "10px 15px",
-                        marginBottom: "15px",
-                        borderRadius: "6px",
-                        backgroundColor: mensagem.tipo === 'sucesso' ? "#d4edda" : "#f8d7da",
-                        color: mensagem.tipo === 'sucesso' ? "#155724" : "#721c24",
-                        border: `1px solid ${mensagem.tipo === 'sucesso' ? "#c3e6cb" : "#f5c6cb"}`
-                    }}>
-                        {mensagem.texto}
-                    </div>
-                )}
 
                 <form className={css.formulario}>
                     <input type="file" ref={fileInputRef} onChange={handleImageChange} style={{ display: 'none' }} accept="image/*" />

@@ -162,7 +162,7 @@ export default function ListarFilme() {
                         <div key={filme.id_filme} className={css.filmeCard}>
                             <div className={css.filmeHeader} onClick={() => toggleAccordion(filme.id_filme)}>
                                 <div className={css.filmeLabel}>
-                                    FILME <span>Id: {filme.id_filme}</span>
+                                    FILME <span>{filme.titulo}</span>
                                 </div>
                                 <span className={css.seta}>{filmeAberto === filme.id_filme ? "▲" : "▼"}</span>
                             </div>

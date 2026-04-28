@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import css from "./ListarSala.module.css";
+import ModalDecisao from "../../../../components/ModalDecisao/ModalDecisao";
 
 export default function ListarSala() {
     const navigate = useNavigate();
@@ -12,6 +13,45 @@ export default function ListarSala() {
     const [paginaAtual, setPaginaAtual] = useState(1);
     const [totalPaginas, setTotalPaginas] = useState(1);
     const [message, setMessage] = useState({ text: "", type: "" });
+
+    // Modal states
+    const [exibirModalExcluir, setExibirModalExcluir] = useState(false);
+    const [idParaExcluir, setIdParaExcluir] = useState(null);
+
+    const gatilhoExcluir = (id) => {
+        setIdParaExcluir(id);
+        setExibirModalExcluir(true);
+    };
+
+    const confirmarExclusao = async () => {
+        try {
+            const response = await fetch(`http://localhost:5000/salas/excluir_sala/${idParaExcluir}`, {
+                method: 'DELETE',
+                credentials: 'include'
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                setMessage({ text: data.message, type: "success" });
+
+                // Verifica se página vai ficar vazia
+                const paginaVaiFicarVazia = salas.length === 1 && paginaAtual > 1;
+                if (paginaVaiFicarVazia) {
+                    setPaginaAtual(p => p - 1);
+                } else {
+                    buscarSalas(paginaAtual);
+                }
+            } else {
+                const data = await response.json();
+                setMessage({ text: data.error || "Erro ao excluir sala.", type: "error" });
+            }
+        } catch (err) {
+            setMessage({ text: "Erro de conexão com o servidor.", type: "error" });
+        } finally {
+            setExibirModalExcluir(false);
+            setIdParaExcluir(null);
+        }
+    };
 
     const buscarSalas = async (pagina = 1) => {
         setCarregando(true);
@@ -54,26 +94,19 @@ export default function ListarSala() {
         setSalaAberta(salaAberta === id ? null : id);
     };
 
-    const excluirSala = async (id) => {
-        try {
-            const response = await fetch(`http://localhost:5000/salas/excluir_sala/${id}`, {
-                method: "DELETE",
-                credentials: "include"
-            });
-            const data = await response.json();
-            if (response.ok) {
-                setMessage({ text: data.message, type: "success" });
-                buscarSalas(paginaAtual);
-            } else {
-                setMessage({ text: data.error, type: "error" });
-            }
-        } catch (error) {
-            alert("Erro de conexão com o servidor");
-        }
-    };
-
     return (
         <main className={css.container}>
+            {exibirModalExcluir && (
+                <ModalDecisao 
+                    titulo="Tem certeza que deseja excluir esta sala?"
+                    textoConfirmar="Sim, excluir"
+                    textoCancelar="Cancelar"
+                    tipoAcao="perigo"
+                    aoConfirmar={confirmarExclusao}
+                    aoCancelar={() => setExibirModalExcluir(false)}
+                />
+            )}
+
             {message.text && (
                 <div className={`${css.messageBox} ${css[message.type]}`}>
                     {message.text}
@@ -104,7 +137,7 @@ export default function ListarSala() {
                 {carregando ? (
                     <p className={css.mensagem}>Carregando...</p>
                 ) : salas.length > 0 ? (
-                    salas.map((sala, index) => (
+                    salas.map((sala) => (
                         <div key={sala.id_sala} className={css.filmeCard}>
                             <div className={css.filmeHeader} onClick={() => toggleAccordion(sala.id_sala)}>
                                 <div className={css.filmeLabel}>
@@ -123,8 +156,21 @@ export default function ListarSala() {
                                         </div>
 
                                         <div className={css.acoes}>
-                                            <button className={css.btnEdit} onClick={() => navigate(`/app/salas/${sala.id_sala}/editar`)}>✎</button>
-                                            <button className={css.btnDelete} onClick={() => excluirSala(sala.id_sala)}>Excluir</button>
+                                            <button 
+                                                className="px-2 py-1 rounded-3 fw-semibold" 
+                                                onClick={() => navigate(`/app/salas/${sala.id_sala}/editar`)}
+                                            >
+                                                Editar
+                                            </button>
+                                            <button
+                                                className={css.btnDelete + " px-2 py-1 rounded-3 fw-semibold"}
+                                                onClick={(e) => { 
+                                                    e.stopPropagation(); 
+                                                    gatilhoExcluir(sala.id_sala); 
+                                                }}
+                                            >
+                                                Excluir
+                                            </button>
                                         </div>
                                     </div>
                                 </div>

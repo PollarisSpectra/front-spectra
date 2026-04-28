@@ -25,8 +25,8 @@ export default function Header({ usuario, setUsuario }) {
                     <img src={logo} width={100} alt="logo" />
                 </Link>
                 <div className={styles["header-actions"] + " d-flex align-items-center justify-content-between gap-1"}>
-                    <Link to={"/cadastro"} className={styles.link + " text-white px-2 py-1 rounded-3 "}>
-                        Cadastrar
+                    <Link to={usuario ? "/app" : "/cadastro"} className={styles.link + " text-white px-2 py-1 rounded-3 "}>
+                        {usuario ? "Dashboard" : "Cadastre-se"}
                     </Link>
                     <Link to={!usuario && "/login"} onClick={usuario && handleLogout} className={styles.login + " text-black fs-6 bg-white fw-semibold px-2 py-1 rounded-3 d-flex align-items-center gap-1"}>
                         <img src={Vector} alt="login" className={styles["Vector"]} />

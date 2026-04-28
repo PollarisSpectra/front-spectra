@@ -10,8 +10,9 @@ export default function ListarSessao() {
 
     const buscarSessoes = async () => {
         try {
-            const response = await fetch("http://127.0.0.1:5000/sessao/listar_sessao");
+            const response = await fetch("http://localhost:5000/sessao/listar_sessao");
             const data = await response.json();
+
             if (response.ok) {
                 setSessoes(data.sessao);
             }
@@ -28,12 +29,18 @@ export default function ListarSessao() {
 
     const handleExcluir = async (id) => {
         if (!window.confirm("Tem certeza que deseja excluir esta sessão?")) return;
+
         try {
-            const response = await fetch(`http://127.0.0.1:5000/sessao/excluir_sessao/${id}`, {
+            const response = await fetch(`http://localhost:5000/sessao/excluir_sessao/${id}`, {
                 method: 'DELETE',
             });
+
+            const data = await response.json();
+
             if (response.ok) {
                 buscarSessoes();
+            } else {
+                alert(data.error || "Erro ao excluir sessão");
             }
         } catch (error) {
             alert("Erro na requisição");
@@ -42,7 +49,6 @@ export default function ListarSessao() {
 
     return (
         <main className={css.container}>
-            {/* HEADER IGUAL AO DE FILMES */}
             <section className={css.header}>
                 <button className={css.voltar} onClick={() => navigate(-1)}>←</button>
                 <h1 className={css.formTitulo}>SESSÕES</h1>
@@ -54,7 +60,7 @@ export default function ListarSessao() {
                 ) : sessoes.length === 0 ? (
                     <p className={css.mensagem}>Nenhuma sessão encontrada.</p>
                 ) : (
-                    sessoes.map((sessao, index) => (
+                    sessoes.map((sessao) => (
                         <div key={sessao.id_sessao} className={css.sessaoCard}>
                             <div
                                 className={css.sessaoHeader}
@@ -64,13 +70,19 @@ export default function ListarSessao() {
                                     SESSÃO <span>Id: {sessao.id_sessao}</span>
                                 </div>
                                 <span className={css.horarioSessao}>{sessao.horario}</span>
-                                <span className={css.seta}>{aberta === sessao.id_sessao ? "▲" : "▼"}</span>
+                                <span className={css.seta}>
+                                    {aberta === sessao.id_sessao ? "▲" : "▼"}
+                                </span>
                             </div>
 
                             {aberta === sessao.id_sessao && (
                                 <div className={css.sessaoDetalhes}>
                                     <div className={css.posterContainer}>
-                                        <img src={sessao.imagem || "https://via.placeholder.com/150"} alt={sessao.filme} className={css.poster} />
+                                        <img
+                                            src={sessao.imagem || "https://via.placeholder.com/150"}
+                                            alt={sessao.filme}
+                                            className={css.poster}
+                                        />
                                     </div>
 
                                     <div className={css.infoGrid}>
@@ -78,22 +90,23 @@ export default function ListarSessao() {
                                             <h3 className={css.sessaoTitulo}>{sessao.filme}</h3>
                                             <p><strong>Sala:</strong> {sessao.sala}</p>
                                             <p><strong>Data:</strong> {sessao.data}</p>
-                                            <p><strong>Valor:</strong> R$ {sessao.valor_assento.toFixed(2)}</p>
+                                            <p>
+                                                <strong>Valor:</strong>{" "}
+                                                R$ {Number(sessao.valor_assento || 0).toFixed(2)}
+                                            </p>
                                         </div>
 
                                         <div className={css.acoes}>
-                                            {/* Botão de Editar Padronizado */}
                                             <button
-                                                className={css.btnEdit} // Mudamos a classe para usar o estilo redondo
+                                                className={css.btnEdit}
                                                 onClick={() => navigate(`/app/sessoes/${sessao.id_sessao}/editar`)}
                                                 title="Editar"
                                             >
                                                 ✎
                                             </button>
 
-                                            {/* Botão de Excluir Padronizado (sem texto, apenas ícone) */}
                                             <button
-                                                className={css.btnDelete} // Mudamos a classe para usar o estilo redondo
+                                                className={css.btnDelete}
                                                 onClick={() => handleExcluir(sessao.id_sessao)}
                                                 title="Excluir"
                                             >

@@ -34,77 +34,30 @@ function App() {
         <Route path="/dashboard" element={<Dashboard usuario={usuario} setUsuario={setUsuario} />} />
         
         {/* Rotas Administrativas - Protegidas por AdminLayout */}
-        {/* <Route path="/cadastro-sala" element={
-          <AdminLayout>
-            <CadastroSala />
-          </AdminLayout>
-        } />
-        <Route path="/editarfilme" element={
-          <AdminLayout>
-            <EditarFilme />
-          </AdminLayout>
-        } />
-        <Route path="/sala/:id/editar" element={
-          <AdminLayout>
-            <EditarSala />
-          </AdminLayout>
-        } />
-        <Route path="/cadastrofilme" element={
-          <AdminLayout>
-            <CadastroFilme />
-          </AdminLayout>
-        } />
-
-        <Route path="/sessoes" element={
-          <AdminLayout>
-            <ListarSessao />
-          </AdminLayout>
-        } />
-        <Route path="/sessoes/criar" element={
-          <AdminLayout>
-            <CadastroSessao />
-          </AdminLayout>
-        } />
-        <Route path="/sessoes/:id/editar" element={
-          <AdminLayout>
-            <EditarSessao />
-          </AdminLayout>
-        } /> */}
-
-        {/* páginas de administrador */}
-
         <Route path="/app" element={<AdminLayout />} >
           <Route index element={<DashboardAdm />} />
 
-          {/* crud sessoes */}
-
+          {/* CRUD Sessões */}
           <Route path="sessoes">
             <Route index element={<ListarSessao />} />
-
             <Route path=":id/editar" element={<EditarSessao />} />
             <Route path="criar" element={<CadastroSessao />} />
           </Route>
 
-          {/* crud de sala */}
-
+          {/* CRUD Sala */}
           <Route path="salas">
             <Route index element={<ListarSala />} />
             <Route path=":id/editar" element={<EditarSala />} />
             <Route path="criar" element={<CadastroSala />} />
           </Route>
 
-          {/* crud de filmes */}
-
+          {/* CRUD Filmes */}
           <Route path="filmes">
             <Route index element={<ListarFilme />} />
-
             <Route path=":id/editar" element={<EditarFilme />} />
             <Route path="criar" element={<CadastroFilme />} />
           </Route>
-
         </Route>
-
-        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
     </>

@@ -9,24 +9,20 @@ export default function ListarFilme() {
     const [filmeAberto, setFilmeAberto] = useState(null);
     const [carregando, setCarregando] = useState(false);
 
-    // Estados para Filtros e Paginação
     const [buscaTexto, setBuscaTexto] = useState("");
-    const [filtroTipo, setFiltroTipo] = useState("titulo"); 
+    const [filtroTipo, setFiltroTipo] = useState("titulo");
     const [paginaAtual, setPaginaAtual] = useState(1);
     const [totalPaginas, setTotalPaginas] = useState(1);
     const [menuFiltroAtivo, setMenuFiltroAtivo] = useState(false);
 
-    // ESTADOS PARA O MODAL DE EXCLUSÃO
     const [exibirModalExcluir, setExibirModalExcluir] = useState(false);
     const [idParaExcluir, setIdParaExcluir] = useState(null);
 
-    // 1. Abre o modal e guarda o ID do filme selecionado
     const gatilhoExcluir = (id) => {
         setIdParaExcluir(id);
         setExibirModalExcluir(true);
     };
 
-    // 2. Executa a exclusão após confirmação no modal
     const confirmarExclusao = async () => {
         try {
             const response = await fetch(`http://localhost:5000/filmes/excluir_filme/${idParaExcluir}`, {
@@ -35,17 +31,15 @@ export default function ListarFilme() {
             });
 
             if (response.ok) {
-                // 1. Fecha o detalhe do filme se ele estiver aberto
                 setFilmeAberto(null);
-                
-                // 2. Recarrega a página atual para trazer novos dados do banco
-                // Isso preenche a lacuna do item deletado com o próximo da fila
-                await buscarFilmes(paginaAtual);
-                
-                // Opcional: Se a página ficar vazia (excluiu o último item da última página), 
-                // você pode voltar para a página anterior:
-                if (filmes.length === 1 && paginaAtual > 1) {
-                    setPaginaAtual(paginaAtual - 1);
+
+                // verifica antes de atualizar lista
+                const paginaVaiFicarVazia = filmes.length === 1 && paginaAtual > 1;
+
+                if (paginaVaiFicarVazia) {
+                    setPaginaAtual(p => p - 1);
+                } else {
+                    await buscarFilmes(paginaAtual);
                 }
             } else {
                 const data = await response.json();
@@ -111,7 +105,6 @@ export default function ListarFilme() {
 
     return (
         <main className={css.container}>
-            {/* RENDERIZAÇÃO DO MODAL */}
             {exibirModalExcluir && (
                 <ModalDecisao 
                     titulo="Tem certeza que deseja excluir este filme?"
@@ -128,46 +121,44 @@ export default function ListarFilme() {
                 <h1 className={css.formTitulo}>FILMES</h1>
             </section>
 
-            <section className={css.filtroBarra}>
-                <section className={css.filtroBarra + " d-flex align-items-center justify-content-between w-100 gap-3"}>
-                    <form className="d-flex align-items-center gap-2" onSubmit={dispararBusca}>
-                        <input
-                            type="text" 
-                            placeholder={`Buscar por ${conversaoCheck[filtroTipo].toLowerCase()}...`} 
-                            value={buscaTexto}
-                            onChange={(e) => setBuscaTexto(e.target.value)}
-                            className={css.inputBusca + " bg-dark bg-opacity-25 px-2 py-1 rounded-3 border-1 border-white border-opacity-50 text-white"}
-                        />
-                        <button type="submit" className={css.btnLupa + " px-2 py-1 bg-white rounded-3 border-1 border-white text-dark fw-bold"}>
-                            Aplicar filtros
-                        </button>
-                    </form>
+            <section className={css.filtroBarra + " d-flex align-items-center justify-content-between w-100 gap-3"}>
+                <form className="d-flex align-items-center gap-2" onSubmit={dispararBusca}>
+                    <input
+                        type="text" 
+                        placeholder={`Buscar por ${conversaoCheck[filtroTipo].toLowerCase()}...`} 
+                        value={buscaTexto}
+                        onChange={(e) => setBuscaTexto(e.target.value)}
+                        className={css.inputBusca + " bg-dark bg-opacity-25 px-2 py-1 rounded-3 border-1 border-white border-opacity-50 text-white"}
+                    />
+                    <button type="submit" className={css.btnLupa + " px-2 py-1 bg-white rounded-3 border-1 border-white text-dark fw-bold"}>
+                        Aplicar filtros
+                    </button>
+                </form>
 
-                    <div className="d-flex align-items-center gap-2">
-                        <span className="text-secondary small">Filtrar por:</span>
-                        <div className={css.ordenarWrapper}>
-                            <div className={css.ordenarHeader + " bg-dark bg-opacity-25 rounded-3 px-2 py-1 border border-white border-opacity-25"} onClick={() => setMenuFiltroAtivo(!menuFiltroAtivo)}>
-                                <span className={css.filtroDestaque}>{conversaoCheck[filtroTipo]}</span>
-                                <span className="ms-2 small opacity-50">{menuFiltroAtivo ? "▲" : "▼"}</span>
-                            </div>
-                            
-                            {menuFiltroAtivo && (
-                                <ul className={css.ordenarOpcoes + " rounded-3 shadow-lg"}>
-                                    <li className="m-1 p-2 rounded-2" onClick={() => { setFiltroTipo("titulo"); setMenuFiltroAtivo(false); }}>Título</li>
-                                    <li className="m-1 p-2 rounded-2" onClick={() => { setFiltroTipo("genero"); setMenuFiltroAtivo(false); }}>Gênero</li>
-                                    <li className="m-1 p-2 rounded-2" onClick={() => { setFiltroTipo("classificacao"); setMenuFiltroAtivo(false); }}>Classificação</li>
-                                </ul>
-                            )}
+                <div className="d-flex align-items-center gap-2">
+                    <span className="text-secondary small">Filtrar por:</span>
+                    <div className={css.ordenarWrapper}>
+                        <div className={css.ordenarHeader + " bg-dark bg-opacity-25 rounded-3 px-2 py-1 border border-white border-opacity-25"} onClick={() => setMenuFiltroAtivo(!menuFiltroAtivo)}>
+                            <span className={css.filtroDestaque}>{conversaoCheck[filtroTipo]}</span>
+                            <span className="ms-2 small opacity-50">{menuFiltroAtivo ? "▲" : "▼"}</span>
                         </div>
+                        
+                        {menuFiltroAtivo && (
+                            <ul className={css.ordenarOpcoes + " rounded-3 shadow-lg"}>
+                                <li className="m-1 p-2 rounded-2" onClick={() => { setFiltroTipo("titulo"); setMenuFiltroAtivo(false); }}>Título</li>
+                                <li className="m-1 p-2 rounded-2" onClick={() => { setFiltroTipo("genero"); setMenuFiltroAtivo(false); }}>Gênero</li>
+                                <li className="m-1 p-2 rounded-2" onClick={() => { setFiltroTipo("classificacao"); setMenuFiltroAtivo(false); }}>Classificação</li>
+                            </ul>
+                        )}
                     </div>
-                </section>
+                </div>
             </section>
 
             <section className={css.lista}>
                 {carregando ? (
                     <p className={css.mensagem}>Carregando...</p>
                 ) : filmes.length > 0 ? (
-                    filmes.map((filme, index) => (
+                    filmes.map((filme) => (
                         <div key={filme.id_filme} className={css.filmeCard}>
                             <div className={css.filmeHeader} onClick={() => toggleAccordion(filme.id_filme)}>
                                 <div className={css.filmeLabel}>
@@ -179,8 +170,17 @@ export default function ListarFilme() {
                             {filmeAberto === filme.id_filme && (
                                 <div className={css.filmeDetalhes}>
                                     <div className={css.posterContainer}>
-                                        <img src={`http://localhost:5000/filmes${filme?.imagem_url}` || "https://via.placeholder.com/150"} alt={filme.titulo} className={css.poster} />
+                                        <img
+                                            src={
+                                                filme?.imagem_url
+                                                    ? `http://localhost:5000/filmes${filme.imagem_url}`
+                                                    : "https://via.placeholder.com/150"
+                                            }
+                                            alt={filme.titulo}
+                                            className={css.poster}
+                                        />
                                     </div>
+
                                     <div className={css.infoGrid}>
                                         <div className={css.colEsquerda}>
                                             <h3 className={css.filmeTitulo}>{filme.titulo}</h3>
@@ -190,10 +190,12 @@ export default function ListarFilme() {
                                                 {filme.classificacao}
                                             </div>
                                         </div>
+
                                         <div className={css.colDireita}>
                                             <p><strong>Lançamento:</strong> {new Date(filme.data_lancamento).toLocaleDateString('pt-BR')}</p>
                                             <p className={css.sinopse}><strong>Sinopse:</strong> {filme.sinopse}</p>
                                         </div>
+
                                         <div className={css.acoes}>
                                             <button className={css.btnEdit} onClick={() => navigate(`/app/filmes/${filme.id_filme}/editar`, { state: { filme } })}>✎</button>
                                             <button
@@ -218,9 +220,9 @@ export default function ListarFilme() {
 
             {totalPaginas > 1 && (
                 <section className={css.paginacao + " d-flex justify-content-center align-items-center gap-3 mt-5"}>
-                    <button className={`rounded-3 px-2 py-1 ${paginaAtual === 1 ? "text-white" : ""}`} disabled={paginaAtual === 1} onClick={() => setPaginaAtual(p => p - 1)}>Anterior</button>
+                    <button disabled={paginaAtual === 1} onClick={() => setPaginaAtual(p => p - 1)}>Anterior</button>
                     <span>{paginaAtual} / {totalPaginas}</span>
-                    <button className={`rounded-3 px-2 py-1 ${paginaAtual === totalPaginas ? "text-white" : ""}`} disabled={paginaAtual === totalPaginas} onClick={() => setPaginaAtual(p => p + 1)}>Próxima</button>
+                    <button disabled={paginaAtual === totalPaginas} onClick={() => setPaginaAtual(p => p + 1)}>Próxima</button>
                 </section>
             )}
 

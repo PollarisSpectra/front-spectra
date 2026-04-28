@@ -66,8 +66,10 @@ export default function EditarSala() {
         setSala({ ...sala, [name]: val });
     };
 
+    // Função para transformar número em letra (1 -> A, 2 -> B...)
     const getLetra = (index) => String.fromCharCode(65 + index);
 
+    // Gera o array de fileiras e colunas para o preview
     const renderCadeiras = () => {
         const totalFileiras = Math.max(0, parseInt(sala.fileiras) || 0);
         const totalColunas = Math.max(0, parseInt(sala.colunas) || 0);
@@ -198,6 +200,7 @@ export default function EditarSala() {
                         />
                     </div>
 
+                    {/* Área do Mapa de Assentos */}
                     <div className={css.mapaAssentos}>
                         {sala.fileiras > 0 && sala.colunas > 0 ? (
                             renderCadeiras()
@@ -212,7 +215,7 @@ export default function EditarSala() {
                             onClick={handleSalvar}
                             disabled={loading}
                         >
-                            {loading ? "SALVANDO..." : "Salvar edições"}
+                            {loading ? "Salvando..." : "Salvar edições"}
                         </button>
 
                         <button

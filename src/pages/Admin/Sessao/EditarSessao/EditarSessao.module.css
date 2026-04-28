@@ -1,99 +1,130 @@
 .containerMain {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 60px;
-    background-color: #000;
     min-height: 100vh;
-    padding: 20px;
-}
-
-/* Lado Esquerdo (Preview) */
-.previewContainer {
-    width: 280px;
-}
-
-.cardPreview {
-    background-color: #1a1c20; /* Fundo cinza escuro do card */
-    border-radius: 12px;
-    overflow: hidden;
-    color: white;
-}
-
-.capaArea {
-    position: relative;
-    width: 100%;
-    height: 380px;
-    background-color: white;
+    background-color: #000;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 30px 15px;
+}
+
+.formCard {
+    width: 95%;
+    max-width: 510px;
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 45px 45px;
+}
+
+.header {
+    position: relative;
+    margin-bottom: 35px;
+}
+
+.btnVoltar {
+    position: absolute;
+    top: -5px;
+    left: 0;
+    border: none;
+    background-color: #f1f1f1;
+    color: #000;
+    font-size: 18px;
     cursor: pointer;
 }
 
-.imgPreview { width: 100%; height: 100%; object-fit: cover; }
-
-.classificacaoBadge {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    background-color: #ff1a1a;
-    color: white;
-    padding: 5px 8px;
-    border-radius: 4px;
-    font-weight: bold;
+.formTitulo {
+    text-align: center;
+    color: #101820;
+    font-size: 42px;
+    font-weight: 900;
+    line-height: 1.2;
+    margin: 0;
+    text-transform: uppercase;
 }
 
-.infoPreview { padding: 15px; }
-.tituloRow { display: flex; justify-content: space-between; align-items: center; }
-.estrelas { color: #ffd700; font-size: 12px; }
-.detalhesRow { display: flex; gap: 15px; font-size: 12px; margin-top: 10px; color: #ccc; }
-.sinopseTexto { color: white; margin-top: 15px; font-size: 13px; max-width: 280px; }
-
-/* Lado Direito (Form) */
-.formCard {
-    background-color: white;
-    padding: 40px;
-    border-radius: 20px;
-    width: 450px;
+.inputBox {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 18px;
 }
 
-.formTitulo { text-align: center; font-weight: 800; margin-bottom: 30px; }
+.inputBox label {
+    color: #101820;
+    font-size: 16px;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
 
-.inputBox { display: flex; flex-direction: column; margin-bottom: 15px; }
-.inputBox label { font-weight: bold; font-size: 14px; margin-bottom: 5px; }
-.inputBox input, .selectStyle {
+.inputBox input,
+.selectStyle {
+    width: 100%;
     border: none;
-    border-bottom: 1px solid #ccc;
-    padding: 8px 0;
+    border-bottom: 1px solid #cfcfcf;
     outline: none;
+    padding: 8px 4px 10px;
+    font-size: 20px;
+    background-color: transparent;
+    color: #000;
+}
+
+.selectStyle {
+    cursor: pointer;
 }
 
 .botoes {
-    display: flex;
-    gap: 40px;
+    margin-top: 40px;
 }
 
 .btnCadastrar {
-    flex: 1;
-    gap: 10px;
-    background-color: #ff1a1a;
-    color: #fff;
+    width: 100%;
+    background-color: #ff1f1f;
+    color: white;
     border: none;
-    padding: 13px;
-    border-radius: 8px;
-    font-weight: bold;
-    font-size: 16px;
+    border-radius: 5px;
+    padding: 16px;
+    font-size: 18px;
+    font-weight: 900;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.btnCadastrar:hover {
+    background-color: #e60000;
 }
 
 .btnExcluir {
-    flex: 1;
-    gap: 10px;
-    background-color: #202020;
-    color: #fff;
-    border: none;
-    padding: 13px;
-    border-radius: 8px;
+    width: 100%;
+    background-color: transparent;
+    color: #ff1f1f;
+    border: 2px solid #ff1f1f;
+    border-radius: 5px;
+    padding: 14px;
+    font-size: 18px;
+    font-weight: 900;
+    cursor: pointer;
+    text-transform: uppercase;
+    margin-top: 12px;
+}
+
+.btnExcluir:hover {
+    background-color: #ff1f1f;
+    color: white;
+}
+
+/* MENSAGEM DE STATUS (faltava no CSS original) */
+.statusMsg {
+    text-align: center;
     font-weight: bold;
-    font-size: 16px;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.sucesso {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.erro {
+    background-color: #f8d7da;
+    color: #721c24;
 }

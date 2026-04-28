@@ -72,6 +72,11 @@
     font-weight: 600;
 }
 
+.seta {
+    color: #fff;
+    font-size: 0.9rem;
+}
+
 .sessaoDetalhes {
     background-color: #000;
     padding: 30px;
@@ -104,7 +109,6 @@
     margin-bottom: 8px;
 }
 
-/* AÇÕES */
 .acoes {
     display: flex;
     align-items: flex-end;
@@ -137,7 +141,6 @@
     color: #fff;
 }
 
-/* BOTÃO ADICIONAR */
 .btnAdd {
     position: fixed;
     right: 60px;

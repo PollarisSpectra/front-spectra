@@ -55,7 +55,6 @@ export default function ListarSala() {
     };
 
     const excluirSala = async (id) => {
-        if (!window.confirm("Deseja realmente excluir esta sala?")) return;
         try {
             const response = await fetch(`http://localhost:5000/salas/excluir_sala/${id}`, {
                 method: "DELETE",

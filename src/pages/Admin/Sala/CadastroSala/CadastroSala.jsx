@@ -51,6 +51,8 @@ export default function CadastroSala() {
         setLoading(true);
         setMessage({ text: '', type: '' });
 
+
+
         try {
             const response = await fetch('http://localhost:5000/salas/cadastro_sala', {
                 method: 'POST',

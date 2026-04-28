@@ -89,7 +89,6 @@ function App() {
 
           <Route path="salas">
             <Route index element={<ListarSala />} />
-
             <Route path=":id/editar" element={<EditarSala />} />
             <Route path="criar" element={<CadastroSala />} />
           </Route>

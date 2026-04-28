@@ -1,87 +1,188 @@
-.main {
-    /* background-color: #000; */
+.container {
     min-height: 100vh;
-    padding: 2rem;
+    padding: 40px 10%;
     color: white;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
 
-.tituloArea {
+.header {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    margin-bottom: 2rem;
+    justify-content: center;
+    margin-bottom: 60px;
+    position: relative;
 }
 
 .voltar {
+    position: absolute;
+    left: 0;
     background: none;
     border: none;
     color: white;
-    font-size: 1.5rem;
+    font-size: 24px;
     cursor: pointer;
 }
 
-.cardSessao {
-    background-color: #1a1a1a;
+.formTitulo {
+    font-size: 2.5rem;
+    letter-spacing: 5px;
+    font-weight: 700;
+    margin: 0;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.lista {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.sessaoCard {
+    background-color: #333;
     border-radius: 8px;
-    margin-bottom: 1rem;
     overflow: hidden;
 }
 
-.topoSessao {
-    padding: 1rem;
+.sessaoHeader {
+    padding: 15px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
 }
 
-.topoSessao span { font-size: 0.7rem; color: #888; display: block; }
-.topoSessao strong { font-size: 1.2rem; color: #ff0000; }
+.sessaoLabel {
+    font-weight: bold;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+}
 
-.conteudoSessao {
-    padding: 1rem;
-    border-top: 1px solid #333;
+.sessaoLabel span {
+    background-color: #fff;
+    color: #000;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 10px;
+    font-size: 0.8rem;
+}
+
+.horarioSessao {
+    color: #fff;
+    font-weight: 600;
+}
+
+.sessaoDetalhes {
+    background-color: #000;
+    padding: 30px;
     display: flex;
+    gap: 40px;
+    border-top: 1px solid #444;
+}
+
+.poster {
+    width: 150px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.infoGrid {
+    display: flex;
+    flex-grow: 1;
     justify-content: space-between;
 }
 
-.infoFilme { display: flex; gap: 1rem; }
-.infoFilme img { width: 80px; height: 120px; object-fit: cover; border-radius: 4px; }
+.sessaoTitulo {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+}
 
+.colEsquerda p {
+    font-size: 0.85rem;
+    color: #ccc;
+    margin-bottom: 8px;
+}
+
+/* --- AÇÕES E BOTÕES (IGUAL AO DE FILMES) --- */
 .acoes {
     display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    align-items: flex-end;
+    gap: 15px; /* Espaçamento entre os dois botões */
 }
 
-.acoes button {
-    background: #333;
+/* Base para os botões redondos e brancos */
+.btnEdit,
+.btnDelete {
+    background-color: #fff;
     border: none;
-    color: white;
-    padding: 0.5rem;
-    border-radius: 4px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
     cursor: pointer;
-}
-
-.btnExcluir:hover { background-color: #ff0000; }
-
-.adicionarArea {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
     display: flex;
     align-items: center;
-    gap: 1rem;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: #000; /* Cor do ícone */
+    transition: transform 0.2s, background-color 0.2s, color 0.2s;
 }
 
-.adicionarBtn {
-    background-color: #ff0000;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+/* Efeito de hover geral para ambos */
+.btnEdit:hover,
+.btnDelete:hover {
+    transform: scale(1.1); /* Dá um leve zoom ao passar o mouse */
+}
+
+/* Efeito específico para o botão de excluir no hover */
+.btnDelete:hover {
+    background-color: #ff4d4d; /* Fica vermelho */
+    color: #fff; /* Ícone fica branco */
+}
+
+/* BOTÃO ADICIONAR PADRONIZADO */
+.btnAdd {
+    position: fixed;
+    right: 60px;
+    bottom: 40px;
+    background-color: #fff; /* Fundo branco do botão */
+    color: #000;            /* Texto em preto */
     border: none;
-    color: white;
-    font-size: 2rem;
+    padding: 10px 10px 10px 25px; /* Mais espaço na esquerda para o texto */
+    border-radius: 40px;    /* Deixa o botão bem arredondado (padrão pílula) */
+    font-weight: 900;       /* Texto bem negrito */
+    font-size: 14px;
+    letter-spacing: 1px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 15px;              /* Espaço entre o texto e o círculo do + */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    z-index: 1000;          /* Garante que fique acima de tudo */
+}
+
+/* O círculo preto com o símbolo de + */
+.plusIcon {
+    background-color: #000; /* Fundo preto do círculo */
+    color: #fff;            /* Cor branca do sinal + */
+    border-radius: 50%;     /* Círculo perfeito */
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Efeito ao passar o mouse */
+.btnAdd:hover {
+    transform: scale(1.05); /* Leve aumento */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.mensagem {
+    text-align: center;
+    color: #888;
+    margin-top: 20px;
 }

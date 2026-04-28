@@ -17,7 +17,6 @@ export default function ListarSala() {
         setCarregando(true);
         try {
             let queryParams = `page_number=${pagina}&page_size=10`;
-
             if (buscaTexto) {
                 queryParams += `&nome=${encodeURIComponent(buscaTexto)}`;
             }
@@ -27,7 +26,6 @@ export default function ListarSala() {
             });
 
             const data = await response.json();
-
             if (response.ok) {
                 setSalas(data.salas);
                 setTotalPaginas(data.total_pages);
@@ -57,36 +55,28 @@ export default function ListarSala() {
     };
 
     const excluirSala = async (id) => {
-
+        if (!window.confirm("Deseja realmente excluir esta sala?")) return;
         try {
             const response = await fetch(`http://localhost:5000/salas/excluir_sala/${id}`, {
                 method: "DELETE",
                 credentials: "include"
             });
-
             const data = await response.json();
-
             if (response.ok) {
                 setMessage({ text: data.message, type: "success" });
-
                 buscarSalas(paginaAtual);
             } else {
                 setMessage({ text: data.error, type: "error" });
             }
-
         } catch (error) {
             alert("Erro de conexão com o servidor");
-            console.error(error);
         }
-    }
+    };
 
     return (
         <main className={css.container}>
-
             {message.text && (
                 <div className={`${css.messageBox} ${css[message.type]}`}>
-                    {message.type === "success" }
-                    {message.type === "error" }
                     {message.text}
                 </div>
             )}
@@ -97,7 +87,7 @@ export default function ListarSala() {
             </section>
 
             <section className={css.filtroBarra}>
-                <form onSubmit={dispararBusca} className="d-flex gap-2">
+                <form onSubmit={dispararBusca} className="d-flex align-items-center gap-2">
                     <input
                         type="text"
                         placeholder="Buscar por nome..."
@@ -105,8 +95,8 @@ export default function ListarSala() {
                         onChange={(e) => setBuscaTexto(e.target.value)}
                         className={css.inputBusca}
                     />
-                    <button type="submit" className={css.btnBusca}>
-                        Buscar
+                    <button type="submit" className={css.btnLupa}>
+                        Aplicar filtros
                     </button>
                 </form>
             </section>
@@ -116,27 +106,27 @@ export default function ListarSala() {
                     <p className={css.mensagem}>Carregando...</p>
                 ) : salas.length > 0 ? (
                     salas.map((sala, index) => (
-                        <div key={sala.id_sala} className={css.card}>
-                            <div className={css.headerCard} onClick={() => toggleAccordion(sala.id_sala)}>
-                                <div>
-                                    SALA <span>{(paginaAtual - 1) * 10 + (index + 1)}</span>
+                        <div key={sala.id_sala} className={css.filmeCard}>
+                            <div className={css.filmeHeader} onClick={() => toggleAccordion(sala.id_sala)}>
+                                <div className={css.filmeLabel}>
+                                    SALA <span>Id: {sala.id_sala}</span>
                                 </div>
-                                <span>{salaAberta === sala.id_sala ? "▲" : "▼"}</span>
+                                <span className={css.seta}>{salaAberta === sala.id_sala ? "▲" : "▼"}</span>
                             </div>
 
                             {salaAberta === sala.id_sala && (
-                                <div className={css.detalhes}>
-                                    <p><strong>Nome:</strong> {sala.nome}</p>
-                                    <p><strong>Fileiras:</strong> {sala.qtd_fileiras}</p>
-                                    <p><strong>Colunas:</strong> {sala.qtd_colunas}</p>
+                                <div className={css.filmeDetalhes}>
+                                    <div className={css.infoGrid}>
+                                        <div className={css.colEsquerda}>
+                                            <h3 className={css.filmeTitulo}>{sala.nome}</h3>
+                                            <p><strong>Quantidade de Fileiras:</strong> {sala.qtd_fileiras}</p>
+                                            <p><strong>Quantidade de Colunas:</strong> {sala.qtd_colunas}</p>
+                                        </div>
 
-                                    <div className={css.acoes}>
-                                        <button onClick={() => navigate(`/app/salas/${sala.id_sala}/editar`)}>
-                                            ✎
-                                        </button>
-                                        <button onClick={() => excluirSala(sala.id_sala)}>
-                                            🗑Excluir
-                                        </button>
+                                        <div className={css.acoes}>
+                                            <button className={css.btnEdit} onClick={() => navigate(`/app/salas/${sala.id_sala}/editar`)}>✎</button>
+                                            <button className={css.btnDelete} onClick={() => excluirSala(sala.id_sala)}>Excluir</button>
+                                        </div>
                                     </div>
                                 </div>
                             )}
@@ -149,18 +139,14 @@ export default function ListarSala() {
 
             {totalPaginas > 1 && (
                 <section className={css.paginacao}>
-                    <button disabled={paginaAtual === 1} onClick={() => setPaginaAtual(p => p - 1)}>
-                        Anterior
-                    </button>
+                    <button disabled={paginaAtual === 1} onClick={() => setPaginaAtual(p => p - 1)}>Anterior</button>
                     <span>{paginaAtual} / {totalPaginas}</span>
-                    <button disabled={paginaAtual === totalPaginas} onClick={() => setPaginaAtual(p => p + 1)}>
-                        Próxima
-                    </button>
+                    <button disabled={paginaAtual === totalPaginas} onClick={() => setPaginaAtual(p => p + 1)}>Próxima</button>
                 </section>
             )}
 
             <button className={css.btnAdd} onClick={() => navigate("/app/salas/criar")}>
-                ADICIONAR SALA
+                ADICIONAR SALA <span className={css.plusCircle}>+</span>
             </button>
         </main>
     );

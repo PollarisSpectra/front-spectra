@@ -225,7 +225,7 @@ export default function ListarFilme() {
             )}
 
             <button className={css.btnAdd} onClick={() => navigate("/app/filmes/criar")}>
-                ADICIONAR FILME <span className={css.plusCircle}>+</span>
+                ADICIONAR FILME <span className={css.plusIcon}>+</span>
             </button>
         </main>
     );

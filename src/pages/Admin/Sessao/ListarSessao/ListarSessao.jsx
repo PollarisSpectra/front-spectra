@@ -8,7 +8,6 @@ export default function ListarSessao() {
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
-    // Função para buscar as sessões do backend
     const buscarSessoes = async () => {
         try {
             const response = await fetch("http://127.0.0.1:5000/sessao/listar_sessao");
@@ -29,18 +28,12 @@ export default function ListarSessao() {
 
     const handleExcluir = async (id) => {
         if (!window.confirm("Tem certeza que deseja excluir esta sessão?")) return;
-
         try {
             const response = await fetch(`http://127.0.0.1:5000/sessao/excluir_sessao/${id}`, {
                 method: 'DELETE',
             });
-            const data = await response.json();
-
             if (response.ok) {
-                alert("Sessão excluída!");
-                buscarSessoes(); // Atualiza a lista
-            } else {
-                alert(data.error || "Erro ao excluir");
+                buscarSessoes();
             }
         } catch (error) {
             alert("Erro na requisição");
@@ -48,70 +41,76 @@ export default function ListarSessao() {
     };
 
     return (
-        <main className={css.main + " container"}>
-            <div className={css.tituloArea}>
-                <button className={css.voltar} onClick={() => navigate("/dashboard")}>←</button>
-                <h1>SESSÕES</h1>
-            </div>
+        <main className={css.container}>
+            {/* HEADER IGUAL AO DE FILMES */}
+            <section className={css.header}>
+                <button className={css.voltar} onClick={() => navigate(-1)}>←</button>
+                <h1 className={css.formTitulo}>SESSÕES</h1>
+            </section>
 
             <section className={css.lista}>
-                {loading ? <p className="text-white">Carregando...</p> :
-                    sessoes.length === 0 ? <p className="text-white">Nenhuma sessão encontrada.</p> :
-                        sessoes.map((sessao) => (
-                            <div key={sessao.id_sessao} className={css.cardSessao}>
-                                <div
-                                    className={css.topoSessao}
-                                    onClick={() => setAberta(aberta === sessao.id_sessao ? null : sessao.id_sessao)}
-                                >
-                                    <div>
-                                        <span>SESSÃO</span>
-                                        <strong>{sessao.id_sessao}</strong>
-                                        <p>{sessao.horario}</p>
-                                    </div>
-                                    <button className={css.seta + " bg-transparent text-white"}>
-                                        {aberta === sessao.id_sessao ? "⌃" : "⌄"}
-                                    </button>
+                {loading ? (
+                    <p className={css.mensagem}>Carregando...</p>
+                ) : sessoes.length === 0 ? (
+                    <p className={css.mensagem}>Nenhuma sessão encontrada.</p>
+                ) : (
+                    sessoes.map((sessao, index) => (
+                        <div key={sessao.id_sessao} className={css.sessaoCard}>
+                            <div
+                                className={css.sessaoHeader}
+                                onClick={() => setAberta(aberta === sessao.id_sessao ? null : sessao.id_sessao)}
+                            >
+                                <div className={css.sessaoLabel}>
+                                    SESSÃO <span>Id: {sessao.id_sessao}</span>
                                 </div>
+                                <span className={css.horarioSessao}>{sessao.horario}</span>
+                                <span className={css.seta}>{aberta === sessao.id_sessao ? "▲" : "▼"}</span>
+                            </div>
 
-                                {aberta === sessao.id_sessao && (
-                                    <div className={css.conteudoSessao}>
-                                        <div className={css.infoFilme}>
-                                            {/* Caso não tenha imagem no banco, usamos um placeholder */}
-                                            <img src={sessao.imagem || "/missaofilme.png"} alt={sessao.filme} />
-                                            <div>
-                                                <h3>{sessao.filme}</h3>
-                                                <p>Sala: {sessao.sala}</p>
-                                                <p>Data: {sessao.data}</p>
-                                                <p>Valor: R$ {sessao.valor_assento.toFixed(2)}</p>
-                                            </div>
+                            {aberta === sessao.id_sessao && (
+                                <div className={css.sessaoDetalhes}>
+                                    <div className={css.posterContainer}>
+                                        <img src={sessao.imagem || "https://via.placeholder.com/150"} alt={sessao.filme} className={css.poster} />
+                                    </div>
+
+                                    <div className={css.infoGrid}>
+                                        <div className={css.colEsquerda}>
+                                            <h3 className={css.sessaoTitulo}>{sessao.filme}</h3>
+                                            <p><strong>Sala:</strong> {sessao.sala}</p>
+                                            <p><strong>Data:</strong> {sessao.data}</p>
+                                            <p><strong>Valor:</strong> R$ {sessao.valor_assento.toFixed(2)}</p>
                                         </div>
 
                                         <div className={css.acoes}>
+                                            {/* Botão de Editar Padronizado */}
                                             <button
-                                                className={css.btnEditar}
+                                                className={css.btnEdit} // Mudamos a classe para usar o estilo redondo
                                                 onClick={() => navigate(`/app/sessoes/${sessao.id_sessao}/editar`)}
+                                                title="Editar"
                                             >
                                                 ✎
                                             </button>
+
+                                            {/* Botão de Excluir Padronizado (sem texto, apenas ícone) */}
                                             <button
-                                                className={css.btnExcluir}
+                                                className={css.btnDelete} // Mudamos a classe para usar o estilo redondo
                                                 onClick={() => handleExcluir(sessao.id_sessao)}
+                                                title="Excluir"
                                             >
                                                 🗑
                                             </button>
                                         </div>
                                     </div>
-                                )}
-                            </div>
-                        ))}
+                                </div>
+                            )}
+                        </div>
+                    ))
+                )}
             </section>
 
-            <div className={css.adicionarArea}>
-                <button className={css.adicionarTexto + " px-3 py-1 rounded-3 fw-semibold"} onClick={() => navigate("/app/sessoes/criar")}>
-                    ADICIONAR SESSÃO
-                </button>
-                <button className={css.adicionarBtn} onClick={() => navigate("/app/sessoes/criar")}>+</button>
-            </div>
+            <button className={css.btnAdd} onClick={() => navigate("/app/sessoes/criar")}>
+                ADICIONAR SESSÃO <span className={css.plusIcon}>+</span>
+            </button>
         </main>
     );
 }

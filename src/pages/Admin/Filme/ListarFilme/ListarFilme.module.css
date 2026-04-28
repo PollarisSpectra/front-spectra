@@ -1,40 +1,272 @@
-/* BOTÃO ADICIONAR PADRONIZADO */
-.btnAdd {
-    position: fixed;
-    right: 60px;
-    bottom: 40px;
+/* Container Principal */
+.container {
+    min-height: 100vh;
+    padding: 40px 10%;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Header */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 60px;
+    position: relative;
+}
+
+.voltar {
+    position: absolute;
+    left: 0;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.formTitulo {
+    font-size: 2.5rem;
+    letter-spacing: 5px;
+    font-weight: 700;
+    margin: 0;
+}
+
+/* --- BARRA DE FILTROS (FLUXO FLEX) --- */
+.filtroBarra {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Input na esquerda, Seletor na direita */
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+.inputBusca {
+    min-width: 250px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.inputBusca:focus {
+    border-color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.btnLupa {
+    transition: opacity 0.2s;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.btnLupa:hover {
+    opacity: 0.9;
+}
+
+/* --- SELETOR ESTILO SHADCN --- */
+.ordenarWrapper {
+    position: relative; /* Contexto para o menu suspenso */
+    width: 160px;
+}
+
+.ordenarHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.2s;
+    font-size: 0.85rem;
+}
+
+.ordenarHeader:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.ordenarOpcoes {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 100%;
+    list-style: none;
+    background-color: #09090b; /* Zinc 950 */
+    margin: 0;
+    padding: 4px;
+    border: 1px solid #27272a; /* Zinc 800 */
+    z-index: 1000;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+}
+
+.ordenarOpcoes li {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    color: #a1a1aa;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.ordenarOpcoes li:hover {
+    background-color: #27272a;
+    color: white;
+}
+
+/* --- LISTA E CARDS --- */
+.lista {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.filmeCard {
+    background-color: #333;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.filmeHeader {
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.filmeLabel {
+    font-weight: bold;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+}
+
+.filmeLabel span {
     background-color: #fff;
     color: #000;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 10px;
+    font-size: 0.8rem;
+}
+
+.filmeDetalhes {
+    background-color: #000;
+    padding: 30px;
+    display: flex;
+    gap: 40px;
+    border-top: 1px solid #444;
+}
+
+.poster {
+    width: 150px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.infoGrid {
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-between;
+}
+
+.colEsquerda h3 {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+}
+
+.colEsquerda p, .colDireita p {
+    font-size: 0.85rem;
+    color: #ccc;
+    margin-bottom: 8px;
+}
+
+/* --- BADGES DE CLASSIFICAÇÃO --- */
+.classifBadge {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 4px;
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 0.8rem;
+}
+
+.badgeL { background-color: #00a650; color: #fff; }
+.badge10 { background-color: #00adef; color: #fff; }
+.badge12 { background-color: #f6ec13; color: #000; }
+.badge14 { background-color: #f58220; color: #fff; }
+.badge16 { background-color: #ef4123; color: #fff; }
+.badge18 { background-color: #1d1d1b; color: #fff; }
+
+.colDireita {
+    max-width: 40%;
+}
+
+.sinopse {
+    line-height: 1.6;
+    text-align: justify;
+    overflow-wrap: break-word;
+}
+
+/* --- AÇÕES E BOTÕES --- */
+.acoes {
+    display: flex;
+    align-items: flex-end;
+    gap: 15px;
+}
+
+.btnEdit {
+    background-color: #fff;
     border: none;
-    padding: 10px 10px 10px 25px;
-    border-radius: 40px;
-    font-weight: 900;
-    font-size: 14px;
-    letter-spacing: 1px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 15px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    z-index: 1000;
-}
-
-.plusIcon {
-    background-color: #000;
-    color: #fff;
-    border-radius: 50%;
-    width: 32px;
-    height: 32px;
-    display: flex;
     justify-content: center;
-    align-items: center;
-    font-size: 20px;
-    font-weight: bold;
+    font-size: 1.2rem;
+    transition: transform 0.2s;
 }
 
-.btnAdd:hover {
-    transform: scale(1.05);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+/* .btnEdit:hover {
+    transform: scale(1.1);
+} */
+
+.btnDelete {
+    color: #000;
+    /* background-color: #fff; */
+    border: none;
+    transition: color 0.1s;
+}
+
+.btnDelete:hover {
+    /* background-color: #a71d2a; */
+    color: var(--vermelho-selecionado);
+}
+
+.btnAdd {
+    position: fixed;
+    bottom: 40px;
+    right: 10%;
+    background: none;
+    border: none;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    z-index: 500;
+}
+
+.plusCircle {
+    background-color: #fff;
+    color: #000;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
 }
 
 /* Paginação */

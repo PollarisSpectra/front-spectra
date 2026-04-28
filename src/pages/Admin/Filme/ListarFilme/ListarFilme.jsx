@@ -197,7 +197,7 @@ export default function ListarFilme() {
                                         </div>
 
                                         <div className={css.acoes}>
-                                            <button className={css.btnEdit} onClick={() => navigate(`/app/filmes/${filme.id_filme}/editar`, { state: { filme } })}>✎</button>
+                                            <button className={"px-2 py-1 rounded-3 fw-semibold"} onClick={() => navigate(`/app/filmes/${filme.id_filme}/editar`, { state: { filme } })}>Editar</button>
                                             <button
                                                 className={css.btnDelete + " px-2 py-1 rounded-3 fw-semibold"}
                                                 onClick={(e) => { 
@@ -220,9 +220,9 @@ export default function ListarFilme() {
 
             {totalPaginas > 1 && (
                 <section className={css.paginacao + " d-flex justify-content-center align-items-center gap-3 mt-5"}>
-                    <button disabled={paginaAtual === 1} onClick={() => setPaginaAtual(p => p - 1)}>Anterior</button>
+                    <button className="px-2 py-1 rounded-3" disabled={paginaAtual === 1} onClick={() => setPaginaAtual(p => p - 1)}>Anterior</button>
                     <span>{paginaAtual} / {totalPaginas}</span>
-                    <button disabled={paginaAtual === totalPaginas} onClick={() => setPaginaAtual(p => p + 1)}>Próxima</button>
+                    <button className="px-2 py-1 rounded-3" disabled={paginaAtual === totalPaginas} onClick={() => setPaginaAtual(p => p + 1)}>Próxima</button>
                 </section>
             )}
 

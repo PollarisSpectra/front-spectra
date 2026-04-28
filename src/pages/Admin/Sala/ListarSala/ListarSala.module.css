@@ -190,6 +190,10 @@
     font-size: 1rem;
     z-index: 500;
 }
+.container {
+    min-height: 100vh;
+    padding: 60px 80px 120px 80px; /* Aumentei o padding-bottom (120px) */
+    background: linear-gradient(to bottom, #0b0f14, #000);
 
 .plusCircle {
     background-color: #fff;
@@ -213,3 +217,4 @@
 
 .success { background-color: #d4edda; color: #155724; }
 .error { background-color: #f8d7da; color: #721c24; }
+}

@@ -129,13 +129,13 @@ export default function ListarSessao() {
                                     />
                                     <div className={css.infoGrid}>
                                         <div className={css.colEsquerda}>
+                                            <p>
+                                                <strong>Valor:</strong>{" "}
+                                            </p>
                                             <h3 className={css.sessaoTitulo}>{sessao.filme}</h3>
                                             <p><strong>Sala:</strong> {sessao.sala}</p>
                                             <p><strong>Data:</strong> {sessao.data}</p>
-                                            <p>
-                                                <strong>Valor:</strong>{" "}
-                                                R$ {Number(sessao.valor_assento || 0).toFixed(2)}
-                                            </p>
+                                            R$ {Number(sessao.valor_assento || 0).toFixed(2)}
                                         </div>
 
                                         <div className={css.acoes}>

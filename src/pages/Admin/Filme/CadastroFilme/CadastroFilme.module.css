@@ -80,3 +80,111 @@
     cursor: pointer;
     margin-top: 20px;
 }
+/* Container agora precisa de flex-direction column para o Header ficar no topo */
+.containerMain {
+    min-height: 100vh;
+    padding: 40px 10%;
+    background: linear-gradient(to bottom, #0b0f14, #000);
+    display: flex;
+    flex-direction: column;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* HEADER PADRONIZADO */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centraliza o título */
+    margin-bottom: 50px;
+    position: relative;     /* Necessário para a seta alinhar por ele */
+    width: 100%;
+}
+
+.voltar {
+    position: absolute;
+    left: 0;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.voltar:hover {
+    transform: scale(1.2);
+}
+
+.formTituloPrincipal {
+    font-size: 2.5rem;
+    letter-spacing: 5px;
+    font-weight: 700;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+/* Div auxiliar para manter o Preview e o Form lado a lado */
+.conteudoFlex {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* Container agora precisa de flex-direction column para o Header ficar no topo */
+.containerMain {
+    min-height: 100vh;
+    padding: 40px 10%;
+    background: linear-gradient(to bottom, #0b0f14, #000);
+    display: flex;
+    flex-direction: column;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* HEADER PADRONIZADO */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centraliza o título */
+    margin-bottom: 50px;
+    position: relative;     /* Necessário para a seta alinhar por ele */
+    width: 100%;
+}
+
+.voltar {
+    position: absolute;
+    left: 0;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.voltar:hover {
+    transform: scale(1.2);
+}
+
+.formTituloPrincipal {
+    font-size: 2.5rem;
+    letter-spacing: 5px;
+    font-weight: 700;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+/* Div auxiliar para manter o Preview e o Form lado a lado */
+.conteudoFlex {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* Ajuste o formCard para não ter margem extra no topo agora que tem o header */
+.formCard {
+    color: #000;
+}

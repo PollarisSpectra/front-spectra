@@ -28,7 +28,7 @@ export default function EditarFilme() {
     const [loading, setLoading] = useState(false);
     const [carregando, setCarregando] = useState(true);
     
-    // Estados para a FlashMessage
+    // Estados para a FlashMessage unificados
     const [mensagem, setMensagem] = useState("");
     const [tipoMensagem, setTipoMensagem] = useState("");
 
@@ -65,7 +65,7 @@ export default function EditarFilme() {
                 setFilme(estado);
                 setEstadoInicial(estado);
                 setCapaOriginal(capa);
-                setPreviewCapa(capa);
+                setPreviewCapa(capa ? `http://localhost:5000/filmes${capa}` : null);
             } catch (err) {
                 setMensagem("Erro de conexão com o servidor.");
                 setTipoMensagem("erro");
@@ -93,12 +93,10 @@ export default function EditarFilme() {
 
     const handleCancelarImagem = () => {
         setImagemFile(null);
-        setPreviewCapa(capaOriginal);
+        setPreviewCapa(capaOriginal ? `http://localhost:5000/filmes${capaOriginal}` : null);
         setImagemAlterada(false);
-        fileInputRef.current.value = "";
+        if(fileInputRef.current) fileInputRef.current.value = "";
     };
-
-    const handleCancelarEdicao = () => navigate("/app/filmes");
 
     const handleSalvar = async () => {
         setLoading(true);
@@ -136,7 +134,7 @@ export default function EditarFilme() {
                 setMensagem(data.message || "Filme atualizado com sucesso!");
                 setTipoMensagem("sucesso");
             }
-        } catch (err) {
+        } catch (error) {
             setMensagem("Erro de conexão com o servidor.");
             setTipoMensagem("erro");
         } finally {
@@ -156,11 +154,10 @@ export default function EditarFilme() {
         }
     };
 
-    if (carregando) return <div style={{ color: "white", textAlign: "center", marginTop: "100px" }}>Carregando...</div>;
+    if (carregando) return <div className={css.carregando}>Carregando...</div>;
 
     return (
         <div className={css.containerMain}>
-            {/* Implementação da FlashMessage */}
             <FlashMessage 
                 mensagem={mensagem} 
                 tipo={tipoMensagem} 
@@ -170,120 +167,118 @@ export default function EditarFilme() {
                 }} 
             />
 
-            <div className={css.previewContainer}>
-                <div className={css.cardPreview}>
-                    <div className={css.capaArea}>
-                        {previewCapa ? (
-                            <img src={previewCapa} alt="Preview" className={css.imgPreview} />
-                        ) : (
-                            <div className={css.uploadPlaceholder}>
-                                <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="1.5">
-                                    <circle cx="12" cy="12" r="10" />
-                                    <path d="M12 8v8M8 12l4 4 4-4" />
-                                </svg>
-                            </div>
-                        )}
+            <header className={css.header}>
+                <button className={css.voltar} onClick={() => navigate(-1)}>←</button>
+                <h1 className={css.formTituloPrincipal}>EDIÇÃO DE FILME</h1>
+            </header>
 
-                        <div className={css.capaOverlay}>
-                            {imagemAlterada ? (
-                                <button type="button" className={css.btnCancelarImagem} onClick={handleCancelarImagem}>
-                                    ✕ Cancelar
-                                </button>
+            <div className={css.conteudoFlex}>
+                <div className={css.previewContainer}>
+                    <div className={css.cardPreview}>
+                        <div className={css.capaArea} onClick={() => fileInputRef.current.click()}>
+                            {previewCapa ? (
+                                <img src={previewCapa} alt="Preview" className={css.imgPreview} />
                             ) : (
-                                <button type="button" className={css.btnTrocarImagem} onClick={() => fileInputRef.current.click()}>
-                                    ✎ Trocar imagem
-                                </button>
+                                <div className={css.uploadPlaceholder}>
+                                    <span>CLIQUE PARA UPLOAD DA CAPA</span>
+                                </div>
+                            )}
+
+                            <div className={css.capaOverlay}>
+                                {imagemAlterada ? (
+                                    <button type="button" className={css.btnCancelarImagem} onClick={(e) => { e.stopPropagation(); handleCancelarImagem(); }}>
+                                        ✕ Cancelar
+                                    </button>
+                                ) : (
+                                    <button type="button" className={css.btnTrocarImagem}>
+                                       
+                                    </button>
+                                )}
+                            </div>
+
+                            {filme.classificacao && (
+                                <div
+                                    className={css.classificacaoBadge}
+                                    style={{
+                                        backgroundColor: getBadgeColor(filme.classificacao),
+                                        color: filme.classificacao === "12" ? "black" : "white"
+                                    }}
+                                >
+                                    {filme.classificacao}
+                                </div>
                             )}
                         </div>
 
-                        {filme.classificacao && (
-                            <div
-                                className={css.classificacaoBadge}
-                                style={{
-                                    backgroundColor: getBadgeColor(filme.classificacao),
-                                    color: filme.classificacao === "12" ? "black" : "white"
-                                }}
-                            >
-                                {filme.classificacao}
+                        <div className={css.infoPreview}>
+                            <div className={css.tituloRow}>
+                                <h3>{filme.titulo || "TÍTULO DO FILME"}</h3>
                             </div>
-                        )}
+                            <div className={css.detalhesRow}>
+                                <span><strong>Gênero:</strong> {filme.genero || "..."}</span>
+                                <span><strong>Duração:</strong> {filme.duracao || "..."}</span>
+                            </div>
+                        </div>
                     </div>
 
-                    <div className={css.infoPreview}>
-                        <div className={css.tituloRow}>
-                            <h3>{filme.titulo || "TÍTULO DO FILME"}</h3>
-                            <span className={css.estrelas}>★★★★★</span>
-                        </div>
-                        <div className={css.detalhesRow}>
-                            <span><strong>Gênero:</strong> {filme.genero || "..."}</span>
-                            <span><strong>Duração:</strong> {filme.duracao || "..."}</span>
-                        </div>
-                    </div>
+                    <p className={css.sinopseTexto}>
+                        <strong>Sinopse:</strong> {filme.sinopse || "..."}
+                    </p>
                 </div>
 
-                <p className={css.sinopseTexto}>
-                    <strong>Sinopse:</strong> {filme.sinopse || "..."}
-                </p>
-            </div>
+                <div className={css.formCard}>
+                    <form className={css.formulario}>
+                        <input type="file" ref={fileInputRef} onChange={handleImageChange} style={{ display: 'none' }} accept="image/*" />
 
-            <div className={css.formCard}>
-                <h1 className={css.formTitulo}>EDIÇÃO DE FILME</h1>
+                        <div className={css.inputBox}>
+                            <label>Título do filme</label>
+                            <input type="text" name="titulo" value={filme.titulo} onChange={handleChange} />
+                        </div>
 
-                <form className={css.formulario}>
-                    <input type="file" ref={fileInputRef} onChange={handleImageChange} style={{ display: 'none' }} accept="image/*" />
+                        <div className={css.inputBox}>
+                            <label>Gênero</label>
+                            <input type="text" name="genero" value={filme.genero} onChange={handleChange} />
+                        </div>
 
-                    <div className={css.inputBox}>
-                        <label>Gênero</label>
-                        <input type="text" name="genero" value={filme.genero} onChange={handleChange} />
-                    </div>
+                        <div className={css.inputBox}>
+                            <label>Duração</label>
+                            <input type="text" name="duracao" value={filme.duracao} onChange={handleChange} />
+                        </div>
 
-                    <div className={css.inputBox}>
-                        <label>Título do filme</label>
-                        <input type="text" name="titulo" value={filme.titulo} onChange={handleChange} />
-                    </div>
+                        <div className={css.inputBox}>
+                            <label>Classificação</label>
+                            <select name="classificacao" value={filme.classificacao} onChange={handleChange} className={css.selectStyle}>
+                                <option value="">Selecione a idade</option>
+                                <option value="L">Livre</option>
+                                <option value="10">10</option>
+                                <option value="12">12</option>
+                                <option value="14">14</option>
+                                <option value="16">16</option>
+                                <option value="18">18</option>
+                            </select>
+                        </div>
 
-                    <div className={css.inputBox}>
-                        <label>Duração</label>
-                        <input type="text" name="duracao" value={filme.duracao} onChange={handleChange} />
-                    </div>
+                        <div className={css.inputBox}>
+                            <label>Sinopse</label>
+                            <textarea name="sinopse" value={filme.sinopse} onChange={handleChange} />
+                        </div>
 
-                    <div className={css.inputBox}>
-                        <label>Idade Indicativa</label>
-                        <select name="classificacao" value={filme.classificacao} onChange={handleChange} className={css.selectStyle}>
-                            <option value="">Selecione a idade</option>
-                            <option value="L">Livre</option>
-                            <option value="10">10</option>
-                            <option value="12">12</option>
-                            <option value="14">14</option>
-                            <option value="16">16</option>
-                            <option value="18">18</option>
-                        </select>
-                    </div>
+                        <div className={css.inputBox}>
+                            <label>Data de Lançamento</label>
+                            <input type="date" name="data_lancamento" value={filme.data_lancamento} onChange={handleChange} />
+                        </div>
 
-                    <div className={css.inputBox}>
-                        <label>Sinopse</label>
-                        <input type="text" name="sinopse" value={filme.sinopse} onChange={handleChange} />
-                    </div>
+                        <div className={css.inputBox}>
+                            <label>Link do trailer</label>
+                            <input type="text" name="trailer" value={filme.trailer} onChange={handleChange} />
+                        </div>
 
-                    <div className={css.inputBox}>
-                        <label>Data de Lançamento</label>
-                        <input type="date" name="data_lancamento" value={filme.data_lancamento} onChange={handleChange} />
-                    </div>
-
-                    <div className={css.inputBox}>
-                        <label>Link do trailer</label>
-                        <input type="text" name="trailer" value={filme.trailer} onChange={handleChange} />
-                    </div>
-
-                    <div style={{ display: "flex", gap: "15px", marginTop: "20px" }}>
-                        <button type="button" className={css.btnCadastrar + " px-2 py-1"} style={{ marginTop: 0 }} onClick={handleSalvar} disabled={loading}>
-                            {loading ? "SALVANDO..." : "SALVAR"}
-                        </button>
-                        <button type="button" className={css.btnCancelar + " px-2 py-1"} style={{ marginTop: 0 }} onClick={handleCancelarEdicao} disabled={loading}>
-                            CANCELAR
-                        </button>
-                    </div>
-                </form>
+                        <div className={css.acoesForm}>
+                            <button type="button" className={css.btnSalvar} onClick={handleSalvar} disabled={loading}>
+                                {loading ? "SALVANDO..." : "SALVAR ALTERAÇÕES"}
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     );

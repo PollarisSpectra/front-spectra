@@ -90,7 +90,7 @@ export default function CadastroFilme() {
         <div className={css.containerMain}>
             {/* NOVO HEADER PADRONIZADO COM SETA VOLTAR */}
             <header className={css.header}>
-                <button className={css.voltar} onClick={() => navigate(-1)}>←</button>
+                <button className={css.voltar} onClick={() => navigate("/app/filmes")}>←</button>
                 <h1 className={css.formTituloPrincipal}>CADASTRO DE FILME</h1>
             </header>
 

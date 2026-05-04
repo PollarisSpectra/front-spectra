@@ -168,7 +168,7 @@ export default function EditarFilme() {
             />
 
             <header className={css.header}>
-                <button className={css.voltar} onClick={() => navigate(-1)}>←</button>
+                <button className={css.voltar} onClick={() => navigate("/app/filmes")}>←</button>
                 <h1 className={css.formTituloPrincipal}>EDIÇÃO DE FILME</h1>
             </header>
 

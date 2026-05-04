@@ -157,7 +157,7 @@ export default function EditarSala() {
 
             {/* CABEÇALHO COM TÍTULO E SETA */}
             <div className={css.header}>
-                <button type="button" className={css.btnVoltar} onClick={() => navigate(-1)}>
+                <button type="button" className={css.btnVoltar} onClick={() => navigate("/app/salas")}>
                     ←
                 </button>
                 <h1 className={css.titulo}>EDIÇÃO DE SALA</h1>

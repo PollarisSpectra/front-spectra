@@ -141,7 +141,7 @@ export default function ListarFilme() {
             )}
 
             <section className={css.header}>
-                <button className={css.voltar} onClick={() => navigate(-1)}>←</button>
+                <button className={css.voltar} onClick={() => navigate("/app")}>←</button>
                 <h1 className={css.formTitulo}>FILMES</h1>
             </section>
 

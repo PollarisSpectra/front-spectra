@@ -95,7 +95,7 @@ export default function ListarSessao() {
             )}
 
             <section className={css.header}>
-                <button className={css.voltar} onClick={() => navigate(-1)}>←</button>
+                <button className={css.voltar} onClick={() => navigate("/app")}>←</button>
                 <h1 className={css.formTitulo}>SESSÕES</h1>
             </section>
 

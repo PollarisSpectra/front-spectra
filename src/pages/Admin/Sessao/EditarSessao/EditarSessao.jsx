@@ -161,7 +161,7 @@ export default function EditarSessao() {
 
             {/* Título e Botão Voltar agora ficam aqui em cima, sozinhos */}
             <div className={css.header}>
-                <button type="button" className={css.btnVoltar} onClick={() => navigate(-1)}>
+                <button type="button" className={css.btnVoltar} onClick={() => navigate("/app/sessoes")}>
                     ←
                 </button>
                 <h1 className={css.formTitulo}>EDIÇÃO DE SESSÃO</h1>

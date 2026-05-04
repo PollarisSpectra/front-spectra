@@ -1,11 +1,21 @@
+/* =========================================
+   BASE E ESTRUTURA
+========================================= */
+* {
+    box-sizing: border-box; /* Essencial para os paddings não quebrarem a tela no mobile */
+}
+
 .container {
     min-height: 100vh;
-    padding: 40px 10%;
+    padding: 60px 80px 120px 80px;
+    background: linear-gradient(to bottom, #0b0f14, #000);
     color: white;
     font-family: 'Montserrat', sans-serif;
 }
 
-/* HEADER CENTRALIZADO IGUAL AO DE FILMES */
+/* =========================================
+   CABEÇALHO
+========================================= */
 .header {
     display: flex;
     align-items: center;
@@ -22,6 +32,8 @@
     color: white;
     font-size: 24px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
 }
 
 .formTitulo {
@@ -30,21 +42,26 @@
     font-weight: 700;
     margin: 0;
     text-transform: uppercase;
+    text-align: center;
 }
 
-/* FILTROS */
+/* =========================================
+   FILTROS E BUSCA
+========================================= */
 .filtroBarra {
     display: flex;
     align-items: center;
+    gap: 15px;
     margin-bottom: 40px;
 }
 
 .inputBusca {
     min-width: 250px;
+    flex: 1; /* Faz o input crescer para preencher o espaço */
     background-color: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
-    padding: 8px 15px;
+    padding: 10px 15px;
     color: white;
     outline: none;
 }
@@ -53,13 +70,15 @@
     background-color: white;
     color: black;
     border: none;
-    padding: 8px 15px;
+    padding: 10px 20px;
     border-radius: 8px;
     font-weight: bold;
     cursor: pointer;
 }
 
-/* CARDS ESTILO ACCORDION FILME */
+/* =========================================
+   CARDS (ACCORDION DE FILMES/SESSÕES)
+========================================= */
 .lista {
     display: flex;
     flex-direction: column;
@@ -67,9 +86,10 @@
 }
 
 .filmeCard {
-    background-color: #333;
+    background-color: #1a1a1a; /* Deixei levemente mais claro que o fundo para destacar */
     border-radius: 8px;
     overflow: hidden;
+    border: 1px solid #333;
 }
 
 .filmeHeader {
@@ -98,7 +118,7 @@
 .filmeDetalhes {
     background-color: #000;
     padding: 30px;
-    border-top: 1px solid #444;
+    border-top: 1px solid #333;
 }
 
 .infoGrid {
@@ -118,7 +138,9 @@
     margin-bottom: 8px;
 }
 
-/* BOTÕES DE AÇÃO IGUAL FILMES */
+/* =========================================
+   AÇÕES DOS CARDS
+========================================= */
 .acoes {
     display: flex;
     align-items: center;
@@ -128,6 +150,7 @@
 
 .btnEdit {
     background-color: #fff;
+    color: #000;
     border: none;
     width: 35px;
     height: 35px;
@@ -140,16 +163,21 @@
 }
 
 .btnDelete {
-    color: #000;
+    background-color: transparent;
+    color: #fff; /* Troquei para branco para ver no fundo escuro */
     border: none;
-    transition: color 0.1s;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: color 0.2s;
 }
 
 .btnDelete:hover {
     color: #ed1c24;
 }
 
-/* PAGINAÇÃO */
+/* =========================================
+   PAGINAÇÃO E MENSAGENS
+========================================= */
 .paginacao {
     display: flex;
     justify-content: center;
@@ -162,64 +190,38 @@
     background-color: #333;
     border: 1px solid #444;
     color: white;
-    padding: 5px 15px;
+    padding: 8px 20px;
     border-radius: 8px;
     cursor: pointer;
+    transition: 0.2s;
+}
+
+.paginacao button:hover:not(:disabled) {
+    background-color: #555;
 }
 
 .paginacao button:disabled {
     opacity: 0.3;
+    cursor: not-allowed;
 }
 
-/* BOTÃO ADICIONAR PADRONIZADO */
-.btnAdd {
-    position: fixed;
-    bottom: 40px;
-    right: 10%;
-    background: none;
-    border: none;
-    color: white;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    font-size: 1rem;
-    z-index: 500;
-}
-.container {
-    min-height: 100vh;
-    padding: 60px 80px 120px 80px; /* Aumentei o padding-bottom (120px) */
-    background: linear-gradient(to bottom, #0b0f14, #000);
-
-.plusCircle {
-    background-color: #fff;
-    color: #000;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-}
-
-/* MENSAGENS */
 .messageBox {
     padding: 15px;
     border-radius: 8px;
     margin-bottom: 20px;
     text-align: center;
+    font-weight: bold;
 }
 
-.success { background-color: #d4edda; color: #155724; }
-.error { background-color: #f8d7da; color: #721c24; }
-}
+.success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+.error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
 
-/* Botão Flutuante de Adicionar */
+/* =========================================
+   BOTÃO FLUTUANTE DE ADICIONAR
+========================================= */
 .btnAdd {
     position: fixed;
-    right: 60px; /* Alinhado conforme a página de sessões */
+    right: 60px;
     bottom: 40px;
     background-color: #fff;
     color: #000;
@@ -239,11 +241,10 @@
 
 .btnAdd:hover {
     transform: scale(1.05);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 }
 
-/* Ícone de + dentro do círculo preto */
-.plusIcon {
+.plusIcon, .plusCircle {
     background-color: #000;
     color: #fff;
     border-radius: 50%;
@@ -255,3 +256,150 @@
     font-size: 20px;
     font-weight: bold;
 }
+
+
+/* =========================================
+   RESPONSIVIDADE (Tablets e Telas Menores)
+========================================= */
+@media (max-width: 768px) {
+    .container {
+        padding: 40px 30px 100px 30px;
+    }
+
+    .formTitulo {
+        font-size: 2rem;
+    }
+
+    .btnAdd {
+        right: 30px;
+        bottom: 30px;
+    }
+}
+
+/* =========================================
+   RESPONSIVIDADE (Celulares Médios - 480px)
+========================================= */
+@media (max-width: 480px) {
+    .container {
+        padding: 30px 15px 100px 15px;
+    }
+
+    .header {
+        margin-bottom: 30px;
+        padding: 0 30px; /* Abre espaço para a seta não encostar no título */
+    }
+
+    .formTitulo {
+        font-size: 1.5rem;
+        letter-spacing: 2px;
+    }
+
+    /* Transforma a barra de busca em coluna */
+    .filtroBarra {
+        flex-direction: column;
+        align-items: stretch; /* Estica os botões para 100% da largura */
+    }
+
+    .inputBusca {
+        min-width: 100%;
+    }
+
+    .filmeHeader {
+        padding: 15px;
+    }
+
+    /* Empilha o conteúdo detalhado */
+    .infoGrid {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .acoes {
+        align-self: flex-start; /* Alinha os botões à esquerda no mobile */
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .btnAdd {
+        right: 15px;
+        bottom: 20px;
+        padding: 8px 8px 8px 15px;
+        font-size: 12px;
+        gap: 10px;
+    }
+}
+
+/* =========================================
+   RESPONSIVIDADE EXTREMA (Celulares de 320px)
+========================================= */
+@media (max-width: 320px) {
+    .container {
+        padding: 20px 10px 90px 10px; /* Reduz ao máximo as bordas laterais */
+    }
+
+    .header {
+        padding: 0 25px;
+        margin-bottom: 20px;
+    }
+
+    .formTitulo {
+        font-size: 1.2rem;
+        letter-spacing: 1px;
+    }
+
+    .voltar {
+        font-size: 20px; /* Reduz a seta levemente */
+    }
+
+    .filmeHeader {
+        padding: 12px 10px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .filmeLabel span {
+        margin-left: 0;
+        display: block; /* Joga a tag pra linha de baixo se faltar espaço */
+        margin-top: 5px;
+        width: max-content;
+    }
+
+    .filmeDetalhes {
+        padding: 15px 10px;
+    }
+
+    .filmeTitulo {
+        font-size: 1.2rem;
+    }
+
+    .colEsquerda p {
+        font-size: 0.8rem;
+    }
+
+    /* Botões de Ação na tela mini */
+    .acoes {
+        justify-content: space-between; /* Espalha os botões Editar e Excluir */
+    }
+
+    /* Botão Adicionar "Espremido" */
+    .btnAdd {
+        right: 10px;
+        bottom: 15px;
+        padding: 6px 6px 6px 12px;
+        font-size: 10px;
+        gap: 8px;
+    }
+
+    .plusIcon {
+        width: 26px;
+        height: 26px;
+        font-size: 16px;
+    }
+
+    .paginacao {
+        gap: 10px;
+        flex-wrap: wrap; /* Permite que os botões caiam de linha se não couber */
+    }
+}
+

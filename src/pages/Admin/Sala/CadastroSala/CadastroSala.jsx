@@ -89,7 +89,7 @@ export default function CadastroSala() {
 
             {/* CABEÇALHO COM TÍTULO E SETA */}
             <div className={css.header}>
-                
+
                 <h1 className={css.titulo}>CADASTRO DE SALA</h1>
             </div>
 

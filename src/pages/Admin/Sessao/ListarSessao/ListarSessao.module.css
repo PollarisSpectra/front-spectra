@@ -184,3 +184,22 @@
     color: #888;
     margin-top: 20px;
 }
+
+/* --- BARRA DE FILTROS --- */
+.filtroBarra { margin-bottom: 40px; }
+.inputBusca { outline: none; transition: border-color 0.2s; }
+.inputBusca:focus { border-color: rgba(255, 255, 255, 0.8) !important; }
+.btnLupa { transition: opacity 0.2s; font-weight: 600; font-size: 0.9rem; }
+.btnLupa:hover { opacity: 0.9; }
+
+/* --- SELETOR ESTILO SHADCN --- */
+.ordenarWrapper { position: relative; width: 160px; }
+.ordenarHeader { cursor: pointer; transition: all 0.2s; font-size: 0.85rem; }
+.ordenarHeader:hover { background-color: rgba(255, 255, 255, 0.1) !important; }
+.ordenarOpcoes {
+    position: absolute; top: calc(100% + 8px); right: 0; width: 100%;
+    list-style: none; background-color: #09090b; padding: 4px; border: 1px solid #27272a;
+    z-index: 1000; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+}
+.ordenarOpcoes li { padding: 8px 12px; font-size: 0.8rem; color: #a1a1aa; cursor: pointer; transition: all 0.2s; }
+.ordenarOpcoes li:hover { background-color: #27272a; color: white; }

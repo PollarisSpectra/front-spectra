@@ -269,3 +269,71 @@
         width: 12px;
     }
 }
+
+/* =========================================
+   AJUSTES EXTREMOS (Celulares Pequenos - 320px)
+========================================= */
+@media (max-width: 320px) {
+    .mainContainer {
+        padding: 15px 5px; /* Tira quase todo o respiro lateral da tela */
+    }
+
+    .header {
+        margin-bottom: 15px;
+        padding: 0 25px; /* Reduz a área de proteção da seta */
+    }
+
+    .titulo {
+        font-size: 20px; /* Sobrescreve o clamp para garantir que não quebre a linha de forma feia */
+        letter-spacing: 1px; /* Economiza espaço horizontal */
+    }
+
+    .btnVoltar {
+        font-size: 22px; /* Seta um pouco menor */
+    }
+
+    .cardCadastro {
+        padding: 15px 10px; /* Abre espaço máximo para o formulário dentro do card */
+        border-radius: 8px;
+    }
+
+    .inputBox label {
+        font-size: 12px;
+    }
+
+    .inputBox input {
+        font-size: 14px;
+        padding: 6px 0;
+    }
+
+    .btnCadastrar, .btnExcluir {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    /* Otimização máxima para o Mapa de Assentos caber melhor */
+    .mapaAssentos {
+        margin: 15px 0;
+        padding: 5px 2px;
+    }
+
+    .fila {
+        gap: 5px; /* Aproxima as cadeiras da letra */
+    }
+
+    .letraFila {
+        font-size: 10px;
+        width: 10px;
+    }
+
+    .assentosContainer {
+        gap: 2px; /* Gruda mais as cadeiras umas nas outras */
+    }
+
+    .assento {
+        width: 16px; /* Cadeiras bem pequenininhas */
+        height: 16px;
+        font-size: 7px;
+        border-radius: 2px;
+    }
+}

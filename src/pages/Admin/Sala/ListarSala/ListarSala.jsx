@@ -163,7 +163,7 @@ export default function ListarSala() {
                                                 Editar
                                             </button>
                                             <button
-                                                className={css.btnDelete + " px-2 py-1 rounded-3 fw-semibold"}
+                                                className={css.btnDelete + " bg-white px-2 py-1 rounded-3 fw-semibold"}
                                                 onClick={(e) => { 
                                                     e.stopPropagation(); 
                                                     gatilhoExcluir(sala.id_sala); 
@@ -191,7 +191,7 @@ export default function ListarSala() {
             )}
 
             <button className={css.btnAdd} onClick={() => navigate("/app/salas/criar")}>
-                ADICIONAR SALA <span className={css.plusCircle}>+</span>
+                ADICIONAR SALA <span className={css.plusIcon}>+</span>
             </button>
         </main>
     );

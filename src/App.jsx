@@ -58,6 +58,8 @@ function App() {
             <Route path="criar" element={<CadastroFilme />} />
           </Route>
         </Route>
+
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
     </>

@@ -141,7 +141,7 @@ export default function ListarSala() {
                         <div key={sala.id_sala} className={css.filmeCard}>
                             <div className={css.filmeHeader} onClick={() => toggleAccordion(sala.id_sala)}>
                                 <div className={css.filmeLabel}>
-                                    SALA <span>Id: {sala.id_sala}</span>
+                                    SALA <span>{sala.nome}</span>
                                 </div>
                                 <span className={css.seta}>{salaAberta === sala.id_sala ? "▲" : "▼"}</span>
                             </div>

@@ -63,6 +63,7 @@ export default function EditarSessao() {
                 );
 
                 if (sessaoEncontrada) {
+
                     setSessao({
                         id_filme: sessaoEncontrada.id_filme || "",
                         id_sala: sessaoEncontrada.id_sala || "",
@@ -235,10 +236,10 @@ export default function EditarSessao() {
                             onChange={handleChange}
                             className={css.selectStyle}
                         >
-                            <option value="">Selecione</option>
-                            <option value="Ativa">Ativa</option>
-                            <option value="Inativa">Inativa</option>
-                            <option value="Cancelada">Cancelada</option>
+                            <option value="" disabled>Selecione</option>
+                            <option value={1}>Ativa</option>
+                            <option value={0}>Inativa</option>
+                            {/* <option value="Cancelada">Cancelada</option> */}
                         </select>
                     </div>
 

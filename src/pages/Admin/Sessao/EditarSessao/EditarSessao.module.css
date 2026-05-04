@@ -1,44 +1,62 @@
 .containerMain {
     min-height: 100vh;
-    background-color: #000;
+    background-color: #0a0a0b; /* Fundo escuro */
+    display: flex;
+    flex-direction: column; /* O segredo está aqui: empilha os elementos em coluna */
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+/* =========================================
+   CABEÇALHO (Título e Botão Voltar)
+========================================= */
+.header {
+    width: 100%;
+    max-width: 800px; /* Limita a largura para a seta não ficar muito longe */
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 30px 15px;
-}
-
-.formCard {
-    width: 95%;
-    max-width: 510px;
-    background-color: #fff;
-    border-radius: 20px;
-    padding: 45px 45px;
-}
-
-.header {
-    position: relative;
-    margin-bottom: 35px;
-}
-
-.btnVoltar {
-    position: absolute;
-    top: -5px;
-    left: 0;
-    border: none;
-    background-color: #f1f1f1;
-    color: #000;
-    font-size: 18px;
-    cursor: pointer;
+    position: relative; /* Necessário para a seta ficar absoluta dentro do header */
+    margin-bottom: 40px; /* Espaço entre o título e o card branco */
 }
 
 .formTitulo {
-    text-align: center;
-    color: #101820;
-    font-size: 42px;
+    color: #ffffff; /* Título branco */
+    font-size: 36px;
     font-weight: 900;
     line-height: 1.2;
     margin: 0;
     text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
+}
+
+.btnVoltar {
+    position: absolute;
+    left: 0; /* Crava a seta na esquerda da div do header */
+    background: transparent;
+    border: none;
+    color: #ffffff; /* Seta branca */
+    font-size: 30px;
+    cursor: pointer;
+    transition: opacity 0.2s ease-in-out;
+    padding: 0;
+}
+
+.btnVoltar:hover {
+    opacity: 0.7;
+}
+
+/* =========================================
+   FORMULÁRIO E INPUTS
+========================================= */
+.formCard {
+    width: 100%;
+    max-width: 510px;
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 45px;
 }
 
 .inputBox {
@@ -49,7 +67,7 @@
 
 .inputBox label {
     color: #101820;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 800;
     margin-bottom: 8px;
 }
@@ -61,7 +79,7 @@
     border-bottom: 1px solid #cfcfcf;
     outline: none;
     padding: 8px 4px 10px;
-    font-size: 20px;
+    font-size: 16px;
     background-color: transparent;
     color: #000;
 }
@@ -70,8 +88,11 @@
     cursor: pointer;
 }
 
+/* =========================================
+   BOTÕES
+========================================= */
 .botoes {
-    margin-top: 40px;
+    margin-top: 30px;
 }
 
 .btnCadastrar {
@@ -81,10 +102,11 @@
     border: none;
     border-radius: 5px;
     padding: 16px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 900;
     cursor: pointer;
     text-transform: uppercase;
+    transition: background-color 0.2s;
 }
 
 .btnCadastrar:hover {
@@ -98,11 +120,12 @@
     border: 2px solid #ff1f1f;
     border-radius: 5px;
     padding: 14px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 900;
     cursor: pointer;
     text-transform: uppercase;
     margin-top: 12px;
+    transition: 0.2s;
 }
 
 .btnExcluir:hover {
@@ -110,7 +133,9 @@
     color: white;
 }
 
-/* MENSAGEM DE STATUS (faltava no CSS original) */
+/* =========================================
+   MENSAGENS FLASH
+========================================= */
 .statusMsg {
     text-align: center;
     font-weight: bold;

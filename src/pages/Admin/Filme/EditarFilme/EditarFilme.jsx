@@ -191,7 +191,7 @@ export default function EditarFilme() {
                                     </button>
                                 ) : (
                                     <button type="button" className={css.btnTrocarImagem}>
-                                       
+
                                     </button>
                                 )}
                             </div>

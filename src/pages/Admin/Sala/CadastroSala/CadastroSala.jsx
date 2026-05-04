@@ -1,18 +1,21 @@
 import { useState } from "react";
 import css from "./CadastroSala.module.css";
+import { useNavigate } from "react-router-dom";
 
 export default function CadastroSala() {
+    const navigate = useNavigate(); // <-- Hook para o botão voltar
+
     const [sala, setSala] = useState({
         nome: "",
         fileiras: 0,
         colunas: 0,
     });
     const [loading, setLoading] = useState(false);
-    const [message, setMessage] = useState({ text: '', type: '' }); // '', 'success', 'error'
+    const [message, setMessage] = useState({ text: '', type: '' });
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        
+
         if (["fileiras", "colunas"].includes(name)) {
             const val = Math.max(0, parseInt(value) || 0);
             const max = name === "fileiras" ? 26 : 28;
@@ -83,9 +86,14 @@ export default function CadastroSala() {
 
     return (
         <div className={css.mainContainer}>
-            <div className={css.cardCadastro}>
-                <h1 className={css.titulo}>CADASTRO DE SALA</h1>
 
+            {/* CABEÇALHO COM TÍTULO E SETA */}
+            <div className={css.header}>
+                
+                <h1 className={css.titulo}>CADASTRO DE SALA</h1>
+            </div>
+
+            <div className={css.cardCadastro}>
                 <div className={css.formulario}>
                     {message.text && (
                         <div className={`${css.messageBox} ${css[message.type]}`} style={{
@@ -141,7 +149,7 @@ export default function CadastroSala() {
                         )}
                     </div>
 
-                    <button 
+                    <button
                         className={css.btnCadastrar}
                         onClick={handleCadastrar}
                         disabled={loading}

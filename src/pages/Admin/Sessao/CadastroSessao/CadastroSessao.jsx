@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import css from "./CadastroSessao.module.css";
-import FlashMessage from "../../../../components/FlashMessage/FlashMessage.jsx"; // Importe o componente
+import FlashMessage from "../../../../components/FlashMessage/FlashMessage.jsx";
 
 export default function CadastroSessao() {
     const navigate = useNavigate();
@@ -17,7 +17,6 @@ export default function CadastroSessao() {
         valor_assento: ""
     });
 
-    // Estados para a FlashMessage
     const [mensagem, setMensagem] = useState("");
     const [tipoMensagem, setTipoMensagem] = useState("");
 
@@ -63,7 +62,7 @@ export default function CadastroSessao() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setMensagem(""); // Limpa mensagens anteriores
+        setMensagem("");
 
         try {
             const response = await fetch("http://localhost:5000/sessao/cadastro_sessao", {
@@ -78,7 +77,6 @@ export default function CadastroSessao() {
             if (response.ok) {
                 setMensagem("Sessão cadastrada com sucesso!");
                 setTipoMensagem("sucesso");
-                // Aguarda um pouco para o usuário ver a mensagem antes de redirecionar
                 setTimeout(() => navigate("/app/sessoes"), 2000);
             } else {
                 setMensagem(data.error || "Erro ao cadastrar sessão.");
@@ -92,25 +90,23 @@ export default function CadastroSessao() {
 
     return (
         <div className={`${css.containerMain} ${css.darkMode}`}>
-            {/* Componente de Mensagem Flash */}
-            <FlashMessage 
-                mensagem={mensagem} 
-                tipo={tipoMensagem} 
+            <FlashMessage
+                mensagem={mensagem}
+                tipo={tipoMensagem}
                 onClose={() => {
                     setMensagem("");
                     setTipoMensagem("");
-                }} 
+                }}
             />
 
+            {/* O CABEÇALHO AGORA FICA AQUI: Fora do formCard */}
+            <div className={css.header}>
+                <button className={css.btnVoltar} onClick={() => navigate(-1)}>←</button>
+                <h1 className={css.formTitulo}>CADASTRO DE SESSÃO</h1>
+            </div>
+
             <div className={`${css.formCard} ${css.formDark}`}>
-
-                <div className={css.header}>
-                    <button className={css.btnVoltar} onClick={() => navigate(-1)}>←</button>
-                    <h1 className={css.formTitulo}>CADASTRO DE SESSÃO</h1>
-                </div>
-
                 <form onSubmit={handleSubmit}>
-                    {/* SELECT DE FILMES */}
                     <div className={css.inputBox}>
                         <label>Filme:</label>
                         <select name="id_filme" value={sessao.id_filme} onChange={handleChange} required className={css.selectStyle}>
@@ -121,7 +117,6 @@ export default function CadastroSessao() {
                         </select>
                     </div>
 
-                    {/* SELECT DE SALAS */}
                     <div className={css.inputBox}>
                         <label>Sala:</label>
                         <select name="id_sala" value={sessao.id_sala} onChange={handleChange} required className={css.selectStyle}>

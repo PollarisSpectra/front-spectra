@@ -128,37 +128,42 @@ export default function EditarSala() {
     };
 
     const handleExcluir = async () => {
-            try {
-                const response = await fetch(`http://localhost:5000/salas/excluir_sala/${id}`, {
-                    method: "DELETE",
-                    credentials: "include"
-                });
+        try {
+            const response = await fetch(`http://localhost:5000/salas/excluir_sala/${id}`, {
+                method: "DELETE",
+                credentials: "include"
+            });
 
-                const data = await response.json();
+            const data = await response.json();
 
-                if (response.ok) {
-                    setMessage({ text: data.message || "Sala excluída com sucesso!", type: "success" });
+            if (response.ok) {
+                setMessage({ text: data.message || "Sala excluída com sucesso!", type: "success" });
 
-                    setTimeout(() => {
-                        navigate("/app/salas");
-                    }, 1500);
-                } else {
-                    setMessage({ text: data.error || "Erro ao excluir sala", type: "error" });
-                }
-
-            } catch (error) {
-                setMessage({ text: "Erro de conexão com o servidor", type: "error" });
-                console.error(error);
+                setTimeout(() => {
+                    navigate("/app/salas");
+                }, 1500);
+            } else {
+                setMessage({ text: data.error || "Erro ao excluir sala", type: "error" });
             }
-        };
+
+        } catch (error) {
+            setMessage({ text: "Erro de conexão com o servidor", type: "error" });
+            console.error(error);
+        }
+    };
 
     return (
-
         <div className={css.mainContainer}>
 
-            <div className={css.cardCadastro}>
+            {/* CABEÇALHO COM TÍTULO E SETA */}
+            <div className={css.header}>
+                <button type="button" className={css.btnVoltar} onClick={() => navigate(-1)}>
+                    ←
+                </button>
                 <h1 className={css.titulo}>EDIÇÃO DE SALA</h1>
+            </div>
 
+            <div className={css.cardCadastro}>
                 <div className={css.formulario}>
                     {message.text && (
                         <div className={`${css.messageBox} ${css[message.type]}`}>

@@ -148,25 +148,26 @@ export default function EditarSessao() {
     }
 
     return (
-        <div className={`${css.containerMain} ${css.darkMode}`}>
-            {/* Componente FlashMessage Integrado */}
-            <FlashMessage 
-                mensagem={mensagem} 
-                tipo={tipoMensagem} 
+        <div className={css.containerMain}>
+            <FlashMessage
+                mensagem={mensagem}
+                tipo={tipoMensagem}
                 onClose={() => {
                     setMensagem("");
                     setTipoMensagem("");
-                }} 
+                }}
             />
 
-            <div className={`${css.formCard} ${css.formDark}`}>
-                <div className={css.header}>
-                    <button type="button" className={css.btnVoltar} onClick={() => navigate(-1)}>
-                        ←
-                    </button>
-                    <h1 className={css.formTitulo}>EDIÇÃO DE SESSÃO</h1>
-                </div>
+            {/* Título e Botão Voltar agora ficam aqui em cima, sozinhos */}
+            <div className={css.header}>
+                <button type="button" className={css.btnVoltar} onClick={() => navigate(-1)}>
+                    ←
+                </button>
+                <h1 className={css.formTitulo}>EDIÇÃO DE SESSÃO</h1>
+            </div>
 
+            {/* O card branco do formulário fica embaixo */}
+            <div className={css.formCard}>
                 <form onSubmit={handleSubmit}>
                     <div className={css.inputBox}>
                         <label>Filme:</label>
@@ -270,4 +271,4 @@ export default function EditarSessao() {
             </div>
         </div>
     );
-}   
+}

@@ -21,7 +21,10 @@ import AdminLayout from './pages/Admin/AdminLayout/AdminLayout.jsx';
 import ListarSala from './pages/Admin/Sala/ListarSala/ListarSala.jsx';
 
 function App() {
-  const [usuario, setUsuario] = useState(null);
+  const [usuario, setUsuario] = useState(() => {
+    const usuarioSalvo = localStorage.getItem("usuario");
+    return usuarioSalvo ? JSON.parse(usuarioSalvo) : null;
+  });
 
   return (
     <>

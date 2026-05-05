@@ -6,10 +6,9 @@ export default function Card({
                                  classificacao,
                                  titulo,
                                  estrelas = 5,
-                                 horario
+                                 horario,
+                                 onDetalhes
                              }) {
-
-    // Cor de fundo com base na classificação
     const getClassificacaoStyle = (idade) => {
         if (idade === '18') return estilo.bgPreto;
         if (idade === '10') return estilo.bgAzul;
@@ -20,13 +19,13 @@ export default function Card({
     };
 
     const getTamanhoFonte = (texto) => {
-        if (texto.length > 22) return '11px'; // Títulos muito grandes
-        if (texto.length > 15) return '13px'; // Títulos médios
-        return '15px'; // Títulos curtos (tamanho padrão figma)
+        if (texto.length > 22) return '11px';
+        if (texto.length > 15) return '13px';
+        return '15px';
     };
 
     return (
-        <div className={estilo.card + "  border border-light border-opacity-25"}>
+        <div className={estilo.card + " border border-light border-opacity-25"}>
             <div className={estilo.containerImagem}>
                 <img src={imagem} alt={`Pôster do filme ${titulo}`} className={estilo.imagem} />
 
@@ -46,7 +45,6 @@ export default function Card({
                         {titulo}
                     </h3>
 
-                    {/* Estrelas e horário lado a lado */}
                     <div className={estilo.detalhesSecundarios}>
                         <div className={estilo.estrelas} aria-label={estrelas + " estrelas"}>
                             {'★'.repeat(estrelas)}
@@ -58,7 +56,7 @@ export default function Card({
                 </div>
             </div>
 
-            <div className={estilo.containerBotao}>
+            <div className={estilo.containerBotao} onClick={onDetalhes}>
                 <Botao texto="DETALHES" />
             </div>
         </div>

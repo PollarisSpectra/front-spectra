@@ -64,3 +64,124 @@
         padding: 20px 10px;
     }
 }
+
+.modalFundo {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.modalCard {
+    width: 420px;
+    max-width: 90%;
+    background: #050505;
+    color: white;
+    border-radius: 10px;
+    padding: 28px;
+    position: relative;
+    text-align: center;
+}
+
+.fecharModal {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.modalImagemArea {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    margin-bottom: 18px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.modalImagem {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.modalClassificacao {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    background: #f1d600;
+    color: black;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 3px 6px;
+    border-radius: 3px;
+}
+
+.modalTitulo {
+    font-size: 22px;
+    margin: 10px 0 18px;
+    text-align: left;
+}
+
+.infoLinha {
+    display: flex;
+    justify-content: space-around;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+.infoLinha strong {
+    font-size: 15px;
+}
+
+.infoLinha p {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #ddd;
+}
+
+.subtituloModal {
+    font-size: 17px;
+    margin: 18px 0 8px;
+}
+
+.sinopse {
+    font-size: 13px;
+    line-height: 1.4;
+    color: #ddd;
+    max-height: 90px;
+    overflow-y: auto;
+}
+
+.sessoesModal {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.btnSessao {
+    background: #ff1a1a;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btnSessao:hover {
+    background: #c90000;
+}
+
+.semSessao {
+    color: #ccc;
+    font-size: 14px;
+}

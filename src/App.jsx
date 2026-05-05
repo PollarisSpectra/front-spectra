@@ -19,8 +19,9 @@ import ListarSessao from './pages/Admin/Sessao/ListarSessao/ListarSessao.jsx';
 import ListarFilme from "./pages/Admin/Filme/ListarFilme/ListarFilme.jsx";
 import AdminLayout from './pages/Admin/AdminLayout/AdminLayout.jsx';
 import ListarSala from './pages/Admin/Sala/ListarSala/ListarSala.jsx';
-import SelecionarAssento from "./pages/Usuario/SelecionarAssento.jsx";
+import SelecionarAssento from "./pages/Reserva/SelecionarAssento.jsx";
 import ModalFilme from "./components/ModalFilme/ModalFilme.jsx";
+import ResumoReserva from "./pages/Reserva/ResumoReserva.jsx";
 
 function App() {
   const [usuario, setUsuario] = useState(() => {
@@ -40,6 +41,7 @@ function App() {
         <Route path="/SelecionarAssento" element={<SelecionarAssento />} />
         <Route path="/modalFilme" element={<ModalFilme/>} />
         <Route path="/sessao/:id/assentos" element={<SelecionarAssento />} />
+        <Route path="/resumoReserva" element={<ResumoReserva />} />
 
         {/* Rotas Administrativas - Protegidas por AdminLayout */}
         <Route path="/app" element={<AdminLayout />} >

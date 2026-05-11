@@ -9,6 +9,7 @@ export default function DashboardAdm() {
         { nome: "CLIENTES" },
         { nome: "FILMES", rota: "/app/filmes" },
         { nome: "SALAS", rota: "/app/salas" },
+        { nome: "EMPRESA", rota: "/ListarEmpresa" },
         { nome: "PROMOÇÕES" },
         { nome: "BANNER" },
     ];

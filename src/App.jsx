@@ -22,6 +22,9 @@ import ListarSala from './pages/Admin/Sala/ListarSala/ListarSala.jsx';
 import SelecionarAssento from "./pages/Reserva/SelecionarAssento.jsx";
 import ModalFilme from "./components/ModalFilme/ModalFilme.jsx";
 import ResumoReserva from "./pages/Reserva/ResumoReserva.jsx";
+import CadastroEmpresa from "./pages/Empresa/CadastroEmpresa.jsx";
+import EditarEmpesa from "./pages/Empresa/EditarEmpresa.jsx";
+import ListarEmpresa from "./pages/Empresa/ListarEmpresa.jsx";
 
 function App() {
   const [usuario, setUsuario] = useState(() => {
@@ -42,6 +45,9 @@ function App() {
         <Route path="/modalFilme" element={<ModalFilme/>} />
         <Route path="/sessao/:id/assentos" element={<SelecionarAssento />} />
         <Route path="/resumoReserva" element={<ResumoReserva />} />
+        <Route path="/CadastroEmpresa" element={<CadastroEmpresa />}/>
+        <Route path="/EditarEmpresa/:id" element={<CadastroEmpresa />}/>
+        <Route path="/ListarEmpresa" element={<ListarEmpresa />} />
 
         {/* Rotas Administrativas - Protegidas por AdminLayout */}
         <Route path="/app" element={<AdminLayout />} >

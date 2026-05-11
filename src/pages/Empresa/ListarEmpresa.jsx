@@ -1,5 +1,3 @@
-// ListarEmpresas.jsx
-
 import { useEffect, useState } from "react";
 import css from "./ListarEmpresa.module.css";
 import { useNavigate } from "react-router-dom";

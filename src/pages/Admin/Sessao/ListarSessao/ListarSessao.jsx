@@ -10,39 +10,33 @@ export default function ListarSessao() {
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
-    // Estados para a FlashMessage
+
     const [mensagem, setMensagem] = useState("");
     const [tipoMensagem, setTipoMensagem] = useState("");
 
-    // Modal de exclusão
+
     const [exibirModalExcluir, setExibirModalExcluir] = useState(false);
     const [idParaExcluir, setIdParaExcluir] = useState(null);
 
-    // ==========================================
-    // ESTADOS DO FILTRO / BUSCA
-    // ==========================================
+
     const [buscaTexto, setBuscaTexto] = useState("");
     const [filtroTipo, setFiltroTipo] = useState("filme");
     const [menuFiltroAtivo, setMenuFiltroAtivo] = useState(false);
 
-    // Nomes de exibição no layout
     const conversaoCheck = {
         filme: 'Filme',
         sala: 'Sala',
         data: 'Mais Recente'
     };
 
-    // ==========================================
-    // FUNÇÕES DE COMUNICAÇÃO (API)
-    // ==========================================
+
     const buscarSessoes = async () => {
         setLoading(true);
         try {
             let url = "http://localhost:5000/sessao/listar_sessao";
 
-            // Adiciona a query na URL se houver texto na busca
+
             if (buscaTexto) {
-                // Exemplo: ?filme=Batman ou ?sala=1
                 url += `?${filtroTipo}=${encodeURIComponent(buscaTexto)}`;
             }
 
@@ -70,7 +64,7 @@ export default function ListarSessao() {
         buscarSessoes();
     }, []);
 
-    // Dispara quando clica no botão "Aplicar filtros"
+
     const dispararBusca = (e) => {
         e.preventDefault();
         setMensagem(""); // Limpa avisos antes de nova busca
@@ -136,9 +130,7 @@ export default function ListarSessao() {
                 <h1 className={css.formTitulo}>SESSÕES</h1>
             </section>
 
-            {/* ==========================================
-                BARRA DE FILTRO E ORDENAÇÃO
-            ========================================== */}
+
             <section className={`${css.filtroBarra} d-flex align-items-center justify-content-between w-100 gap-3`}>
                 <form className="d-flex align-items-center gap-2" onSubmit={dispararBusca}>
                     <input

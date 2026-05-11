@@ -12,10 +12,12 @@ export default function CadastroEmpresa() {
         nome_fantasia: "",
         razao_social: "",
         cnpj: "",
+        cep: "",
         bairro: "",
         rua: "",
         numero: "",
         cidade: "",
+        uf: "",
         chave_pix: "",
         telefone: "",
         cor: "#ff0000"
@@ -54,10 +56,12 @@ export default function CadastroEmpresa() {
                     nome_fantasia: empresaEncontrada.nome_fantasia || "",
                     razao_social: empresaEncontrada.razao_social || "",
                     cnpj: empresaEncontrada.cnpj || "",
+                    cep: empresaEncontrada.cep || "",
                     bairro: empresaEncontrada.bairro || "",
                     rua: empresaEncontrada.rua || "",
                     numero: empresaEncontrada.numero || "",
                     cidade: empresaEncontrada.cidade || "",
+                    uf: empresaEncontrada.uf || "",
                     chave_pix: empresaEncontrada.chave_pix || "",
                     telefone: empresaEncontrada.telefone || "",
                     cor: empresaEncontrada.cor || "#ff0000"
@@ -81,6 +85,41 @@ export default function CadastroEmpresa() {
             ...form,
             [name]: value
         });
+
+    }
+
+    async function buscarCEP(cep) {
+
+        const cepLimpo = cep.replace(/\D/g, "");
+
+        if (cepLimpo.length !== 8) return;
+
+        try {
+
+            const response = await fetch(
+                `https://viacep.com.br/ws/${cepLimpo}/json/`
+            );
+
+            const data = await response.json();
+
+            if (data.erro) {
+                alert("CEP não encontrado");
+                return;
+            }
+
+            setForm((prev) => ({
+                ...prev,
+                rua: data.logradouro || "",
+                bairro: data.bairro || "",
+                cidade: data.localidade || "",
+                uf: data.uf || ""
+            }));
+
+        } catch (erro) {
+
+            console.error("Erro ao buscar CEP:", erro);
+
+        }
 
     }
 
@@ -196,7 +235,33 @@ export default function CadastroEmpresa() {
                     />
                 </div>
 
-                <div className={css.duplaLinha}>
+                <div className={css.grupo}>
+                    <label>CEP:</label>
+
+                    <input
+                        type="text"
+                        name="cep"
+                        value={form.cep}
+                        onChange={(e) => {
+
+                            let valor = e.target.value;
+
+                            valor = valor.replace(/\D/g, "");
+                            valor = valor.slice(0, 8);
+
+                            setForm({
+                                ...form,
+                                cep: valor
+                            });
+
+                            buscarCEP(valor);
+
+                        }}
+                        placeholder="00000000"
+                    />
+                </div>
+
+                <div className={css.triplaLinha}>
 
                     <div className={css.grupo}>
                         <label>Cidade:</label>
@@ -221,6 +286,7 @@ export default function CadastroEmpresa() {
                             placeholder="Bairro"
                         />
                     </div>
+
 
                 </div>
 
@@ -275,7 +341,7 @@ export default function CadastroEmpresa() {
                             let valor = e.target.value;
 
                             valor = valor.replace(/\D/g, "");
-                            valor = valor.slice(0, 9);
+                            valor = valor.slice(0, 11);
 
                             setForm({
                                 ...form,
@@ -283,7 +349,7 @@ export default function CadastroEmpresa() {
                             });
 
                         }}
-                        placeholder="999999999"
+                        placeholder="11999999999"
                     />
                 </div>
 

@@ -1,37 +1,52 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import css from "./SelecionarAssento.module.css";
+import ModalPix from "../../components/ModalPix/ModalPix";
 
 export default function SelecionarAssento() {
     const { id } = useParams();
+    const navigate = useNavigate();
 
     const [sessao, setSessao] = useState(null);
+    const [sala, setSala] = useState(null);
+    const [mapaAssentos, setMapaAssentos] = useState({});
     const [assentosSelecionados, setAssentosSelecionados] = useState([]);
     const [ocupados, setOcupados] = useState([]);
+    const [mostrarModalPix, setMostrarModalPix] = useState(false);
 
-    const fileiras = ["A", "B", "C", "D", "E"];
-    const numeros = [1,2,3,4,5,6,7,8,9,10,11,12];
+    useEffect(() => {
+        async function buscarSessao() {
+            try {
+                const res = await fetch(`http://localhost:5000/sessao/listar_sessao?id_sessao=${id}`);
+                const data = await res.json();
+                const idSala = data?.sessao[0].id_sala;
 
-        useEffect(() => {
-            async function buscarSessao() {
-                try {
-                    const res = await fetch(`http://localhost:5000/sessao/listar_sessao?id_sessao=${id}`);
-                    console.log("STATUS:", res.status);
+                const salaRes = await fetch(`http://localhost:5000/salas/${idSala}`, {
+                    credentials: "include"
+                });
+                const salaData = await salaRes.json();
+                setSala(salaData);
 
-                    const text = await res.text();
-                    console.log("RESPOSTA:", text);
+                const assentosRes = await fetch(`http://localhost:5000/salas/${idSala}/assentos`, {
+                    credentials: "include"
+                });
+                const assentosData = await assentosRes.json();
 
-                    const data = JSON.parse(text);
+                const mapa = {};
+                assentosData.assentos.forEach(a => {
+                    mapa[a.codigo] = a.id_assento_sala;
+                });
+                setMapaAssentos(mapa);
 
-                    setSessao(data.sessao[0]);
+                setSessao(data.sessao[0]);
 
-                } catch (err) {
-                    console.error("ERRO:", err);
-                }
+            } catch (err) {
+                console.error("ERRO:", err);
             }
+        }
 
-            buscarSessao();
-        }, [id]);
+        buscarSessao();
+    }, [id]);
 
     useEffect(() => {
         async function buscarOcupados() {
@@ -47,9 +62,7 @@ export default function SelecionarAssento() {
         if (ocupados.includes(codigo)) return;
 
         if (assentosSelecionados.includes(codigo)) {
-            setAssentosSelecionados(
-                assentosSelecionados.filter(a => a !== codigo)
-            );
+            setAssentosSelecionados(assentosSelecionados.filter(a => a !== codigo));
         } else {
             setAssentosSelecionados([...assentosSelecionados, codigo]);
         }
@@ -57,14 +70,15 @@ export default function SelecionarAssento() {
 
     async function confirmarReserva() {
         try {
-            const res = await fetch("http://localhost:5000/reservas/selecionar_assentos", {
+            const idsAssentos = assentosSelecionados.map(codigo => mapaAssentos[codigo]);
+
+            const res = await fetch("http://localhost:5000/reservas/", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     id_sessao: id,
-                    assentos: assentosSelecionados
+                    assentos: idsAssentos
                 })
             });
 
@@ -75,16 +89,30 @@ export default function SelecionarAssento() {
                 return;
             }
 
-            navigate(`/reserva/${data.id_reserva}/resumo`);
+            setMostrarModalPix(true);
         } catch (err) {
             console.error(err);
         }
     }
 
-    if (!sessao) return <p>Carregando...</p>;
+    if (!sessao || !sala) return <p>Carregando...</p>;
+
+    const letras = Array.from({ length: sala.qtd_fileiras }, (_, i) =>
+        String.fromCharCode(65 + i)
+    );
+    const numeros = Array.from({ length: sala.qtd_colunas }, (_, i) => i + 1);
+
+    const totalReserva = (assentosSelecionados.length * sessao.valor_assento).toFixed(2);
 
     return (
         <main className={css.container}>
+            {mostrarModalPix && (
+                <ModalPix
+                    valor={totalReserva}
+                    aoFechar={() => setMostrarModalPix(false)}
+                />
+            )}
+
             <section className={css.cardFilme}>
                 <h2>{sessao.filme}</h2>
 
@@ -100,7 +128,7 @@ export default function SelecionarAssento() {
                 <div className={css.tela}>TELA</div>
 
                 <div className={css.mapaAssentos}>
-                    {fileiras.map(fileira => (
+                    {letras.map(fileira => (
                         <div key={fileira} className={css.fileira}>
                             <span className={css.letra}>{fileira}</span>
 
@@ -133,10 +161,10 @@ export default function SelecionarAssento() {
                 </div>
 
                 <div className={css.total}>
-                    Total: R$ {(assentosSelecionados.length * sessao.valor_assento).toFixed(2)}
+                    Total: R$ {totalReserva}
                 </div>
 
-                <button onClick={confirmarReserva}>
+                <button onClick={confirmarReserva} className="px-1 py-1 rounded fw-semibold">
                     CONFIRMAR
                 </button>
             </section>

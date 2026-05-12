@@ -150,3 +150,144 @@
 
 .infoPreview { padding: 20px; }
 .sinopseTexto { margin-top: 20px; line-height: 1.5; font-size: 0.9rem; color: #eee; }
+
+
+/* ================= RESPONSIVO 320PX ================= */
+
+@media (max-width: 320px) {
+
+    .containerMain {
+        padding: 20px 12px 40px;
+    }
+
+    /* HEADER */
+    .header {
+        margin-bottom: 30px;
+    }
+
+    .formTituloPrincipal {
+        font-size: 1rem;
+        letter-spacing: 2px;
+        text-align: center;
+        line-height: 22px;
+    }
+
+    .voltar {
+        left: -4px;
+        font-size: 20px;
+    }
+
+    /* LAYOUT */
+    .conteudoFlex {
+        flex-direction: column;
+        gap: 25px;
+        align-items: center;
+    }
+
+    /* PREVIEW */
+    .previewContainer {
+        width: 100%;
+        flex: unset;
+    }
+
+    .cardPreview {
+        width: 100%;
+        border-radius: 10px;
+    }
+
+    .capaArea {
+        height: 260px;
+    }
+
+    .uploadPlaceholder span {
+        font-size: 12px;
+        text-align: center;
+        padding: 0 10px;
+    }
+
+    .classificacaoBadge {
+        padding: 6px 10px;
+        font-size: 12px;
+        bottom: 10px;
+        right: 10px;
+    }
+
+    .infoPreview {
+        padding: 14px;
+    }
+
+    .tituloRow h3 {
+        font-size: 15px;
+        text-align: center;
+        line-height: 22px;
+    }
+
+    .detalhesRow {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin-top: 10px;
+        font-size: 12px;
+        text-align: center;
+    }
+
+    .sinopseTexto {
+        font-size: 12px;
+        line-height: 18px;
+        text-align: left;
+        margin-top: 14px;
+    }
+
+    /* FORM */
+    .formCard {
+        width: 100%;
+        padding: 20px 14px;
+        border-radius: 14px;
+    }
+
+    .formulario {
+        width: 100%;
+    }
+
+    .inputBox {
+        margin-bottom: 14px;
+    }
+
+    .inputBox label {
+        font-size: 12px;
+    }
+
+    .inputBox input,
+    .inputBox textarea,
+    .selectStyle {
+        font-size: 12px;
+        padding: 10px 0;
+    }
+
+    .inputBox textarea {
+        height: 90px;
+    }
+
+    .btnCadastrar {
+        padding: 12px;
+        font-size: 12px;
+        border-radius: 8px;
+    }
+
+    /* MENSAGENS */
+    .message {
+        font-size: 12px;
+        line-height: 18px;
+    }
+
+    .msgSucesso,
+    .msgErro {
+        font-size: 12px;
+        padding: 12px;
+    }
+
+    .carregando {
+        font-size: 1rem;
+        margin-top: 40px;
+    }
+}

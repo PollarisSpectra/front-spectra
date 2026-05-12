@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom"; // Importação do navigate
+import { useNavigate } from "react-router-dom";
 import css from './CadastroFilme.module.css';
 
 export default function CadastroFilme() {

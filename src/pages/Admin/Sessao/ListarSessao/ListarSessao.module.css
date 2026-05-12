@@ -280,3 +280,161 @@
     background-color: #27272a;
     color: var(--COR_TEXTO);
 }
+
+
+
+/* ================= RESPONSIVO 320PX ================= */
+
+@media (max-width: 320px) {
+
+    .container {
+        padding: 20px 12px 90px;
+    }
+
+    .header {
+        margin-bottom: 30px;
+    }
+
+    .formTitulo {
+        font-size: 1.2rem;
+        letter-spacing: 2px;
+        text-align: center;
+    }
+
+    .voltar {
+        font-size: 18px;
+        left: -4px;
+    }
+
+    /* FILTROS */
+    .filtroBarra {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 14px;
+    }
+
+    .filtroBarra form {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .inputBusca {
+        width: 100%;
+        font-size: 12px;
+        padding: 10px;
+    }
+
+    .btnLupa {
+        width: 100%;
+        font-size: 12px;
+        padding: 10px;
+    }
+
+    .ordenarWrapper {
+        width: 100%;
+    }
+
+    .ordenarHeader {
+        width: 100%;
+        font-size: 12px;
+    }
+
+    .ordenarOpcoes {
+        width: 100%;
+    }
+
+    /* CARDS */
+    .sessaoHeader {
+        padding: 12px;
+        gap: 8px;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .sessaoLabel {
+        font-size: 0.7rem;
+        line-height: 18px;
+    }
+
+    .sessaoLabel span {
+        display: inline-block;
+        margin-left: 0;
+        margin-top: 6px;
+        font-size: 0.65rem;
+    }
+
+    .horarioSessao {
+        font-size: 12px;
+    }
+
+    .seta {
+        align-self: flex-end;
+        margin-top: -22px;
+    }
+
+    /* DETALHES */
+    .sessaoDetalhes {
+        flex-direction: column;
+        padding: 16px;
+        gap: 18px;
+        align-items: center;
+    }
+
+    .poster {
+        width: 120px;
+        height: 180px;
+    }
+
+    .infoGrid {
+        flex-direction: column;
+        width: 100%;
+        gap: 20px;
+    }
+
+    .sessaoTitulo {
+        font-size: 1rem;
+        margin-bottom: 12px;
+        text-align: center;
+    }
+
+    .colEsquerda p {
+        font-size: 12px;
+        text-align: center;
+    }
+
+    .acoes {
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .acoes button {
+        width: 100%;
+        font-size: 12px;
+        padding: 10px;
+    }
+
+    /* BOTÃO FLUTUANTE */
+    .btnAdd {
+        right: 12px;
+        left: 12px;
+        bottom: 15px;
+        width: auto;
+        justify-content: center;
+        padding: 10px 14px;
+        font-size: 11px;
+        gap: 10px;
+        border-radius: 14px;
+    }
+
+    .plusIcon {
+        width: 24px;
+        height: 24px;
+        font-size: 16px;
+    }
+
+    .mensagem {
+        font-size: 13px;
+    }
+}

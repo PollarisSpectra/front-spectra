@@ -304,3 +304,203 @@
 .paginacao button:hover:not(:disabled) {
     background-color: var(--COR_SECUNDARIA);
 }
+
+
+
+/* ================= RESPONSIVO 320PX ================= */
+
+@media (max-width: 320px) {
+
+    .container {
+        padding: 20px 12px 90px;
+    }
+
+    /* HEADER */
+    .header {
+        margin-bottom: 30px;
+    }
+
+    .formTitulo {
+        font-size: 1.2rem;
+        letter-spacing: 2px;
+        text-align: center;
+    }
+
+    .voltar {
+        left: -4px;
+        font-size: 18px;
+    }
+
+    /* FILTROS */
+    .filtroBarra {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 14px;
+    }
+
+    .filtroBarra form {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .inputBusca {
+        min-width: unset;
+        width: 100%;
+        font-size: 12px;
+        padding: 10px;
+    }
+
+    .btnLupa {
+        width: 100%;
+        font-size: 12px;
+        padding: 10px;
+    }
+
+    .ordenarWrapper {
+        width: 100%;
+    }
+
+    .ordenarHeader {
+        width: 100%;
+        font-size: 12px;
+    }
+
+    .ordenarOpcoes {
+        width: 100%;
+    }
+
+    /* CARDS */
+    .filmeHeader {
+        padding: 12px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .filmeLabel {
+        font-size: 0.7rem;
+        line-height: 18px;
+    }
+
+    .filmeLabel span {
+        display: inline-block;
+        margin-left: 0;
+        margin-top: 6px;
+        font-size: 0.65rem;
+    }
+
+    .seta {
+        align-self: flex-end;
+        margin-top: -22px;
+    }
+
+    /* DETALHES */
+    .filmeDetalhes {
+        flex-direction: column;
+        align-items: center;
+        padding: 16px;
+        gap: 18px;
+    }
+
+    .posterContainer {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .poster {
+        width: 120px;
+        height: 180px;
+    }
+
+    .infoGrid {
+        flex-direction: column;
+        gap: 18px;
+        width: 100%;
+    }
+
+    .colEsquerda,
+    .colDireita {
+        width: 100%;
+    }
+
+    .colEsquerda h3 {
+        font-size: 1rem;
+        margin-bottom: 12px;
+        text-align: center;
+    }
+
+    .colEsquerda p,
+    .colDireita p {
+        font-size: 12px;
+        text-align: center;
+    }
+
+    .sinopse {
+        text-align: left;
+        font-size: 12px;
+        line-height: 18px;
+    }
+
+    /* CLASSIFICAÇÃO */
+    .classifBadge {
+        display: block;
+        width: fit-content;
+        margin: 12px auto 0;
+        font-size: 11px;
+    }
+
+    /* AÇÕES */
+    .acoes {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .acoes button {
+        width: 100%;
+        font-size: 12px;
+        padding: 10px;
+    }
+
+    /* PAGINAÇÃO */
+    .paginacao {
+        flex-wrap: wrap;
+        gap: 10px !important;
+        margin-top: 30px !important;
+    }
+
+    .paginacao button {
+        font-size: 12px;
+        padding: 8px 12px;
+    }
+
+    .paginacao span {
+        font-size: 12px;
+    }
+
+    /* BOTÃO FLUTUANTE */
+    .btnAdd {
+        right: 12px;
+        left: 12px;
+        bottom: 15px;
+        width: auto;
+        justify-content: center;
+        padding: 10px 14px;
+        font-size: 11px;
+        gap: 10px;
+        border-radius: 14px;
+    }
+
+    .plusIcon {
+        width: 24px;
+        height: 24px;
+        font-size: 16px;
+    }
+
+    .mensagem {
+        font-size: 13px;
+        text-align: center;
+    }
+}

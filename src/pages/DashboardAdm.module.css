@@ -272,3 +272,107 @@
     width: 38px;
     text-align: center;
 }
+
+/* =========================================
+   RESPONSIVO 320px
+========================================= */
+@media (max-width: 320px) {
+
+    .dashboard {
+        padding: 8px 6px 20px;
+    }
+
+    .dashboardHeader {
+        grid-template-columns: 1fr auto 1fr;
+    }
+
+    .tituloArea h1,
+    .tituloArea h2 {
+        font-size: 12px;
+    }
+
+    .sectionTitle {
+        font-size: 11px;
+    }
+
+    /* ===== ESTATÍSTICAS ===== */
+    .statsGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+    }
+
+    .statCard {
+        min-height: 50px;
+        padding: 8px 4px;
+    }
+
+    .statCard p {
+        font-size: 6px;
+    }
+
+    .statCard strong {
+        font-size: 12px;
+    }
+
+    /* ===== REGISTROS ===== */
+    .registroItem {
+        padding-left: 10px;
+    }
+
+    .registroItem span {
+        font-size: 7px;
+    }
+
+    .searchBtn {
+        width: 40px;
+        height: 22px;
+    }
+
+    /* ===== RELATÓRIOS ===== */
+    .relatoriosGrid {
+        gap: 8px;
+        justify-content: space-between;
+    }
+
+    .relatorioCard {
+        width: 60px;
+    }
+
+    .relatorioCard p {
+        font-size: 6px;
+        min-height: auto;
+    }
+
+    .relatorioBtn {
+        width: 34px;
+        height: 22px;
+    }
+
+    /* ===== GRÁFICO ===== */
+    .graficoArea {
+        gap: 4px;
+    }
+
+    .eixoY {
+        font-size: 7px;
+        height: 160px;
+    }
+
+    .graficoConteudo {
+        height: 160px;
+        padding: 0 4px;
+    }
+
+    .barra {
+        width: 12px;
+    }
+
+    .barraItem span {
+        font-size: 6px;
+    }
+
+    .labelVertical {
+        font-size: 7px;
+        width: 30px;
+    }
+}

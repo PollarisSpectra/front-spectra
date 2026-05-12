@@ -298,3 +298,280 @@
     .filmeLabel span { margin-left: 0; display: block; margin-top: 5px; }
     .btnAdd { font-size: 10px; right: 10px; }
 }
+
+@media (max-width: 768px) {
+
+    .container {
+        padding: 35px 25px 110px;
+    }
+
+    .header {
+        margin-bottom: 40px;
+    }
+
+    .formTitulo {
+        font-size: 2rem;
+        letter-spacing: 3px;
+    }
+
+    .voltar {
+        font-size: 22px;
+    }
+
+    .filtroBarra {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .filtroBarra form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .inputBusca {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .btnLupa {
+        width: 100%;
+    }
+
+    .filmeHeader {
+        padding: 14px 18px;
+    }
+
+    .filmeDetalhes {
+        padding: 20px;
+    }
+
+    .infoGrid {
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .acoes {
+        width: 100%;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .btnAdd {
+        right: 25px;
+        bottom: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .container {
+        padding: 25px 14px 120px;
+    }
+
+    .header {
+        margin-bottom: 30px;
+    }
+
+    .formTitulo {
+        font-size: 1.5rem;
+        letter-spacing: 2px;
+        text-align: center;
+        max-width: 180px;
+        line-height: 1.3;
+    }
+
+    .voltar {
+        font-size: 20px;
+    }
+
+    .filmeCard {
+        border-radius: 6px;
+    }
+
+    .filmeHeader {
+        padding: 12px 14px;
+        gap: 10px;
+    }
+
+    .filmeLabel {
+        font-size: 0.75rem;
+        letter-spacing: 1px;
+        word-break: break-word;
+    }
+
+    .filmeLabel span {
+        display: inline-block;
+        margin-left: 6px;
+        margin-top: 5px;
+        font-size: 0.7rem;
+        max-width: 100%;
+        word-break: break-word;
+    }
+
+    .seta {
+        font-size: 14px;
+    }
+
+    .filmeDetalhes {
+        padding: 16px;
+    }
+
+    .filmeTitulo {
+        font-size: 1.1rem;
+        word-break: break-word;
+    }
+
+    .colEsquerda p {
+        font-size: 0.8rem;
+        line-height: 1.5;
+        word-break: break-word;
+    }
+
+    .acoes {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        gap: 10px;
+    }
+
+    .acoes button {
+        width: 100%;
+    }
+
+    .paginacao {
+        gap: 10px;
+        flex-wrap: wrap;
+        text-align: center;
+    }
+
+    .paginacao button {
+        padding: 7px 14px;
+        font-size: 0.8rem;
+    }
+
+    .btnAdd {
+        right: 14px;
+        bottom: 18px;
+        padding: 10px 12px;
+        border-radius: 16px;
+        gap: 10px;
+        font-size: 11px;
+        max-width: 90vw;
+    }
+
+    .plusIcon,
+    .plusCircle {
+        width: 26px;
+        height: 26px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 320px) {
+
+    .container {
+        padding: 20px 10px 120px;
+    }
+
+    .header {
+        margin-bottom: 24px;
+    }
+
+    .formTitulo {
+        font-size: 1.1rem;
+        letter-spacing: 1px;
+        max-width: 140px;
+    }
+
+    .voltar {
+        font-size: 18px;
+    }
+
+    .inputBusca {
+        font-size: 0.75rem;
+        padding: 8px 10px;
+    }
+
+    .btnLupa {
+        font-size: 0.75rem;
+        padding: 8px 10px;
+    }
+
+    .filmeHeader {
+        padding: 10px 12px;
+        align-items: flex-start;
+    }
+
+    .filmeLabel {
+        font-size: 0.68rem;
+        line-height: 1.4;
+    }
+
+    .filmeLabel span {
+        display: block;
+        margin-left: 0;
+        margin-top: 6px;
+        width: fit-content;
+    }
+
+    .seta {
+        align-self: flex-end;
+    }
+
+    .filmeDetalhes {
+        padding: 14px 12px;
+    }
+
+    .filmeTitulo {
+        font-size: 1rem;
+    }
+
+    .colEsquerda p {
+        font-size: 0.75rem;
+    }
+
+    .acoes button {
+        font-size: 0.75rem;
+        padding: 8px;
+    }
+
+    .messageBox {
+        font-size: 0.75rem;
+        padding: 10px;
+    }
+
+    .paginacao {
+        gap: 8px;
+    }
+
+    .paginacao span {
+        font-size: 0.75rem;
+    }
+
+    .paginacao button {
+        font-size: 0.72rem;
+        padding: 6px 10px;
+    }
+
+    .btnAdd {
+        width: calc(100% - 20px);
+        right: 10px;
+        left: 10px;
+        bottom: 12px;
+        justify-content: center;
+        font-size: 10px;
+        padding: 10px;
+        gap: 8px;
+        border-radius: 14px;
+    }
+
+    .plusIcon,
+    .plusCircle {
+        width: 22px;
+        height: 22px;
+        font-size: 14px;
+    }
+}

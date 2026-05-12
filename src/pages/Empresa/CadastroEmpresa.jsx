@@ -10,10 +10,12 @@ export default function CadastroEmpresa() {
         nome_fantasia: "",
         razao_social: "",
         cnpj: "",
+        cep: "",
         bairro: "",
         rua: "",
         numero: "",
         cidade: "",
+        uf: "",
         chave_pix: "",
         telefone: "",
         cor: "#ff1c1c"
@@ -36,7 +38,20 @@ export default function CadastroEmpresa() {
             const empresaEncontrada = data.empresas.find(emp => emp.id_empresa == id);
 
             if (empresaEncontrada) {
-                setForm({ ...empresaEncontrada });
+                setForm({
+                    nome_fantasia: empresaEncontrada.nome_fantasia || "",
+                    razao_social: empresaEncontrada.razao_social || "",
+                    cnpj: empresaEncontrada.cnpj || "",
+                    cep: empresaEncontrada.cep || "",
+                    bairro: empresaEncontrada.bairro || "",
+                    rua: empresaEncontrada.rua || "",
+                    numero: empresaEncontrada.numero || "",
+                    cidade: empresaEncontrada.cidade || "",
+                    uf: empresaEncontrada.uf || "",
+                    chave_pix: empresaEncontrada.chave_pix || "",
+                    telefone: empresaEncontrada.telefone || "",
+                    cor: empresaEncontrada.cor || "#ff1c1c"
+                });
             }
         } catch (erro) {
             console.error("Erro ao buscar empresa:", erro);
@@ -46,6 +61,32 @@ export default function CadastroEmpresa() {
     function handleChange(e) {
         const { name, value } = e.target;
         setForm({ ...form, [name]: value });
+    }
+
+    async function buscarCEP(cep) {
+        const cepLimpo = cep.replace(/\D/g, "");
+
+        if (cepLimpo.length !== 8) return;
+
+        try {
+            const response = await fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`);
+            const data = await response.json();
+
+            if (data.erro) {
+                alert("CEP não encontrado");
+                return;
+            }
+
+            setForm((prev) => ({
+                ...prev,
+                rua: data.logradouro || "",
+                bairro: data.bairro || "",
+                cidade: data.localidade || "",
+                uf: data.uf || ""
+            }));
+        } catch (erro) {
+            console.error("Erro ao buscar CEP:", erro);
+        }
     }
 
     async function salvarEmpresa(e) {
@@ -84,6 +125,7 @@ export default function CadastroEmpresa() {
             </h1>
 
             <form className={css.modalCard} onSubmit={salvarEmpresa}>
+
                 <div className={css.grupo}>
                     <label>Nome Fantasia</label>
                     <input
@@ -109,7 +151,7 @@ export default function CadastroEmpresa() {
                         <input
                             name="cnpj"
                             value={form.cnpj}
-                            onChange={(e) => setForm({...form, cnpj: e.target.value.replace(/\D/g, "").slice(0,14)})}
+                            onChange={(e) => setForm({ ...form, cnpj: e.target.value.replace(/\D/g, "").slice(0, 14) })}
                         />
                     </div>
                     <div className={css.grupo} style={{ flex: 1 }}>
@@ -117,9 +159,25 @@ export default function CadastroEmpresa() {
                         <input
                             name="telefone"
                             value={form.telefone}
-                            onChange={(e) => setForm({...form, telefone: e.target.value.replace(/\D/g, "").slice(0,11)})}
+                            placeholder="11999999999"
+                            onChange={(e) => setForm({ ...form, telefone: e.target.value.replace(/\D/g, "").slice(0, 11) })}
                         />
                     </div>
+                </div>
+
+                <div className={css.grupo}>
+                    <label>CEP</label>
+                    <input
+                        type="text"
+                        name="cep"
+                        value={form.cep}
+                        placeholder="00000000"
+                        onChange={(e) => {
+                            const valor = e.target.value.replace(/\D/g, "").slice(0, 8);
+                            setForm({ ...form, cep: valor });
+                            buscarCEP(valor);
+                        }}
+                    />
                 </div>
 
                 <div className={css.duplaLinha}>
@@ -163,6 +221,7 @@ export default function CadastroEmpresa() {
                 <button type="submit" className={css.botao}>
                     {id ? "SALVAR ALTERAÇÕES" : "FINALIZAR CADASTRO"}
                 </button>
+
             </form>
         </div>
     );

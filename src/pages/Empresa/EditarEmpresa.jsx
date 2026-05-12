@@ -12,6 +12,7 @@ export default function CadastroEmpresa({ empresa = null }) {
         numero: "",
         cidade: "",
         chave_pix: "",
+        telefone: "",
         cor: "#ff0000"
     });
 
@@ -30,6 +31,7 @@ export default function CadastroEmpresa({ empresa = null }) {
                 numero: empresa.numero || "",
                 cidade: empresa.cidade || "",
                 chave_pix: empresa.chave_pix || "",
+                telefone: empresa.telefone || "",
                 cor: empresa.cor || "#ff0000"
             });
 
@@ -220,6 +222,7 @@ export default function CadastroEmpresa({ empresa = null }) {
                                 }}
                                 placeholder="Número"
                             />
+
 
                         </div>
 

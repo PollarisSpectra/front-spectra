@@ -1,7 +1,7 @@
 .container {
     width: 100%;
     min-height: 100vh;
-    background: #f1f1f1;
+    background: #2b2a2a;
     padding: 40px;
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
@@ -61,7 +61,7 @@
 }
 
 .textInput:focus {
-    border-color: #2563eb;
+    border-color: #750000;
 }
 
 .botao {
@@ -70,7 +70,7 @@
     padding: 0 30px;
     border: none;
     border-radius: 12px;
-    background: #2563eb;
+    background: #8e0202;
     color: white;
     font-size: 16px;
     font-weight: bold;
@@ -79,5 +79,5 @@
 }
 
 .botao:hover {
-    background: #1d4ed8;
+    background: #ff1616;
 }

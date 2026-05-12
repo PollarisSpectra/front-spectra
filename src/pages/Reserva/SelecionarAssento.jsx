@@ -50,7 +50,7 @@ export default function SelecionarAssento() {
 
     useEffect(() => {
         async function buscarOcupados() {
-            const res = await fetch(`http://localhost:5000/reserva/assentos_ocupados/${id}`);
+            const res = await fetch(`http://localhost:5000/reservas/${id}/assentos_ocupados`);
             const data = await res.json();
             setOcupados(data.assentos || []);
         }
@@ -116,11 +116,11 @@ export default function SelecionarAssento() {
             <section className={css.cardFilme}>
                 <h2>{sessao.filme}</h2>
 
-                <div className={css.detalhes}>
+                <div className={css.detalhes + " d-flex flex-column gap-2"}>
                     <p><strong>Sala:</strong> {sessao.sala}</p>
                     <p><strong>Data:</strong> {sessao.data}</p>
                     <p><strong>Horário:</strong> {sessao.horario}</p>
-                    <p><strong>Valor:</strong> R$ {sessao.valor_assento}</p>
+                    <p><strong>Valor (unidade):</strong> R${sessao.valor_assento}</p>
                 </div>
             </section>
 
@@ -163,8 +163,7 @@ export default function SelecionarAssento() {
                 <div className={css.total}>
                     Total: R$ {totalReserva}
                 </div>
-
-                <button onClick={confirmarReserva} className="px-1 py-1 rounded fw-semibold">
+                <button disabled={assentosSelecionados.length < 1} onClick={confirmarReserva} className="px-2 py-1 rounded fw-semibold ">
                     CONFIRMAR
                 </button>
             </section>

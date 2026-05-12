@@ -7,6 +7,7 @@ export default function ModalPix({ chavePix = "41317641809", valor, aoFechar }) 
     const [qrCodeUrl, setQrCodeUrl] = useState(null);
     const [carregandoQr, setCarregandoQr] = useState(true);
     const navigate = useNavigate();
+    const [payload, setPayload] = useState(null);
 
     useEffect(() => {
         async function buscarQrCode() {
@@ -22,8 +23,9 @@ export default function ModalPix({ chavePix = "41317641809", valor, aoFechar }) 
                     })
                 });
 
-                const blob = await res.blob();
-                setQrCodeUrl(URL.createObjectURL(blob));
+                const data = await res.json();
+                setQrCodeUrl(`data:image/png;base64,${data.qrcode}`);
+                setPayload(data.payload); // opcional, se quiser exibir
             } catch (err) {
                 console.error("Erro ao gerar QR Code:", err);
             } finally {
@@ -64,10 +66,19 @@ export default function ModalPix({ chavePix = "41317641809", valor, aoFechar }) 
                             )}
                         </div>
 
-                        <div className={estilo.pixInfo}>
-                            <span className={estilo.pixLabel}>Chave PIX</span>
-                            <span className={estilo.pixChave}>{chavePix}</span>
-                        </div>
+                        {payload && (
+                            <div className={estilo.pixInfo}>
+                                <span className={estilo.pixLabel}>Copia e Cola</span>
+                                <span
+                                    className={estilo.pixChave}
+                                    style={{ cursor: "pointer", wordBreak: "break-all" }}
+                                    onClick={() => navigator.clipboard.writeText(payload)}
+                                    title="Clique para copiar"
+                                >
+                                    {payload}
+                                </span>
+                            </div>
+                        )}
 
                         {valor !== undefined && (
                             <div className={estilo.pixValor}>

@@ -9,6 +9,7 @@ export default function Header({ usuario, setUsuario }) {
     async function handleLogout() {
         const resposta = await fetch("http://localhost:5000/auth/logout", {
             method: "POST",
+            credentials: "include"
         });
 
         if (resposta.ok) {

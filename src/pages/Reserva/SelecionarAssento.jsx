@@ -163,7 +163,7 @@ export default function SelecionarAssento() {
                 <div className={css.total}>
                     Total: R$ {totalReserva}
                 </div>
-                <button disabled={assentosSelecionados.length < 1} onClick={confirmarReserva} className="px-1 py-1 rounded fw-semibold ">
+                <button disabled={assentosSelecionados.length < 1} onClick={confirmarReserva} className="px-2 py-1 rounded fw-semibold ">
                     CONFIRMAR
                 </button>
             </section>

@@ -117,7 +117,7 @@
 
 .inputBox textarea { height: 80px; resize: none; }
 
-.btnSalvar {
+.btnCadastrar {
     width: 100%;
     background-color: var(--COR_PRINCIPAL);
     color: var(--COR_TEXTO);

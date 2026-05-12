@@ -1,17 +1,25 @@
 :root {
-    --vermelho-hover: #e61919;
-    --botao-vermelho: #ff1c1c;
-    --branco-background: #FFFFFFFF;
-    --cinza-background: #4a4a4a;
-    --icone-branco: #ffffff;
-    --header-vermelho: #ff1d1d;
-    --preto-background: #000;
+    --COR_BOTAO: #ff1c1c;
+    --COR_PRINCIPAL: #ff1c1c;
+    --COR_ALERTA: #2a2a2a;
+    --COR_FUNDO: #000;
+    --COR_SECUNDARIA: #4a4a4a;
+    --COR_TEXTO: #ffffff;
+    --COR_DESTAQUE_TEXTO: #ffffff;
+    --COR_HOVER: #e61919;
+    --COR_TEXTO_DESTAQUE: #ff1a1a;
+    --COR_CARD: #2a2d31;
+    --COR_FORMULARIO: #ffffff;
+    --COR_LINHA: #000;
+    --COR_MODAL: #ffffff;
+    --COR_ICONE: #ffffff;
+    --COR_TEXTO_FORMULARIO: #000;
 }
 
 /* ─── Layout principal do formulário de cadastro ─── */
 .containerMain {
     display: flex;
-    background-color: var(--preto-background);
+    background-color: var(--COR_FUNDO);
     min-height: 100vh;
     align-items: center;
     justify-content: center;
@@ -22,12 +30,12 @@
 
 /* Preview à esquerda */
 .previewSection {
-    color: var(--icone-branco);
+    color: var(--COR_TEXTO);
     width: 300px;
 }
 
 .cardPreview {
-    background-color: #2a2d31; /* Mantido por ser tom específico de card */
+    background-color: var(--COR_CARD);
     border-radius: 15px;
     overflow: hidden;
     margin-bottom: 20px;
@@ -37,23 +45,30 @@
     position: relative;
     width: 100%;
     height: 350px;
-    background-color: var(--branco-background);
+    background-color: var(--COR_FORMULARIO);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
 }
 
-.imgPrincipal { width: 100%; height: 100%; object-fit: cover; }
+.imgPrincipal {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
-.uploadPlaceholder { color: var(--preto-background); opacity: 0.6; }
+.uploadPlaceholder {
+    color: var(--COR_TEXTO_FORMULARIO);
+    opacity: 0.6;
+}
 
 .badgeClassificacao {
     position: absolute;
     bottom: 10px;
     right: 10px;
-    background-color: var(--botao-vermelho);
-    color: var(--icone-branco);
+    background-color: var(--COR_PRINCIPAL);
+    color: var(--COR_TEXTO);
     padding: 5px 8px;
     border-radius: 4px;
     font-weight: bold;
@@ -68,7 +83,7 @@
 
 /* Formulário à direita */
 .cardForm {
-    background-color: var(--branco-background);
+    background-color: var(--COR_FORMULARIO);
     padding: 40px;
     border-radius: 25px;
     width: 450px;
@@ -81,7 +96,7 @@
     margin-bottom: 30px;
     font-style: italic;
     line-height: 1;
-    color: var(--preto-background);
+    color: var(--COR_TEXTO_FORMULARIO);
 }
 
 .inputGroup {
@@ -90,20 +105,26 @@
     margin-bottom: 15px;
 }
 
-.inputGroup label { font-weight: bold; font-size: 14px; margin-bottom: 5px; }
+.inputGroup label {
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: var(--COR_TEXTO_FORMULARIO);
+}
 
 .inputGroup input, .selectInput {
     border: none;
-    border-bottom: 1px solid var(--preto-background);
+    border-bottom: 1px solid var(--COR_LINHA);
     padding: 5px 0;
     outline: none;
     background: transparent;
+    color: var(--COR_TEXTO_FORMULARIO);
 }
 
 .btnCadastrar {
     width: 100%;
-    background-color: var(--botao-vermelho);
-    color: var(--icone-branco);
+    background-color: var(--COR_BOTAO);
+    color: var(--COR_TEXTO);
     border: none;
     padding: 12px;
     font-weight: bold;
@@ -114,12 +135,12 @@
 }
 
 .btnCadastrar:hover {
-    background-color: var(--vermelho-hover);
+    background-color: var(--COR_HOVER);
 }
 
 /* ─── Etapa de validação de e-mail ─── */
 .page {
-    background-color: var(--preto-background);
+    background-color: var(--COR_FUNDO);
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -128,7 +149,7 @@
 }
 
 .cardValidacao {
-    background-color: var(--branco-background);
+    background-color: var(--COR_MODAL);
     width: 100%;
     max-width: 500px;
     padding: 60px 40px;
@@ -147,7 +168,7 @@
     background: none;
     border: none;
     cursor: pointer;
-    color: var(--preto-background);
+    color: var(--COR_TEXTO_FORMULARIO);
     font-size: 0.95rem;
     font-weight: bold;
     display: flex;
@@ -156,7 +177,7 @@
 }
 
 .tituloValidar {
-    color: var(--preto-background);
+    color: var(--COR_TEXTO_FORMULARIO);
     font-weight: 900;
     text-align: center;
     font-style: italic;
@@ -167,7 +188,7 @@
 }
 
 .subtitulo {
-    color: var(--cinza-background);
+    color: var(--COR_SECUNDARIA);
     font-size: 0.9rem;
     text-align: center;
     margin-bottom: 30px;
@@ -175,7 +196,7 @@
 
 .labelCodigo {
     font-weight: bold;
-    color: var(--preto-background);
+    color: var(--COR_TEXTO_FORMULARIO);
     font-size: 0.9rem;
     margin-bottom: 12px;
     text-transform: uppercase;
@@ -200,20 +221,21 @@
     outline: none;
     background: transparent;
     transition: border-color 0.2s;
+    color: var(--COR_TEXTO_FORMULARIO);
 }
 
 .otpInput:focus {
-    border-color: var(--botao-vermelho);
+    border-color: var(--COR_PRINCIPAL);
 }
 
 .otpInput.filled {
-    border-color: var(--botao-vermelho);
-    background-color: #fff5f5; /* Fundo leve para destaque */
+    border-color: var(--COR_PRINCIPAL);
+    background-color: #fff5f5;
 }
 
 .confirmBtn {
-    background-color: var(--botao-vermelho);
-    color: var(--icone-branco);
+    background-color: var(--COR_BOTAO);
+    color: var(--COR_TEXTO);
     border: none;
     padding: 15px;
     width: 100%;
@@ -227,7 +249,7 @@
 }
 
 .confirmBtn:hover:not(:disabled) {
-    background-color: var(--vermelho-hover);
+    background-color: var(--COR_HOVER);
 }
 
 .confirmBtn:disabled {

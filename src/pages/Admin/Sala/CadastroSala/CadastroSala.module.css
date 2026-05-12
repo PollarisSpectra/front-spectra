@@ -1,8 +1,26 @@
+:root {
+    --COR_BOTAO: #ffffff;
+    --COR_PRINCIPAL: #ff1a1a;
+    --COR_ALERTA: #2a2a2a;
+    --COR_FUNDO: #000;
+    --COR_SECUNDARIA: #4a4a4a;
+    --COR_TEXTO: #ffffff;
+    --COR_DESTAQUE_TEXTO: #ffffff;
+    --COR_HOVER: #e61919;
+    --COR_TEXTO_DESTAQUE: #ff1a1a;
+    --COR_CARD: #31333880;
+    --COR_FORMULARIO: #ffffff;
+    --COR_LINHA: #000;
+    --COR_MODAL: #31333880;
+    --COR_ICONE: #000;
+    --COR_TEXTO_FORMULARIO: #000;
+}
+
 .mainContainer {
-    background-color: #0a0a0b; /* Fundo escuro */
+    background-color: var(--COR_FUNDO); /* Conectado ao root */
     min-height: 100vh;
     display: flex;
-    flex-direction: column; /* Permite que o título fique em cima do form */
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 40px 20px;
@@ -14,7 +32,7 @@
 ========================================= */
 .header {
     width: 100%;
-    max-width: 600px; /* Mesma largura do cardCadastro para alinhar certinho */
+    max-width: 600px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -26,7 +44,7 @@
     font-size: 36px;
     font-weight: 900;
     margin: 0;
-    color: #ffffff; /* Título Branco */
+    color: var(--COR_TEXTO); /* Título Branco do root */
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -34,10 +52,10 @@
 
 .btnVoltar {
     position: absolute;
-    left: 0; /* Crava a seta na esquerda */
+    left: 0;
     background: transparent;
     border: none;
-    color: #ffffff; /* Seta branca */
+    color: var(--COR_TEXTO); /* Seta branca do root */
     font-size: 30px;
     cursor: pointer;
     transition: opacity 0.2s ease-in-out;
@@ -52,7 +70,7 @@
    FORMULÁRIO E RESTANTE DO CÓDIGO
 ========================================= */
 .cardCadastro {
-    background-color: #fff;
+    background-color: var(--COR_FORMULARIO); /* Conectado ao root */
     width: 100%;
     max-width: 600px;
     border-radius: 12px;
@@ -60,6 +78,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    color: var(--COR_TEXTO_FORMULARIO); /* Texto preto do root */
 }
 
 .formulario {
@@ -80,16 +99,17 @@
 
 .inputBox input {
     border: none;
-    border-bottom: 2px solid #ccc;
+    border-bottom: 2px solid #ccc; /* Mantido cinza para contraste no form branco */
     padding: 8px 0;
     outline: none;
     font-size: 16px;
     transition: border-color 0.3s;
     background-color: transparent;
+    color: var(--COR_TEXTO_FORMULARIO);
 }
 
 .inputBox input:focus {
-    border-bottom-color: #ff1a1a;
+    border-bottom-color: var(--COR_PRINCIPAL); /* Linha vermelha ao focar */
 }
 
 /* Estilo do Mapa de Cadeiras */
@@ -143,8 +163,8 @@
 
 .btnCadastrar {
     width: 100%;
-    background-color: #ff1a1a;
-    color: #fff;
+    background-color: var(--COR_PRINCIPAL); /* Conectado ao root */
+    color: var(--COR_BOTAO); /* Conectado ao root */
     border: none;
     padding: 15px;
     border-radius: 8px;
@@ -155,23 +175,17 @@
 }
 
 .btnCadastrar:hover {
-    background-color: #d61515;
-}
-
-.messageBox {
-    margin-bottom: 20px;
+    background-color: var(--COR_HOVER); /* Conectado ao root */
 }
 
 .messageBox.success {
     background-color: #d4edda;
     color: #155724;
-    border-color: #c3e6cb;
 }
 
 .messageBox.error {
     background-color: #f8d7da;
     color: #721c24;
-    border-color: #f5c6cb;
 }
 
 /* =========================================
@@ -187,7 +201,7 @@
     }
 
     .titulo {
-        font-size: 26px; /* Ajuste no título */
+        font-size: 26px;
     }
 }
 

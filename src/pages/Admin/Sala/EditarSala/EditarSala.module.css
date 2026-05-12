@@ -1,8 +1,26 @@
+:root {
+    --COR_BOTAO: #ffffff;
+    --COR_PRINCIPAL: #ff1a1a;
+    --COR_ALERTA: #2a2a2a;
+    --COR_FUNDO: #000;
+    --COR_SECUNDARIA: #4a4a4a;
+    --COR_TEXTO: #ffffff;
+    --COR_DESTAQUE_TEXTO: #ffffff;
+    --COR_HOVER: #e61919;
+    --COR_TEXTO_DESTAQUE: #ff1a1a;
+    --COR_CARD: #31333880;
+    --COR_FORMULARIO: #ffffff;
+    --COR_LINHA: #000;
+    --COR_MODAL: #31333880;
+    --COR_ICONE: #000;
+    --COR_TEXTO_FORMULARIO: #000;
+}
+
 .mainContainer {
-    background-color: #0a0a0b; /* Fundo escuro */
+    background-color: var(--COR_FUNDO); /* Fundo escuro conectado */
     min-height: 100vh;
     display: flex;
-    flex-direction: column; /* Permite que o título fique em cima do form */
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 40px 20px;
@@ -14,7 +32,7 @@
 ========================================= */
 .header {
     width: 100%;
-    max-width: 600px; /* Mesma largura do cardCadastro para alinhar certinho */
+    max-width: 600px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -26,7 +44,7 @@
     font-size: 36px;
     font-weight: 900;
     margin: 0;
-    color: #ffffff; /* Título Branco */
+    color: var(--COR_TEXTO); /* Título Branco conectado */
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -34,10 +52,10 @@
 
 .btnVoltar {
     position: absolute;
-    left: 0; /* Crava a seta na esquerda */
+    left: 0;
     background: transparent;
     border: none;
-    color: #ffffff; /* Seta branca */
+    color: var(--COR_TEXTO); /* Seta branca conectada */
     font-size: 30px;
     cursor: pointer;
     transition: opacity 0.2s ease-in-out;
@@ -52,7 +70,7 @@
    FORMULÁRIO E RESTANTE DO CÓDIGO
 ========================================= */
 .cardCadastro {
-    background-color: #fff;
+    background-color: var(--COR_FORMULARIO); /* Fundo branco conectado */
     width: 100%;
     max-width: 600px;
     border-radius: 12px;
@@ -60,6 +78,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    color: var(--COR_TEXTO_FORMULARIO); /* Texto preto do formulário conectado */
 }
 
 .formulario {
@@ -80,23 +99,24 @@
 
 .inputBox input {
     border: none;
-    border-bottom: 2px solid #ccc;
+    border-bottom: 2px solid #ccc; /* Mantido cinza para contraste no form branco */
     padding: 8px 0;
     outline: none;
     font-size: 16px;
     transition: border-color 0.3s;
     background-color: transparent;
+    color: var(--COR_TEXTO_FORMULARIO);
 }
 
 .inputBox input:focus {
-    border-bottom-color: #ff1a1a;
+    border-bottom-color: var(--COR_PRINCIPAL); /* Linha vermelha conectada */
 }
 
 /* Estilo do Mapa de Cadeiras */
 .mapaAssentos {
     margin: 30px 0;
     max-height: 300px;
-    overflow: auto; /* Permite scroll se a sala for muito grande */
+    overflow: auto;
     padding: 10px;
     background: #f9f9f9;
     border-radius: 10px;
@@ -143,14 +163,14 @@
 
 .botoes {
     display: flex;
-    gap: 20px; /* Reduzido um pouco o espaço para caber melhor em telas menores */
+    gap: 20px;
     margin-top: 20px;
 }
 
 .btnCadastrar {
     flex: 1;
-    background-color: #ff1a1a;
-    color: #fff;
+    background-color: var(--COR_PRINCIPAL); /* Vermelho principal conectado */
+    color: var(--COR_BOTAO); /* Texto branco do botão conectado */
     border: none;
     padding: 13px;
     border-radius: 8px;
@@ -161,14 +181,14 @@
 }
 
 .btnCadastrar:hover {
-    background-color: #d61515;
+    background-color: var(--COR_HOVER); /* Vermelho hover conectado */
 }
 
 .btnExcluir {
     flex: 1;
     background-color: transparent;
-    color: #202020;
-    border: 2px solid #202020;
+    color: var(--COR_PRINCIPAL); /* Cor preta conectada */
+    border: 2px solid var(--COR_PRINCIPAL); /* Borda preta conectada */
     padding: 13px;
     border-radius: 8px;
     font-weight: bold;
@@ -178,8 +198,8 @@
 }
 
 .btnExcluir:hover {
-    background-color: #202020;
-    color: #fff;
+    background-color: var(--COR_HOVER);
+    color: var(--COR_BOTAO);
 }
 
 .messageBox {
@@ -216,13 +236,13 @@
     }
 
     .titulo {
-        font-size: 26px; /* Ajuste no título */
+        font-size: 26px;
     }
 }
 
 @media (max-width: 480px) {
     .botoes {
-        flex-direction: column; /* Empilha os botões no celular */
+        flex-direction: column;
         gap: 15px;
     }
 
@@ -275,25 +295,25 @@
 ========================================= */
 @media (max-width: 320px) {
     .mainContainer {
-        padding: 15px 5px; /* Tira quase todo o respiro lateral da tela */
+        padding: 15px 5px;
     }
 
     .header {
         margin-bottom: 15px;
-        padding: 0 25px; /* Reduz a área de proteção da seta */
+        padding: 0 25px;
     }
 
     .titulo {
-        font-size: 20px; /* Sobrescreve o clamp para garantir que não quebre a linha de forma feia */
-        letter-spacing: 1px; /* Economiza espaço horizontal */
+        font-size: 20px;
+        letter-spacing: 1px;
     }
 
     .btnVoltar {
-        font-size: 22px; /* Seta um pouco menor */
+        font-size: 22px;
     }
 
     .cardCadastro {
-        padding: 15px 10px; /* Abre espaço máximo para o formulário dentro do card */
+        padding: 15px 10px;
         border-radius: 8px;
     }
 
@@ -311,14 +331,13 @@
         font-size: 14px;
     }
 
-    /* Otimização máxima para o Mapa de Assentos caber melhor */
     .mapaAssentos {
         margin: 15px 0;
         padding: 5px 2px;
     }
 
     .fila {
-        gap: 5px; /* Aproxima as cadeiras da letra */
+        gap: 5px;
     }
 
     .letraFila {
@@ -327,11 +346,11 @@
     }
 
     .assentosContainer {
-        gap: 2px; /* Gruda mais as cadeiras umas nas outras */
+        gap: 2px;
     }
 
     .assento {
-        width: 16px; /* Cadeiras bem pequenininhas */
+        width: 16px;
         height: 16px;
         font-size: 7px;
         border-radius: 2px;

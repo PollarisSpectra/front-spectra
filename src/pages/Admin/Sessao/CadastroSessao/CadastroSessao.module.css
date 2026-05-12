@@ -1,12 +1,30 @@
+:root {
+    --COR_BOTAO: #ffffff;
+    --COR_PRINCIPAL: #ff1a1a;
+    --COR_ALERTA: #2a2a2a;
+    --COR_FUNDO: #000;
+    --COR_SECUNDARIA: #4a4a4a;
+    --COR_TEXTO: #ffffff;
+    --COR_DESTAQUE_TEXTO: #ffffff;
+    --COR_HOVER: #e61919;
+    --COR_TEXTO_DESTAQUE: #ff1a1a;
+    --COR_CARD: #31333880;
+    --COR_FORMULARIO: #ffffff;
+    --COR_LINHA: #000;
+    --COR_MODAL: #31333880;
+    --COR_ICONE: #000;
+    --COR_TEXTO_FORMULARIO: #000;
+}
+
 .containerMain {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 60px;
-    background-color: #000;
+    background-color: var(--COR_FUNDO); /* Conectado ao root */
     min-height: 100vh;
     padding: 20px;
-    position: relative; /* Importante para ancorar o header e o botão */
+    position: relative;
 }
 
 /* =========================================
@@ -23,7 +41,7 @@
 }
 
 .formTitulo {
-    color: #ffffff; /* Título branco */
+    color: var(--COR_TEXTO); /* Conectado ao root */
     font-weight: 800;
     font-size: 32px;
     letter-spacing: 2px;
@@ -32,10 +50,10 @@
 
 .btnVoltar {
     position: absolute;
-    left: 50px; /* Mantém a seta no canto esquerdo */
+    left: 50px;
     background: transparent;
     border: none;
-    color: #ffffff;  /* Seta branca */
+    color: var(--COR_TEXTO); /* Conectado ao root */
     font-size: 30px;
     cursor: pointer;
     transition: opacity 0.2s ease-in-out;
@@ -54,17 +72,17 @@
 }
 
 .cardPreview {
-    background-color: #1a1c20;
+    background-color: #1a1c20; /* Fundo específico para contraste do card */
     border-radius: 12px;
     overflow: hidden;
-    color: white;
+    color: var(--COR_TEXTO);
 }
 
 .capaArea {
     position: relative;
     width: 100%;
     height: 380px;
-    background-color: white;
+    background-color: var(--COR_BOTAO); /* Conectado ao root */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -81,8 +99,8 @@
     position: absolute;
     bottom: 10px;
     right: 10px;
-    background-color: #ff1a1a;
-    color: white;
+    background-color: var(--COR_PRINCIPAL); /* Conectado ao root */
+    color: var(--COR_TEXTO); /* Conectado ao root */
     padding: 5px 8px;
     border-radius: 4px;
     font-weight: bold;
@@ -92,20 +110,20 @@
 .tituloRow { display: flex; justify-content: space-between; align-items: center; }
 .estrelas { color: #ffd700; font-size: 12px; }
 .detalhesRow { display: flex; gap: 15px; font-size: 12px; margin-top: 10px; color: #ccc; }
-.sinopseTexto { color: white; margin-top: 15px; font-size: 13px; max-width: 280px; }
+.sinopseTexto { color: var(--COR_TEXTO); margin-top: 15px; font-size: 13px; max-width: 280px; }
 
 
 /* =========================================
    LADO DIREITO (Formulário)
 ========================================= */
 .formCard {
-    background-color: white;
+    background-color: var(--COR_FORMULARIO); /* Conectado ao root */
     padding: 40px;
     border-radius: 20px;
     width: 450px;
+    color: var(--COR_TEXTO_FORMULARIO); /* Conectado ao root */
 }
 
-/* Os inputs e labels do form */
 .inputBox {
     display: flex;
     flex-direction: column;
@@ -123,28 +141,36 @@
     border-bottom: 1px solid #ccc;
     padding: 8px 0;
     outline: none;
+    background-color: transparent;
+    color: var(--COR_TEXTO_FORMULARIO);
 }
 
 /* Botões do form */
 .btnCadastrar {
     width: 100%;
-    background-color: #ff1a1a;
-    color: white;
+    background-color: var(--COR_PRINCIPAL); /* Conectado ao root */
+    color: var(--COR_TEXTO); /* Conectado ao root (branco) */
     padding: 15px;
     border: none;
     border-radius: 5px;
     font-weight: bolder;
     cursor: pointer;
     margin-top: 20px;
+    transition: background 0.3s;
+}
+
+.btnCadastrar:hover {
+    background-color: var(--COR_HOVER); /* Conectado ao root */
 }
 
 .btnExcluir {
     width: 100%;
-    background-color: #1e1e1e;
-    color: white;
+    background-color: var(--COR_ALERTA); /* Conectado ao cinza escuro do root */
+    color: var(--COR_TEXTO); /* Conectado ao root */
     padding: 15px;
     border-radius: 5px;
     font-weight: bolder;
     cursor: pointer;
     margin-top: 20px;
+    border: none;
 }

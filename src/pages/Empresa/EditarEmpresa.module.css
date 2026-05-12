@@ -1,7 +1,25 @@
+:root {
+    --COR_BOTAO: #ffffff;
+    --COR_PRINCIPAL: #ff1a1a;
+    --COR_ALERTA: #2a2a2a;
+    --COR_FUNDO: #000;
+    --COR_SECUNDARIA: #4a4a4a;
+    --COR_TEXTO: #ffffff;
+    --COR_DESTAQUE_TEXTO: #ffffff;
+    --COR_HOVER: #e61919;
+    --COR_TEXTO_DESTAQUE: #ff1a1a;
+    --COR_CARD: #31333880;
+    --COR_FORMULARIO: #ffffff;
+    --COR_LINHA: #000;
+    --COR_MODAL: #ececec; /* Ajustado para manter o tom de cinza claro original do seu modal */
+    --COR_ICONE: #000;
+    --COR_TEXTO_FORMULARIO: #111;
+}
+
 .modalFundo {
     width: 100%;
     min-height: 100vh;
-    background: #000;
+    background: var(--COR_FUNDO);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,7 +30,7 @@
 .modalCard {
     width: 100%;
     max-width: 750px;
-    background: #ececec;
+    background: var(--COR_MODAL);
     border-radius: 35px;
     padding: 40px;
     display: flex;
@@ -43,18 +61,19 @@
 .grupo label {
     font-size: 18px;
     font-weight: 700;
-    color: #111;
+    color: var(--COR_TEXTO_FORMULARIO);
 }
 
 .grupo input {
     width: 100%;
     border: none;
-    border-bottom: 1px solid #bdbdbd;
+    border-bottom: 1px solid #bdbdbd; /* Mantida a linha cinza sutil para visibilidade */
     background: transparent;
     padding: 12px 5px;
     font-size: 20px;
     outline: none;
     box-sizing: border-box;
+    color: var(--COR_TEXTO_FORMULARIO);
 }
 
 .grupo input::placeholder {
@@ -67,7 +86,7 @@
     cursor: pointer;
     border-radius: 10px;
     border: none;
-    background: white;
+    background: var(--COR_BOTAO);
 }
 
 .grupo input[type="file"] {
@@ -81,8 +100,8 @@
     height: 70px;
     border: none;
     border-radius: 15px;
-    background: #ff1c1c;
-    color: white;
+    background: var(--COR_PRINCIPAL);
+    color: var(--COR_BOTAO);
     font-size: 28px;
     font-weight: 700;
     cursor: pointer;
@@ -91,10 +110,10 @@
 
 .botao:hover {
     transform: scale(1.01);
+    background: var(--COR_HOVER);
 }
 
 @media (max-width: 700px) {
-
     .modalCard {
         padding: 25px;
         border-radius: 25px;
@@ -112,5 +131,4 @@
         font-size: 22px;
         height: 60px;
     }
-
 }

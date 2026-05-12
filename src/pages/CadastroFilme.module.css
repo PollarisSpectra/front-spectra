@@ -1,11 +1,19 @@
 :root {
-    --vermelho-hover: #e61919;
-    --botao-vermelho: #ff1c1c;
-    --branco-background: #FFFFFFFF;
-    --cinza-background: #4a4a4a;
-    --icone-branco: #ffffff;
-    --header-vermelho: #ff1d1d;
-    --preto-background: #000;
+    --COR_BOTAO: #ff1c1c;
+    --COR_PRINCIPAL: #ff1c1c;
+    --COR_ALERTA: #2a2a2a;
+    --COR_FUNDO: #000;
+    --COR_SECUNDARIA: #4a4a4a;
+    --COR_TEXTO: #ffffff;
+    --COR_DESTAQUE_TEXTO: #ffffff;
+    --COR_HOVER: #e61919;
+    --COR_TEXTO_DESTAQUE: #ff1a1a;
+    --COR_CARD: #1a1c20;
+    --COR_FORMULARIO: #ffffff;
+    --COR_LINHA: #ccc;
+    --COR_MODAL: #ffffff;
+    --COR_ICONE: #ffffff;
+    --COR_TEXTO_FORMULARIO: #000;
 }
 
 .containerMain {
@@ -13,7 +21,7 @@
     justify-content: center;
     align-items: center;
     gap: 60px;
-    background-color: var(--preto-background); /* Variável aplicada */
+    background-color: var(--COR_FUNDO);
     min-height: 100vh;
     padding: 20px;
 }
@@ -24,31 +32,35 @@
 }
 
 .cardPreview {
-    background-color: #1a1c20; /* Tom específico para profundidade, pode manter ou usar cinza-background */
+    background-color: var(--COR_CARD);
     border-radius: 12px;
     overflow: hidden;
-    color: var(--icone-branco); /* Variável aplicada */
+    color: var(--COR_TEXTO);
 }
 
 .capaArea {
     position: relative;
     width: 100%;
     height: 380px;
-    background-color: var(--branco-background); /* Variável aplicada */
+    background-color: var(--COR_FORMULARIO);
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
 }
 
-.imgPreview { width: 100%; height: 100%; object-fit: cover; }
+.imgPreview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
 .classificacaoBadge {
     position: absolute;
     bottom: 10px;
     right: 10px;
-    background-color: var(--botao-vermelho); /* Variável aplicada */
-    color: var(--icone-branco); /* Variável aplicada */
+    background-color: var(--COR_PRINCIPAL);
+    color: var(--COR_TEXTO);
     padding: 5px 8px;
     border-radius: 4px;
     font-weight: bold;
@@ -57,15 +69,17 @@
 .infoPreview { padding: 15px; }
 .tituloRow { display: flex; justify-content: space-between; align-items: center; }
 .estrelas { color: #ffd700; font-size: 12px; }
+
 .detalhesRow {
     display: flex;
     gap: 15px;
     font-size: 12px;
     margin-top: 10px;
-    color: #ccc; /* Pode ser substituído por cinza-background se desejar mais escuro */
+    color: #ccc;
 }
+
 .sinopseTexto {
-    color: var(--icone-branco); /* Variável aplicada */
+    color: var(--COR_TEXTO);
     margin-top: 15px;
     font-size: 13px;
     max-width: 280px;
@@ -73,29 +87,44 @@
 
 /* Lado Direito (Form) */
 .formCard {
-    background-color: var(--branco-background); /* Variável aplicada */
+    background-color: var(--COR_FORMULARIO);
     padding: 40px;
     border-radius: 20px;
     width: 450px;
-    color: var(--preto-background); /* Cor do texto para legibilidade */
+    color: var(--COR_TEXTO_FORMULARIO);
 }
 
-.formTitulo { text-align: center; font-weight: 800; margin-bottom: 30px; }
+.formTitulo {
+    text-align: center;
+    font-weight: 800;
+    margin-bottom: 30px;
+}
 
-.inputBox { display: flex; flex-direction: column; margin-bottom: 15px; }
-.inputBox label { font-weight: bold; font-size: 14px; margin-bottom: 5px; }
+.inputBox {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.inputBox label {
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
 .inputBox input, .selectStyle {
     border: none;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid var(--COR_LINHA);
     padding: 8px 0;
     outline: none;
     background: transparent;
+    color: var(--COR_TEXTO_FORMULARIO);
 }
 
 .btnCadastrar {
     width: 100%;
-    background-color: var(--botao-vermelho); /* Variável aplicada */
-    color: var(--icone-branco); /* Variável aplicada */
+    background-color: var(--COR_BOTAO);
+    color: var(--COR_TEXTO);
     padding: 15px;
     border: none;
     border-radius: 5px;
@@ -106,7 +135,7 @@
 }
 
 .btnCadastrar:hover {
-    background-color: var(--vermelho-hover); /* Variável aplicada */
+    background-color: var(--COR_HOVER);
 }
 
 /* ─── Responsividade ─── */

@@ -1,16 +1,25 @@
 :root {
-    --vermelho-hover: #e61919;
-    --botao-vermelho: #ff1c1c;
-    --branco-background: #FFFFFFFF;
-    --cinza-background: #4a4a4a;
-    --icone-branco: #ffffff;
-    --header-vermelho: #ff1d1d;
-    --preto-background: #000;
+    --COR_BOTAO: #ff1c1c;
+    --COR_PRINCIPAL: #ff1c1c;
+    --COR_ALERTA: #2a2a2a;
+    --COR_FUNDO: #000;
+    --COR_SECUNDARIA: #4a4a4a;
+    --COR_TEXTO: #ffffff;
+    --COR_DESTAQUE_TEXTO: #ffffff;
+    --COR_HOVER: #e61919;
+    --COR_TEXTO_DESTAQUE: #ff1a1a;
+    --COR_CARD: #050505;
+    --COR_FORMULARIO: #ffffff;
+    --COR_LINHA: #ffffff;
+    --COR_MODAL: #050505;
+    --COR_ICONE: #ffffff;
+    --COR_TEXTO_FORMULARIO: #000;
 }
 
 .section {
     padding: 40px 24px;
     font-family: 'Montserrat', sans-serif;
+    background-color: var(--COR_FUNDO); /* Garante que a seção siga o fundo do projeto */
 }
 
 .sectionHeader {
@@ -24,14 +33,16 @@
     display: inline-block;
     width: 50px;
     height: 3px;
-    background-color: var(--icone-branco); /* Conectado ao icone-branco */
+    background-color: var(--COR_LINHA);
     flex-shrink: 0;
 }
 
 .headerLabel {
-    color: var(--icone-branco); /* Conectado ao icone-branco */
+    color: var(--COR_TEXTO);
     font-family: 'Montserrat', sans-serif;
     font-size: 17px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 /* Grid responsivo */
@@ -77,7 +88,7 @@
 .modalFundo {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.75);
+    background: rgba(0, 0, 0, 0.85); /* Escurecido para dar mais foco ao modal */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -87,12 +98,13 @@
 .modalCard {
     width: 420px;
     max-width: 90%;
-    background: #050505; /* Tom escuro preservado */
-    color: var(--icone-branco); /* Conectado ao icone-branco */
+    background: var(--COR_MODAL);
+    color: var(--COR_TEXTO);
     border-radius: 10px;
     padding: 28px;
     position: relative;
     text-align: center;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
 
 .fecharModal {
@@ -101,9 +113,10 @@
     right: 14px;
     background: none;
     border: none;
-    color: var(--icone-branco); /* Conectado ao icone-branco */
+    color: var(--COR_ICONE);
     font-size: 30px;
     cursor: pointer;
+    line-height: 1;
 }
 
 .modalImagemArea {
@@ -125,8 +138,8 @@
     position: absolute;
     right: 8px;
     bottom: 8px;
-    background: #f1d600; /* Cor de destaque amarela mantida */
-    color: var(--preto-background); /* Conectado ao preto-background */
+    background: #f1d600; /* Destaque amarelo para classificação preservado */
+    color: var(--COR_TEXTO_FORMULARIO); /* Preto para contraste */
     font-weight: 700;
     font-size: 13px;
     padding: 3px 6px;
@@ -137,6 +150,7 @@
     font-size: 22px;
     margin: 10px 0 18px;
     text-align: left;
+    color: var(--COR_TEXTO);
 }
 
 .infoLinha {
@@ -148,17 +162,19 @@
 
 .infoLinha strong {
     font-size: 15px;
+    color: var(--COR_TEXTO);
 }
 
 .infoLinha p {
     margin-top: 5px;
     font-size: 14px;
-    color: #ddd;
+    color: #ccc; /* Tom suave para informação secundária */
 }
 
 .subtituloModal {
     font-size: 17px;
     margin: 18px 0 8px;
+    text-align: left;
 }
 
 .sinopse {
@@ -167,6 +183,17 @@
     color: #ddd;
     max-height: 90px;
     overflow-y: auto;
+    text-align: left;
+    padding-right: 5px;
+}
+
+/* Scrollbar customizada para a sinopse */
+.sinopse::-webkit-scrollbar {
+    width: 4px;
+}
+.sinopse::-webkit-scrollbar-thumb {
+    background: var(--COR_PRINCIPAL);
+    border-radius: 10px;
 }
 
 .sessoesModal {
@@ -177,21 +204,23 @@
 }
 
 .btnSessao {
-    background: var(--botao-vermelho); /* Conectado ao botao-vermelho */
-    color: var(--icone-branco); /* Conectado ao icone-branco */
+    background: var(--COR_BOTAO);
+    color: var(--COR_TEXTO);
     border: none;
     border-radius: 4px;
     padding: 10px;
     font-weight: 700;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: background 0.3s, transform 0.2s;
 }
 
 .btnSessao:hover {
-    background: var(--vermelho-hover); /* Conectado ao vermelho-hover */
+    background: var(--COR_HOVER);
+    transform: translateY(-1px);
 }
 
 .semSessao {
-    color: #ccc;
+    color: var(--COR_SECUNDARIA);
     font-size: 14px;
+    font-style: italic;
 }

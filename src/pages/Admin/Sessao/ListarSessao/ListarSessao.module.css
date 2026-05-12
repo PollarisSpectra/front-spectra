@@ -1,7 +1,26 @@
+:root {
+    --COR_BOTAO: #ffffff;
+    --COR_PRINCIPAL: #ff1a1a;
+    --COR_ALERTA: #2a2a2a;
+    --COR_FUNDO: #000;
+    --COR_SECUNDARIA: #4a4a4a;
+    --COR_TEXTO: #ffffff;
+    --COR_DESTAQUE_TEXTO: #ffffff;
+    --COR_HOVER: #e61919;
+    --COR_TEXTO_DESTAQUE: #ff1a1a;
+    --COR_CARD: #31333880;
+    --COR_FORMULARIO: #ffffff;
+    --COR_LINHA: #000;
+    --COR_MODAL: #31333880;
+    --COR_ICONE: #000;
+    --COR_TEXTO_FORMULARIO: #000;
+}
+
 .container {
     min-height: 100vh;
     padding: 40px 10%;
-    color: white;
+    background-color: var(--COR_FUNDO);
+    color: var(--COR_TEXTO);
     font-family: 'Montserrat', sans-serif;
 }
 
@@ -18,7 +37,7 @@
     left: 0;
     background: none;
     border: none;
-    color: white;
+    color: var(--COR_TEXTO);
     font-size: 24px;
     cursor: pointer;
 }
@@ -28,7 +47,7 @@
     letter-spacing: 5px;
     font-weight: 700;
     margin: 0;
-    color: #fff;
+    color: var(--COR_TEXTO);
     text-transform: uppercase;
 }
 
@@ -39,7 +58,7 @@
 }
 
 .sessaoCard {
-    background-color: #333;
+    background-color: var(--COR_ALERTA); /* Cinza escuro para destaque */
     border-radius: 8px;
     overflow: hidden;
 }
@@ -59,8 +78,8 @@
 }
 
 .sessaoLabel span {
-    background-color: #fff;
-    color: #000;
+    background-color: var(--COR_DESTAQUE_TEXTO);
+    color: var(--COR_TEXTO_FORMULARIO);
     padding: 2px 8px;
     border-radius: 4px;
     margin-left: 10px;
@@ -68,21 +87,21 @@
 }
 
 .horarioSessao {
-    color: #fff;
+    color: var(--COR_TEXTO);
     font-weight: 600;
 }
 
 .seta {
-    color: #fff;
+    color: var(--COR_TEXTO);
     font-size: 0.9rem;
 }
 
 .sessaoDetalhes {
-    background-color: #000;
+    background-color: var(--COR_FUNDO);
     padding: 30px;
     display: flex;
     gap: 40px;
-    border-top: 1px solid #444;
+    border-top: 1px solid var(--COR_SECUNDARIA);
 }
 
 .poster {
@@ -101,11 +120,12 @@
 .sessaoTitulo {
     font-size: 1.4rem;
     margin-bottom: 20px;
+    color: var(--COR_TEXTO);
 }
 
 .colEsquerda p {
     font-size: 0.85rem;
-    color: #ccc;
+    color: #ccc; /* Mantido cinza para hierarquia de texto secundário */
     margin-bottom: 8px;
 }
 
@@ -117,7 +137,7 @@
 
 .btnEdit,
 .btnDelete {
-    background-color: #fff;
+    background-color: var(--COR_BOTAO);
     border: none;
     width: 35px;
     height: 35px;
@@ -127,7 +147,7 @@
     align-items: center;
     justify-content: center;
     font-size: 1.2rem;
-    color: #000;
+    color: var(--COR_ICONE);
     transition: transform 0.2s, background-color 0.2s, color 0.2s;
 }
 
@@ -137,16 +157,16 @@
 }
 
 .btnDelete:hover {
-    background-color: #ff4d4d;
-    color: #fff;
+    background-color: var(--COR_PRINCIPAL);
+    color: var(--COR_BOTAO);
 }
 
 .btnAdd {
     position: fixed;
     right: 60px;
     bottom: 40px;
-    background-color: #fff;
-    color: #000;
+    background-color: var(--COR_BOTAO);
+    color: var(--COR_TEXTO_FORMULARIO);
     border: none;
     padding: 10px 10px 10px 25px;
     border-radius: 40px;
@@ -162,8 +182,8 @@
 }
 
 .plusIcon {
-    background-color: #000;
-    color: #fff;
+    background-color: var(--COR_ICONE);
+    color: var(--COR_BOTAO);
     border-radius: 50%;
     width: 32px;
     height: 32px;
@@ -186,20 +206,77 @@
 }
 
 /* --- BARRA DE FILTROS --- */
-.filtroBarra { margin-bottom: 40px; }
-.inputBusca { outline: none; transition: border-color 0.2s; }
-.inputBusca:focus { border-color: rgba(255, 255, 255, 0.8) !important; }
-.btnLupa { transition: opacity 0.2s; font-weight: 600; font-size: 0.9rem; }
-.btnLupa:hover { opacity: 0.9; }
+.filtroBarra {
+    margin-bottom: 40px;
+}
+
+.inputBusca {
+    outline: none;
+    background: transparent;
+    color: var(--COR_TEXTO);
+    border: 1px solid var(--COR_SECUNDARIA);
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: border-color 0.2s;
+}
+
+.inputBusca:focus {
+    border-color: var(--COR_PRINCIPAL) !important;
+}
+
+.btnLupa {
+    transition: opacity 0.2s;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--COR_TEXTO);
+}
+
+.btnLupa:hover {
+    opacity: 0.9;
+}
 
 /* --- SELETOR ESTILO SHADCN --- */
-.ordenarWrapper { position: relative; width: 160px; }
-.ordenarHeader { cursor: pointer; transition: all 0.2s; font-size: 0.85rem; }
-.ordenarHeader:hover { background-color: rgba(255, 255, 255, 0.1) !important; }
-.ordenarOpcoes {
-    position: absolute; top: calc(100% + 8px); right: 0; width: 100%;
-    list-style: none; background-color: #09090b; padding: 4px; border: 1px solid #27272a;
-    z-index: 1000; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+.ordenarWrapper {
+    position: relative;
+    width: 160px;
 }
-.ordenarOpcoes li { padding: 8px 12px; font-size: 0.8rem; color: #a1a1aa; cursor: pointer; transition: all 0.2s; }
-.ordenarOpcoes li:hover { background-color: #27272a; color: white; }
+
+.ordenarHeader {
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.85rem;
+    color: var(--COR_TEXTO);
+    border: 1px solid var(--COR_SECUNDARIA);
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.ordenarHeader:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.ordenarOpcoes {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 100%;
+    list-style: none;
+    background-color: #09090b;
+    padding: 4px;
+    border: 1px solid #27272a;
+    z-index: 1000;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+}
+
+.ordenarOpcoes li {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    color: #a1a1aa;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.ordenarOpcoes li:hover {
+    background-color: #27272a;
+    color: var(--COR_TEXTO);
+}

@@ -1,20 +1,25 @@
 :root {
-    --vermelho-hover: #e61919;
-    --botao-vermelho: #ff1c1c;
-    --branco-background: #FFFFFFFF;
-    --cinza-background: #4a4a4a;
-    --icone-branco: #ffffff;
-    --header-vermelho: #ff1d1d;
-    --preto-background: #000;
-
-    /* Variável auxiliar para o card claro que você já usava */
-    --cinza-claro-card: #ececec;
+    --COR_BOTAO: #ffffff;
+    --COR_PRINCIPAL: #ff1c1c;
+    --COR_ALERTA: #2a2a2a;
+    --COR_FUNDO: #000;
+    --COR_SECUNDARIA: #4a4a4a;
+    --COR_TEXTO: #ffffff;
+    --COR_DESTAQUE_TEXTO: #ffffff;
+    --COR_HOVER: #e61919;
+    --COR_TEXTO_DESTAQUE: #ff1a1a;
+    --COR_CARD: #ececec;
+    --COR_FORMULARIO: #ffffff;
+    --COR_LINHA: #bdbdbd;
+    --COR_MODAL: #31333880;
+    --COR_ICONE: #000;
+    --COR_TEXTO_FORMULARIO: #111;
 }
 
 .modalFundo {
     width: 100%;
     min-height: 100vh;
-    background: var(--preto-background); /* Aplicado pretobackground */
+    background: var(--COR_FUNDO); /* Conectado ao preto-background */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -27,7 +32,7 @@
     font-size: 2.5rem;
     letter-spacing: 5px;
     font-weight: 700;
-    color: var(--icone-branco); /* Aplicado iconebranco */
+    color: var(--COR_TEXTO); /* Conectado ao icone-branco/texto */
     margin-bottom: 30px;
     text-transform: uppercase;
     text-align: center;
@@ -36,7 +41,7 @@
 .modalCard {
     width: 100%;
     max-width: 700px;
-    background: var(--cinza-claro-card);
+    background: var(--COR_CARD); /* Conectado ao cinza-claro-card */
     border-radius: 35px;
     padding: 40px;
     display: flex;
@@ -55,21 +60,22 @@
 .grupo label {
     font-size: 16px;
     font-weight: 700;
-    color: #111;
+    color: var(--COR_TEXTO_FORMULARIO); /* Conectado ao preto do label */
 }
 
 .grupo input {
     border: none;
-    border-bottom: 2px solid #bdbdbd;
+    border-bottom: 2px solid var(--COR_LINHA); /* Conectado ao cinza de borda */
     background: transparent;
     padding: 10px 5px;
     font-size: 18px;
     outline: none;
     transition: border-color 0.3s;
+    color: var(--COR_TEXTO_FORMULARIO);
 }
 
 .grupo input:focus {
-    border-bottom-color: var(--botao-vermelho); /* Aplicado botaovermelho */
+    border-bottom-color: var(--COR_PRINCIPAL); /* Conectado ao botao-vermelho */
 }
 
 .duplaLinha {
@@ -82,8 +88,8 @@
     height: 60px;
     border: none;
     border-radius: 12px;
-    background: var(--botao-vermelho); /* Aplicado botaovermelho */
-    color: var(--icone-branco);      /* Aplicado iconebranco */
+    background: var(--COR_PRINCIPAL); /* Conectado ao botao-vermelho */
+    color: var(--COR_BOTAO);         /* Conectado ao icone-branco */
     font-size: 22px;
     font-weight: 700;
     cursor: pointer;
@@ -92,7 +98,7 @@
 }
 
 .botao:hover {
-    background: var(--vermelho-hover); /* Aplicado vermelhohover */
+    background: var(--COR_HOVER); /* Conectado ao vermelho-hover */
     transform: translateY(-2px);
 }
 

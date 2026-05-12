@@ -1,7 +1,25 @@
+:root {
+    --COR_BOTAO: #ffffff;
+    --COR_PRINCIPAL: #ff1a1a;
+    --COR_ALERTA: #2a2a2a;
+    --COR_FUNDO: #000;
+    --COR_SECUNDARIA: #4a4a4a;
+    --COR_TEXTO: #ffffff;
+    --COR_DESTAQUE_TEXTO: #ffffff;
+    --COR_HOVER: #e61919;
+    --COR_TEXTO_DESTAQUE: #ff1a1a;
+    --COR_CARD: #31333880;
+    --COR_FORMULARIO: #ffffff;
+    --COR_LINHA: #000;
+    --COR_MODAL: #31333880;
+    --COR_ICONE: #000;
+    --COR_TEXTO_FORMULARIO: #000;
+}
+
 .container {
     width: 100%;
     min-height: 100vh;
-    background: #f1f1f1;
+    background: var(--COR_FUNDO);
     padding: 40px;
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
@@ -10,7 +28,7 @@
 .titulo {
     font-size: 32px;
     margin-bottom: 30px;
-    color: #111;
+    color: var(--COR_TEXTO);
 }
 
 .grid {
@@ -20,10 +38,11 @@
 }
 
 .card {
-    background: white;
+    background: var(--COR_CARD);
     padding: 20px;
     border-radius: 18px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    border: 1px solid var(--COR_SECUNDARIA);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
 .label {
@@ -31,7 +50,7 @@
     font-size: 15px;
     font-weight: 700;
     margin-bottom: 14px;
-    color: #111;
+    color: var(--COR_TEXTO);
 }
 
 .inputArea {
@@ -52,16 +71,16 @@
     flex: 1;
     height: 45px;
     border: none;
-    border-bottom: 2px solid #d1d5db;
+    border-bottom: 2px solid var(--COR_SECUNDARIA);
     outline: none;
     font-size: 18px;
     background: transparent;
-    color: #555;
+    color: var(--COR_TEXTO);
     transition: 0.3s;
 }
 
 .textInput:focus {
-    border-color: #2563eb;
+    border-color: var(--COR_PRINCIPAL);
 }
 
 .botao {
@@ -70,8 +89,8 @@
     padding: 0 30px;
     border: none;
     border-radius: 12px;
-    background: #2563eb;
-    color: white;
+    background: var(--COR_PRINCIPAL);
+    color: var(--COR_BOTAO);
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
@@ -79,5 +98,6 @@
 }
 
 .botao:hover {
-    background: #1d4ed8;
+    background: var(--COR_HOVER);
+    transform: scale(1.02);
 }

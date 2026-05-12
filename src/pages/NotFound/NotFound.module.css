@@ -1,3 +1,20 @@
+:root {
+    --COR_BOTAO: #ffffff;
+    --COR_PRINCIPAL: #ff1a1a;
+    --COR_ALERTA: #2a2a2a;
+    --COR_FUNDO: #000;
+    --COR_SECUNDARIA: #4a4a4a;
+    --COR_TEXTO: #ffffff;
+    --COR_DESTAQUE_TEXTO: #ffffff;
+    --COR_HOVER: #e61919;
+    --COR_TEXTO_DESTAQUE: #ff1a1a;
+    --COR_CARD: #31333880;
+    --COR_FORMULARIO: #ffffff;
+    --COR_LINHA: #000;
+    --COR_MODAL: #31333880;
+    --COR_ICONE: #000;
+    --COR_TEXTO_FORMULARIO: #000;
+}
 
 .container {
     display: flex;
@@ -7,23 +24,26 @@
 
 .conteudo {
     flex: 1;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    background-color: #0b0f14;
-    color: white;
+    /* Ajustado para usar o degradê escuro ou a cor de fundo do root */
+    background: linear-gradient(to bottom, #0b0f14, var(--COR_FUNDO));
+    color: var(--COR_TEXTO);
 }
 
 .titulo {
     font-size: 80px;
     font-weight: bold;
     margin-bottom: 10px;
+    color: var(--COR_TEXTO);
 }
 
 .subtitulo {
     font-size: 28px;
     margin-bottom: 10px;
+    color: var(--COR_TEXTO);
+    opacity: 0.9; /* Leve transparência para diferenciar do título */
 }

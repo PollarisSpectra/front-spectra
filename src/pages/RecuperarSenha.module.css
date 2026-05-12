@@ -1,5 +1,23 @@
+:root {
+    --COR_BOTAO: #ff1a1a;
+    --COR_PRINCIPAL: #ff1a1a;
+    --COR_ALERTA: #2a2a2a;
+    --COR_FUNDO: #000;
+    --COR_SECUNDARIA: #666;
+    --COR_TEXTO: #ffffff;
+    --COR_DESTAQUE_TEXTO: #ffffff;
+    --COR_HOVER: #e61919;
+    --COR_TEXTO_DESTAQUE: #ff1a1a;
+    --COR_CARD: #ffffff;
+    --COR_FORMULARIO: #ffffff;
+    --COR_LINHA: #000;
+    --COR_MODAL: #ffffff;
+    --COR_ICONE: #000;
+    --COR_TEXTO_FORMULARIO: #000;
+}
+
 .page {
-    background-color: #000;
+    background-color: var(--COR_FUNDO);
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -9,7 +27,7 @@
 }
 
 .cardRecuperacao {
-    background-color: #fff;
+    background-color: var(--COR_CARD);
     width: 100%;
     max-width: 500px;
     padding: 60px 40px;
@@ -28,11 +46,11 @@
     background: none;
     border: none;
     cursor: pointer;
-    color: #000;
+    color: var(--COR_ICONE);
 }
 
 .tituloRecuperar {
-    color: #000;
+    color: var(--COR_TEXTO_FORMULARIO);
     font-weight: 900;
     text-align: center;
     font-style: italic;
@@ -43,13 +61,15 @@
 }
 
 .subtitulo {
-    color: #666;
+    color: var(--COR_SECUNDARIA);
     font-size: 0.9rem;
     text-align: center;
     margin-bottom: 25px;
 }
 
-.formulario { width: 100%; }
+.formulario {
+    width: 100%;
+}
 
 .inputGroup {
     width: 100%;
@@ -60,18 +80,19 @@
 
 .inputGroup label {
     font-weight: bold;
-    color: #000;
+    color: var(--COR_TEXTO_FORMULARIO);
     margin-bottom: 5px;
     font-size: 0.9rem;
 }
 
 .inputGroup input {
     border: none;
-    border-bottom: 2px solid #000;
+    border-bottom: 2px solid var(--COR_LINHA);
     padding: 8px 0;
     outline: none;
     font-size: 1rem;
     background: transparent;
+    color: var(--COR_TEXTO_FORMULARIO);
 }
 
 /* Estilo OTP (Código de 6 dígitos) */
@@ -90,15 +111,17 @@
     border: 1px solid #ccc;
     border-radius: 8px;
     outline: none;
+    color: var(--COR_TEXTO_FORMULARIO);
+    transition: border-color 0.2s;
 }
 
 .otpContainer input:focus {
-    border-color: #ff1a1a;
+    border-color: var(--COR_PRINCIPAL);
 }
 
 .btnPrincipal {
-    background-color: #ff1a1a;
-    color: #fff;
+    background-color: var(--COR_BOTAO);
+    color: var(--COR_TEXTO);
     border: none;
     padding: 15px;
     width: 100%;
@@ -107,6 +130,10 @@
     cursor: pointer;
     border-radius: 4px;
     transition: 0.3s;
+}
+
+.btnPrincipal:hover:not(:disabled) {
+    background-color: var(--COR_HOVER);
 }
 
 .btnPrincipal:disabled {

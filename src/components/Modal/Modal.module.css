@@ -1,3 +1,21 @@
+:root {
+    --COR_BOTAO: #ffffff;
+    --COR_PRINCIPAL: #ff1a1a;
+    --COR_ALERTA: #2a2a2a;
+    --COR_FUNDO: #000;
+    --COR_SECUNDARIA: #4a4a4a;
+    --COR_TEXTO: #ffffff;
+    --COR_DESTAQUE_TEXTO: #ffffff;
+    --COR_HOVER: #e61919;
+    --COR_TEXTO_DESTAQUE: #ff1a1a;
+    --COR_CARD: #31333880;
+    --COR_FORMULARIO: #ffffff;
+    --COR_LINHA: #000;
+    --COR_MODAL: #31333880;
+    --COR_ICONE: #000;
+    --COR_TEXTO_FORMULARIO: #000;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 .fundoOpaco {
@@ -6,12 +24,13 @@
     left: 0;
     width: 100%;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.7); /* Escureci um pouco para dar mais foco ao modal */
+    /* Opacidade de 0.7 mantida conforme original, mas usando o preto do fundo */
+    background-color: rgba(0, 0, 0, 0.7);
     z-index: 999;
 }
 
 .modalContainer {
-    position: fixed; /* Mudado para fixed para garantir que fique centralizado na tela toda */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -20,18 +39,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    pointer-events: none; /* Permite clicar no fundo se necessário */
+    pointer-events: none;
 }
 
 .modal {
-    pointer-events: all; /* Reativa o clique dentro do modal */
-    width: 90%;          /* Ocupa 90% da tela no mobile */
-    max-width: 500px;    /* Limite para desktop */
-    min-height: 250px;   /* Altura mínima em vez de fixa */
-    height: auto;        /* Deixa o conteúdo crescer se o texto for longo */
+    pointer-events: all;
+    width: 90%;
+    max-width: 500px;
+    min-height: 250px;
+    height: auto;
 
-    background: #2a2a2a; /* Cor cinza padrão (ajuste se usar variável) */
-    padding: 30px 20px;  /* Espaçamento interno para não grudar o texto */
+    background: var(--COR_ALERTA); /* Conectado ao cinza #2a2a2a do root */
+    padding: 30px 20px;
 
     display: flex;
     flex-direction: column;
@@ -45,7 +64,7 @@
 }
 
 .textoModal {
-    color: white;
+    color: var(--COR_TEXTO); /* Conectado ao branco do root */
     font-size: 20px;
     font-weight: 700;
     margin: 0;
@@ -59,7 +78,6 @@
     }
 
     .textoModal {
-        font-size: 18px; /* Diminui um pouco a fonte em celulares muito pequenos */
+        font-size: 18px;
     }
 }
-

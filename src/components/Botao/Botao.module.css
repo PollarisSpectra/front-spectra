@@ -1,10 +1,29 @@
+:root {
+    --COR_BOTAO: #ffffff;
+    --COR_PRINCIPAL: #ff1a1a;
+    --COR_ALERTA: #2a2a2a;
+    --COR_FUNDO: #000;
+    --COR_SECUNDARIA: #4a4a4a;
+    --COR_TEXTO: #ffffff;
+    --COR_DESTAQUE_TEXTO: #ffffff;
+    --COR_HOVER: #e61919;
+    --COR_TEXTO_DESTAQUE: #ff1a1a;
+    --COR_CARD: #31333880;
+    --COR_FORMULARIO: #ffffff;
+    --COR_LINHA: #000;
+    --COR_MODAL: #31333880;
+    --COR_ICONE: #000;
+    --COR_TEXTO_FORMULARIO: #000;
+}
+
 .botao {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    background-color: #f71938; /* Vermelho similar ao da imagem */
-    color: #ffffff;
+    /* Conectado à COR_PRINCIPAL como solicitado */
+    background-color: var(--COR_PRINCIPAL);
+    color: var(--COR_TEXTO);
     border: none;
     border-radius: 6px;
     padding: 12px 16px;
@@ -15,14 +34,17 @@
 }
 
 .botao:hover {
-    background-color: #d1122b;
+    /* Transição para a COR_HOVER definida no root */
+    background-color: var(--COR_HOVER);
 }
 
 .texto {
     font-size: 12px;
     font-weight: 700;
+    color: var(--COR_TEXTO);
 }
 
 .icone {
-    color: #ffffff;
+    /* Mantendo o ícone branco para contraste sobre o vermelho */
+    color: var(--COR_TEXTO);
 }

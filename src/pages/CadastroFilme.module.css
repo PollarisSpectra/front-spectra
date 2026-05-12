@@ -1,9 +1,19 @@
+:root {
+    --vermelho-hover: #e61919;
+    --botao-vermelho: #ff1c1c;
+    --branco-background: #FFFFFFFF;
+    --cinza-background: #4a4a4a;
+    --icone-branco: #ffffff;
+    --header-vermelho: #ff1d1d;
+    --preto-background: #000;
+}
+
 .containerMain {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 60px;
-    background-color: #000;
+    background-color: var(--preto-background); /* Variável aplicada */
     min-height: 100vh;
     padding: 20px;
 }
@@ -14,17 +24,17 @@
 }
 
 .cardPreview {
-    background-color: #1a1c20; /* Fundo cinza escuro do card */
+    background-color: #1a1c20; /* Tom específico para profundidade, pode manter ou usar cinza-background */
     border-radius: 12px;
     overflow: hidden;
-    color: white;
+    color: var(--icone-branco); /* Variável aplicada */
 }
 
 .capaArea {
     position: relative;
     width: 100%;
     height: 380px;
-    background-color: white;
+    background-color: var(--branco-background); /* Variável aplicada */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -37,8 +47,8 @@
     position: absolute;
     bottom: 10px;
     right: 10px;
-    background-color: #ff1a1a;
-    color: white;
+    background-color: var(--botao-vermelho); /* Variável aplicada */
+    color: var(--icone-branco); /* Variável aplicada */
     padding: 5px 8px;
     border-radius: 4px;
     font-weight: bold;
@@ -47,15 +57,27 @@
 .infoPreview { padding: 15px; }
 .tituloRow { display: flex; justify-content: space-between; align-items: center; }
 .estrelas { color: #ffd700; font-size: 12px; }
-.detalhesRow { display: flex; gap: 15px; font-size: 12px; margin-top: 10px; color: #ccc; }
-.sinopseTexto { color: white; margin-top: 15px; font-size: 13px; max-width: 280px; }
+.detalhesRow {
+    display: flex;
+    gap: 15px;
+    font-size: 12px;
+    margin-top: 10px;
+    color: #ccc; /* Pode ser substituído por cinza-background se desejar mais escuro */
+}
+.sinopseTexto {
+    color: var(--icone-branco); /* Variável aplicada */
+    margin-top: 15px;
+    font-size: 13px;
+    max-width: 280px;
+}
 
 /* Lado Direito (Form) */
 .formCard {
-    background-color: white;
+    background-color: var(--branco-background); /* Variável aplicada */
     padding: 40px;
     border-radius: 20px;
     width: 450px;
+    color: var(--preto-background); /* Cor do texto para legibilidade */
 }
 
 .formTitulo { text-align: center; font-weight: 800; margin-bottom: 30px; }
@@ -67,23 +89,31 @@
     border-bottom: 1px solid #ccc;
     padding: 8px 0;
     outline: none;
+    background: transparent;
 }
 
 .btnCadastrar {
     width: 100%;
-    background-color: #ff1a1a;
-    color: white;
+    background-color: var(--botao-vermelho); /* Variável aplicada */
+    color: var(--icone-branco); /* Variável aplicada */
     padding: 15px;
     border: none;
     border-radius: 5px;
     font-weight: bolder;
     cursor: pointer;
     margin-top: 20px;
+    transition: background-color 0.2s ease;
 }
+
+.btnCadastrar:hover {
+    background-color: var(--vermelho-hover); /* Variável aplicada */
+}
+
+/* ─── Responsividade ─── */
 
 @media (max-width: 850px) {
     .containerMain {
-        flex-direction: column; /* Coloca o Preview e o Form um sobre o outro */
+        flex-direction: column;
         gap: 30px;
         padding: 40px 20px;
         align-items: center;
@@ -97,23 +127,22 @@
     .previewContainer {
         width: 100%;
         max-width: 280px;
-        order: 2; /* Opcional: coloca o preview abaixo do formulário no mobile */
+        order: 2;
     }
 }
 
-
 @media (max-width: 320px) {
     .containerMain {
-        padding: 20px 10px; /* Reduz margens externas ao mínimo */
+        padding: 20px 10px;
     }
 
     .formCard {
-        padding: 25px 15px; /* Reduz o padding interno do card branco */
+        padding: 25px 15px;
         border-radius: 15px;
     }
 
     .formTitulo {
-        font-size: 1.4rem; /* Título menor para não quebrar muitas linhas */
+        font-size: 1.4rem;
         margin-bottom: 20px;
     }
 
@@ -122,7 +151,7 @@
     }
 
     .capaArea {
-        height: 320px; /* Reduz um pouco a altura da imagem no preview */
+        height: 320px;
     }
 
     .btnCadastrar {

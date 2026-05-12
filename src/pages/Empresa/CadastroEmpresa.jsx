@@ -3,9 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import css from "./CadastroEmpresa.module.css";
 
 export default function CadastroEmpresa() {
-
     const { id } = useParams();
-
     const navigate = useNavigate();
 
     const [form, setForm] = useState({
@@ -20,38 +18,26 @@ export default function CadastroEmpresa() {
         uf: "",
         chave_pix: "",
         telefone: "",
-        cor: "#ff0000"
+        cor: "#ff1c1c"
     });
 
     const [imagem, setImagem] = useState(null);
 
     useEffect(() => {
-
         if (id) {
             buscarEmpresa();
         }
-
     }, [id]);
 
     async function buscarEmpresa() {
-
         try {
-
-            const response = await fetch(
-                "http://localhost:5000/empresa/listar_empresas",
-                {
-                    credentials: "include"
-                }
-            );
-
+            const response = await fetch("http://localhost:5000/empresa/listar_empresas", {
+                credentials: "include"
+            });
             const data = await response.json();
-
-            const empresaEncontrada = data.empresas.find(
-                (empresa) => empresa.id_empresa == id
-            );
+            const empresaEncontrada = data.empresas.find(emp => emp.id_empresa == id);
 
             if (empresaEncontrada) {
-
                 setForm({
                     nome_fantasia: empresaEncontrada.nome_fantasia || "",
                     razao_social: empresaEncontrada.razao_social || "",
@@ -64,42 +50,26 @@ export default function CadastroEmpresa() {
                     uf: empresaEncontrada.uf || "",
                     chave_pix: empresaEncontrada.chave_pix || "",
                     telefone: empresaEncontrada.telefone || "",
-                    cor: empresaEncontrada.cor || "#ff0000"
+                    cor: empresaEncontrada.cor || "#ff1c1c"
                 });
-
             }
-
         } catch (erro) {
-
-            console.error(erro);
-
+            console.error("Erro ao buscar empresa:", erro);
         }
-
     }
 
     function handleChange(e) {
-
         const { name, value } = e.target;
-
-        setForm({
-            ...form,
-            [name]: value
-        });
-
+        setForm({ ...form, [name]: value });
     }
 
     async function buscarCEP(cep) {
-
         const cepLimpo = cep.replace(/\D/g, "");
 
         if (cepLimpo.length !== 8) return;
 
         try {
-
-            const response = await fetch(
-                `https://viacep.com.br/ws/${cepLimpo}/json/`
-            );
-
+            const response = await fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`);
             const data = await response.json();
 
             if (data.erro) {
@@ -114,297 +84,145 @@ export default function CadastroEmpresa() {
                 cidade: data.localidade || "",
                 uf: data.uf || ""
             }));
-
         } catch (erro) {
-
             console.error("Erro ao buscar CEP:", erro);
-
         }
-
     }
 
     async function salvarEmpresa(e) {
-
         e.preventDefault();
-
         try {
-
             const formData = new FormData();
+            Object.keys(form).forEach(key => formData.append(key, form[key]));
+            if (imagem) formData.append("imagem", imagem);
 
-            Object.keys(form).forEach((campo) => {
-                formData.append(campo, form[campo]);
+            const url = id
+                ? `http://localhost:5000/empresa/editar_empresa/${id}`
+                : "http://localhost:5000/empresa/cadastro_empresa";
+
+            const response = await fetch(url, {
+                method: id ? "PUT" : "POST",
+                body: formData,
+                credentials: "include"
             });
 
-            if (imagem) {
-                formData.append("imagem", imagem);
-            }
-
-            const editando = id;
-
-            const response = await fetch(
-
-                editando
-                    ? `http://localhost:5000/empresa/editar_empresa/${id}`
-                    : "http://localhost:5000/empresa/cadastro_empresa",
-
-                {
-                    method: editando ? "PUT" : "POST",
-                    body: formData,
-                    credentials: "include"
-                }
-
-            );
-
             const data = await response.json();
-
-            if (!response.ok) {
-                throw new Error(data.error);
-            }
+            if (!response.ok) throw new Error(data.error);
 
             alert(data.message);
-
-            setTimeout(() => {
-
-                navigate("/ListarEmpresa");
-
-            }, 1000);
-
+            navigate("/ListarEmpresa");
         } catch (erro) {
-
-            console.error(erro);
             alert(erro.message);
-
         }
-
     }
 
     return (
-
         <div className={css.modalFundo}>
 
-            <form
-                className={css.modalCard}
-                onSubmit={salvarEmpresa}
-            >
+            {/* Título da Página */}
+            <h1 className={css.formTituloPrincipal}>
+                {id ? "Editar Empresa" : "Cadastro de Empresa"}
+            </h1>
+
+            <form className={css.modalCard} onSubmit={salvarEmpresa}>
 
                 <div className={css.grupo}>
-                    <label>Nome Fantasia:</label>
-
+                    <label>Nome Fantasia</label>
                     <input
-                        type="text"
                         name="nome_fantasia"
                         value={form.nome_fantasia}
                         onChange={handleChange}
-                        placeholder="Digite o nome fantasia"
+                        placeholder="Ex: Pizzaria do Jhow"
                     />
                 </div>
 
                 <div className={css.grupo}>
-                    <label>Razão Social:</label>
-
+                    <label>Razão Social</label>
                     <input
-                        type="text"
                         name="razao_social"
                         value={form.razao_social}
                         onChange={handleChange}
-                        placeholder="Digite a razão social"
                     />
                 </div>
 
-                <div className={css.grupo}>
-                    <label>CNPJ:</label>
-
-                    <input
-                        type="text"
-                        name="cnpj"
-                        value={form.cnpj}
-                        onChange={(e) => {
-
-                            let valor = e.target.value;
-
-                            valor = valor.replace(/\D/g, "");
-                            valor = valor.slice(0, 14);
-
-                            setForm({
-                                ...form,
-                                cnpj: valor
-                            });
-
-                        }}
-                        placeholder="00000000000000"
-                    />
+                <div className={css.duplaLinha}>
+                    <div className={css.grupo} style={{ flex: 2 }}>
+                        <label>CNPJ</label>
+                        <input
+                            name="cnpj"
+                            value={form.cnpj}
+                            onChange={(e) => setForm({ ...form, cnpj: e.target.value.replace(/\D/g, "").slice(0, 14) })}
+                        />
+                    </div>
+                    <div className={css.grupo} style={{ flex: 1 }}>
+                        <label>Telefone</label>
+                        <input
+                            name="telefone"
+                            value={form.telefone}
+                            placeholder="11999999999"
+                            onChange={(e) => setForm({ ...form, telefone: e.target.value.replace(/\D/g, "").slice(0, 11) })}
+                        />
+                    </div>
                 </div>
 
                 <div className={css.grupo}>
-                    <label>CEP:</label>
-
+                    <label>CEP</label>
                     <input
                         type="text"
                         name="cep"
                         value={form.cep}
-                        onChange={(e) => {
-
-                            let valor = e.target.value;
-
-                            valor = valor.replace(/\D/g, "");
-                            valor = valor.slice(0, 8);
-
-                            setForm({
-                                ...form,
-                                cep: valor
-                            });
-
-                            buscarCEP(valor);
-
-                        }}
                         placeholder="00000000"
-                    />
-                </div>
-
-                <div className={css.triplaLinha}>
-
-                    <div className={css.grupo}>
-                        <label>Cidade:</label>
-
-                        <input
-                            type="text"
-                            name="cidade"
-                            value={form.cidade}
-                            onChange={handleChange}
-                            placeholder="Cidade"
-                        />
-                    </div>
-
-                    <div className={css.grupo}>
-                        <label>Bairro:</label>
-
-                        <input
-                            type="text"
-                            name="bairro"
-                            value={form.bairro}
-                            onChange={handleChange}
-                            placeholder="Bairro"
-                        />
-                    </div>
-
-
-                </div>
-
-                <div className={css.duplaLinha}>
-
-                    <div className={css.grupo}>
-                        <label>Rua:</label>
-
-                        <input
-                            type="text"
-                            name="rua"
-                            value={form.rua}
-                            onChange={handleChange}
-                            placeholder="Rua"
-                        />
-                    </div>
-
-                    <div className={css.grupo}>
-                        <label>Número:</label>
-
-                        <input
-                            type="text"
-                            name="numero"
-                            value={form.numero}
-                            onChange={(e) => {
-
-                                let valor = e.target.value;
-
-                                valor = valor.replace(/\D/g, "");
-
-                                setForm({
-                                    ...form,
-                                    numero: valor
-                                });
-
-                            }}
-                            placeholder="Número"
-                        />
-                    </div>
-
-                </div>
-
-                <div className={css.grupo}>
-                    <label>Telefone:</label>
-
-                    <input
-                        type="text"
-                        name="telefone"
-                        value={form.telefone}
                         onChange={(e) => {
-
-                            let valor = e.target.value;
-
-                            valor = valor.replace(/\D/g, "");
-                            valor = valor.slice(0, 11);
-
-                            setForm({
-                                ...form,
-                                telefone: valor
-                            });
-
+                            const valor = e.target.value.replace(/\D/g, "").slice(0, 8);
+                            setForm({ ...form, cep: valor });
+                            buscarCEP(valor);
                         }}
-                        placeholder="11999999999"
                     />
                 </div>
 
                 <div className={css.duplaLinha}>
-
-                    <div className={css.grupo}>
-                        <label>Cor:</label>
-
-                        <input
-                            type="color"
-                            name="cor"
-                            value={form.cor}
-                            onChange={handleChange}
-                        />
+                    <div className={css.grupo} style={{ flex: 2 }}>
+                        <label>Cidade</label>
+                        <input name="cidade" value={form.cidade} onChange={handleChange} />
                     </div>
-
-                    <div className={css.grupo}>
-                        <label>Chave Pix:</label>
-
-                        <input
-                            type="text"
-                            name="chave_pix"
-                            value={form.chave_pix}
-                            onChange={handleChange}
-                            placeholder="Digite a chave pix"
-                        />
+                    <div className={css.grupo} style={{ flex: 1 }}>
+                        <label>Bairro</label>
+                        <input name="bairro" value={form.bairro} onChange={handleChange} />
                     </div>
+                </div>
 
+                <div className={css.duplaLinha}>
+                    <div className={css.grupo} style={{ flex: 3 }}>
+                        <label>Rua</label>
+                        <input name="rua" value={form.rua} onChange={handleChange} />
+                    </div>
+                    <div className={css.grupo} style={{ flex: 1 }}>
+                        <label>Nº</label>
+                        <input name="numero" value={form.numero} onChange={handleChange} />
+                    </div>
+                </div>
+
+                <div className={css.duplaLinha}>
+                    <div className={css.grupo}>
+                        <label>Cor Identidade</label>
+                        <input type="color" name="cor" value={form.cor} onChange={handleChange} />
+                    </div>
+                    <div className={css.grupo} style={{ flex: 1 }}>
+                        <label>Chave Pix</label>
+                        <input name="chave_pix" value={form.chave_pix} onChange={handleChange} />
+                    </div>
                 </div>
 
                 <div className={css.grupo}>
-                    <label>Imagem da empresa:</label>
-
-                    <input
-                        type="file"
-                        accept="image/*"
-                        onChange={(e) => setImagem(e.target.files[0])}
-                    />
+                    <label>Logo da Empresa</label>
+                    <input type="file" accept="image/*" onChange={(e) => setImagem(e.target.files[0])} />
                 </div>
 
-                <button
-                    type="submit"
-                    className={css.botao}
-                >
-                    {
-                        id
-                            ? "SALVAR ALTERAÇÕES"
-                            : "CADASTRAR EMPRESA"
-                    }
+                <button type="submit" className={css.botao}>
+                    {id ? "SALVAR ALTERAÇÕES" : "FINALIZAR CADASTRO"}
                 </button>
 
             </form>
-
         </div>
-
     );
-
 }

@@ -1,3 +1,13 @@
+:root {
+    --vermelho-hover: #e61919;
+    --botao-vermelho: #ff1c1c;
+    --branco-background: #FFFFFFFF;
+    --cinza-background: #4a4a4a;
+    --icone-branco: #ffffff;
+    --header-vermelho: #ff1d1d;
+    --preto-background: #000;
+}
+
 .section {
     padding: 40px 24px;
     font-family: 'Montserrat', sans-serif;
@@ -14,24 +24,23 @@
     display: inline-block;
     width: 50px;
     height: 3px;
-    background-color: #fff;
+    background-color: var(--icone-branco); /* Conectado ao icone-branco */
     flex-shrink: 0;
 }
 
 .headerLabel {
-    color: #fff;
+    color: var(--icone-branco); /* Conectado ao icone-branco */
     font-family: 'Montserrat', sans-serif;
     font-size: 17px;
 }
 
-/* Grid responsivo: repete colunas com mínimo de 180px */
+/* Grid responsivo */
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 16px;
 }
 
-/* Telas grandes: limita em 5 colunas naturalmente pelo minmax */
 @media (max-width: 768px) {
     .section {
         padding: 32px 16px;
@@ -78,8 +87,8 @@
 .modalCard {
     width: 420px;
     max-width: 90%;
-    background: #050505;
-    color: white;
+    background: #050505; /* Tom escuro preservado */
+    color: var(--icone-branco); /* Conectado ao icone-branco */
     border-radius: 10px;
     padding: 28px;
     position: relative;
@@ -92,7 +101,7 @@
     right: 14px;
     background: none;
     border: none;
-    color: white;
+    color: var(--icone-branco); /* Conectado ao icone-branco */
     font-size: 30px;
     cursor: pointer;
 }
@@ -116,8 +125,8 @@
     position: absolute;
     right: 8px;
     bottom: 8px;
-    background: #f1d600;
-    color: black;
+    background: #f1d600; /* Cor de destaque amarela mantida */
+    color: var(--preto-background); /* Conectado ao preto-background */
     font-weight: 700;
     font-size: 13px;
     padding: 3px 6px;
@@ -168,17 +177,18 @@
 }
 
 .btnSessao {
-    background: #ff1a1a;
-    color: white;
+    background: var(--botao-vermelho); /* Conectado ao botao-vermelho */
+    color: var(--icone-branco); /* Conectado ao icone-branco */
     border: none;
     border-radius: 4px;
     padding: 10px;
     font-weight: 700;
     cursor: pointer;
+    transition: background 0.3s;
 }
 
 .btnSessao:hover {
-    background: #c90000;
+    background: var(--vermelho-hover); /* Conectado ao vermelho-hover */
 }
 
 .semSessao {

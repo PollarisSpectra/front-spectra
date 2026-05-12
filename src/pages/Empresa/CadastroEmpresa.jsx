@@ -182,7 +182,7 @@ export default function CadastroEmpresa() {
                 name="nome_fantasia"
                 value={form.nome_fantasia}
                 onChange={handleChange}
-                placeholder="Ex: Pizzaria do Jhow"
+                placeholder="Ex: CinePipoca"
               />
             </div>
 

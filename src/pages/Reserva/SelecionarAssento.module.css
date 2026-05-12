@@ -165,8 +165,8 @@
 }
 
 .assento {
-    width: 19px;
-    height: 18px;
+    width: 25px;
+    height: 20px;
     border: none;
     border-radius: 4px;
     background-color: #eee;
@@ -177,8 +177,9 @@
 }
 
 .ocupado {
-    background-color: var(--COR_PRINCIPAL);
+    background-color: var(--COR_SECUNDARIA);
     color: var(--COR_TEXTO);
+    cursor: default !important;
 }
 
 .selecionado {

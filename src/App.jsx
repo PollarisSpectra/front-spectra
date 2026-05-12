@@ -36,6 +36,7 @@ function App() {
   return (
     <>
       <Header usuario={usuario} setUsuario={setUsuario} />
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/cadastro" element={<Cadastro />} />
@@ -43,16 +44,16 @@ function App() {
         <Route path="/recuperar-senha" element={<RecuperarSenha />} />
         <Route path="/dashboard" element={<Dashboard usuario={usuario} setUsuario={setUsuario} />} />
         <Route path="/SelecionarAssento" element={<SelecionarAssento />} />
-        <Route path="/modalFilme" element={<ModalFilme/>} />
+        <Route path="/modalFilme" element={<ModalFilme />} />
         <Route path="/sessao/:id/assentos" element={<SelecionarAssento />} />
         <Route path="/resumoReserva" element={<ResumoReserva />} />
-        <Route path="/CadastroEmpresa" element={<CadastroEmpresa />}/>
-        <Route path="/EditarEmpresa/:id" element={<CadastroEmpresa />}/>
+        <Route path="/CadastroEmpresa" element={<CadastroEmpresa />} />
+        <Route path="/EditarEmpresa/:id" element={<CadastroEmpresa />} />
         <Route path="/ListarEmpresa" element={<ListarEmpresa />} />
         <Route path="/VariaveisCores" element={<VariaveisCores />} />
 
         {/* Rotas Administrativas - Protegidas por AdminLayout */}
-        <Route path="/app" element={<AdminLayout />} >
+        <Route path="/app" element={<AdminLayout />}>
           <Route index element={<DashboardAdm />} />
 
           {/* CRUD Sessões */}
@@ -75,10 +76,18 @@ function App() {
             <Route path=":id/editar" element={<EditarFilme />} />
             <Route path="criar" element={<CadastroFilme />} />
           </Route>
+
+          {/* CRUD Sessões */}
+          <Route path="empresa">
+            <Route index element={<ListarEmpresa />} />
+            <Route path=":id/editar" element={<EditarEmpesa />} />
+            <Route path="criar" element={<CadastroEmpresa />} />
+          </Route>
         </Route>
 
         <Route path="*" element={<NotFound />} />
       </Routes>
+
       <Footer />
     </>
   );

@@ -1,3 +1,4 @@
+/* 1. VARIÁVEIS GLOBAIS */
 :root {
     --COR_BOTAO: #ffffff;
     --COR_PRINCIPAL: #ff1c1c;
@@ -8,49 +9,61 @@
     --COR_DESTAQUE_TEXTO: #ffffff;
     --COR_HOVER: #e61919;
     --COR_TEXTO_DESTAQUE: #ff1a1a;
-    --COR_CARD: #ececec;
+    --COR_CARD: #31333880;
     --COR_FORMULARIO: #ffffff;
     --COR_LINHA: #bdbdbd;
     --COR_MODAL: #31333880;
     --COR_ICONE: #000;
-    --COR_TEXTO_FORMULARIO: #111;
+--COR_TEXTO_FORMULARIO: #111;
 }
 
+/* 2. ESTRUTURA DA PÁGINA */
 .modalFundo {
     width: 100%;
     min-height: 100vh;
-    background: var(--COR_FUNDO); /* Conectado ao preto-background */
+    background: var(--COR_FUNDO);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 40px 20px;
     box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .formTituloPrincipal {
     font-size: 2.5rem;
     letter-spacing: 5px;
     font-weight: 700;
-    color: var(--COR_TEXTO); /* Conectado ao icone-branco/texto */
+    color: var(--COR_TEXTO);
     margin-bottom: 30px;
     text-transform: uppercase;
     text-align: center;
 }
 
+.subEtapa {
+    font-size: 1.2rem;
+    color: var(--COR_PRINCIPAL);
+    letter-spacing: 1px;
+    display: block;
+    margin-top: 5px;
+}
+
+/* 3. CARD PRINCIPAL (CONTAINER) */
 .modalCard {
     width: 100%;
-    max-width: 700px;
-    background: var(--COR_CARD); /* Conectado ao cinza-claro-card */
+    max-width: 800px;
+    background: var(--COR_FORMULARIO);
     border-radius: 35px;
     padding: 40px;
     display: flex;
     flex-direction: column;
     gap: 24px;
     box-sizing: border-box;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
 }
 
+/* 4. ELEMENTOS DE FORMULÁRIO (ETAPA 1) */
 .grupo {
     display: flex;
     flex-direction: column;
@@ -58,24 +71,25 @@
 }
 
 .grupo label {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 700;
-    color: var(--COR_TEXTO_FORMULARIO); /* Conectado ao preto do label */
+    color: var(--COR_TEXTO_FORMULARIO);
+    text-transform: uppercase;
 }
 
 .grupo input {
     border: none;
-    border-bottom: 2px solid var(--COR_LINHA); /* Conectado ao cinza de borda */
+    border-bottom: 2px solid var(--COR_LINHA);
     background: transparent;
     padding: 10px 5px;
     font-size: 18px;
     outline: none;
-    transition: border-color 0.3s;
+    transition: 0.3s;
     color: var(--COR_TEXTO_FORMULARIO);
 }
 
 .grupo input:focus {
-    border-bottom-color: var(--COR_PRINCIPAL); /* Conectado ao botao-vermelho */
+    border-bottom-color: var(--COR_PRINCIPAL);
 }
 
 .duplaLinha {
@@ -83,27 +97,195 @@
     gap: 20px;
 }
 
+/* 5. GRID DE CORES (ETAPA 2) */
+.subtituloCores {
+    color: var(--COR_TEXTO_FORMULARIO);
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+
+.btnVoltar {
+    position: absolute;
+    left: 50px;
+    background: transparent;
+    border: none;
+    color: var(--COR_TEXTO); /* Conectado ao root */
+    font-size: 30px;
+    cursor: pointer;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.btnVoltar:hover {
+    opacity: 0.7;
+}
+
+
+.gridCores {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 15px;
+    max-height: 450px;
+    overflow-y: auto;
+    padding: 10px;
+    background: #f5f5f5;
+    border-radius: 20px;
+}
+
+.cardCor {
+    background: white;
+    padding: 15px;
+    border-radius: 15px;
+    border: 1px solid var(--COR_LINHA);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.inputAreaCor {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.colorPicker {
+    width: 50px;
+    height: 40px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.textInputCor {
+    flex: 1;
+    height: 35px;
+    border: none;
+    border-bottom: 1px solid var(--COR_LINHA);
+    font-size: 14px;
+    outline: none;
+    background: transparent;
+}
+
+/* 6. BOTÕES */
 .botao {
     width: 100%;
     height: 60px;
     border: none;
     border-radius: 12px;
-    background: var(--COR_PRINCIPAL); /* Conectado ao botao-vermelho */
-    color: var(--COR_BOTAO);         /* Conectado ao icone-branco */
-    font-size: 22px;
+    background: var(--COR_PRINCIPAL);
+    color: var(--COR_BOTAO);
+    font-size: 20px;
     font-weight: 700;
     cursor: pointer;
-    transition: 0.2s;
-    margin-top: 10px;
+    transition: 0.3s;
+    text-transform: uppercase;
+}
+
+.botaoSecundario {
+    flex: 1;
+    height: 60px;
+    border: 2px solid var(--COR_PRINCIPAL);
+    border-radius: 12px;
+    background: transparent;
+    color: var(--COR_PRINCIPAL);
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
 .botao:hover {
-    background: var(--COR_HOVER); /* Conectado ao vermelho-hover */
+    background: var(--COR_HOVER);
     transform: translateY(-2px);
 }
 
+.botaoSecundario:hover {
+    background: rgba(255, 28, 28, 0.05);
+}
+
+/* 7. UTILITÁRIOS E RESPONSIVIDADE */
+.fadeAnim {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 @media (max-width: 700px) {
-    .modalCard { padding: 25px; }
-    .duplaLinha { flex-direction: column; }
-    .formTituloPrincipal { font-size: 1.8rem; }
+    .modalCard { padding: 25px; border-radius: 20px; }
+    .duplaLinha { flex-direction: column; gap: 15px; }
+    .formTituloPrincipal { font-size: 1.6rem; letter-spacing: 2px; }
+    .gridCores { grid-template-columns: 1fr; }
+}
+
+/* Customização da Scrollbar da Grid de Cores */
+.gridCores::-webkit-scrollbar {
+    width: 6px;
+}
+.gridCores::-webkit-scrollbar-thumb {
+    background: var(--COR_PRINCIPAL);
+    border-radius: 10px;
+}
+@media (max-width: 700px) {
+    .modalFundo {
+        padding: 20px 10px; /* Reduz padding externo */
+    }
+
+    .modalCard {
+        padding: 20px 15px; /* Reduz padding interno para dar espaço aos cards de cor */
+        border-radius: 20px;
+        width: 100%;
+    }
+
+    .duplaLinha {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .formTituloPrincipal {
+        font-size: 1.6rem;
+        letter-spacing: 2px;
+    }
+
+    .gridCores {
+        /* Força 1 coluna e remove qualquer restrição de largura mínima */
+        grid-template-columns: 1fr;
+        padding: 8px;
+    }
+
+    .cardCor {
+        padding: 12px;
+        width: 100%;
+        box-sizing: border-box; /* Garante que o padding não aumente o tamanho do card */
+    }
+
+    .textInputCor {
+        font-size: 13px; /* Diminui um pouco a fonte para não quebrar a linha */
+        width: 100%;
+    }
+
+    .btnVoltar {
+        margin: 39px;
+    }
+}
+
+/* Ajuste específico para celulares muito pequenos (iPhone SE / Telas de 320px) */
+@media (max-width: 350px) {
+.modalCard {
+padding: 15px 10px;
+}
+
+.inputAreaCor {
+gap: 8px;
+}
+
+.colorPicker {
+width: 40px; /* Diminui um pouco o seletor */
+}
+}
+
+.btnVoltar {
+margin: 39px;
 }

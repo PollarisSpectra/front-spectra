@@ -4,225 +4,405 @@ import css from "./CadastroEmpresa.module.css";
 
 export default function CadastroEmpresa() {
     const { id } = useParams();
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const [form, setForm] = useState({
-        nome_fantasia: "",
-        razao_social: "",
-        cnpj: "",
-        cep: "",
-        bairro: "",
-        rua: "",
-        numero: "",
-        cidade: "",
-        uf: "",
-        chave_pix: "",
-        telefone: "",
-        cor: "#ff1c1c"
+  const [passo, setPasso] = useState(1);
+
+  const [form, setForm] = useState({
+    nome_fantasia: "",
+    razao_social: "",
+    cnpj: "",
+    cep: "",
+    bairro: "",
+    rua: "",
+    numero: "",
+    cidade: "",
+    uf: "",
+    chave_pix: "",
+    telefone: "",
+
+    // Paleta de cores
+    COR_BOTAO: "#ffffff",
+    COR_PRINCIPAL: "#ff1c1c",
+    COR_ALERTA: "#2a2a2a",
+    COR_FUNDO: "#000000",
+    COR_SECUNDARIA: "#4a4a4a",
+    COR_TEXTO: "#ffffff",
+    COR_DESTAQUE_TEXTO: "#ffffff",
+    COR_HOVER: "#e61919",
+    COR_TEXTO_DESTAQUE: "#ff1a1a",
+    COR_CARD: "#ececec",
+    COR_FORMULARIO: "#ffffff",
+    COR_LINHA: "#bdbdbd",
+    COR_MODAL: "#31333880",
+    COR_ICONE: "#000000",
+    COR_TEXTO_FORMULARIO: "#111111",
+  });
+
+  const [imagem, setImagem] = useState(null);
+
+  useEffect(() => {
+    if (id) {
+      buscarEmpresa();
+    }
+  }, [id]);
+
+  async function buscarEmpresa() {
+    try {
+      const response = await fetch(
+        "http://localhost:5000/empresa/listar_empresas",
+        {
+          credentials: "include",
+        }
+      );
+
+      const data = await response.json();
+
+      const emp = data.empresas.find(
+        (e) => String(e.id_empresa) === String(id)
+      );
+
+      if (emp) {
+        setForm((prev) => ({
+          ...prev,
+          ...emp,
+        }));
+      }
+    } catch (erro) {
+      console.error("Erro ao buscar empresa:", erro);
+    }
+  }
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setForm({
+      ...form,
+      [name]: value,
     });
+  };
 
-    const [imagem, setImagem] = useState(null);
+  const alterarCor = (nome, valor) => {
+    setForm({
+      ...form,
+      [nome]: valor,
+    });
+  };
 
-    useEffect(() => {
-        if (id) {
-            buscarEmpresa();
-        }
-    }, [id]);
+  async function buscarCEP(cep) {
+    const cepLimpo = cep.replace(/\D/g, "");
 
-    async function buscarEmpresa() {
-        try {
-            const response = await fetch("http://localhost:5000/empresa/listar_empresas", {
-                credentials: "include"
-            });
-            const data = await response.json();
-            const empresaEncontrada = data.empresas.find(emp => emp.id_empresa == id);
+    if (cepLimpo.length !== 8) return;
 
-            if (empresaEncontrada) {
-                setForm({
-                    nome_fantasia: empresaEncontrada.nome_fantasia || "",
-                    razao_social: empresaEncontrada.razao_social || "",
-                    cnpj: empresaEncontrada.cnpj || "",
-                    cep: empresaEncontrada.cep || "",
-                    bairro: empresaEncontrada.bairro || "",
-                    rua: empresaEncontrada.rua || "",
-                    numero: empresaEncontrada.numero || "",
-                    cidade: empresaEncontrada.cidade || "",
-                    uf: empresaEncontrada.uf || "",
-                    chave_pix: empresaEncontrada.chave_pix || "",
-                    telefone: empresaEncontrada.telefone || "",
-                    cor: empresaEncontrada.cor || "#ff1c1c"
-                });
-            }
-        } catch (erro) {
-            console.error("Erro ao buscar empresa:", erro);
-        }
+    try {
+      const response = await fetch(
+        `https://viacep.com.br/ws/${cepLimpo}/json/`
+      );
+
+      const data = await response.json();
+
+      if (!data.erro) {
+        setForm((prev) => ({
+          ...prev,
+          rua: data.logradouro || "",
+          bairro: data.bairro || "",
+          cidade: data.localidade || "",
+          uf: data.uf || "",
+        }));
+      }
+    } catch (erro) {
+      console.error(erro);
     }
+  }
 
-    function handleChange(e) {
-        const { name, value } = e.target;
-        setForm({ ...form, [name]: value });
+  async function salvarEmpresa() {
+    try {
+      const formData = new FormData();
+
+      Object.keys(form).forEach((key) => {
+        formData.append(key, form[key]);
+      });
+
+      if (imagem) {
+        formData.append("imagem", imagem);
+      }
+
+      const url = id
+        ? `http://localhost:5000/empresa/editar_empresa/${id}`
+        : "http://localhost:5000/empresa/cadastro_empresa";
+
+      const response = await fetch(url, {
+        method: id ? "PUT" : "POST",
+        body: formData,
+        credentials: "include",
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error);
+      }
+
+      alert("Empresa salva com sucesso!");
+
+      navigate("/ListarEmpresa");
+    } catch (erro) {
+      alert(erro.message);
     }
+  }
 
-    async function buscarCEP(cep) {
-        const cepLimpo = cep.replace(/\D/g, "");
+  return (
+    <div className={css.modalFundo}>
+      <h1 className={css.formTituloPrincipal}>
+        {id ? "Editar Empresa" : "Cadastro de Empresa"}
 
-        if (cepLimpo.length !== 8) return;
+        <span className={css.subEtapa}>
+          {" "}
+          - Etapa {passo}/2
+        </span>
+      </h1>
 
-        try {
-            const response = await fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`);
-            const data = await response.json();
+      <div className={css.header}>
+        <button
+          className={css.btnVoltar}
+          onClick={() => navigate("/app/empresa")}
+        >
+          ←
+        </button>
+      </div>
 
-            if (data.erro) {
-                alert("CEP não encontrado");
-                return;
-            }
+      <div className={css.modalCard}>
+        {passo === 1 ? (
+          // ETAPA 1 - DADOS
+          <div className={css.fadeAnim}>
+            <div className={css.grupo}>
+              <label>Nome Fantasia</label>
 
-            setForm((prev) => ({
-                ...prev,
-                rua: data.logradouro || "",
-                bairro: data.bairro || "",
-                cidade: data.localidade || "",
-                uf: data.uf || ""
-            }));
-        } catch (erro) {
-            console.error("Erro ao buscar CEP:", erro);
-        }
-    }
+              <input
+                name="nome_fantasia"
+                value={form.nome_fantasia}
+                onChange={handleChange}
+                placeholder="Ex: Pizzaria do Jhow"
+              />
+            </div>
 
-    async function salvarEmpresa(e) {
-        e.preventDefault();
-        try {
-            const formData = new FormData();
-            Object.keys(form).forEach(key => formData.append(key, form[key]));
-            if (imagem) formData.append("imagem", imagem);
+            <div className={css.grupo}>
+              <label>Razão Social</label>
 
-            const url = id
-                ? `http://localhost:5000/empresa/editar_empresa/${id}`
-                : "http://localhost:5000/empresa/cadastro_empresa";
+              <input
+                name="razao_social"
+                value={form.razao_social}
+                onChange={handleChange}
+              />
+            </div>
 
-            const response = await fetch(url, {
-                method: id ? "PUT" : "POST",
-                body: formData,
-                credentials: "include"
-            });
+            <div className={css.duplaLinha}>
+              <div
+                className={css.grupo}
+                style={{ flex: 2 }}
+              >
+                <label>CNPJ</label>
 
-            const data = await response.json();
-            if (!response.ok) throw new Error(data.error);
+                <input
+                  name="cnpj"
+                  value={form.cnpj}
+                  onChange={(e) =>
+                    setForm({
+                      ...form,
+                      cnpj: e.target.value
+                        .replace(/\D/g, "")
+                        .slice(0, 14),
+                    })
+                  }
+                />
+              </div>
 
-            alert(data.message);
-            navigate("/ListarEmpresa");
-        } catch (erro) {
-            alert(erro.message);
-        }
-    }
+              <div
+                className={css.grupo}
+                style={{ flex: 1 }}
+              >
+                <label>Telefone</label>
 
-    return (
-        <div className={css.modalFundo}>
+                <input
+                  name="telefone"
+                  value={form.telefone}
+                  onChange={(e) =>
+                    setForm({
+                      ...form,
+                      telefone: e.target.value
+                        .replace(/\D/g, "")
+                        .slice(0, 11),
+                    })
+                  }
+                />
+              </div>
+            </div>
 
-            {/* Título da Página */}
-            <h1 className={css.formTituloPrincipal}>
-                {id ? "Editar Empresa" : "Cadastro de Empresa"}
-            </h1>
+            <div className={css.grupo}>
+              <label>CEP</label>
 
-            <form className={css.modalCard} onSubmit={salvarEmpresa}>
+              <input
+                type="text"
+                name="cep"
+                value={form.cep}
+                onChange={(e) => {
+                  const valor = e.target.value
+                    .replace(/\D/g, "")
+                    .slice(0, 8);
 
-                <div className={css.grupo}>
-                    <label>Nome Fantasia</label>
-                    <input
-                        name="nome_fantasia"
-                        value={form.nome_fantasia}
-                        onChange={handleChange}
-                        placeholder="Ex: Pizzaria do Jhow"
-                    />
-                </div>
+                  setForm({
+                    ...form,
+                    cep: valor,
+                  });
 
-                <div className={css.grupo}>
-                    <label>Razão Social</label>
-                    <input
-                        name="razao_social"
-                        value={form.razao_social}
-                        onChange={handleChange}
-                    />
-                </div>
+                  if (valor.length === 8) {
+                    buscarCEP(valor);
+                  }
+                }}
+              />
+            </div>
 
-                <div className={css.duplaLinha}>
-                    <div className={css.grupo} style={{ flex: 2 }}>
-                        <label>CNPJ</label>
-                        <input
-                            name="cnpj"
-                            value={form.cnpj}
-                            onChange={(e) => setForm({ ...form, cnpj: e.target.value.replace(/\D/g, "").slice(0, 14) })}
-                        />
-                    </div>
-                    <div className={css.grupo} style={{ flex: 1 }}>
-                        <label>Telefone</label>
-                        <input
-                            name="telefone"
-                            value={form.telefone}
-                            placeholder="11999999999"
-                            onChange={(e) => setForm({ ...form, telefone: e.target.value.replace(/\D/g, "").slice(0, 11) })}
-                        />
-                    </div>
-                </div>
+            <div className={css.duplaLinha}>
+              <div
+                className={css.grupo}
+                style={{ flex: 2 }}
+              >
+                <label>Cidade</label>
 
-                <div className={css.grupo}>
-                    <label>CEP</label>
-                    <input
+                <input
+                  name="cidade"
+                  value={form.cidade}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div
+                className={css.grupo}
+                style={{ flex: 1 }}
+              >
+                <label>Bairro</label>
+
+                <input
+                  name="bairro"
+                  value={form.bairro}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+
+            <div className={css.duplaLinha}>
+              <div
+                className={css.grupo}
+                style={{ flex: 3 }}
+              >
+                <label>Rua</label>
+
+                <input
+                  name="rua"
+                  value={form.rua}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div
+                className={css.grupo}
+                style={{ flex: 1 }}
+              >
+                <label>Nº</label>
+
+                <input
+                  name="numero"
+                  value={form.numero}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+
+            <div className={css.grupo}>
+              <label>Logo da Empresa</label>
+
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) =>
+                  setImagem(e.target.files[0])
+                }
+              />
+            </div>
+
+            <button
+              type="button"
+              className={css.botao}
+              onClick={() => setPasso(2)}
+            >
+              PRÓXIMA ETAPA: CORES
+            </button>
+          </div>
+        ) : (
+          // ETAPA 2 - CORES
+          <div className={css.fadeAnim}>
+            <h2 className={css.subtituloCores}>
+              Personalize sua Identidade Visual
+            </h2>
+
+            <div className={css.gridCores}>
+              {Object.keys(form)
+                .filter((key) => key.startsWith("COR_"))
+                .map((nome) => (
+                  <div
+                    className={css.cardCor}
+                    key={nome}
+                  >
+                    <label>
+                      {nome.replaceAll("_", " ")}
+                    </label>
+
+                    <div className={css.inputAreaCor}>
+                      <input
+                        type="color"
+                        value={form[nome]}
+                        onChange={(e) =>
+                          alterarCor(nome, e.target.value)
+                        }
+                        className={css.colorPicker}
+                      />
+
+                      <input
                         type="text"
-                        name="cep"
-                        value={form.cep}
-                        placeholder="00000000"
-                        onChange={(e) => {
-                            const valor = e.target.value.replace(/\D/g, "").slice(0, 8);
-                            setForm({ ...form, cep: valor });
-                            buscarCEP(valor);
-                        }}
-                    />
-                </div>
-
-                <div className={css.duplaLinha}>
-                    <div className={css.grupo} style={{ flex: 2 }}>
-                        <label>Cidade</label>
-                        <input name="cidade" value={form.cidade} onChange={handleChange} />
+                        value={form[nome]}
+                        onChange={(e) =>
+                          alterarCor(nome, e.target.value)
+                        }
+                        className={css.textInputCor}
+                      />
                     </div>
-                    <div className={css.grupo} style={{ flex: 1 }}>
-                        <label>Bairro</label>
-                        <input name="bairro" value={form.bairro} onChange={handleChange} />
-                    </div>
-                </div>
+                  </div>
+                ))}
+            </div>
 
-                <div className={css.duplaLinha}>
-                    <div className={css.grupo} style={{ flex: 3 }}>
-                        <label>Rua</label>
-                        <input name="rua" value={form.rua} onChange={handleChange} />
-                    </div>
-                    <div className={css.grupo} style={{ flex: 1 }}>
-                        <label>Nº</label>
-                        <input name="numero" value={form.numero} onChange={handleChange} />
-                    </div>
-                </div>
+            <div
+              className={css.duplaLinha}
+              style={{ marginTop: "20px" }}
+            >
+              <button
+                type="button"
+                className={css.botaoSecundario}
+                onClick={() => setPasso(1)}
+              >
+                VOLTAR
+              </button>
 
-                <div className={css.duplaLinha}>
-                    <div className={css.grupo}>
-                        <label>Cor Identidade</label>
-                        <input type="color" name="cor" value={form.cor} onChange={handleChange} />
-                    </div>
-                    <div className={css.grupo} style={{ flex: 1 }}>
-                        <label>Chave Pix</label>
-                        <input name="chave_pix" value={form.chave_pix} onChange={handleChange} />
-                    </div>
-                </div>
-
-                <div className={css.grupo}>
-                    <label>Logo da Empresa</label>
-                    <input type="file" accept="image/*" onChange={(e) => setImagem(e.target.files[0])} />
-                </div>
-
-                <button type="submit" className={css.botao}>
-                    {id ? "SALVAR ALTERAÇÕES" : "FINALIZAR CADASTRO"}
-                </button>
-
-            </form>
-        </div>
-    );
+              <button
+                type="button"
+                className={css.botao}
+                onClick={salvarEmpresa}
+              >
+                FINALIZAR E SALVAR
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }

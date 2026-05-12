@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import css from "./SelecionarAssento.module.css";
 import ModalPix from "../../components/ModalPix/ModalPix";
+import FlashMessage from "../../components/FlashMessage/FlashMessage";
 
 export default function SelecionarAssento() {
     const { id } = useParams();
@@ -13,6 +14,8 @@ export default function SelecionarAssento() {
     const [assentosSelecionados, setAssentosSelecionados] = useState([]);
     const [ocupados, setOcupados] = useState([]);
     const [mostrarModalPix, setMostrarModalPix] = useState(false);
+    const [mensagem, setMensagem] = useState("");
+    const [tipoMensagem, setTipoMensagem] = useState("");
 
     useEffect(() => {
         async function buscarSessao() {
@@ -42,6 +45,8 @@ export default function SelecionarAssento() {
 
             } catch (err) {
                 console.error("ERRO:", err);
+                setMensagem("Erro ao carregar a sessão. Tente novamente.");
+                setTipoMensagem("error");
             }
         }
 
@@ -68,32 +73,34 @@ export default function SelecionarAssento() {
         }
     }
 
-    async function confirmarReserva() {
-        try {
-            const idsAssentos = assentosSelecionados.map(codigo => mapaAssentos[codigo]);
+    async function efetivarReserva() {
+        const idsAssentos = assentosSelecionados.map(codigo => mapaAssentos[codigo]);
 
-            const res = await fetch("http://localhost:5000/reservas/", {
-                method: "POST",
-                credentials: "include",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    id_sessao: id,
-                    assentos: idsAssentos
-                })
-            });
+        const res = await fetch("http://localhost:5000/reservas/", {
+            method: "POST",
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                id_sessao: id,
+                assentos: idsAssentos
+            })
+        });
 
-            const data = await res.json();
+        const data = await res.json();
 
-            if (!res.ok) {
-                alert(data.error);
-                return;
-            }
-
-            setMostrarModalPix(true);
-        } catch (err) {
-            console.error(err);
+        if (!res.ok) {
+            throw new Error(data.error || "Erro ao confirmar reserva.");
         }
     }
+
+    function abrirModalPix() {
+        if (assentosSelecionados.length < 1) return;
+        setMostrarModalPix(true);
+    }
+
+    const totalReserva = sessao
+        ? (assentosSelecionados.length * sessao.valor_assento).toFixed(2)
+        : "0.00";
 
     if (!sessao || !sala) return <p>Carregando...</p>;
 
@@ -102,14 +109,26 @@ export default function SelecionarAssento() {
     );
     const numeros = Array.from({ length: sala.qtd_colunas }, (_, i) => i + 1);
 
-    const totalReserva = (assentosSelecionados.length * sessao.valor_assento).toFixed(2);
-
     return (
         <main className={css.container}>
+            <FlashMessage
+                mensagem={mensagem}
+                tipo={tipoMensagem}
+                onClose={() => {
+                    setMensagem("");
+                    setTipoMensagem("");
+                }}
+            />
+
             {mostrarModalPix && (
                 <ModalPix
                     valor={totalReserva}
                     aoFechar={() => setMostrarModalPix(false)}
+                    aoConfirmarPagamento={efetivarReserva}
+                    onErro={(msg) => {
+                        setMensagem(msg);
+                        setTipoMensagem("error");
+                    }}
                 />
             )}
 
@@ -163,7 +182,11 @@ export default function SelecionarAssento() {
                 <div className={css.total}>
                     Total: R$ {totalReserva}
                 </div>
-                <button disabled={assentosSelecionados.length < 1} onClick={confirmarReserva} className="px-2 py-1 rounded fw-semibold ">
+                <button
+                    disabled={assentosSelecionados.length < 1}
+                    onClick={abrirModalPix}
+                    className="px-2 py-1 rounded fw-semibold"
+                >
                     CONFIRMAR
                 </button>
             </section>

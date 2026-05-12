@@ -113,7 +113,7 @@
     right: 14px;
     background: none;
     border: none;
-    color: var(--COR_ICONE);
+    color: var(--COR_BOTAO);
     font-size: 30px;
     cursor: pointer;
     line-height: 1;
@@ -204,7 +204,7 @@
 }
 
 .btnSessao {
-    background: var(--COR_BOTAO);
+    background: var(--COR_PRINCIPAL);
     color: var(--COR_TEXTO);
     border: none;
     border-radius: 4px;

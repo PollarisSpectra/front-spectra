@@ -1,49 +1,75 @@
+:root {
+    --vermelho-hover: #e61919;
+    --botao-vermelho: #ff1c1c;
+    --branco-background: #FFFFFFFF;
+    --cinza-background: #4a4a4a;
+    --icone-branco: #ffffff;
+    --header-vermelho: #ff1d1d;
+    --preto-background: #000;
+
+    /* Variável auxiliar para o card claro que você já usava */
+    --cinza-claro-card: #ececec;
+}
+
 .modalFundo {
-    width: 95%;
+    width: 100%;
     min-height: 100vh;
-    background: #000;
+    background: var(--preto-background); /* Aplicado pretobackground */
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 30px;
+    padding: 40px 20px;
     box-sizing: border-box;
+}
+
+.formTituloPrincipal {
+    font-size: 2.5rem;
+    letter-spacing: 5px;
+    font-weight: 700;
+    color: var(--icone-branco); /* Aplicado iconebranco */
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    text-align: center;
 }
 
 .modalCard {
     width: 100%;
     max-width: 700px;
-    background: #ececec;
+    background: var(--cinza-claro-card);
     border-radius: 35px;
     padding: 40px;
     display: flex;
     flex-direction: column;
     gap: 24px;
     box-sizing: border-box;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 .grupo {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
 }
 
 .grupo label {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
     color: #111;
 }
 
 .grupo input {
     border: none;
-    border-bottom: 1px solid #bdbdbd;
+    border-bottom: 2px solid #bdbdbd;
     background: transparent;
-    padding: 12px 5px;
-    font-size: 20px;
+    padding: 10px 5px;
+    font-size: 18px;
     outline: none;
+    transition: border-color 0.3s;
 }
 
-.grupo input::placeholder {
-    color: #888;
+.grupo input:focus {
+    border-bottom-color: var(--botao-vermelho); /* Aplicado botaovermelho */
 }
 
 .duplaLinha {
@@ -53,12 +79,12 @@
 
 .botao {
     width: 100%;
-    height: 65px;
+    height: 60px;
     border: none;
     border-radius: 12px;
-    background: #ff1c1c;
-    color: white;
-    font-size: 26px;
+    background: var(--botao-vermelho); /* Aplicado botaovermelho */
+    color: var(--icone-branco);      /* Aplicado iconebranco */
+    font-size: 22px;
     font-weight: 700;
     cursor: pointer;
     transition: 0.2s;
@@ -66,17 +92,12 @@
 }
 
 .botao:hover {
-    transform: scale(1.01);
+    background: var(--vermelho-hover); /* Aplicado vermelhohover */
+    transform: translateY(-2px);
 }
 
 @media (max-width: 700px) {
-
-    .modalCard {
-        padding: 25px;
-    }
-
-    .duplaLinha {
-        flex-direction: column;
-    }
-
+    .modalCard { padding: 25px; }
+    .duplaLinha { flex-direction: column; }
+    .formTituloPrincipal { font-size: 1.8rem; }
 }

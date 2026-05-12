@@ -1,30 +1,89 @@
-.containerMain {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 60px;
-    background-color: #000;
-    min-height: 100vh;
-    padding: 20px;
+:root {
+    --COR_BOTAO: #ffffff;
+    --COR_PRINCIPAL: #ff1a1a;
+    --COR_ALERTA: #2a2a2a;
+    --COR_FUNDO: #000;
+    --COR_SECUNDARIA: #4a4a4a;
+    --COR_TEXTO: #ffffff;
+    --COR_DESTAQUE_TEXTO: #ffffff;
+    --COR_HOVER: #e61919;
+    --COR_TEXTO_DESTAQUE: #ff1a1a;
+    --COR_CARD: #31333880;
+    --COR_FORMULARIO: #ffffff;
+    --COR_LINHA: #000;
+    --COR_MODAL: #31333880;
+    --COR_ICONE: #000;
+    --COR_TEXTO_FORMULARIO: #000;
 }
 
-/* Lado Esquerdo (Preview) */
+.containerMain {
+    min-height: 100vh;
+    padding: 40px 10%;
+    background-color: var(--COR_FUNDO);
+    display: flex;
+    flex-direction: column;
+    color: var(--COR_TEXTO);
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* HEADER PADRONIZADO */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 50px;
+    position: relative;
+    width: 100%;
+}
+
+.voltar {
+    position: absolute;
+    left: 0;
+    background: none;
+    border: none;
+    color: var(--COR_TEXTO);
+    font-size: 30px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.voltar:hover { transform: scale(1.2); }
+
+.formTituloPrincipal {
+    font-size: 2.5rem;
+    letter-spacing: 5px;
+    font-weight: 700;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+/* CONTEÚDO LADO A LADO */
+.conteudoFlex {
+    display: flex;
+    gap: 60px;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* PREVIEW LARGO */
 .previewContainer {
-    width: 280px;
+    flex: 0 0 350px;
+    display: flex;
+    flex-direction: column;
 }
 
 .cardPreview {
-    background-color: #1a1c20; /* Fundo cinza escuro do card */
+    background-color: #1a1c20; /* Mantido cinza escuro para contraste do preview */
     border-radius: 12px;
     overflow: hidden;
-    color: white;
+    color: var(--COR_TEXTO);
 }
 
 .capaArea {
     position: relative;
     width: 100%;
     height: 380px;
-    background-color: white;
+    background-color: var(--COR_BOTAO);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -33,158 +92,61 @@
 
 .imgPreview { width: 100%; height: 100%; object-fit: cover; }
 
-.classificacaoBadge {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    background-color: #ff1a1a;
-    color: white;
-    padding: 5px 8px;
-    border-radius: 4px;
-    font-weight: bold;
-}
-
-.infoPreview { padding: 15px; }
-.tituloRow { display: flex; justify-content: space-between; align-items: center; }
-.estrelas { color: #ffd700; font-size: 12px; }
-.detalhesRow { display: flex; gap: 15px; font-size: 12px; margin-top: 10px; color: #ccc; }
-.sinopseTexto { color: white; margin-top: 15px; font-size: 13px; max-width: 280px; }
-
-/* Lado Direito (Form) */
+/* FORM CARD */
 .formCard {
-    background-color: white;
+    background-color: var(--COR_FORMULARIO);
     padding: 40px;
     border-radius: 20px;
-    width: 450px;
+    flex: 1;
+    max-width: 550px;
+    color: var(--COR_TEXTO_FORMULARIO);
 }
-
-.formTitulo { text-align: center; font-weight: 800; margin-bottom: 30px; }
 
 .inputBox { display: flex; flex-direction: column; margin-bottom: 15px; }
 .inputBox label { font-weight: bold; font-size: 14px; margin-bottom: 5px; }
-.inputBox input, .selectStyle {
+
+.inputBox input, .inputBox textarea, .selectStyle {
     border: none;
-    border-bottom: 1px solid #ccc;
-    padding: 8px 0;
+    border-bottom: 2px solid #ccc; /* Mantido para visualização no fundo branco */
+    padding: 10px 0;
     outline: none;
+    font-family: inherit;
+    background: transparent;
+    color: var(--COR_TEXTO_FORMULARIO);
 }
 
-.btnCadastrar {
+.inputBox textarea { height: 80px; resize: none; }
+
+.btnSalvar {
     width: 100%;
-    background-color: #ff1a1a;
-    color: white;
+    background-color: var(--COR_PRINCIPAL);
+    color: var(--COR_TEXTO);
     padding: 15px;
     border: none;
-    border-radius: 5px;
-    font-weight: bolder;
+    border-radius: 8px;
+    font-weight: 900;
     cursor: pointer;
-    margin-top: 20px;
-}
-/* Container agora precisa de flex-direction column para o Header ficar no topo */
-.containerMain {
-    min-height: 100vh;
-    padding: 40px 10%;
-    background: linear-gradient(to bottom, #0b0f14, #000);
-    display: flex;
-    flex-direction: column;
-    color: white;
-    font-family: 'Montserrat', sans-serif;
+    transition: 0.3s;
 }
 
-/* HEADER PADRONIZADO */
-.header {
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Centraliza o título */
-    margin-bottom: 50px;
-    position: relative;     /* Necessário para a seta alinhar por ele */
-    width: 100%;
-}
+.btnSalvar:hover { background-color: var(--COR_HOVER); }
 
-.voltar {
+/* MENSAGENS */
+.msgSucesso { padding: 15px; background: #d4edda; color: #155724; border-radius: 8px; margin-bottom: 20px; font-weight: bold; }
+.msgErro { padding: 15px; background: #f8d7da; color: #721c24; border-radius: 8px; margin-bottom: 20px; font-weight: bold; }
+
+.carregando { color: var(--COR_TEXTO); text-align: center; margin-top: 100px; font-size: 1.5rem; }
+
+.classificacaoBadge {
     position: absolute;
-    left: 0;
-    background: none;
-    border: none;
-    color: white;
-    font-size: 30px;
-    cursor: pointer;
-    transition: transform 0.2s;
+    bottom: 15px;
+    right: 15px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-weight: 900;
+    background-color: var(--COR_PRINCIPAL);
+    color: var(--COR_TEXTO);
 }
 
-.voltar:hover {
-    transform: scale(1.2);
-}
-
-.formTituloPrincipal {
-    font-size: 2.5rem;
-    letter-spacing: 5px;
-    font-weight: 700;
-    margin: 0;
-    text-transform: uppercase;
-}
-
-/* Div auxiliar para manter o Preview e o Form lado a lado */
-.conteudoFlex {
-    display: flex;
-    gap: 40px;
-    justify-content: center;
-    align-items: flex-start;
-}
-
-/* Container agora precisa de flex-direction column para o Header ficar no topo */
-.containerMain {
-    min-height: 100vh;
-    padding: 40px 10%;
-    background: linear-gradient(to bottom, #0b0f14, #000);
-    display: flex;
-    flex-direction: column;
-    color: white;
-    font-family: 'Montserrat', sans-serif;
-}
-
-/* HEADER PADRONIZADO */
-.header {
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Centraliza o título */
-    margin-bottom: 50px;
-    position: relative;     /* Necessário para a seta alinhar por ele */
-    width: 100%;
-}
-
-.voltar {
-    position: absolute;
-    left: 0;
-    background: none;
-    border: none;
-    color: white;
-    font-size: 30px;
-    cursor: pointer;
-    transition: transform 0.2s;
-}
-
-.voltar:hover {
-    transform: scale(1.2);
-}
-
-.formTituloPrincipal {
-    font-size: 2.5rem;
-    letter-spacing: 5px;
-    font-weight: 700;
-    margin: 0;
-    text-transform: uppercase;
-}
-
-/* Div auxiliar para manter o Preview e o Form lado a lado */
-.conteudoFlex {
-    display: flex;
-    gap: 40px;
-    justify-content: center;
-    align-items: flex-start;
-}
-
-/* Ajuste o formCard para não ter margem extra no topo agora que tem o header */
-.formCard {
-    color: #000;
-}
+.infoPreview { padding: 20px; }
+.sinopseTexto { margin-top: 20px; line-height: 1.5; font-size: 0.9rem; color: #eee; }

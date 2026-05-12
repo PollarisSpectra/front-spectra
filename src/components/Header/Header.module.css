@@ -1,3 +1,21 @@
+:root {
+    --COR_BOTAO: #ffffff;
+    --COR_PRINCIPAL: #ff1a1a;
+    --COR_ALERTA: #2a2a2a;
+    --COR_FUNDO: #000;
+    --COR_SECUNDARIA: #4a4a4a;
+    --COR_TEXTO: #ffffff;
+    --COR_DESTAQUE_TEXTO: #ffffff;
+    --COR_HOVER: #e61919;
+    --COR_TEXTO_DESTAQUE: #ff1a1a;
+    --COR_CARD: #31333880;
+    --COR_FORMULARIO: #ffffff;
+    --COR_LINHA: #000;
+    --COR_MODAL: #31333880;
+    --COR_ICONE: #000;
+    --COR_TEXTO_FORMULARIO: #000;
+}
+
 .header-actions{
     gap: 16px;
 }
@@ -5,7 +23,7 @@
 .header-cadastrar {
     background: transparent;
     border: none;
-    color: #ff1d1d;
+    color: var(--COR_TEXTO_DESTAQUE); /* Conectado ao vermelho principal */
     font-size: 13px;
     font-weight: 700;
     font-family: Arial, Helvetica, sans-serif;
@@ -14,8 +32,8 @@
 
 
 .header-login {
-    background: #ffffff;
-    color: #111111;
+    background: var(--COR_BOTAO); /* Conectado ao branco */
+    color: var(--COR_ICONE); /* Conectado ao preto para o texto/ícone no fundo branco */
     border: none;
     border-radius: 5px;
     padding: 3px 5px;
@@ -37,11 +55,11 @@
 .link {
     transition: all .2s;
     margin-right: 6px;
+    color: var(--COR_TEXTO);
 }
 
 .link:hover {
-    background-color: rgba(var(--cor-selection), .7);
-    color: rgb(var(--vermelho-spectra)) !important;
+    color: var(--COR_TEXTO_DESTAQUE) !important;
 }
 
 .login {
@@ -54,9 +72,9 @@
 }
 
 .headerContainer {
-    background-color: #000; /* Fundo preto */
-    border-bottom: 2px solid #ff1a1a; /* A linha sólida */
-    box-shadow: 0px 4px 15px rgba(255, 26, 26, 0.3); /* O brilho (glow) abaixo da linha */
+    background-color: var(--COR_FUNDO); /* Fundo preto */
+    border-bottom: 2px solid var(--COR_PRINCIPAL); /* A linha sólida vermelha */
+    box-shadow: 0px 4px 15px rgba(255, 26, 26, 0.3); /* Glow mantido conforme original */
     width: 100%;
 }
 
@@ -83,17 +101,17 @@
 }
 
 .link:hover {
-    color: #ff1d1d !important; /* Fica vermelho ao passar o mouse */
+    color: var(--COR_TEXTO_DESTAQUE) !important; /* Fica vermelho ao passar o mouse */
 }
 
 /* Ajuste para telas de 320px até 375px */
 @media (max-width: 375px) {
     .logoImg {
-        width: 75px; /* Logo menor para não empurrar os botões */
+        width: 75px;
     }
 
     .link {
-        font-size: 11px; /* Texto um pouco menor */
+        font-size: 11px;
         padding: 0 4px;
     }
 
@@ -102,4 +120,3 @@
         height: 14px;
     }
 }
-

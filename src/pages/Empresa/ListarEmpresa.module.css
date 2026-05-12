@@ -202,3 +202,109 @@
     }
 
 }
+
+
+/* =========================================
+   RESPONSIVO 320px
+========================================= */
+@media (max-width: 320px) {
+
+    .container {
+        padding: 12px 10px;
+    }
+
+    /* ===== TOPO ===== */
+    .topo h1 {
+        font-size: 20px;
+        letter-spacing: 2px;
+    }
+
+    .voltar {
+        font-size: 22px;
+    }
+
+    /* ===== CARD ===== */
+    .card {
+        border-radius: 10px;
+    }
+
+    .header {
+        padding: 0 12px;
+        min-height: 50px;
+    }
+
+    .label {
+        font-size: 10px;
+        letter-spacing: 2px;
+    }
+
+    .nome {
+        font-size: 11px;
+        padding: 3px 6px;
+    }
+
+    .seta {
+        font-size: 18px;
+    }
+
+    /* ===== CONTEÚDO ===== */
+    .conteudo {
+        flex-direction: column;
+        gap: 14px;
+        padding: 15px;
+    }
+
+    .imagemArea img {
+        width: 100%;
+        height: 160px;
+        border-radius: 8px;
+    }
+
+    .info h2 {
+        font-size: 18px;
+    }
+
+    .info p {
+        font-size: 12px;
+        line-height: 1.3;
+    }
+
+    .corArea {
+        font-size: 12px;
+    }
+
+    .cor {
+        width: 20px;
+        height: 20px;
+    }
+
+    /* ===== BOTÕES ===== */
+    .botoes {
+        position: static;
+        width: 100%;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+
+    .botoes button {
+        width: 48%;
+        height: 36px;
+        font-size: 12px;
+    }
+
+    /* ===== BOTÃO ADICIONAR ===== */
+    .adicionar {
+        right: 10px;
+        bottom: 12px;
+        height: 44px;
+        font-size: 12px;
+        padding: 0 14px;
+        gap: 8px;
+    }
+
+    .adicionar span {
+        width: 28px;
+        height: 28px;
+        font-size: 16px;
+    }
+}

@@ -7,7 +7,7 @@ export default function ModalFilme({ aberto, fechar }) {
         <div className={css.overlay}>
             <div className={css.modal}>
                 <button className={css.fechar} onClick={fechar}>
-                    ✕
+
                 </button>
 
                 <img src="/scarface.png" className={css.banner} />

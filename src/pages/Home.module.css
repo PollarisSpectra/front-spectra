@@ -74,6 +74,26 @@
     }
 }
 
+.filtros{
+    display: flex;
+    gap: 15px;
+    margin: 20px 0 30px;
+}
+
+.inputFiltro{
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid #ffffff;
+    outline: none;
+    font-size: 15px;
+
+    background: #000;
+    color: #fff;
+}
+
+.inputFiltro::placeholder{
+    color: #bdbdbd;
+}
 @media (max-width: 320px) {
     .grid {
         grid-template-columns: repeat(2, 1fr);

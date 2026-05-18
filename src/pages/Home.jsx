@@ -12,6 +12,10 @@ export default function Home() {
     const [filmeSelecionado, setFilmeSelecionado] = useState(null);
     const [modalAberto, setModalAberto] = useState(false);
 
+    // FILTROS
+    const [dataFiltro, setDataFiltro] = useState("");
+    const [categoriaFiltro, setCategoriaFiltro] = useState("");
+
     useEffect(() => {
         carregarDados();
     }, []);
@@ -66,18 +70,67 @@ export default function Home() {
         navigate(`/sessao/${idSessao}/assentos`);
     }
 
+    // FILTRAR FILMES
+    const filmesFiltrados = filmes.filter((filme) => {
+
+        // filtro categoria
+        const categoriaOk =
+            categoriaFiltro === "" ||
+            filme.genero?.toLowerCase() === categoriaFiltro.toLowerCase();
+
+        // filtro data
+        const sessoesFilme = sessoes.filter(
+            (sessao) => Number(sessao.id_filme) === Number(filme.id_filme)
+        );
+
+        const dataOk =
+            dataFiltro === "" ||
+            sessoesFilme.some((sessao) => sessao.data === dataFiltro);
+
+        return categoriaOk && dataOk;
+    });
+
     return (
         <>
             <Banner />
 
             <div className={styles.section}>
+
                 <div className={styles.sectionHeader}>
                     <span className={styles.headerLine}></span>
                     <span className={styles.headerLabel}>Filmes em Destaque</span>
                 </div>
 
+                {/* FILTROS */}
+                <div className={styles.filtros}>
+
+                    <input
+                        type="date"
+                        value={dataFiltro}
+                        onChange={(e) => setDataFiltro(e.target.value)}
+                        className={styles.inputFiltro}
+                    />
+
+                    <select
+                        value={categoriaFiltro}
+                        onChange={(e) => setCategoriaFiltro(e.target.value)}
+                        className={styles.inputFiltro}
+                    >
+                        <option value="">Todas Categorias</option>
+
+                        <option value="Ação">Ação</option>
+                        <option value="Comédia">Comédia</option>
+                        <option value="Drama">Drama</option>
+                        <option value="Terror">Terror</option>
+                        <option value="Romance">Romance</option>
+                        <option value="Animação">Animação</option>
+
+                    </select>
+
+                </div>
+
                 <div className={styles.grid}>
-                    {filmes.map((filme) => (
+                    {filmesFiltrados.map((filme) => (
                         <Card
                             key={filme.id_filme}
                             imagem={
@@ -94,6 +147,7 @@ export default function Home() {
                     ))}
                 </div>
             </div>
+
             {modalAberto && filmeSelecionado && (
                 <div className={styles.modalFundo}>
                     <div className={styles.modalCard}>
@@ -116,8 +170,8 @@ export default function Home() {
                             />
 
                             <span className={styles.modalClassificacao}>
-                    {filmeSelecionado.classificacao}
-                </span>
+                                {filmeSelecionado.classificacao}
+                            </span>
                         </div>
 
                         <h2 className={styles.modalTitulo}>

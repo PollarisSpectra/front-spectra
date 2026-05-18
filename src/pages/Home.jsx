@@ -18,7 +18,7 @@ export default function Home() {
 
     async function carregarDados() {
         try {
-            const resFilmes = await fetch("http://localhost:5000/filmes/filme");
+            const resFilmes = await fetch("http://localhost:5000/filmes/filme?page_size=30");
             const dadosFilmes = await resFilmes.json();
 
             const resSessoes = await fetch("http://localhost:5000/sessao/listar_sessao");

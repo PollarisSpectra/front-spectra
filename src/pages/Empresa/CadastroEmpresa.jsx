@@ -351,18 +351,43 @@ export default function CadastroEmpresa() {
                 <label>Telefone</label>
 
                 <input
-                  name="telefone"
-                  value={form.telefone}
-                  onChange={(e) =>
-                    setForm({
-                      ...form,
-                      telefone: e.target.value
-                        .replace(/\D/g, "")
-                        .slice(0, 11),
-                    })
-                  }
+                    name="telefone"
+                    value={form.telefone}
+                    onChange={(e) => {
+
+                      let valor = e.target.value.replace(/\D/g, "");
+
+                      valor = valor.slice(0, 11);
+
+                      if (valor.length > 10) {
+                        valor = valor.replace(
+                            /^(\d{2})(\d{5})(\d{4}).*/,
+                            "($1) $2-$3"
+                        );
+                      }
+
+                      else if (valor.length > 2) {
+                        valor = valor.replace(
+                            /^(\d{2})(\d{0,5})/,
+                            "($1) $2"
+                        );
+                      }
+                      else {
+                        valor = valor.replace(
+                            /^(\d*)/,
+                            "($1"
+                        );
+                      }
+
+                      setForm({
+                        ...form,
+                        telefone: valor,
+                      });
+                    }
+                    }
                 />
               </div>
+
             </div>
 
             <div className={css.grupo}>
@@ -429,15 +454,17 @@ export default function CadastroEmpresa() {
               </div>
 
               <div
-                className={css.grupo}
-                style={{ flex: 1 }}
+                  className={css.grupo}
+                  style={{ flex: 1 }}
               >
                 <label>Nº</label>
 
                 <input
-                  name="numero"
-                  value={form.numero}
-                  onChange={handleChange}
+                    type="number"
+                    name="numero"
+                    value={form.numero}
+                    onChange={handleChange}
+                    min="0"
                 />
               </div>
             </div>
@@ -526,6 +553,7 @@ export default function CadastroEmpresa() {
                 onClick={salvarEmpresa}
               >
                 FINALIZAR E SALVAR
+
               </button>
             </div>
           </div>

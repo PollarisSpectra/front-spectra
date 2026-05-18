@@ -8,6 +8,8 @@ export default function SelecionarAssento() {
     const { id } = useParams();
     const navigate = useNavigate();
 
+    const [idReserva, setIdReserva] = useState(null);
+
     const [sessao, setSessao] = useState(null);
     const [sala, setSala] = useState(null);
     const [mapaAssentos, setMapaAssentos] = useState({});
@@ -91,6 +93,9 @@ export default function SelecionarAssento() {
         if (!res.ok) {
             throw new Error(data.error || "Erro ao confirmar reserva.");
         }
+
+        setIdReserva(data.id_reserva);
+        setMostrarModalPix(true);
     }
 
     async function verificarLoginEContinuar() {
@@ -143,16 +148,15 @@ export default function SelecionarAssento() {
                 }}
             />
 
-            {mostrarModalPix && (
-                <ModalPix
-                    valor={totalReserva}
-                    aoFechar={() => setMostrarModalPix(false)}
-                    aoConfirmarPagamento={efetivarReserva}
-                    onErro={(msg) => {
-                        setMensagem(msg);
-                        setTipoMensagem("error");
-                    }}
-                />
+            {mostrarModalPix && idReserva && (
+            <ModalPix
+                idReserva={idReserva}
+                aoFechar={() => setMostrarModalPix(false)}
+                onErro={(msg) => {
+                    setMensagem(msg);
+                    setTipoMensagem("error");
+                }}
+            />
             )}
 
             <section className={css.cardFilme}>
@@ -207,7 +211,7 @@ export default function SelecionarAssento() {
                 </div>
                 <button
                     disabled={assentosSelecionados.length < 1}
-                    onClick={verificarLoginEContinuar}
+                    onClick={efetivarReserva}
                     className="px-2 py-1 rounded fw-semibold"
                 >
                     CONFIRMAR

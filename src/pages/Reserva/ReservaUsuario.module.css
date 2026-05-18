@@ -1,0 +1,243 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    background-color: black;
+}
+
+
+.pagina{
+    min-height: 100vh;
+    background: #000;
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+.conteudo{
+    flex: 1;
+
+    padding: 50px 80px;
+}
+
+.tituloFiltro{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin-bottom: 50px;
+}
+.titulo {
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* FILTROS */
+
+.filtros{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.filtros span{
+    font-size: 22px;
+    color: #3b3b3b;
+}
+
+.filtros button{
+    border: none;
+    background: transparent;
+
+    color: white;
+
+    font-size: 22px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.filtros button:hover{
+    opacity: 0.8;
+}
+
+.filtros .ativo{
+    background: white;
+    color: black;
+
+    padding: 8px 18px;
+
+    border-radius: 8px;
+}
+
+/* LISTA */
+
+.listaReservas{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* CARD */
+
+.cardReserva{
+    display: flex;
+    gap: 25px;
+
+    width: 100%;
+    max-width: 700px;
+}
+
+.poster{
+    width: 130px;
+    height: 190px;
+
+    border-radius: 8px;
+
+    object-fit: cover;
+}
+
+.info{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.info h2{
+    font-size: 34px;
+    line-height: 1.1;
+}
+
+.info p{
+    font-size: 20px;
+}
+
+.dados{
+    margin-top: 10px;
+}
+
+.statusSessao{
+    display: flex;
+    align-items: center;
+    gap: 25px;
+
+    margin-top: 10px;
+}
+
+.status{
+    margin-left: 10px;
+
+    padding: 5px 12px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.pago{
+    background: #7db2e3;
+    color: black;
+}
+
+.cancelado{
+    background: #ff4d4d;
+}
+
+.pendente{
+    background: #ffd000;
+    color: black;
+}
+
+.sessao{
+    margin-left: 10px;
+
+    background: white;
+    color: black;
+
+    padding: 5px 10px;
+
+    border-radius: 6px;
+
+    font-weight: bold;
+}
+
+/* BOTAO */
+
+.cancelar{
+    margin-top: 15px;
+
+    width: fit-content;
+
+    border: none;
+    background: red;
+    color: white;
+
+    padding: 10px 18px;
+
+    border-radius: 8px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+/* RESPONSIVO */
+
+@media(max-width: 768px){
+
+    .header{
+        padding: 20px;
+    }
+
+    .conteudo{
+        padding: 30px 20px;
+    }
+
+    .tituloFiltro h1{
+        font-size: 45px;
+    }
+
+    .filtros{
+        flex-wrap: wrap;
+    }
+
+    .cardReserva{
+        flex-direction: column;
+    }
+
+    .poster{
+        width: 100%;
+        height: 350px;
+    }
+
+    .footer{
+        flex-direction: column;
+        gap: 30px;
+
+        padding: 40px 20px 70px;
+    }
+
+    .footerInfo{
+        align-items: center;
+        text-align: center;
+    }
+
+    .copyright{
+        bottom: 20px;
+
+        width: 100%;
+        text-align: center;
+    }
+
+}

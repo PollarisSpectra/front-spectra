@@ -1,46 +1,47 @@
 import { useState, useEffect } from 'react';
-import { useAsyncError, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import estilo from './ModalPix.module.css';
 
-export default function ModalPix({ chavePix = "41317641809", valor, aoFechar, aoConfirmarPagamento, onErro }) {
+export default function ModalPix({ idReserva, aoFechar, aoConfirmarPagamento, onErro }) {
     const [confirmando, setConfirmando] = useState(false);
     const [qrCodeUrl, setQrCodeUrl] = useState(null);
     const [carregandoQr, setCarregandoQr] = useState(true);
-    const navigate = useNavigate();
     const [payload, setPayload] = useState(null);
+    const [valor, setValor] = useState(null);
     const [textoCopiar, setTextoCopiar] = useState("Copiar");
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function buscarQrCode() {
             try {
-                const res = await fetch("http://localhost:5000/pix/", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        chave: chavePix,
-                        nome: "PAULO HENRIQUE SOUZA CAVALLINI",
-                        cidade: "BIRIGUI",
-                        valor: valor
-                    })
-                });
-
+                const res = await fetch(`http://localhost:5000/reservas/gerar_qrcode/${idReserva}`);
                 const data = await res.json();
+
+                if (!res.ok) {
+                    throw new Error(data.error || "Erro ao gerar QR Code");
+                }
+
                 setQrCodeUrl(`data:image/png;base64,${data.qrcode}`);
                 setPayload(data.payload);
+                setValor(data.valor);
+
             } catch (err) {
                 console.error("Erro ao gerar QR Code:", err);
+                onErro?.(err.message || "Erro ao gerar QR Code");
             } finally {
                 setCarregandoQr(false);
             }
         }
 
-        buscarQrCode();
-    }, [chavePix, valor]);
+        if (idReserva) buscarQrCode();
+    }, [idReserva, onErro]);
 
     async function handleConfirmar() {
         setConfirmando(true);
         try {
-            await aoConfirmarPagamento();
+            if (aoConfirmarPagamento) {
+                await aoConfirmarPagamento();
+            }
             setTimeout(() => {
                 aoFechar();
                 navigate('/');
@@ -77,9 +78,9 @@ export default function ModalPix({ chavePix = "41317641809", valor, aoFechar, ao
                         {payload && (
                             <div className={estilo.pixInfo}>
                                 <span className={estilo.pixLabel}>Copia e Cola</span>
-                                    <div className="d-flex flex-column gap-2">
-                                        <span
-                                        className={estilo.pixChave +  " rounded-3"}
+                                <div className="d-flex flex-column gap-2">
+                                    <span
+                                        className={estilo.pixChave + " rounded-3"}
                                         style={{ cursor: "pointer", wordBreak: "break-all" }}
                                         onClick={() => navigator.clipboard.writeText(payload)}
                                         title="Clique para copiar"
@@ -90,7 +91,7 @@ export default function ModalPix({ chavePix = "41317641809", valor, aoFechar, ao
                                         onClick={() => {
                                             navigator.clipboard.writeText(payload);
                                             setTextoCopiar("Copiado!");
-                                            setTimeout(() => setTextoCopiar("Copiar"), 500)
+                                            setTimeout(() => setTextoCopiar("Copiar"), 500);
                                         }}
                                         className="rounded-3 px-2 fw-semibold"
                                     >
@@ -100,7 +101,7 @@ export default function ModalPix({ chavePix = "41317641809", valor, aoFechar, ao
                             </div>
                         )}
 
-                        {valor !== undefined && (
+                        {valor !== null && (
                             <div className={estilo.pixValor}>
                                 R$ {Number(valor).toFixed(2)}
                             </div>

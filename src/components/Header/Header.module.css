@@ -72,7 +72,7 @@
 }
 
 .headerContainer {
-    background-color: var(--COR_FUNDO); /* Fundo preto */
+    background-color: var(--COR_PRINCIPAL); /* Fundo preto */
     border-bottom: 2px solid var(--COR_PRINCIPAL); /* A linha sólida vermelha */
     box-shadow: 0px 4px 15px rgba(255, 26, 26, 0.3); /* Glow mantido conforme original */
     width: 100%;

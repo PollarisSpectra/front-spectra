@@ -17,26 +17,25 @@ export default function CadastroEmpresa() {
     rua: "",
     numero: "",
     cidade: "",
-    uf: "",
     chave_pix: "",
     telefone: "",
 
     // Paleta de cores
-    COR_BOTAO: "#ffffff",
-    COR_PRINCIPAL: "#ff1c1c",
-    COR_ALERTA: "#2a2a2a",
-    COR_FUNDO: "#000000",
-    COR_SECUNDARIA: "#4a4a4a",
-    COR_TEXTO: "#ffffff",
-    COR_DESTAQUE_TEXTO: "#ffffff",
-    COR_HOVER: "#e61919",
-    COR_TEXTO_DESTAQUE: "#ff1a1a",
-    COR_CARD: "#ececec",
-    COR_FORMULARIO: "#ffffff",
-    COR_LINHA: "#bdbdbd",
-    COR_MODAL: "#31333880",
-    COR_ICONE: "#000000",
-    COR_TEXTO_FORMULARIO: "#111111",
+    COR_BOTAO: "",
+    COR_PRINCIPAL: "",
+    COR_ALERTA: "",
+    COR_FUNDO: "",
+    COR_SECUNDARIA: "",
+    COR_TEXTO: "",
+    COR_DESTAQUE_TEXTO: "",
+    COR_HOVER: "",
+    COR_TEXTO_DESTAQUE: "",
+    COR_CARD: "",
+    COR_FORMULARIO: "",
+    COR_LINHA: "",
+    COR_MODAL: "",
+    COR_ICONE: "",
+    COR_TEXTO_FORMULARIO: "",
   });
 
   const [imagem, setImagem] = useState(null);
@@ -46,6 +45,12 @@ export default function CadastroEmpresa() {
       buscarEmpresa();
     }
   }, [id]);
+
+  useEffect(() => {
+    if (form.cep.length === 8) {
+      buscarCEP(form.cep);
+    }
+  }, [form.cep]);
 
   async function buscarEmpresa() {
     try {
@@ -90,62 +95,184 @@ export default function CadastroEmpresa() {
   };
 
   async function buscarCEP(cep) {
-    const cepLimpo = cep.replace(/\D/g, "");
-
-    if (cepLimpo.length !== 8) return;
-
     try {
+      console.log("Buscando CEP:", cep);
+
       const response = await fetch(
-        `https://viacep.com.br/ws/${cepLimpo}/json/`
+          `https://viacep.com.br/ws/${cep}/json/`
       );
 
       const data = await response.json();
 
-      if (!data.erro) {
-        setForm((prev) => ({
-          ...prev,
-          rua: data.logradouro || "",
-          bairro: data.bairro || "",
-          cidade: data.localidade || "",
-          uf: data.uf || "",
-        }));
+      console.log(data);
+
+      if (data.erro) {
+        alert("CEP não encontrado");
+        return;
       }
+
+      setForm((prev) => ({
+        ...prev,
+        rua: data.logradouro || "",
+        bairro: data.bairro || "",
+        cidade: data.localidade || "",
+        uf: data.uf || "",
+      }));
+
     } catch (erro) {
-      console.error(erro);
+      console.error("Erro ao buscar CEP:", erro);
     }
+  }
+
+
+  function validarEtapa1() {
+    if (!form.nome_fantasia.trim()) {
+      alert("Preencha o nome fantasia");
+      return false;
+    }
+
+    if (!form.razao_social.trim()) {
+      alert("Preencha a razão social");
+      return false;
+    }
+
+    if (!form.cnpj.trim()) {
+      alert("Preencha o CNPJ");
+      return false;
+    }
+
+    if (form.cnpj.length !== 14) {
+      alert("CNPJ inválido");
+      return false;
+    }
+
+    if (!form.telefone.trim()) {
+      alert("Preencha o telefone");
+      return false;
+    }
+
+    if (form.telefone.length < 10) {
+      alert("Telefone inválido");
+      return false;
+    }
+
+    if (!form.cep.trim()) {
+      alert("Preencha o CEP");
+      return false;
+    }
+
+    if (form.cep.length !== 8) {
+      alert("CEP inválido");
+      return false;
+    }
+
+    if (!form.cidade.trim()) {
+      alert("Preencha a cidade");
+      return false;
+    }
+
+    if (!form.bairro.trim()) {
+      alert("Preencha o bairro");
+      return false;
+    }
+
+    if (!form.rua.trim()) {
+      alert("Preencha a rua");
+      return false;
+    }
+
+    if (!form.numero.trim()) {
+      alert("Preencha o número");
+      return false;
+    }
+
+    return true;
   }
 
   async function salvarEmpresa() {
     try {
-      const formData = new FormData();
+      // =========================
+      // CADASTRAR EMPRESA
+      // =========================
 
-      Object.keys(form).forEach((key) => {
-        formData.append(key, form[key]);
-      });
+      const empresaData = new FormData();
+
+      empresaData.append("nome_fantasia", form.nome_fantasia);
+      empresaData.append("razao_social", form.razao_social);
+      empresaData.append("cnpj", form.cnpj);
+      empresaData.append("cep", form.cep);
+      empresaData.append("bairro", form.bairro);
+      empresaData.append("rua", form.rua);
+      empresaData.append("numero", form.numero);
+      empresaData.append("cidade", form.cidade);
+      empresaData.append("telefone", form.telefone);
 
       if (imagem) {
-        formData.append("imagem", imagem);
+        empresaData.append("imagem", imagem);
       }
 
-      const url = id
-        ? `http://localhost:5000/empresa/editar_empresa/${id}`
-        : "http://localhost:5000/empresa/cadastro_empresa";
+      const responseEmpresa = await fetch(
+          "http://localhost:5000/empresa/cadastro_empresa",
+          {
+            method: "POST",
+            body: empresaData,
+            credentials: "include",
+          }
+      );
 
-      const response = await fetch(url, {
-        method: id ? "PUT" : "POST",
-        body: formData,
-        credentials: "include",
-      });
+      const empresa = await responseEmpresa.json();
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error);
+      if (!responseEmpresa.ok) {
+        throw new Error(empresa.error);
       }
 
-      alert("Empresa salva com sucesso!");
+      // =========================
+      // CADASTRAR CORES
+      // =========================
 
-      navigate("/ListarEmpresa");
+      const coresData = new FormData();
+
+      coresData.append("id_empresa", empresa.id_empresa);
+
+      coresData.append("COR_BOTAO", form.COR_BOTAO);
+      coresData.append("COR_PRINCIPAL", form.COR_PRINCIPAL);
+      coresData.append("COR_ALERTA", form.COR_ALERTA);
+      coresData.append("COR_FUNDO", form.COR_FUNDO);
+      coresData.append("COR_SECUNDARIA", form.COR_SECUNDARIA);
+      coresData.append("COR_TEXTO", form.COR_TEXTO);
+      coresData.append("COR_DESTAQUE_TEXTO", form.COR_DESTAQUE_TEXTO);
+      coresData.append("COR_HOVER", form.COR_HOVER);
+      coresData.append("COR_TEXTO_DESTAQUE", form.COR_TEXTO_DESTAQUE);
+      coresData.append("COR_CARD", form.COR_CARD);
+      coresData.append("COR_FORMULARIO", form.COR_FORMULARIO);
+      coresData.append("COR_LINHA", form.COR_LINHA);
+      coresData.append("COR_MODAL", form.COR_MODAL);
+      coresData.append("COR_ICONE", form.COR_ICONE);
+      coresData.append("COR_TEXTO_FORMULARIO", form.COR_TEXTO_FORMULARIO);
+
+
+
+      const responseCores = await fetch(
+          "http://localhost:5000/empresa/cadastro_cores",
+          {
+            method: "POST",
+            body: coresData,
+            credentials: "include",
+          }
+      );
+
+      const cores = await responseCores.json();
+
+      if (!responseCores.ok) {
+        throw new Error(cores.error);
+      }
+
+      alert("Empresa cadastrada com sucesso!");
+
+      navigate("/home");
+
+
+
     } catch (erro) {
       alert(erro.message);
     }
@@ -242,23 +369,20 @@ export default function CadastroEmpresa() {
               <label>CEP</label>
 
               <input
-                type="text"
-                name="cep"
-                value={form.cep}
-                onChange={(e) => {
-                  const valor = e.target.value
-                    .replace(/\D/g, "")
-                    .slice(0, 8);
+                  type="text"
+                  name="cep"
+                  value={form.cep}
+                  onChange={(e) => {
+                    const valor = e.target.value
+                        .replace(/\D/g, "")
+                        .slice(0, 8);
 
-                  setForm({
-                    ...form,
-                    cep: valor,
-                  });
+                    setForm((prev) => ({
+                      ...prev,
+                      cep: valor,
+                    }));
 
-                  if (valor.length === 8) {
-                    buscarCEP(valor);
-                  }
-                }}
+                  }}
               />
             </div>
 
@@ -333,7 +457,11 @@ export default function CadastroEmpresa() {
             <button
               type="button"
               className={css.botao}
-              onClick={() => setPasso(2)}
+              onClick={() => {
+                if (validarEtapa1()) {
+                  setPasso(2);
+                }
+              }}
             >
               PRÓXIMA ETAPA: CORES
             </button>

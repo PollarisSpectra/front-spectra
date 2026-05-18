@@ -1,4 +1,5 @@
 import { Form, Route, Routes } from 'react-router-dom'
+import {useEffect} from "react";
 import { useState } from "react";
 import Home from './pages/Home'
 import Header from './components/Header/Header.jsx'
@@ -33,12 +34,45 @@ function App() {
     return usuarioSalvo ? JSON.parse(usuarioSalvo) : null;
   });
 
+  async function carregarCores() {
+
+    try {
+
+      const response = await fetch(
+          "http://localhost:5000/empresa/buscar_cores"
+      );
+
+      const data = await response.json();
+
+      console.log(data);
+
+      Object.entries(data).forEach(([key, value]) => {
+
+        document.documentElement.style.setProperty(
+            `--${key.toUpperCase()}`,
+            value
+        );
+
+      });
+
+    } catch (erro) {
+
+      console.error(erro);
+
+    }
+  }
+
+  useEffect(() => {
+    carregarCores();
+  }, []);
+
   return (
     <>
       <Header usuario={usuario} setUsuario={setUsuario} />
 
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<CadastroEmpresa />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/cadastro" element={<Cadastro />} />
         <Route path="/login" element={<Login usuario={usuario} setUsuario={setUsuario} />} />
         <Route path="/recuperar-senha" element={<RecuperarSenha />} />

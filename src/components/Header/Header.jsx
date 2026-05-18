@@ -22,7 +22,7 @@ export default function Header({ usuario, setUsuario }) {
     return (
         <header className="container-fluid bg-black d-flex">
             <div className="container py-2 d-flex justify-content-between">
-                <Link to={"/"}>
+                <Link to={"/home"}>
                     <img src={logo} width={100} alt="logo" />
                 </Link>
                 <div className={styles["header-actions"] + " d-flex align-items-center justify-content-between gap-1"}>

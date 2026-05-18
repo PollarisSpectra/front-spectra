@@ -93,6 +93,28 @@ export default function SelecionarAssento() {
         }
     }
 
+    async function verificarLoginEContinuar() {
+        try {
+            const res = await fetch(
+                "http://localhost:5000/auth/me",
+                {
+                    credentials: "include"
+                }
+            );
+
+            if (!res.ok) {
+                navigate("/login");
+                return;
+            }
+
+            abrirModalPix();
+
+        } catch (err) {
+            console.error(err);
+            navigate("/login");
+        }
+    }
+
     function abrirModalPix() {
         if (assentosSelecionados.length < 1) return;
         setMostrarModalPix(true);
@@ -108,6 +130,7 @@ export default function SelecionarAssento() {
         String.fromCharCode(65 + i)
     );
     const numeros = Array.from({ length: sala.qtd_colunas }, (_, i) => i + 1);
+
 
     return (
         <main className={css.container}>
@@ -184,7 +207,7 @@ export default function SelecionarAssento() {
                 </div>
                 <button
                     disabled={assentosSelecionados.length < 1}
-                    onClick={abrirModalPix}
+                    onClick={verificarLoginEContinuar}
                     className="px-2 py-1 rounded fw-semibold"
                 >
                     CONFIRMAR

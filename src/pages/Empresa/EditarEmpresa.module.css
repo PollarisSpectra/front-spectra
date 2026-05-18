@@ -15,120 +15,115 @@
     --COR_ICONE: #000;
     --COR_TEXTO_FORMULARIO: #111;
 }
-
-.modalFundo {
+.container {
     width: 100%;
     min-height: 100vh;
-    background: var(--COR_FUNDO);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 30px;
-    box-sizing: border-box;
-}
-
-.modalCard {
-    width: 100%;
-    max-width: 750px;
-    background: var(--COR_MODAL);
-    border-radius: 35px;
-    padding: 40px;
+    background: #000;
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    align-items: center;
+    padding-top: 15px;
     box-sizing: border-box;
 }
 
-.formGrid {
+.titulo {
+    color: white;
+    font-size: 48px;
+    font-weight: 900;
+    letter-spacing: 4px;
+    margin-bottom: 18px;
+}
+
+.formulario {
+    width: 700px;
+    background: #e9e9e9;
+    border-radius: 35px;
+    padding: 35px 40px;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     gap: 25px;
 }
 
-.duplaLinha {
-    display: flex;
-    gap: 20px;
-    width: 100%;
-}
-
-.grupo {
+.inputGroup {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    width: 100%;
 }
 
-.grupo label {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--COR_TEXTO_FORMULARIO);
-}
-
-.grupo input {
-    width: 100%;
-    border: none;
-    border-bottom: 1px solid #bdbdbd; /* Mantida a linha cinza sutil para visibilidade */
-    background: transparent;
-    padding: 12px 5px;
-    font-size: 20px;
-    outline: none;
-    box-sizing: border-box;
-    color: var(--COR_TEXTO_FORMULARIO);
-}
-
-.grupo input::placeholder {
-    color: #888;
-}
-
-.grupo input[type="color"] {
-    height: 55px;
-    padding: 5px;
-    cursor: pointer;
-    border-radius: 10px;
-    border: none;
-    background: var(--COR_BOTAO);
-}
-
-.grupo input[type="file"] {
-    border: none;
+.inputGroup label {
     font-size: 16px;
-    padding-top: 10px;
+    font-weight: 800;
+    color: black;
+    margin-bottom: 6px;
+}
+
+.inputGroup input {
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid black;
+    background: transparent;
+    outline: none;
+    font-size: 18px;
+    padding: 8px 0;
+    color: black;
+}
+
+.inputGroup input::placeholder {
+    color: #666;
+}
+
+.dupla {
+    display: flex;
+    gap: 20px;
+}
+
+.dupla .inputGroup {
+    flex: 1;
 }
 
 .botao {
     width: 100%;
-    height: 70px;
+    height: 60px;
+    background: #ff1b1b;
     border: none;
-    border-radius: 15px;
-    background: var(--COR_PRINCIPAL);
-    color: var(--COR_BOTAO);
-    font-size: 28px;
-    font-weight: 700;
+    border-radius: 14px;
+    color: white;
+    font-size: 22px;
+    font-weight: 900;
     cursor: pointer;
-    transition: 0.2s;
+    transition: 0.3s;
+    margin-top: 10px;
 }
 
 .botao:hover {
+    background: #ff3535;
     transform: scale(1.01);
-    background: var(--COR_HOVER);
 }
 
-@media (max-width: 700px) {
-    .modalCard {
+input[type="file"] {
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+@media (max-width: 800px) {
+
+    .formulario {
+        width: 95%;
         padding: 25px;
-        border-radius: 25px;
     }
 
-    .duplaLinha {
+    .titulo {
+        font-size: 34px;
+        text-align: center;
+    }
+
+    .dupla {
         flex-direction: column;
-    }
-
-    .grupo input {
-        font-size: 18px;
+        gap: 25px;
     }
 
     .botao {
-        font-size: 22px;
-        height: 60px;
+        font-size: 18px;
+        height: 55px;
     }
 }

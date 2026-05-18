@@ -83,7 +83,7 @@ function App() {
         <Route path="/sessao/:id/assentos" element={<SelecionarAssento />} />
         <Route path="/resumoReserva" element={<ResumoReserva />} />
         <Route path="/CadastroEmpresa" element={<CadastroEmpresa />} />
-        <Route path="/EditarEmpresa/:id" element={<CadastroEmpresa />} />
+        <Route path="/EditarEmpresa" element={<EditarEmpesa />} />
         <Route path="/ListarEmpresa" element={<ListarEmpresa />} />
         <Route path="/VariaveisCores" element={<VariaveisCores />} />
         <Route path="/ReservaUsuario" element={<ReservaUsuario />} />

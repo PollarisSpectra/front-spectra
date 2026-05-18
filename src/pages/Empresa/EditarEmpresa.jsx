@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import css from "./CadastroEmpresa.module.css";
+import styles from "./EditarEmpresa.module.css";
 
-export default function CadastroEmpresa({ empresa = null }) {
+export default function EditarEmpresa() {
 
-    const [form, setForm] = useState({
+    const [empresa, setEmpresa] = useState({
+        id_empresa: "",
         nome_fantasia: "",
         razao_social: "",
         cnpj: "",
@@ -12,276 +13,208 @@ export default function CadastroEmpresa({ empresa = null }) {
         numero: "",
         cidade: "",
         chave_pix: "",
-        telefone: "",
-        cor: "#ff0000"
+        cor: "",
+        telefone: ""
     });
 
-    const [imagem, setImagem] = useState(null);
-
     useEffect(() => {
+        buscarEmpresa();
+    }, []);
 
-        if (empresa) {
-
-            setForm({
-                nome_fantasia: empresa.nome_fantasia || "",
-                razao_social: empresa.razao_social || "",
-                cnpj: empresa.cnpj || "",
-                bairro: empresa.bairro || "",
-                rua: empresa.rua || "",
-                numero: empresa.numero || "",
-                cidade: empresa.cidade || "",
-                chave_pix: empresa.chave_pix || "",
-                telefone: empresa.telefone || "",
-                cor: empresa.cor || "#ff0000"
-            });
-
-        }
-
-    }, [empresa]);
-
-    function handleChange(e) {
-
-        const { name, value } = e.target;
-
-        setForm({
-            ...form,
-            [name]: value
-        });
-
-    }
-
-    async function salvarEmpresa(e) {
-
-        e.preventDefault();
+    async function buscarEmpresa() {
 
         try {
 
-            const formData = new FormData();
-
-            Object.keys(form).forEach((campo) => {
-                formData.append(campo, form[campo]);
-            });
-
-            if (imagem) {
-                formData.append("imagem", imagem);
-            }
-
-            const editando = empresa?.id_empresa;
-
             const response = await fetch(
-
-                editando
-                    ? `http://localhost:5000/empresa/editar_empresa/${empresa.id_empresa}`
-                    : "http://localhost:5000/empresa/cadastro_empresa",
-
-                {
-                    method: editando ? "PUT" : "POST",
-                    body: formData,
-                    credentials: "include"
-                }
-
+                "http://localhost:5000/empresa/buscar_empresa"
             );
 
             const data = await response.json();
 
-            if (!response.ok) {
-                throw new Error(data.error);
-            }
+            console.log(data);
+
+            setEmpresa(data);
+
+        } catch (error) {
+
+            console.log(error);
+        }
+    }
+
+    function alterarInput(e) {
+
+        const { name, value } = e.target;
+
+        setEmpresa({
+            ...empresa,
+            [name]: value
+        });
+    }
+
+    async function salvar(e) {
+
+        e.preventDefault();
+
+        const formData = new FormData();
+
+        Object.keys(empresa).forEach((campo) => {
+            formData.append(campo, empresa[campo]);
+        });
+
+        try {
+
+            const response = await fetch(
+                `http://localhost:5000/empresa/editar_empresa/${empresa.id_empresa}`,
+                {
+                    method: "PUT",
+                    body: formData,
+                    credentials: "include"
+                }
+            );
+
+            const data = await response.json();
 
             alert(data.message);
 
-        } catch (erro) {
+        } catch (error) {
 
-            console.error(erro);
-            alert(erro.message);
-
+            console.log(error);
         }
-
     }
 
     return (
 
-        <div className={css.modalFundo}>
+        <div className={styles.container}>
+
+            <h1 className={styles.titulo}>
+                EDITAR EMPRESA
+            </h1>
 
             <form
-                className={css.modalCard}
-                onSubmit={salvarEmpresa}
+                onSubmit={salvar}
+                className={styles.formulario}
             >
 
-                <div className={css.formGrid}>
+                <div className={styles.inputGroup}>
+                    <label>NOME FANTASIA</label>
 
-                    <div className={css.grupo}>
-                        <label>Nome Fantasia:</label>
+                    <input
+                        type="text"
+                        name="nome_fantasia"
+                        value={empresa.nome_fantasia}
+                        onChange={alterarInput}
+                    />
+                </div>
 
-                        <input
-                            type="text"
-                            name="nome_fantasia"
-                            value={form.nome_fantasia}
-                            onChange={handleChange}
-                            placeholder="Digite o nome fantasia"
-                        />
-                    </div>
+                <div className={styles.inputGroup}>
+                    <label>RAZÃO SOCIAL</label>
 
-                    <div className={css.grupo}>
-                        <label>Razão Social:</label>
+                    <input
+                        type="text"
+                        name="razao_social"
+                        value={empresa.razao_social}
+                        onChange={alterarInput}
+                    />
+                </div>
 
-                        <input
-                            type="text"
-                            name="razao_social"
-                            value={form.razao_social}
-                            onChange={handleChange}
-                            placeholder="Digite a razão social"
-                        />
-                    </div>
+                <div className={styles.dupla}>
 
-                    <div className={css.grupo}>
-                        <label>CNPJ:</label>
+                    <div className={styles.inputGroup}>
+                        <label>CNPJ</label>
 
                         <input
                             type="text"
                             name="cnpj"
-                            value={form.cnpj}
-                            onChange={(e) => {
-
-                                let valor = e.target.value;
-
-                                valor = valor.replace(/\D/g, "");
-
-                                valor = valor.slice(0, 14);
-
-                                setForm({
-                                    ...form,
-                                    cnpj: valor
-                                });
-
-                            }}
-                            placeholder="00000000000000"
+                            value={empresa.cnpj}
+                            onChange={alterarInput}
                         />
                     </div>
 
-                    <div className={css.duplaLinha}>
-
-                        <div className={css.grupo}>
-                            <label>Cidade:</label>
-
-                            <input
-                                type="text"
-                                name="cidade"
-                                value={form.cidade}
-                                onChange={handleChange}
-                                placeholder="Cidade"
-                            />
-                        </div>
-
-                        <div className={css.grupo}>
-                            <label>Bairro:</label>
-
-                            <input
-                                type="text"
-                                name="bairro"
-                                value={form.bairro}
-                                onChange={handleChange}
-                                placeholder="Bairro"
-                            />
-                        </div>
-
-                    </div>
-
-                    <div className={css.duplaLinha}>
-
-                        <div className={css.grupo}>
-                            <label>Rua:</label>
-
-                            <input
-                                type="text"
-                                name="rua"
-                                value={form.rua}
-                                onChange={handleChange}
-                                placeholder="Rua"
-                            />
-                        </div>
-
-                        <div className={css.grupo}>
-                            <label>Número:</label>
-
-                            <input
-                                type="text"
-                                name="numero"
-                                value={form.numero}
-                                onChange={(e) => {
-
-                                    let valor = e.target.value;
-
-                                    valor = valor.replace(/\D/g, "");
-
-                                    setForm({
-                                        ...form,
-                                        numero: valor
-                                    });
-
-                                }}
-                                placeholder="Número"
-                            />
-
-
-                        </div>
-
-                    </div>
-
-                    <div className={css.duplaLinha}>
-
-                        <div className={css.grupo}>
-                            <label>Cor:</label>
-
-                            <input
-                                type="color"
-                                name="cor"
-                                value={form.cor}
-                                onChange={handleChange}
-                            />
-                        </div>
-
-                        <div className={css.grupo}>
-                            <label>Chave Pix:</label>
-
-                            <input
-                                type="text"
-                                name="chave_pix"
-                                value={form.chave_pix}
-                                onChange={handleChange}
-                                placeholder="Digite a chave pix"
-                            />
-                        </div>
-
-                    </div>
-
-                    <div className={css.grupo}>
-                        <label>Imagem da empresa:</label>
+                    <div className={styles.inputGroup}>
+                        <label>TELEFONE</label>
 
                         <input
-                            type="file"
-                            accept="image/*"
-                            onChange={(e) => setImagem(e.target.files[0])}
+                            type="text"
+                            name="telefone"
+                            value={empresa.telefone}
+                            onChange={alterarInput}
                         />
                     </div>
 
                 </div>
 
+                <div className={styles.dupla}>
+
+                    <div className={styles.inputGroup}>
+                        <label>CIDADE</label>
+
+                        <input
+                            type="text"
+                            name="cidade"
+                            value={empresa.cidade}
+                            onChange={alterarInput}
+                        />
+                    </div>
+
+                    <div className={styles.inputGroup}>
+                        <label>BAIRRO</label>
+
+                        <input
+                            type="text"
+                            name="bairro"
+                            value={empresa.bairro}
+                            onChange={alterarInput}
+                        />
+                    </div>
+
+                </div>
+
+                <div className={styles.dupla}>
+
+                    <div className={styles.inputGroup}>
+                        <label>RUA</label>
+
+                        <input
+                            type="text"
+                            name="rua"
+                            value={empresa.rua}
+                            onChange={alterarInput}
+                        />
+                    </div>
+
+                    <div className={styles.inputGroup}>
+                        <label>N°</label>
+
+                        <input
+                            type="text"
+                            name="numero"
+                            value={empresa.numero}
+                            onChange={alterarInput}
+                        />
+                    </div>
+
+                </div>
+
+                <div className={styles.inputGroup}>
+                    <label>CHAVE PIX</label>
+
+                    <input
+                        type="text"
+                        name="chave_pix"
+                        value={empresa.chave_pix}
+                        onChange={alterarInput}
+                    />
+                </div>
+
                 <button
                     type="submit"
-                    className={css.botao}
+                    className={styles.botao}
                 >
-                    {
-                        empresa
-                            ? "SALVAR ALTERAÇÕES"
-                            : "CADASTRAR EMPRESA"
-                    }
+                    SALVAR ALTERAÇÕES
                 </button>
 
             </form>
 
         </div>
-
     );
-
 }

@@ -26,6 +26,7 @@ import CadastroEmpresa from "./pages/Empresa/CadastroEmpresa.jsx";
 import EditarEmpesa from "./pages/Empresa/EditarEmpresa.jsx";
 import ListarEmpresa from "./pages/Empresa/ListarEmpresa.jsx";
 import VariaveisCores from "./pages/VariaveisCores/VariaveisCores";
+import ReservaUsuario from "./pages/Reserva/ReservaUsuario.jsx";
 
 function App() {
   const [usuario, setUsuario] = useState(() => {
@@ -51,6 +52,7 @@ function App() {
         <Route path="/EditarEmpresa/:id" element={<CadastroEmpresa />} />
         <Route path="/ListarEmpresa" element={<ListarEmpresa />} />
         <Route path="/VariaveisCores" element={<VariaveisCores />} />
+        <Route path="/ReservaUsuario" element={<ReservaUsuario />} />
 
         {/* Rotas Administrativas - Protegidas por AdminLayout */}
         <Route path="/app" element={<AdminLayout />}>

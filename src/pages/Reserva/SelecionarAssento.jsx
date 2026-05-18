@@ -24,29 +24,35 @@ export default function SelecionarAssento() {
             try {
                 const res = await fetch(`http://localhost:5000/sessao/listar_sessao?id_sessao=${id}`);
                 const data = await res.json();
+
                 const idSala = data?.sessao[0].id_sala;
 
                 const salaRes = await fetch(`http://localhost:5000/salas/${idSala}`, {
                     credentials: "include"
                 });
+
                 const salaData = await salaRes.json();
                 setSala(salaData);
 
                 const assentosRes = await fetch(`http://localhost:5000/salas/${idSala}/assentos`, {
                     credentials: "include"
                 });
+
                 const assentosData = await assentosRes.json();
 
                 const mapa = {};
+
                 assentosData.assentos.forEach(a => {
                     mapa[a.codigo] = a.id_assento_sala;
                 });
+
                 setMapaAssentos(mapa);
 
                 setSessao(data.sessao[0]);
 
             } catch (err) {
                 console.error("ERRO:", err);
+
                 setMensagem("Erro ao carregar a sessão. Tente novamente.");
                 setTipoMensagem("error");
             }
@@ -57,9 +63,14 @@ export default function SelecionarAssento() {
 
     useEffect(() => {
         async function buscarOcupados() {
-            const res = await fetch(`http://localhost:5000/reservas/${id}/assentos_ocupados`);
-            const data = await res.json();
-            setOcupados(data.assentos || []);
+            try {
+                const res = await fetch(`http://localhost:5000/reservas/${id}/assentos_ocupados`);
+                const data = await res.json();
+
+                setOcupados(data.assentos || []);
+            } catch (err) {
+                console.error(err);
+            }
         }
 
         buscarOcupados();
@@ -69,33 +80,59 @@ export default function SelecionarAssento() {
         if (ocupados.includes(codigo)) return;
 
         if (assentosSelecionados.includes(codigo)) {
-            setAssentosSelecionados(assentosSelecionados.filter(a => a !== codigo));
+            setAssentosSelecionados(
+                assentosSelecionados.filter(a => a !== codigo)
+            );
         } else {
-            setAssentosSelecionados([...assentosSelecionados, codigo]);
+            setAssentosSelecionados([
+                ...assentosSelecionados,
+                codigo
+            ]);
         }
     }
 
     async function efetivarReserva() {
-        const idsAssentos = assentosSelecionados.map(codigo => mapaAssentos[codigo]);
+        try {
+            const idsAssentos = assentosSelecionados.map(
+                codigo => mapaAssentos[codigo]
+            );
 
-        const res = await fetch("http://localhost:5000/reservas/", {
-            method: "POST",
-            credentials: "include",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                id_sessao: id,
-                assentos: idsAssentos
-            })
-        });
+            const res = await fetch("http://localhost:5000/reservas/", {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    id_sessao: id,
+                    assentos: idsAssentos
+                })
+            });
 
-        const data = await res.json();
+            const data = await res.json();
 
-        if (!res.ok) {
-            throw new Error(data.error || "Erro ao confirmar reserva.");
+            if (!res.ok) {
+                throw new Error(data.error || "Erro ao confirmar reserva.");
+            }
+
+            const reservaId =
+                data.id_reserva ||
+                data.idReserva ||
+                data.reserva?.id_reserva;
+
+            if (!reservaId) {
+                throw new Error("ID da reserva não encontrado.");
+            }
+
+            setIdReserva(reservaId);
+            setMostrarModalPix(true);
+
+        } catch (err) {
+            console.error(err);
+
+            setMensagem(err.message);
+            setTipoMensagem("error");
         }
-
-        setIdReserva(data.id_reserva);
-        setMostrarModalPix(true);
     }
 
     async function verificarLoginEContinuar() {
@@ -112,7 +149,7 @@ export default function SelecionarAssento() {
                 return;
             }
 
-            abrirModalPix();
+            await efetivarReserva();
 
         } catch (err) {
             console.error(err);
@@ -120,22 +157,23 @@ export default function SelecionarAssento() {
         }
     }
 
-    function abrirModalPix() {
-        if (assentosSelecionados.length < 1) return;
-        setMostrarModalPix(true);
-    }
-
     const totalReserva = sessao
         ? (assentosSelecionados.length * sessao.valor_assento).toFixed(2)
         : "0.00";
 
-    if (!sessao || !sala) return <p>Carregando...</p>;
+    if (!sessao || !sala) {
+        return <p>Carregando...</p>;
+    }
 
-    const letras = Array.from({ length: sala.qtd_fileiras }, (_, i) =>
-        String.fromCharCode(65 + i)
+    const letras = Array.from(
+        { length: sala.qtd_fileiras },
+        (_, i) => String.fromCharCode(65 + i)
     );
-    const numeros = Array.from({ length: sala.qtd_colunas }, (_, i) => i + 1);
 
+    const numeros = Array.from(
+        { length: sala.qtd_colunas },
+        (_, i) => i + 1
+    );
 
     return (
         <main className={css.container}>
@@ -149,14 +187,14 @@ export default function SelecionarAssento() {
             />
 
             {mostrarModalPix && idReserva && (
-            <ModalPix
-                idReserva={idReserva}
-                aoFechar={() => setMostrarModalPix(false)}
-                onErro={(msg) => {
-                    setMensagem(msg);
-                    setTipoMensagem("error");
-                }}
-            />
+                <ModalPix
+                    idReserva={idReserva}
+                    aoFechar={() => setMostrarModalPix(false)}
+                    onErro={(msg) => {
+                        setMensagem(msg);
+                        setTipoMensagem("error");
+                    }}
+                />
             )}
 
             <section className={css.cardFilme}>
@@ -180,8 +218,12 @@ export default function SelecionarAssento() {
 
                             {numeros.map(num => {
                                 const codigo = `${fileira}${num}`;
+
                                 const ocupado = ocupados.includes(codigo);
-                                const selecionado = assentosSelecionados.includes(codigo);
+
+                                const selecionado =
+                                    assentosSelecionados.includes(codigo);
+
                                 return (
                                     <button
                                         key={codigo}
@@ -201,17 +243,29 @@ export default function SelecionarAssento() {
                 </div>
 
                 <div className={css.legenda}>
-                    <div><span className={css.boxOcupado}></span> Ocupado</div>
-                    <div><span className={css.boxDisponivel}></span> Disponível</div>
-                    <div><span className={css.boxSelecionado}></span> Selecionado</div>
+                    <div>
+                        <span className={css.boxOcupado}></span>
+                        Ocupado
+                    </div>
+
+                    <div>
+                        <span className={css.boxDisponivel}></span>
+                        Disponível
+                    </div>
+
+                    <div>
+                        <span className={css.boxSelecionado}></span>
+                        Selecionado
+                    </div>
                 </div>
 
                 <div className={css.total}>
                     Total: R$ {totalReserva}
                 </div>
+
                 <button
                     disabled={assentosSelecionados.length < 1}
-                    onClick={efetivarReserva}
+                    onClick={verificarLoginEContinuar}
                     className="px-2 py-1 rounded fw-semibold"
                 >
                     CONFIRMAR

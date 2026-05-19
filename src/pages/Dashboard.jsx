@@ -105,9 +105,9 @@ export function Dashboard({ usuario, setUsuario }) {
     // Retorna as configurações de texto e cor com base no status solicitado
     const getStatusConfig = (status) => {
         const statusMap = {
-            1: { texto: "Pendente", cor: "#ffc107", textoCor: "#000000" },  // Amarelo
+            3: { texto: "Pendente", cor: "#ffc107", textoCor: "#000000" },  // Amarelo
             2: { texto: "Cancelado", cor: "#dc3545", textoCor: "#ffffff" }, // Vermelho
-            3: { texto: "Confirmado", cor: "#007bff", textoCor: "#ffffff" } // Azul
+            1: { texto: "Confirmado", cor: "#007bff", textoCor: "#ffffff" } // Azul
         };
         return statusMap[status] || { texto: "Desconhecido", cor: "#6c757d", textoCor: "#ffffff" };
     };

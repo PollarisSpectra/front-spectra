@@ -40,7 +40,9 @@ export function Dashboard({ usuario, setUsuario }) {
             fetch("http://localhost:5000/empresa/verificar_empresa")
                 .then((res) => res.json())
                 .then((dados) => {
+                    console.log(dados);
                     if (!dados.tem_empresa) {
+                        console.log(dados);
                         // Redireciona para a tela de cadastro se não houver empresa
                         navigate("/CadastroEmpresa"); 
                     }

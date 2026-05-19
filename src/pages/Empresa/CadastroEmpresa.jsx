@@ -205,7 +205,7 @@ export default function CadastroEmpresa() {
       empresaData.append("rua", form.rua);
       empresaData.append("numero", form.numero);
       empresaData.append("cidade", form.cidade);
-      empresaData.append("chave-pix", form.chave_pix);
+      empresaData.append("chave_pix", form.chave_pix);
       empresaData.append("telefone", form.telefone);
 
       if (imagem) {

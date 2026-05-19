@@ -112,7 +112,7 @@ function App() {
             <Route path="criar" element={<CadastroFilme />} />
           </Route>
 
-          {/* CRUD Sessões */}
+          {/* CRUD Empresa */}
           <Route path="empresa">
             <Route index element={<ListarEmpresa />} />
             <Route path=":id/editar" element={<EditarEmpresa />} />

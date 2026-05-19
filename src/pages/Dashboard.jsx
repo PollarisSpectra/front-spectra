@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardAdm from "./DashboardAdm";
-import css from "../pages/Admin/Filme/ListarFilme/ListarFilme.module.css"; // Reaproveitando a folha de estilos de filmes
+import css from "../pages/Admin/Filme/ListarFilme/ListarFilme.module.css"; 
 import FlashMessage from "../components/FlashMessage/FlashMessage.jsx";
 
 export function Dashboard({ usuario, setUsuario }) {
@@ -15,7 +15,7 @@ export function Dashboard({ usuario, setUsuario }) {
     const [mensagem, setMensagem] = useState("");
     const [tipoMensagem, setTipoMensagem] = useState("");
 
-    // Filtros de busca (Idêntico ao ListarFilme)
+    // Filtros de busca
     const [buscaTexto, setBuscaTexto] = useState("");
     const [filtroTipo, setFiltroTipo] = useState("id_reserva"); 
     const [menuFiltroAtivo, setMenuFiltroAtivo] = useState(false);
@@ -32,7 +32,21 @@ export function Dashboard({ usuario, setUsuario }) {
             return;
         }
 
-        setUsuario(JSON.parse(usuarioSessao));
+        const dadosUsuario = JSON.parse(usuarioSessao);
+        setUsuario(dadosUsuario);
+
+        // INTERCEPTAÇÃO: Se for administrador (tipo === 0), verifica se existe empresa cadastrada
+        if (dadosUsuario?.tipo === 0) {
+            fetch("http://localhost:5000/empresa/verificar_empresa")
+                .then((res) => res.json())
+                .then((dados) => {
+                    if (!dados.tem_empresa) {
+                        // Redireciona para a tela de cadastro se não houver empresa
+                        navigate("/CadastroEmpresa"); 
+                    }
+                })
+                .catch((error) => console.error("Erro ao verificar empresa:", error));
+        }
     }, [navigate, setUsuario]);
 
     const buscarReservas = async (pagina = 1) => {
@@ -102,12 +116,11 @@ export function Dashboard({ usuario, setUsuario }) {
         setReservaAberta(reservaAberta === id ? null : id);
     };
 
-    // Retorna as configurações de texto e cor com base no status solicitado
     const getStatusConfig = (status) => {
         const statusMap = {
-            3: { texto: "Pendente", cor: "#ffc107", textoCor: "#000000" },  // Amarelo
-            2: { texto: "Cancelado", cor: "#dc3545", textoCor: "#ffffff" }, // Vermelho
-            1: { texto: "Confirmado", cor: "#007bff", textoCor: "#ffffff" } // Azul
+            3: { texto: "Pendente", cor: "#ffc107", textoCor: "#000000" },  
+            2: { texto: "Cancelado", cor: "#dc3545", textoCor: "#ffffff" }, 
+            1: { texto: "Confirmado", cor: "#007bff", textoCor: "#ffffff" } 
         };
         return statusMap[status] || { texto: "Desconhecido", cor: "#6c757d", textoCor: "#ffffff" };
     };
@@ -172,7 +185,7 @@ export function Dashboard({ usuario, setUsuario }) {
                 </div>
             </section>
 
-            {/* LISTAGEM DE CARDS COM IMAGEM DO POSTER E CORES DE STATUS */}
+            {/* LISTAGEM DE CARDS */}
             <section className={css.lista}>
                 {carregando ? (
                     <p className={css.mensagem}>Carregando...</p>
@@ -209,7 +222,6 @@ export function Dashboard({ usuario, setUsuario }) {
                                                 <p><strong>Sessão ID:</strong> {reserva.id_sessao}</p>
                                                 <p><strong>Data da Reserva:</strong> {reserva.datareserva ? new Date(reserva.datareserva).toLocaleDateString('pt-BR') : 'N/A'}</p>
                                                 
-                                                {/* Aplicando a estilização dinâmica de cor solicitada */}
                                                 <div 
                                                     className={css.classifBadge} 
                                                     style={{ 

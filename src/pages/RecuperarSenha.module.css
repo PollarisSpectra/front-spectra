@@ -27,7 +27,7 @@
 }
 
 .cardRecuperacao {
-    background-color: var(--COR_CARD);
+    background-color: var(--COR_FORMULARIO);
     width: 100%;
     max-width: 500px;
     padding: 60px 40px;
@@ -120,7 +120,7 @@
 }
 
 .btnPrincipal {
-    background-color: var(--COR_BOTAO);
+    background-color: var(--COR_PRINCIPAL);
     color: var(--COR_TEXTO);
     border: none;
     padding: 15px;

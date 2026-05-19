@@ -26,6 +26,17 @@
     box-sizing: border-box;
 }
 
+.btnVoltar{
+    position: absolute;
+    left: 50px;
+    background: transparent;
+    border: none;
+    color: var(--COR_TEXTO); /* Conectado ao root */
+    font-size: 30px;
+    cursor: pointer;
+    transition: opacity 0.2s ease-in-out;
+}
+
 .titulo {
     color: white;
     font-size: 48px;

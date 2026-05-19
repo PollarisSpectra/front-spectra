@@ -1,15 +1,45 @@
-import React from "react";
-import { Film, Ticket, CircleDollarSign, Settings, Search } from 'lucide-react';
+import React, { useEffect, useState } from "react";
+import {
+    Film,
+    Ticket,
+    CircleDollarSign,
+    Settings,
+    Search,
+    SquarePen
+} from 'lucide-react';
 import css from './DashboardAdm.module.css';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function DashboardAdm() {
+    const [idEmpresa, setIdEmpresa] = useState(null);
+
+    useEffect(() => {
+        async function buscarEmpresa() {
+            try {
+                const resposta = await fetch(
+                    "http://localhost:5000/empresa/verificar_empresa"
+                );
+
+                const dados = await resposta.json();
+
+                if (dados.tem_empresa) {
+                    setIdEmpresa(dados.id_empresa);
+                }
+
+            } catch (error) {
+                console.log("Erro ao buscar empresa:", error);
+            }
+        }
+
+        buscarEmpresa();
+    }, []);
+
     const registros = [
         { nome: "SESSÕES", rota: "/app/sessoes" },
         { nome: "CLIENTES" },
         { nome: "FILMES", rota: "/app/filmes" },
         { nome: "SALAS", rota: "/app/salas" },
-        { nome: "EMPRESA", rota: "/ListarEmpresa" },
+        { nome: "EMPRESA", rota: idEmpresa ? `/app/editar_empresa/${idEmpresa}` : "#" },
         { nome: "PROMOÇÕES" },
         { nome: "BANNER" },
     ];
@@ -38,13 +68,27 @@ export default function DashboardAdm() {
 
             <header className={css.dashboardHeader}>
                 <div></div>
+
                 <div className={css.tituloArea}>
                     <h1>DASHBOARD</h1>
                     <h2>ADMINISTRADOR</h2>
                 </div>
-                <button className={css.iconButton}>
-                    <Settings size={16} />
-                </button>
+
+                <div className="d-flex gap-2">
+                    <button className={css.iconButton}>
+                        <Settings size={16} />
+                    </button>
+
+                    {idEmpresa && (
+                        <Link
+                            to={`/app/editar_empresa/${idEmpresa}`}
+                            className={css.iconButton}
+                            title="Editar empresa"
+                        >
+                            <SquarePen size={16} />
+                        </Link>
+                    )}
+                </div>
             </header>
 
             <section className={css.section}>
@@ -80,7 +124,11 @@ export default function DashboardAdm() {
 
                 <div className={css.registrosLista}>
                     {registros.map((item, index) => (
-                        <Link to={item.rota} className={css.registroItem} key={index}>
+                        <Link
+                            to={item.rota || "#"}
+                            className={css.registroItem}
+                            key={index}
+                        >
                             <span>{item.nome}</span>
 
                             <button className={css.searchBtn}>
@@ -98,7 +146,10 @@ export default function DashboardAdm() {
                     {relatorios.map((item, index) => (
                         <div className={css.relatorioCard} key={index}>
                             <p>{item.titulo}</p>
-                            <button className={css.relatorioBtn}>{item.icon}</button>
+
+                            <button className={css.relatorioBtn}>
+                                {item.icon}
+                            </button>
                         </div>
                     ))}
                 </div>
@@ -130,11 +181,17 @@ export default function DashboardAdm() {
 
                             <div className={css.barras}>
                                 {grafico.map((item, index) => (
-                                    <div className={css.barraItem} key={index}>
+                                    <div
+                                        className={css.barraItem}
+                                        key={index}
+                                    >
                                         <div
                                             className={css.barra}
-                                            style={{ height: `${(item.valor / valorMaximo) * 220}px` }}
+                                            style={{
+                                                height: `${(item.valor / valorMaximo) * 220}px`
+                                            }}
                                         ></div>
+
                                         <span>{item.dia}</span>
                                     </div>
                                 ))}
@@ -142,7 +199,9 @@ export default function DashboardAdm() {
                         </div>
                     </div>
 
-                    <div className={css.labelVertical}>Total de público</div>
+                    <div className={css.labelVertical}>
+                        Total de público
+                    </div>
                 </div>
             </section>
         </div>

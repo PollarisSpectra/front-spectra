@@ -24,7 +24,7 @@ import SelecionarAssento from "./pages/Reserva/SelecionarAssento.jsx";
 import ModalFilme from "./components/ModalFilme/ModalFilme.jsx";
 import ResumoReserva from "./pages/Reserva/ResumoReserva.jsx";
 import CadastroEmpresa from "./pages/Empresa/CadastroEmpresa.jsx";
-import EditarEmpesa from "./pages/Empresa/EditarEmpresa.jsx";
+import EditarEmpresa from "./pages/Empresa/EditarEmpresa.jsx";
 import ListarEmpresa from "./pages/Empresa/ListarEmpresa.jsx";
 import VariaveisCores from "./pages/VariaveisCores/VariaveisCores";
 import ReservaUsuario from "./pages/Reserva/ReservaUsuario.jsx";
@@ -83,7 +83,6 @@ function App() {
         <Route path="/sessao/:id/assentos" element={<SelecionarAssento />} />
         <Route path="/resumoReserva" element={<ResumoReserva />} />
         <Route path="/CadastroEmpresa" element={<CadastroEmpresa />} />
-        <Route path="/EditarEmpresa" element={<EditarEmpesa />} />
         <Route path="/ListarEmpresa" element={<ListarEmpresa />} />
         <Route path="/VariaveisCores" element={<VariaveisCores />} />
         <Route path="/ReservaUsuario" element={<ReservaUsuario />} />
@@ -91,7 +90,7 @@ function App() {
         {/* Rotas Administrativas - Protegidas por AdminLayout */}
         <Route path="/app" element={<AdminLayout />}>
           <Route index element={<DashboardAdm />} />
-
+          <Route path="/app/editar_empresa/:id" element={<EditarEmpresa />} />
           {/* CRUD Sessões */}
           <Route path="sessoes">
             <Route index element={<ListarSessao />} />
@@ -116,10 +115,12 @@ function App() {
           {/* CRUD Sessões */}
           <Route path="empresa">
             <Route index element={<ListarEmpresa />} />
-            <Route path=":id/editar" element={<EditarEmpesa />} />
+            <Route path=":id/editar" element={<EditarEmpresa />} />
             <Route path="criar" element={<CadastroEmpresa />} />
           </Route>
+
         </Route>
+
 
         <Route path="*" element={<NotFound />} />
       </Routes>

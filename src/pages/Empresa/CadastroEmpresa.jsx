@@ -205,6 +205,7 @@ export default function CadastroEmpresa() {
       empresaData.append("rua", form.rua);
       empresaData.append("numero", form.numero);
       empresaData.append("cidade", form.cidade);
+      empresaData.append("chave-pix", form.chave_pix);
       empresaData.append("telefone", form.telefone);
 
       if (imagem) {
@@ -388,6 +389,14 @@ export default function CadastroEmpresa() {
                 />
               </div>
 
+            </div>
+            <div className={css.grupo}>
+             <label> Chave Pix</label>
+            <input
+                name="chave_pix"
+                value={form.chave_pix}
+                onChange={handleChange}
+            />
             </div>
 
             <div className={css.grupo}>

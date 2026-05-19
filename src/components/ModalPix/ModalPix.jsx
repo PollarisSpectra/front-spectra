@@ -5,7 +5,6 @@ import estilo from './ModalPix.module.css';
 export default function ModalPix({
     idReserva,
     aoFechar,
-    aoConfirmarPagamento,
     onErro
 }) {
     const [confirmando, setConfirmando] = useState(false);
@@ -27,23 +26,17 @@ export default function ModalPix({
                 );
 
                 const data = await res.json();
-                console.log("QR CODE:", data);
 
                 if (!res.ok) {
-                    throw new Error(
-                        data.error || "Erro ao gerar QR Code"
-                    );
+                    throw new Error(data.error || "Erro ao gerar QR Code");
                 }
-                setQrCodeUrl(
-                    `data:image/png;base64,${data.qrcode}`
-                );
+
+                setQrCodeUrl(`data:image/png;base64,${data.qrcode}`);
                 setPayload(data.payload);
                 setValor(data.valor);
             } catch (err) {
                 console.error("Erro ao gerar QR Code:", err);
-                onErro?.(
-                    err.message || "Erro ao gerar QR Code"
-                );
+                onErro?.(err.message || "Erro ao gerar QR Code");
             } finally {
                 setCarregandoQr(false);
             }
@@ -52,15 +45,25 @@ export default function ModalPix({
         if (idReserva) {
             buscarQrCode();
         }
-
     }, [idReserva]);
 
     async function handleConfirmar() {
         setConfirmando(true);
         try {
-            if (aoConfirmarPagamento) {
-                await aoConfirmarPagamento();
+            const res = await fetch(
+                `http://localhost:5000/reservas/pagamento/${idReserva}`,
+                {
+                    method: "POST",
+                    credentials: "include"
+                }
+            );
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw new Error(data.error || "Erro ao confirmar pagamento.");
             }
+
             setTimeout(() => {
                 aoFechar();
                 navigate('/dashboard');
@@ -68,11 +71,7 @@ export default function ModalPix({
         } catch (err) {
             console.error(err);
             setConfirmando(false);
-            aoFechar();
-            onErro?.(
-                err.message ||
-                "Erro ao confirmar reserva. Tente novamente."
-            );
+            onErro?.(err.message || "Erro ao confirmar reserva. Tente novamente.");
         }
     }
 
@@ -90,12 +89,7 @@ export default function ModalPix({
                     <div className={estilo.pixContent}>
                         <div className={estilo.qrCode}>
                             {carregandoQr ? (
-                                <p
-                                    style={{
-                                        color: "white",
-                                        textAlign: "center"
-                                    }}
-                                >
+                                <p style={{ color: "white", textAlign: "center" }}>
                                     Gerando QR Code...
                                 </p>
                             ) : qrCodeUrl ? (
@@ -105,12 +99,7 @@ export default function ModalPix({
                                     className="col-8 rounded-4"
                                 />
                             ) : (
-                                <p
-                                    style={{
-                                        color: "white",
-                                        textAlign: "center"
-                                    }}
-                                >
+                                <p style={{ color: "white", textAlign: "center" }}>
                                     Erro ao gerar QR Code
                                 </p>
                             )}
@@ -122,16 +111,9 @@ export default function ModalPix({
                                 </span>
                                 <div className="d-flex flex-column gap-2">
                                     <span
-                                        className={
-                                            estilo.pixChave + " rounded-3"
-                                        }
-                                        style={{
-                                            cursor: "pointer",
-                                            wordBreak: "break-all"
-                                        }}
-                                        onClick={() =>
-                                            navigator.clipboard.writeText(payload)
-                                        }
+                                        className={estilo.pixChave + " rounded-3"}
+                                        style={{ cursor: "pointer", wordBreak: "break-all" }}
+                                        onClick={() => navigator.clipboard.writeText(payload)}
                                         title="Clique para copiar"
                                     >
                                         {payload}
@@ -140,15 +122,12 @@ export default function ModalPix({
                                         onClick={() => {
                                             navigator.clipboard.writeText(payload);
                                             setTextoCopiar("Copiado!");
-                                            setTimeout(() => {
-                                                setTextoCopiar("Copiar");
-                                            }, 500);
+                                            setTimeout(() => setTextoCopiar("Copiar"), 500);
                                         }}
                                         className="rounded-3 px-2 fw-semibold"
                                     >
                                         {textoCopiar}
                                     </button>
-
                                 </div>
                             </div>
                         )}
@@ -164,9 +143,7 @@ export default function ModalPix({
                             onClick={handleConfirmar}
                             disabled={confirmando}
                         >
-                            {confirmando
-                                ? 'Confirmando...'
-                                : 'Confirmar Pagamento'}
+                            {confirmando ? 'Confirmando...' : 'Confirmar Pagamento'}
                         </button>
                         <button
                             className={`${estilo.btnBase}`}

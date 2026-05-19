@@ -93,97 +93,42 @@
     justify-content: center;
     z-index: 999;
 }
-
 .modalCard {
     width: 420px;
     max-width: 90%;
+    max-height: 90vh;
+
     background: var(--COR_MODAL);
     color: var(--COR_TEXTO);
+
     border-radius: 10px;
     padding: 28px;
+
     position: relative;
     text-align: center;
+
     box-shadow: 0 0 20px rgba(0,0,0,0.5);
-}
 
-.fecharModal {
-    position: absolute;
-    top: 12px;
-    right: 14px;
-    background: none;
-    border: none;
-    color: var(--COR_BOTAO);
-    font-size: 30px;
-    cursor: pointer;
-    line-height: 1;
-}
-
-.modalImagemArea {
-    position: relative;
-    width: 100%;
-    height: 180px;
-    margin-bottom: 18px;
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.modalImagem {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.modalClassificacao {
-    position: absolute;
-    right: 8px;
-    bottom: 8px;
-    background: #f1d600; /* Destaque amarelo para classificação preservado */
-    color: var(--COR_TEXTO_FORMULARIO); /* Preto para contraste */
-    font-weight: 700;
-    font-size: 13px;
-    padding: 3px 6px;
-    border-radius: 3px;
-}
-
-.modalTitulo {
-    font-size: 22px;
-    margin: 10px 0 18px;
-    text-align: left;
-    color: var(--COR_TEXTO);
-}
-
-.infoLinha {
-    display: flex;
-    justify-content: space-around;
-    gap: 30px;
-    margin-bottom: 20px;
-}
-
-.infoLinha strong {
-    font-size: 15px;
-    color: var(--COR_TEXTO);
-}
-
-.infoLinha p {
-    margin-top: 5px;
-    font-size: 14px;
-    color: #ccc; /* Tom suave para informação secundária */
-}
-
-.subtituloModal {
-    font-size: 17px;
-    margin: 18px 0 8px;
-    text-align: left;
-}
-
-.sinopse {
-    font-size: 13px;
-    line-height: 1.4;
-    color: #ddd;
-    max-height: 90px;
     overflow-y: auto;
-    text-align: left;
-    padding-right: 5px;
+    overflow-x: hidden;
+
+    scrollbar-width: thin;
+    scrollbar-color: var(--COR_PRINCIPAL) transparent;
+
+    cursor: grab;
+}
+
+.modalCard:active {
+    cursor: grabbing;
+}
+
+.modalCard::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modalCard::-webkit-scrollbar-thumb {
+    background: var(--COR_PRINCIPAL);
+    border-radius: 10px;
 }
 
 /* Scrollbar customizada para a sinopse */
@@ -294,4 +239,87 @@
         font-size: 11px;
         height: 32px;
     }
+}
+
+
+.fecharModal {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 50%;
+
+    color: var(--COR_TEXTO);
+    font-size: 22px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+    z-index: 10;
+}
+
+.fecharModal:hover {
+    background: var(--COR_PRINCIPAL);
+    color: #fff;
+
+    transform: scale(1.08);
+}
+
+.fecharModal:active {
+    transform: scale(0.96);
+}
+
+
+.modalImagemArea {
+    position: relative;
+    width: 100%;
+    height: 220px;
+
+    margin-bottom: 18px;
+
+    border-radius: 12px;
+    overflow: hidden;
+
+    background: #111;
+}
+.modalImagem {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    display: block;
+
+    background: #111;
+}
+
+.modalClassificacao {
+    position: absolute;
+
+    top: 12px;
+    right: 12px;
+
+    padding: 6px 12px;
+
+    background: #f1d600;
+    color: #000;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    border-radius: 8px;
+
+    z-index: 5;
+
+    box-shadow: 0 4px 10px rgba(0,0,0,0.35);
 }

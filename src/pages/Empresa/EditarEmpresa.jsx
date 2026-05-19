@@ -15,6 +15,7 @@ export default function EditarEmpresa() {
         chave_pix: "",
         cor: "",
         telefone: ""
+
     });
 
     useEffect(() => {

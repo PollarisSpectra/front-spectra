@@ -291,9 +291,21 @@ export default function EditarEmpresa() {
                             type="text"
                             name="cnpj"
                             value={empresa.cnpj}
-                            onChange={alterarInput}
+                            onChange={(e) =>
+                                alterarInput({
+                                    target: {
+                                        name: "cnpj",
+                                        value: e.target.value
+                                            .replace(/\D/g, "")
+                                            .slice(0, 14),
+                                    },
+                                })
+                            }
                         />
                     </div>
+
+           
+
 
                     <div className={styles.inputGroup}>
                         <label>TELEFONE</label>

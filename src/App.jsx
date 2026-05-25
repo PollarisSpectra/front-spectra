@@ -30,6 +30,9 @@ import VariaveisCores from "./pages/VariaveisCores/VariaveisCores";
 import ReservaUsuario from "./pages/Reserva/ReservaUsuario.jsx";
 import CadastroBanner from "./pages/CadastroBanner/CadastroBanner.jsx";
 import EditarBanner from "./pages/CadastroBanner/EditarBanner.jsx";
+import ListarBanner from "./pages/CadastroBanner/ListarBanner.jsx";
+
+
 
 function App() {
   const [usuario, setUsuario] = useState(() => {
@@ -89,7 +92,8 @@ function App() {
         <Route path="/VariaveisCores" element={<VariaveisCores />} />
         <Route path="/ReservaUsuario" element={<ReservaUsuario />} />
         <Route path="/CadastroBanner" element={<CadastroBanner />} />
-        <Route path="/EditarBanner" element={<EditarBanner />} />
+        <Route path="/EditarBanner/:id" element={<EditarBanner />} />
+        <Route path="/ListarBanner" element={<ListarBanner />} />
 
 
         {/* Rotas Administrativas - Protegidas por AdminLayout */}
@@ -125,6 +129,12 @@ function App() {
           </Route>
 
         </Route>
+
+
+        {/* CRUD banner */}
+        <Route path="/banner/cadastro" element={<CadastroBanner />}/>
+        <Route path="/banner/editar/:id" element={<EditarBanner />}/>
+        <Route path="/banners" element={<ListarBanner />}/>
 
 
         <Route path="*" element={<NotFound />} />

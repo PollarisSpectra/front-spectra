@@ -13,26 +13,88 @@ import { Link } from "react-router-dom";
 export default function DashboardAdm() {
     const [idEmpresa, setIdEmpresa] = useState(null);
 
+    // DASHBOARD
+    const [totalFilmes, setTotalFilmes] = useState(0);
+    const [totalUsuarios, setTotalUsuarios] = useState(0);
+    const [totalSessoes, setTotalSessoes] = useState(0);
+    const [totalIngressos, setTotalIngressos] = useState(0);
     useEffect(() => {
-        async function buscarEmpresa() {
-            try {
-                const resposta = await fetch(
-                    "http://localhost:5000/empresa/verificar_empresa"
-                );
-
-                const dados = await resposta.json();
-
-                if (dados.tem_empresa) {
-                    setIdEmpresa(dados.id_empresa);
-                }
-
-            } catch (error) {
-                console.log("Erro ao buscar empresa:", error);
-            }
-        }
 
         buscarEmpresa();
+        buscarDashboard();
+
     }, []);
+
+    async function buscarEmpresa() {
+
+        try {
+
+            const resposta = await fetch(
+                "http://localhost:5000/empresa/verificar_empresa"
+            );
+
+            const dados = await resposta.json();
+
+            if (dados.tem_empresa) {
+                setIdEmpresa(dados.id_empresa);
+            }
+
+        } catch (error) {
+
+            console.log("Erro ao buscar empresa:", error);
+
+        }
+    }
+
+    async function buscarDashboard() {
+
+        try {
+
+            // FILMES
+            const resFilmes = await fetch(
+                "http://localhost:5000/filmes/total_cartaz"
+            );
+
+            const dadosFilmes = await resFilmes.json();
+
+            setTotalFilmes(dadosFilmes.total);
+
+
+            // USUÁRIOS
+            const resUsuarios = await fetch(
+                "http://localhost:5000/usuarios/total"
+            );
+
+            const dadosUsuarios = await resUsuarios.json();
+
+            setTotalUsuarios(dadosUsuarios.total);
+
+
+            // SESSÕES
+            const resSessoes = await fetch(
+                "http://localhost:5000/sessao/total_ativas"
+            );
+
+            const dadosSessoes = await resSessoes.json();
+
+            setTotalSessoes(dadosSessoes.total);
+
+
+            // INGRESSOS
+            const resIngressos = await fetch(
+                "http://localhost:5000/reservas/total_ingressos"
+            );
+
+            const dadosIngressos = await resIngressos.json();
+
+            setTotalIngressos(dadosIngressos.total);
+
+        } catch (error) {
+
+            console.log("Erro dashboard:", error);
+
+        }
+    }
 
     const registros = [
         { nome: "SESSÕES", rota: "/app/sessoes" },
@@ -40,8 +102,7 @@ export default function DashboardAdm() {
         { nome: "FILMES", rota: "/app/filmes" },
         { nome: "SALAS", rota: "/app/salas" },
         { nome: "EMPRESA", rota: idEmpresa ? `/app/editar_empresa/${idEmpresa}` : "#" },
-        { nome: "PROMOÇÕES" },
-        { nome: "BANNER" },
+        { nome: "BANNER"},
     ];
 
     const relatorios = [
@@ -99,28 +160,30 @@ export default function DashboardAdm() {
                 <div className={css.statsGrid}>
                     <div className={css.statCard}>
                         <p>FILMES NO CARTAZ</p>
-                        <strong>8</strong>
+                        <strong>{totalFilmes}</strong>
                     </div>
 
                     <div className={css.statCard}>
                         <p>INGRESSOS VENDIDOS</p>
-                        <strong>24</strong>
+                        <strong>{totalIngressos}</strong>
                     </div>
 
                     <div className={css.statCard}>
                         <p>SESSÕES ATIVAS</p>
-                        <strong>4</strong>
+                        <strong>{totalSessoes}</strong>
                     </div>
 
                     <div className={css.statCard}>
                         <p>TOTAL DE CLIENTES</p>
-                        <strong>24</strong>
+                        <strong>{totalUsuarios}</strong>
                     </div>
                 </div>
             </section>
 
             <section className={css.section}>
-                <h3 className={css.sectionTitle}>REGISTROS GERAIS</h3>
+                <h3 className={css.sectionTitle}>
+                    REGISTROS GERAIS
+                </h3>
 
                 <div className={css.registrosLista}>
                     {registros.map((item, index) => (
@@ -140,7 +203,9 @@ export default function DashboardAdm() {
             </section>
 
             <section className={css.section}>
-                <h3 className={css.sectionTitle}>RELATÓRIOS</h3>
+                <h3 className={css.sectionTitle}>
+                    RELATÓRIOS
+                </h3>
 
                 <div className={css.relatoriosGrid}>
                     {relatorios.map((item, index) => (
@@ -156,7 +221,9 @@ export default function DashboardAdm() {
             </section>
 
             <section className={css.section}>
-                <h3 className={css.sectionTitle}>GRÁFICO</h3>
+                <h3 className={css.sectionTitle}>
+                    GRÁFICO
+                </h3>
 
                 <div className={css.graficoBox}>
                     <h4>Fluxo de Público Diário</h4>

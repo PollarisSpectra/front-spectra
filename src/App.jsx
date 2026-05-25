@@ -135,6 +135,7 @@ function App() {
         <Route path="/banner/cadastro" element={<CadastroBanner />}/>
         <Route path="/banner/editar/:id" element={<EditarBanner />}/>
         <Route path="/banners" element={<ListarBanner />}/>
+        <Route path="/app/banners" element={<ListarBanner />} />
 
 
         <Route path="*" element={<NotFound />} />

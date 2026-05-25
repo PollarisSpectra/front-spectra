@@ -102,7 +102,7 @@ export default function DashboardAdm() {
         { nome: "FILMES", rota: "/app/filmes" },
         { nome: "SALAS", rota: "/app/salas" },
         { nome: "EMPRESA", rota: idEmpresa ? `/app/editar_empresa/${idEmpresa}` : "#" },
-        { nome: "BANNER"},
+        { nome: "BANNER", rota: "/app/banners" },
     ];
 
     const relatorios = [

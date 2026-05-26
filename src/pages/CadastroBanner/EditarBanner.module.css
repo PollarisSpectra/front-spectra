@@ -169,3 +169,98 @@
     font-size: 12px;
     font-weight: bold;
 }
+
+
+/* =========================
+   RESPONSIVO 320px
+========================= */
+@media (max-width: 320px) {
+
+    .container-banner {
+        flex-direction: column;
+        padding: 12px;
+        gap: 20px;
+        min-height: auto;
+    }
+
+    /* FORM */
+    .card-banner {
+        width: 100%;
+        padding: 15px;
+        border-radius: 14px;
+        gap: 12px;
+    }
+
+    .card-banner h1 {
+        font-size: 15px;
+        margin-bottom: 5px;
+    }
+
+    /* IMAGEM */
+    .upload-imagem {
+        height: 90px;
+    }
+
+    .upload-imagem span {
+        font-size: 12px;
+        text-align: center;
+    }
+
+    /* CAMPOS */
+    .campo label {
+        font-size: 12px;
+    }
+
+    .campo input {
+        font-size: 12px;
+        padding: 6px 0;
+    }
+
+    /* CHECKBOX */
+    .campo-checkbox {
+        gap: 8px;
+        padding-bottom: 6px;
+    }
+
+    .campo-checkbox label {
+        font-size: 12px;
+    }
+
+    /* BOTÕES */
+    .botoes {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .botoes button {
+        width: 100%;
+        height: 36px;
+        font-size: 10px;
+    }
+
+    /* PREVIEW */
+    .preview-banner {
+        width: 100%;
+        height: 220px;
+        border-radius: 14px;
+    }
+
+    .preview-conteudo {
+        padding: 15px;
+    }
+
+    .preview-conteudo h3 {
+        font-size: 18px;
+        margin-bottom: 6px;
+    }
+
+    .preview-conteudo p {
+        font-size: 12px;
+        margin-bottom: 10px;
+    }
+
+    .preview-conteudo span {
+        font-size: 10px;
+        padding: 5px 10px;
+    }
+}

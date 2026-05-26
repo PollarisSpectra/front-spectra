@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import css from './DashboardAdm.module.css';
 import { Link } from "react-router-dom";
+import Grafico from "../components/Grafico/Grafico";
 
 export default function DashboardAdm() {
     const [idEmpresa, setIdEmpresa] = useState(null);
@@ -224,52 +225,7 @@ export default function DashboardAdm() {
                 <h3 className={css.sectionTitle}>
                     GRÁFICO
                 </h3>
-
-                <div className={css.graficoBox}>
-                    <h4>Fluxo de Público Diário</h4>
-
-                    <div className={css.graficoArea}>
-                        <div className={css.eixoY}>
-                            <span>200</span>
-                            <span>100</span>
-                            <span>50</span>
-                            <span>30</span>
-                            <span>10</span>
-                        </div>
-
-                        <div className={css.graficoConteudo}>
-                            <div className={css.linhasHorizontais}>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                            </div>
-
-                            <div className={css.barras}>
-                                {grafico.map((item, index) => (
-                                    <div
-                                        className={css.barraItem}
-                                        key={index}
-                                    >
-                                        <div
-                                            className={css.barra}
-                                            style={{
-                                                height: `${(item.valor / valorMaximo) * 220}px`
-                                            }}
-                                        ></div>
-
-                                        <span>{item.dia}</span>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className={css.labelVertical}>
-                        Total de público
-                    </div>
-                </div>
+                <Grafico />
             </section>
         </div>
     );

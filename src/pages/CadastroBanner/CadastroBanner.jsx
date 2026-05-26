@@ -248,7 +248,7 @@ export default function CadastroBanner() {
                     <p>
 
                         {texto ||
-                            "Texto do banner aparecendo em tempo real..."}
+                            "Subtítulo..."}
 
                     </p>
 

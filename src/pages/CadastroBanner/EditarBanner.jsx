@@ -25,28 +25,46 @@ export default function EditarBanner() {
         try {
 
             const response = await fetch(
-                `http://localhost:5000/banner/${id}`
+                `http://localhost:5000/banner/${id}`,
+                {
+                    credentials: "include",
+                }
             );
 
             const data = await response.json();
 
             console.log(data);
 
-            setTitulo(data.titulo || "");
-
-            setTexto(data.texto || "");
-
-            setAtivo(
-                data.situacao === "1"
+            // TÍTULO
+            setTitulo(
+                data.titulo || ""
             );
 
+            // TEXTO
+            setTexto(
+                data.texto || ""
+            );
+
+            // SITUAÇÃO
+            setAtivo(
+                data.situacao == 1
+            );
+
+            // IMAGEM
             if (data.imagem) {
-                setPreview(`http://localhost:5000/${data.imagem}`);
+
+                setPreview(
+                    `http://localhost:5000/${data.imagem}`
+                );
+
             }
 
         } catch (error) {
 
-            console.log(error);
+            console.log(
+                "Erro ao buscar banner:",
+                error
+            );
 
         }
     }

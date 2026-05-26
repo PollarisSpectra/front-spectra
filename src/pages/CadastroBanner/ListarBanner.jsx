@@ -129,10 +129,6 @@ export default function ListarBanner() {
                                 {/* BOTÕES */}
                                 <div className={css["banner-botoes"]}>
 
-                                    <button>
-                                        APLICAR
-                                    </button>
-
                                     <button
                                         onClick={() =>
                                             navigate(

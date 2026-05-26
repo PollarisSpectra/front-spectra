@@ -57,10 +57,9 @@ export default function EditarSessao() {
                 })));
             }
 
-            if (resSessoes.ok) {
-                const sessaoEncontrada = dadosSessoes.sessao.find(
-                    item => item.id_sessao == id
-                );
+            const sessaoEncontrada = dadosSessoes.find(
+                item => item.id_sessao == id
+            );
 
                 if (sessaoEncontrada) {
 
@@ -75,7 +74,7 @@ export default function EditarSessao() {
                 }
             }
 
-        } catch (error) {
+        catch (error) {
             setMensagem("Erro ao carregar dados.");
             setTipoMensagem("erro");
         }

@@ -25,7 +25,7 @@ export default function Home() {
             const resFilmes = await fetch("http://localhost:5000/filmes/filme?page_size=30");
             const dadosFilmes = await resFilmes.json();
 
-            const resSessoes = await fetch("http://localhost:5000/sessao/listar_sessao");
+            const resSessoes = await fetch("http://localhost:5000/sessao/listar_sessao_home");
             const dadosSessoes = await resSessoes.json();
 
             setFilmes(dadosFilmes.filmes || []);

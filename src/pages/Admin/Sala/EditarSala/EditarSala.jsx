@@ -116,7 +116,7 @@ export default function EditarSala() {
             if (response.ok) {
                 setMessage({ text: data.message || "Sala editada com sucesso!", type: "success" });
             } else {
-                setMessage({ text: data.error || "Erro ao editar sala", type: "error" });
+                setMessage({ text: data.error || "Não é possível editar sala com sessões cadastradas. ", type: "error" });
             }
 
         } catch (error) {

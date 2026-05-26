@@ -54,7 +54,8 @@ export default function EditarBanner() {
             if (data.imagem) {
 
                 setPreview(
-                    `http://localhost:5000/${data.imagem}`
+                    `http://localhost:5000/banner/imagem_banner/${id_banner}.jpg`
+
                 );
 
             }

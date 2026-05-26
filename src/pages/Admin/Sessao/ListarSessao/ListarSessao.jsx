@@ -44,7 +44,7 @@ export default function ListarSessao() {
             const data = await response.json();
 
             if (response.ok) {
-                setSessoes(data.sessao);
+                setSessoes(data);
             } else {
                 setSessoes([]);
                 if (buscaTexto) {

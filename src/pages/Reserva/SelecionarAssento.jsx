@@ -22,7 +22,7 @@ export default function SelecionarAssento() {
     useEffect(() => {
         async function buscarSessao() {
             try {
-                const res = await fetch(`http://localhost:5000/sessao/listar_sessao?id_sessao=${id}`);
+                const res = await fetch(`http://localhost:5000/sessao/listar_sessao_home?id_sessao=${id}`);
                 const data = await res.json();
 
                 const idSala = data?.sessao[0].id_sala;

@@ -44,6 +44,7 @@ export default function ListarBanner() {
         }
     }
 
+
     return (
 
         <div className={css["container-banner"]}>
@@ -99,7 +100,7 @@ export default function ListarBanner() {
                                 <div className={css["banner-imagem"]}>
 
                                     <img
-                                        src={`http://localhost:5000/uploads/Banner/${banner.id_banner}.jpg`}
+                                        src={`http://localhost:5000/banner/imagem_banner/${banner.id_banner}.jpg`}
                                         alt="banner"
                                     />
 

@@ -116,8 +116,10 @@
     background: #ff1e2d;
 }
 
-.excluir {
+
+.botoes button.excluir {
     background: black !important;
+    color: white;
 }
 
 /* PREVIEW */

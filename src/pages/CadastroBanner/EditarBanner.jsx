@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import css from "./CadastroBanner.module.css";
 import ModalDecisao from "../../components/ModalDecisao/ModalDecisao";
+import FlashMessage from "../../components/FlashMessage/FlashMessage";
 
 export default function EditarBanner() {
 
@@ -13,6 +14,8 @@ export default function EditarBanner() {
     const [imagem, setImagem] = useState(null);
     const [preview, setPreview] = useState("");
     const [modalExcluir, setModalExcluir] = useState(false);
+    const [mensagem, setMensagem] = useState("");
+    const [tipo, setTipo] = useState("");
 
     useEffect(() => {
 
@@ -128,9 +131,27 @@ export default function EditarBanner() {
 
             const data = await response.json();
 
-            alert(data.message);
+            if (response.ok) {
 
-            navigate("/banners");
+                setMensagem(
+                    data.message || "Banner editado com sucesso!"
+                );
+
+                setTipo("sucesso");
+
+                setTimeout(() => {
+                    navigate("/banners");
+                }, 1500);
+
+            } else {
+
+                setMensagem(
+                    data.error || "Erro ao editar banner"
+                );
+
+                setTipo("erro");
+            }
+
 
         } catch (error) {
 
@@ -154,9 +175,26 @@ export default function EditarBanner() {
 
             const data = await response.json();
 
-            alert(data.message);
+            if (response.ok) {
 
-            navigate("/banners");
+                setMensagem(
+                    data.message || "Banner excluído com sucesso!"
+                );
+
+                setTipo("sucesso");
+
+                setTimeout(() => {
+                    navigate("/banners");
+                }, 1500);
+
+            } else {
+
+                setMensagem(
+                    data.error || "Erro ao excluir banner"
+                );
+
+                setTipo("erro");
+            }
 
         } catch (error) {
 
@@ -168,6 +206,16 @@ export default function EditarBanner() {
     return (
 
         <div className={css["container-banner"]}>
+
+            <FlashMessage
+                mensagem={mensagem}
+                tipo={tipo}
+                onClose={() => {
+                    setMensagem("");
+                    setTipo("");
+                }}
+            />
+
 
             {/* FORMULÁRIO */}
             <form
@@ -243,22 +291,6 @@ export default function EditarBanner() {
 
                 </div>
 
-                {/* CHECKBOX */}
-                <div className={css["campo-checkbox"]}>
-
-                    <label>
-                        Ativo
-                    </label>
-
-                    <input
-                        type="checkbox"
-                        checked={ativo}
-                        onChange={() =>
-                            setAtivo(!ativo)
-                        }
-                    />
-
-                </div>
 
                 {/* BOTÕES */}
                 <div className={css["botoes"]}>
@@ -270,9 +302,7 @@ export default function EditarBanner() {
                     <button
                         type="button"
                         className={css["excluir"]}
-                        onClick={() =>
-                            setModalExcluir(true)
-                        }
+                        onClick={() => setModalExcluir(true)}
                     >
                         EXCLUIR
                     </button>
@@ -312,19 +342,6 @@ export default function EditarBanner() {
 
                         </p>
 
-                        <span
-                            className={
-                                ativo
-                                    ? css["ativo"]
-                                    : css["inativo"]
-                            }
-                        >
-
-                            {ativo
-                                ? "ATIVO"
-                                : "INATIVO"}
-
-                        </span>
 
                     </div>
 

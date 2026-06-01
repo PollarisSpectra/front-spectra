@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import css from "./CadastroBanner.module.css";
+import FlashMessage from "../../components/FlashMessage/FlashMessage";
 
 export default function CadastroBanner() {
 
@@ -11,6 +12,9 @@ export default function CadastroBanner() {
     const [ativo, setAtivo] = useState(true);
     const [imagem, setImagem] = useState(null);
     const [preview, setPreview] = useState("");
+
+    const [mensagem, setMensagem] = useState("");
+    const [tipo, setTipo] = useState("");
 
     const handleImagem = (e) => {
 
@@ -70,29 +74,51 @@ export default function CadastroBanner() {
 
             console.log(data);
 
-            alert(
-                data.message || data.error
-            );
-
             if (response.ok) {
 
-                navigate("/banners");
+                setMensagem(
+                    data.message || "Banner cadastrado com sucesso!"
+                );
 
+                setTipo("sucesso");
+
+                setTimeout(() => {
+                    navigate("/banners");
+                }, 1500);
+
+            } else {
+
+                setMensagem(
+                    data.error || "Erro ao cadastrar banner"
+                );
+
+                setTipo("erro");
             }
 
         } catch (error) {
 
             console.log(error);
 
-            alert(
-                "Erro ao cadastrar banner"
+            setMensagem(
+                "Erro ao conectar com o servidor"
             );
+
+            setTipo("erro");
         }
     };
 
     return (
 
         <div className={css["container-banner"]}>
+
+            <FlashMessage
+                mensagem={mensagem}
+                tipo={tipo}
+                onClose={() => {
+                    setMensagem("");
+                    setTipo("");
+                }}
+            />
 
             {/* FORMULÁRIO */}
             <form
@@ -170,34 +196,12 @@ export default function CadastroBanner() {
 
                 </div>
 
-                {/* CHECKBOX */}
-                <div className={css["campo-checkbox"]}>
-
-                    <label>
-                        Ativo
-                    </label>
-
-                    <input
-                        type="checkbox"
-                        checked={ativo}
-                        onChange={() =>
-                            setAtivo(!ativo)
-                        }
-                    />
-
-                </div>
 
                 {/* BOTÕES */}
                 <div className={css["botoes"]}>
 
                     <button type="submit">
                         SALVAR
-                    </button>
-
-                    <button
-                        type="button"
-                    >
-                        APLICAR
                     </button>
 
                     <button
@@ -245,20 +249,6 @@ export default function CadastroBanner() {
 
                     </h3>
 
-                    <p>
-
-                        {texto ||
-                            "Subtítulo..."}
-
-                    </p>
-
-                    <span>
-
-                        {ativo
-                            ? "ATIVO"
-                            : "INATIVO"}
-
-                    </span>
 
                 </div>
 

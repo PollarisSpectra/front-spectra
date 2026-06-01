@@ -1,8 +1,11 @@
+
+
 .banner {
     position: relative;
     background-size: cover;
     background-position: center;
     background-repeat: norepeat;
+    animation: pageFadeIn 3s ease both;
 }
 
 .banner::before {

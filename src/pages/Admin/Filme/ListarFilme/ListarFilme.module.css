@@ -76,7 +76,7 @@
     color: var(--COR_TEXTO);
     font-family: 'Montserrat', sans-serif;
 
-    animation: pageFadeIn 0.4s ease both;
+    animation: pageFadeIn 3s ease both;
 }
 
 /* =========================================
@@ -342,10 +342,6 @@
             color var(--T_FAST);
 }
 
-.filmeHeader:hover .filmeLabel span {
-    background-color: var(--COR_PRINCIPAL);
-    color: #fff;
-}
 
 .seta {
     color: var(--COR_TEXTO);
@@ -353,10 +349,6 @@
     transition: transform var(--T_MED), color var(--T_FAST);
 }
 
-.filmeHeader:hover .seta {
-    color: var(--COR_PRINCIPAL);
-    transform: scale(1.15);
-}
 
 /* =========================================
    DETALHES DO CARD (ACCORDION)

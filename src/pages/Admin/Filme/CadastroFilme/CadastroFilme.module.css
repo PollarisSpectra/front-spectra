@@ -16,6 +16,49 @@
     --COR_TEXTO_FORMULARIO: #000;
 }
 
+/* =========================================
+   KEYFRAMES
+========================================= */
+@keyframes pageFadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes headerSlideDown {
+    from { opacity: 0; transform: translateY(-18px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cardSlideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes detailsExpand {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes menuDropIn {
+    from { opacity: 0; transform: translateY(-8px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes posterReveal {
+    from { opacity: 0; transform: scale(0.94); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes btnAddFloat {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-4px); }
+}
+
+@keyframes msgSlideIn {
+    from { opacity: 0; transform: translateY(-12px) scaleY(0.9); }
+    to   { opacity: 1; transform: translateY(0) scaleY(1); }
+}
+
 .containerMain {
     min-height: 100vh;
     padding: 40px 10%;
@@ -24,6 +67,8 @@
     flex-direction: column;
     color: var(--COR_TEXTO);
     font-family: 'Montserrat', sans-serif;
+    animation: pageFadeIn 2s ease both;
+
 }
 
 /* HEADER PADRONIZADO */
@@ -55,6 +100,7 @@
     font-weight: 700;
     margin: 0;
     text-transform: uppercase;
+
 }
 
 /* CONTEÚDO LADO A LADO */

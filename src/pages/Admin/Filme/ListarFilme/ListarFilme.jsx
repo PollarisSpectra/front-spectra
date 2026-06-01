@@ -53,7 +53,7 @@ export default function ListarFilme() {
                 setMensagem(data.error || "Erro ao excluir filme.");
                 setTipoMensagem("erro");
             }
-        } catch (err) {
+        } catch (error) {
             setMensagem("Erro de conexão com o servidor.");
             setTipoMensagem("erro");
         } finally {
@@ -119,6 +119,9 @@ export default function ListarFilme() {
     };
 
     return (
+
+
+
         <main className={css.container}>
             <FlashMessage 
                 mensagem={mensagem} 
@@ -139,6 +142,8 @@ export default function ListarFilme() {
                     aoCancelar={() => setExibirModalExcluir(false)}
                 />
             )}
+
+
 
             <section className={css.header}>
                 <button className={css.voltar} onClick={() => navigate("/app")}>←</button>

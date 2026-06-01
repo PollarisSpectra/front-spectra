@@ -1,3 +1,6 @@
+/* =========================================
+   VARIÁVEIS
+========================================= */
 :root {
     --COR_BOTAO: #ffffff;
     --COR_PRINCIPAL: #ff1a1a;
@@ -14,24 +17,80 @@
     --COR_MODAL: #31333880;
     --COR_ICONE: #000;
     --COR_TEXTO_FORMULARIO: #000;
+
+    --T_FAST: 0.18s ease;
+    --T_MED:  0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    --T_SPRING: 0.35s cubic-bezier(0.34, 1.30, 0.64, 1);
 }
 
-/* Container Principal */
+/* =========================================
+   KEYFRAMES
+========================================= */
+@keyframes pageFadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes headerSlideDown {
+    from { opacity: 0; transform: translateY(-18px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cardSlideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes detailsExpand {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes menuDropIn {
+    from { opacity: 0; transform: translateY(-8px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes posterReveal {
+    from { opacity: 0; transform: scale(0.94); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes btnAddFloat {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-4px); }
+}
+
+@keyframes msgSlideIn {
+    from { opacity: 0; transform: translateY(-12px) scaleY(0.9); }
+    to   { opacity: 1; transform: translateY(0) scaleY(1); }
+}
+
+/* =========================================
+   CONTAINER PRINCIPAL
+========================================= */
 .container {
     min-height: 100vh;
     padding: 40px 10%;
     background-color: var(--COR_FUNDO);
     color: var(--COR_TEXTO);
     font-family: 'Montserrat', sans-serif;
+
+    animation: pageFadeIn 0.4s ease both;
 }
 
-/* Header */
+/* =========================================
+   HEADER
+========================================= */
 .header {
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 60px;
     position: relative;
+
+    animation: headerSlideDown 0.38s ease both;
+    animation-delay: 0.05s;
 }
 
 .voltar {
@@ -42,6 +101,23 @@
     color: var(--COR_TEXTO);
     font-size: 24px;
     cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 8px;
+
+    transition:
+            color var(--T_FAST),
+            background-color var(--T_FAST),
+            transform var(--T_SPRING);
+}
+
+.voltar:hover {
+    color: var(--COR_PRINCIPAL);
+    background-color: rgba(255, 26, 26, 0.1);
+    transform: translateX(-3px);
+}
+
+.voltar:active {
+    transform: translateX(0) scale(0.92);
 }
 
 .formTitulo {
@@ -50,15 +126,21 @@
     font-weight: 700;
     margin: 0;
     text-transform: uppercase;
+    transition: letter-spacing var(--T_MED);
 }
 
-/* --- BARRA DE FILTROS --- */
+/* =========================================
+   BARRA DE FILTROS
+========================================= */
 .filtroBarra {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
     margin-bottom: 40px;
+
+    animation: pageFadeIn 0.4s ease both;
+    animation-delay: 0.10s;
 }
 
 .inputBusca {
@@ -67,41 +149,86 @@
     background: transparent;
     border-bottom: 2px solid var(--COR_TEXTO);
     color: var(--COR_TEXTO);
-    transition: border-color 0.2s;
+
+    transition:
+            border-color var(--T_MED),
+            box-shadow var(--T_MED);
 }
 
 .inputBusca:focus {
     border-color: var(--COR_PRINCIPAL) !important;
+    box-shadow: 0 2px 0 rgba(255, 26, 26, 0.25);
 }
 
 .btnLupa {
-    transition: opacity 0.2s;
     font-weight: 600;
     font-size: 0.9rem;
-    color: var(--COR_TEXTO);
+    color: var(--COR_TEXTO_FORMULARIO);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+
+    transition:
+            opacity var(--T_FAST),
+            transform var(--T_SPRING),
+            box-shadow var(--T_MED),
+            filter var(--T_FAST);
 }
 
-/* --- SELETOR ESTILO SHADCN --- */
+.btnLupa::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.08);
+    opacity: 0;
+    transition: opacity var(--T_FAST);
+}
+
+.btnLupa:hover::after { opacity: 1; }
+
+.btnLupa:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    filter: brightness(0.96);
+}
+
+.btnLupa:active {
+    transform: translateY(0) scale(0.96);
+    filter: brightness(0.9);
+    transition: transform 0.10s ease;
+}
+
+/* =========================================
+   SELETOR DE FILTRO (DROPDOWN)
+========================================= */
 .ordenarWrapper {
     position: relative;
     width: 160px;
 }
 
 .ordenarHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     cursor: pointer;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: all 0.2s;
     font-size: 0.85rem;
+    color: var(--COR_TEXTO);
+    border: 1px solid var(--COR_SECUNDARIA);
     padding: 8px 12px;
     border-radius: 4px;
+
+    transition:
+            background-color var(--T_MED),
+            border-color var(--T_FAST),
+            box-shadow var(--T_MED);
 }
 
 .ordenarHeader:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-color: var(--COR_TEXTO);
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.filtroDestaque {
+    font-weight: 600;
+    color: var(--COR_TEXTO);
 }
 
 .ordenarOpcoes {
@@ -111,11 +238,12 @@
     width: 100%;
     list-style: none;
     background-color: #09090b;
-    margin: 0;
     padding: 4px;
     border: 1px solid #27272a;
     z-index: 1000;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+
+    animation: menuDropIn 0.22s ease both;
 }
 
 .ordenarOpcoes li {
@@ -123,15 +251,23 @@
     font-size: 0.8rem;
     color: #a1a1aa;
     cursor: pointer;
-    transition: all 0.2s;
+    border-radius: 4px;
+
+    transition:
+            background-color var(--T_FAST),
+            color var(--T_FAST),
+            transform var(--T_FAST);
 }
 
 .ordenarOpcoes li:hover {
     background-color: #27272a;
     color: var(--COR_TEXTO);
+    transform: translateX(3px);
 }
 
-/* --- LISTA E CARDS --- */
+/* =========================================
+   LISTA E CARDS
+========================================= */
 .lista {
     display: flex;
     flex-direction: column;
@@ -139,17 +275,51 @@
 }
 
 .filmeCard {
-    background-color: var(--COR_ALERTA); /* Usando o cinza escuro #2a2a2a */
+    background-color: var(--COR_ALERTA);
     border-radius: 8px;
     overflow: hidden;
+    border: 1px solid transparent;
+
+    animation: cardSlideUp 0.38s ease both;
+    transition:
+            border-color var(--T_MED),
+            box-shadow var(--T_MED),
+            transform var(--T_MED);
 }
 
+/* Stagger nos cards */
+.filmeCard:nth-child(1)  { animation-delay: 0.06s; }
+.filmeCard:nth-child(2)  { animation-delay: 0.10s; }
+.filmeCard:nth-child(3)  { animation-delay: 0.14s; }
+.filmeCard:nth-child(4)  { animation-delay: 0.18s; }
+.filmeCard:nth-child(5)  { animation-delay: 0.22s; }
+.filmeCard:nth-child(6)  { animation-delay: 0.26s; }
+.filmeCard:nth-child(7)  { animation-delay: 0.30s; }
+.filmeCard:nth-child(8)  { animation-delay: 0.34s; }
+.filmeCard:nth-child(9)  { animation-delay: 0.38s; }
+.filmeCard:nth-child(10) { animation-delay: 0.42s; }
+
+.filmeCard:hover {
+    border-color: rgba(255, 26, 26, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    transform: translateY(-2px);
+}
+
+/* =========================================
+   HEADER DO CARD
+========================================= */
 .filmeHeader {
     padding: 15px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
+
+    transition: background-color var(--T_MED);
+}
+
+.filmeHeader:hover {
+    background-color: rgba(255, 255, 255, 0.04);
 }
 
 .filmeLabel {
@@ -166,14 +336,43 @@
     border-radius: 4px;
     margin-left: 10px;
     font-size: 0.8rem;
+
+    transition:
+            background-color var(--T_FAST),
+            color var(--T_FAST);
 }
 
+.filmeHeader:hover .filmeLabel span {
+    background-color: var(--COR_PRINCIPAL);
+    color: #fff;
+}
+
+.seta {
+    color: var(--COR_TEXTO);
+    font-size: 0.85rem;
+    transition: transform var(--T_MED), color var(--T_FAST);
+}
+
+.filmeHeader:hover .seta {
+    color: var(--COR_PRINCIPAL);
+    transform: scale(1.15);
+}
+
+/* =========================================
+   DETALHES DO CARD (ACCORDION)
+========================================= */
 .filmeDetalhes {
     background-color: var(--COR_FUNDO);
     padding: 30px;
     display: flex;
     gap: 40px;
     border-top: 1px solid var(--COR_SECUNDARIA);
+
+    animation: detailsExpand 0.3s ease both;
+}
+
+.posterContainer {
+    flex-shrink: 0;
 }
 
 .poster {
@@ -181,6 +380,20 @@
     height: 220px;
     object-fit: cover;
     border-radius: 4px;
+
+    animation: posterReveal 0.4s ease both;
+    animation-delay: 0.08s;
+
+    transition:
+            transform var(--T_MED),
+            box-shadow var(--T_MED),
+            filter var(--T_MED);
+}
+
+.poster:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+    filter: brightness(1.08);
 }
 
 .infoGrid {
@@ -189,19 +402,29 @@
     justify-content: space-between;
 }
 
-.colEsquerda h3 {
+.colEsquerda h3,
+.filmeTitulo {
     font-size: 1.4rem;
     margin-bottom: 20px;
     color: var(--COR_TEXTO);
 }
 
-.colEsquerda p, .colDireita p {
+.colEsquerda p,
+.colDireita p {
     font-size: 0.85rem;
     color: #ccc;
     margin-bottom: 8px;
+    transition: color var(--T_FAST);
 }
 
-/* --- BADGES DE CLASSIFICAÇÃO --- */
+.colEsquerda p:hover,
+.colDireita p:hover {
+    color: #fff;
+}
+
+/* =========================================
+   BADGES DE CLASSIFICAÇÃO
+========================================= */
 .classifBadge {
     display: inline-block;
     padding: 5px 12px;
@@ -209,9 +432,15 @@
     font-weight: bold;
     margin-top: 10px;
     font-size: 0.8rem;
+    transition: transform var(--T_SPRING), filter var(--T_FAST);
 }
 
-.badgeL { background-color: #00a650; color: #fff; }
+.classifBadge:hover {
+    transform: scale(1.06);
+    filter: brightness(1.15);
+}
+
+.badgeL  { background-color: #00a650; color: #fff; }
 .badge10 { background-color: #00adef; color: #fff; }
 .badge12 { background-color: #f6ec13; color: #000; }
 .badge14 { background-color: #f58220; color: #fff; }
@@ -225,7 +454,33 @@
     color: var(--COR_TEXTO);
 }
 
-/* --- AÇÕES E BOTÕES --- */
+/* =========================================
+   AÇÕES — BOTÕES EDITAR / EXCLUIR
+========================================= */
+.acoes {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+}
+
+.acoes button {
+    transition:
+            background-color var(--T_FAST),
+            color var(--T_FAST),
+            transform var(--T_SPRING),
+            box-shadow var(--T_MED);
+}
+
+.acoes button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+}
+
+.acoes button:active {
+    transform: translateY(0) scale(0.95);
+    transition: transform 0.10s ease;
+}
+
 .btnEdit {
     background-color: var(--COR_BOTAO);
     border: none;
@@ -237,7 +492,18 @@
     align-items: center;
     justify-content: center;
     font-size: 1.2rem;
-    transition: transform 0.2s;
+
+    transition: transform var(--T_SPRING), box-shadow var(--T_MED), filter var(--T_FAST);
+}
+
+.btnEdit:hover {
+    transform: scale(1.12);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+    filter: brightness(0.95);
+}
+
+.btnEdit:active {
+    transform: scale(0.94);
 }
 
 .btnDelete {
@@ -245,14 +511,71 @@
     border: none;
     background: transparent;
     cursor: pointer;
-    transition: color 0.1s;
+
+    transition:
+            color var(--T_FAST),
+            transform var(--T_SPRING);
 }
 
 .btnDelete:hover {
     color: var(--COR_PRINCIPAL);
+    transform: scale(1.06);
 }
 
-/* Botão Flutuante de Adicionar */
+.btnDelete:active {
+    transform: scale(0.94);
+}
+
+/* =========================================
+   PAGINAÇÃO
+========================================= */
+.paginacao button {
+    background-color: var(--COR_ALERTA);
+    border: 1px solid var(--COR_SECUNDARIA);
+    color: var(--COR_TEXTO);
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 4px;
+
+    transition:
+            background-color var(--T_MED),
+            border-color var(--T_FAST),
+            transform var(--T_SPRING),
+            box-shadow var(--T_MED);
+}
+
+.paginacao button:hover:not(:disabled) {
+    background-color: var(--COR_SECUNDARIA);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+.paginacao button:active:not(:disabled) {
+    transform: translateY(0) scale(0.96);
+    box-shadow: none;
+}
+
+.paginacao button:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+/* =========================================
+   MENSAGEM (VAZIO / LOADING)
+========================================= */
+.mensagem {
+    text-align: center;
+    color: #888;
+    margin-top: 20px;
+
+    animation: pageFadeIn 0.35s ease both;
+    transition: color var(--T_FAST);
+}
+
+/* =========================================
+   BOTÃO FLUTUANTE ADICIONAR
+========================================= */
 .btnAdd {
     position: fixed;
     right: 60px;
@@ -269,12 +592,26 @@
     display: flex;
     align-items: center;
     gap: 15px;
-    transition: transform 0.2s ease;
     z-index: 1000;
+
+    animation: btnAddFloat 3s ease-in-out 1s infinite;
+
+    transition:
+            transform var(--T_SPRING),
+            box-shadow var(--T_MED),
+            filter var(--T_FAST);
 }
 
 .btnAdd:hover {
-    transform: scale(1.05);
+    animation-play-state: paused;
+    transform: scale(1.07) translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    filter: brightness(0.96);
+}
+
+.btnAdd:active {
+    transform: scale(0.97) translateY(0);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
 }
 
 .plusIcon {
@@ -288,37 +625,104 @@
     align-items: center;
     font-size: 20px;
     font-weight: bold;
+
+    transition: transform var(--T_SPRING);
 }
 
-/* Paginação */
-.paginacao button {
-    background-color: var(--COR_ALERTA);
-    border: 1px solid var(--COR_SECUNDARIA);
+.btnAdd:hover .plusIcon {
+    transform: rotate(90deg) scale(1.1);
+}
+
+/* =========================================
+   BARRA DE FILTROS (MODO RESPONSIVO — OVERRIDE)
+========================================= */
+.filtroBarra {
+    margin-bottom: 40px;
+}
+
+.inputBusca {
+    outline: none;
+    background: transparent;
     color: var(--COR_TEXTO);
+    border: 1px solid var(--COR_SECUNDARIA);
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: border-color var(--T_MED), box-shadow var(--T_MED);
+}
+
+.inputBusca:focus {
+    border-color: var(--COR_PRINCIPAL) !important;
+    box-shadow: 0 0 0 2px rgba(255, 26, 26, 0.18);
+}
+
+.btnLupa {
+    transition: opacity var(--T_FAST), transform var(--T_SPRING), box-shadow var(--T_MED);
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--COR_TEXTO);
+}
+
+.btnLupa:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+}
+
+.ordenarWrapper {
+    position: relative;
+    width: 160px;
+}
+
+.ordenarHeader {
     cursor: pointer;
-    transition: 0.2s;
-    padding: 8px 16px;
+    transition: background-color var(--T_MED), border-color var(--T_FAST);
+    font-size: 0.85rem;
+    color: var(--COR_TEXTO);
+    border: 1px solid var(--COR_SECUNDARIA);
+    padding: 8px;
     border-radius: 4px;
 }
 
-.paginacao button:hover:not(:disabled) {
-    background-color: var(--COR_SECUNDARIA);
+.ordenarHeader:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border-color: rgba(255, 255, 255, 0.35);
 }
 
+.ordenarOpcoes {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 100%;
+    list-style: none;
+    background-color: #09090b;
+    padding: 4px;
+    border: 1px solid #27272a;
+    z-index: 1000;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
 
+    animation: menuDropIn 0.22s ease both;
+}
 
-/* ================= RESPONSIVO 320PX ================= */
+.ordenarOpcoes li {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    color: #a1a1aa;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color var(--T_FAST), color var(--T_FAST), transform var(--T_FAST);
+}
 
+.ordenarOpcoes li:hover {
+    background-color: #27272a;
+    color: var(--COR_TEXTO);
+    transform: translateX(3px);
+}
+
+/* =========================================
+   RESPONSIVO 320px
+========================================= */
 @media (max-width: 320px) {
-
-    .container {
-        padding: 20px 12px 90px;
-    }
-
-    /* HEADER */
-    .header {
-        margin-bottom: 30px;
-    }
+    .container { padding: 20px 12px 90px; }
+    .header { margin-bottom: 30px; }
 
     .formTitulo {
         font-size: 1.2rem;
@@ -326,181 +730,44 @@
         text-align: center;
     }
 
-    .voltar {
-        left: -4px;
-        font-size: 18px;
-    }
+    .voltar { font-size: 18px; left: -4px; }
 
-    /* FILTROS */
     .filtroBarra {
         flex-direction: column !important;
         align-items: stretch !important;
         gap: 14px;
     }
 
-    .filtroBarra form {
-        width: 100%;
-        flex-direction: column;
-    }
+    .filtroBarra form { flex-direction: column; width: 100%; }
 
-    .inputBusca {
-        min-width: unset;
-        width: 100%;
-        font-size: 12px;
-        padding: 10px;
-    }
+    .inputBusca { width: 100%; font-size: 12px; padding: 10px; }
+    .btnLupa { width: 100%; font-size: 12px; padding: 10px; }
+    .ordenarWrapper { width: 100%; }
+    .ordenarHeader { width: 100%; font-size: 12px; }
+    .ordenarOpcoes { width: 100%; }
 
-    .btnLupa {
-        width: 100%;
-        font-size: 12px;
-        padding: 10px;
-    }
+    .sessaoHeader { padding: 12px; gap: 8px; align-items: flex-start; flex-direction: column; }
+    .sessaoLabel { font-size: 0.7rem; line-height: 18px; }
+    .sessaoLabel span { display: inline-block; margin-left: 0; margin-top: 6px; font-size: 0.65rem; }
+    .horarioSessao { font-size: 12px; }
+    .seta { align-self: flex-end; margin-top: -22px; }
 
-    .ordenarWrapper {
-        width: 100%;
-    }
+    .sessaoDetalhes { flex-direction: column; padding: 16px; gap: 18px; align-items: center; }
+    .poster { width: 120px; height: 180px; }
+    .infoGrid { flex-direction: column; width: 100%; gap: 20px; }
+    .sessaoTitulo { font-size: 1rem; margin-bottom: 12px; text-align: center; }
+    .colEsquerda p { font-size: 12px; text-align: center; }
 
-    .ordenarHeader {
-        width: 100%;
-        font-size: 12px;
-    }
+    .acoes { justify-content: center; align-items: center; flex-wrap: wrap; gap: 10px; }
+    .acoes button { width: 100%; font-size: 12px; padding: 10px; }
 
-    .ordenarOpcoes {
-        width: 100%;
-    }
-
-    /* CARDS */
-    .filmeHeader {
-        padding: 12px;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-    }
-
-    .filmeLabel {
-        font-size: 0.7rem;
-        line-height: 18px;
-    }
-
-    .filmeLabel span {
-        display: inline-block;
-        margin-left: 0;
-        margin-top: 6px;
-        font-size: 0.65rem;
-    }
-
-    .seta {
-        align-self: flex-end;
-        margin-top: -22px;
-    }
-
-    /* DETALHES */
-    .filmeDetalhes {
-        flex-direction: column;
-        align-items: center;
-        padding: 16px;
-        gap: 18px;
-    }
-
-    .posterContainer {
-        display: flex;
-        justify-content: center;
-        width: 100%;
-    }
-
-    .poster {
-        width: 120px;
-        height: 180px;
-    }
-
-    .infoGrid {
-        flex-direction: column;
-        gap: 18px;
-        width: 100%;
-    }
-
-    .colEsquerda,
-    .colDireita {
-        width: 100%;
-    }
-
-    .colEsquerda h3 {
-        font-size: 1rem;
-        margin-bottom: 12px;
-        text-align: center;
-    }
-
-    .colEsquerda p,
-    .colDireita p {
-        font-size: 12px;
-        text-align: center;
-    }
-
-    .sinopse {
-        text-align: left;
-        font-size: 12px;
-        line-height: 18px;
-    }
-
-    /* CLASSIFICAÇÃO */
-    .classifBadge {
-        display: block;
-        width: fit-content;
-        margin: 12px auto 0;
-        font-size: 11px;
-    }
-
-    /* AÇÕES */
-    .acoes {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        width: 100%;
-    }
-
-    .acoes button {
-        width: 100%;
-        font-size: 12px;
-        padding: 10px;
-    }
-
-    /* PAGINAÇÃO */
-    .paginacao {
-        flex-wrap: wrap;
-        gap: 10px !important;
-        margin-top: 30px !important;
-    }
-
-    .paginacao button {
-        font-size: 12px;
-        padding: 8px 12px;
-    }
-
-    .paginacao span {
-        font-size: 12px;
-    }
-
-    /* BOTÃO FLUTUANTE */
     .btnAdd {
-        right: 12px;
-        left: 12px;
-        bottom: 15px;
-        width: auto;
-        justify-content: center;
-        padding: 10px 14px;
-        font-size: 11px;
-        gap: 10px;
-        border-radius: 14px;
+        right: 12px; left: 12px; bottom: 15px;
+        width: auto; justify-content: center;
+        padding: 10px 14px; font-size: 11px;
+        gap: 10px; border-radius: 14px;
     }
 
-    .plusIcon {
-        width: 24px;
-        height: 24px;
-        font-size: 16px;
-    }
-
-    .mensagem {
-        font-size: 13px;
-        text-align: center;
-    }
+    .plusIcon { width: 24px; height: 24px; font-size: 16px; }
+    .mensagem { font-size: 13px; }
 }

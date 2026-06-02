@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./EditarEmpresa.module.css";
+import FlashMessage from "../../components/FlashMessage/FlashMessage";
 
 export default function EditarEmpresa() {
 
     const navigate = useNavigate();
+    const [mensagem, setMensagem] = useState("");
+    const [tipo, setTipo] = useState("");
 
     const [empresa, setEmpresa] = useState({
         id_empresa: "",
@@ -156,10 +159,12 @@ export default function EditarEmpresa() {
 
             if (!responseEmpresa.ok) {
 
-                alert(
+                setMensagem(
                     dadosEmpresa.error ||
                     "Erro ao editar empresa"
                 );
+
+                setTipo("erro");
 
                 return;
             }
@@ -198,25 +203,31 @@ export default function EditarEmpresa() {
 
             if (!responseCores.ok) {
 
-                alert(
+                setMensagem(
                     dadosCores.error ||
                     "Erro ao editar cores"
                 );
 
+                setTipo("erro");
+
                 return;
             }
 
-            alert(
+            setMensagem(
                 "Empresa e cores atualizadas com sucesso!"
             );
+
+            setTipo("sucesso");
 
         } catch (error) {
 
             console.log(error);
 
-            alert(
+            setMensagem(
                 "Erro ao salvar alterações"
             );
+
+            setTipo("erro");
 
         }
     }
@@ -241,6 +252,15 @@ export default function EditarEmpresa() {
 
     return (
         <div className={styles.container}>
+
+            <FlashMessage
+                mensagem={mensagem}
+                tipo={tipo}
+                onClose={() => {
+                    setMensagem("");
+                    setTipo("");
+                }}
+            />
 
 
 

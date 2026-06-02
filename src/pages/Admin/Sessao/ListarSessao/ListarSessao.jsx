@@ -10,18 +10,18 @@ export default function ListarSessao() {
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
-
     const [mensagem, setMensagem] = useState("");
     const [tipoMensagem, setTipoMensagem] = useState("");
-
 
     const [exibirModalExcluir, setExibirModalExcluir] = useState(false);
     const [idParaExcluir, setIdParaExcluir] = useState(null);
 
-
     const [buscaTexto, setBuscaTexto] = useState("");
     const [filtroTipo, setFiltroTipo] = useState("filme");
     const [menuFiltroAtivo, setMenuFiltroAtivo] = useState(false);
+
+    const [paginaAtual, setPaginaAtual] = useState(1);
+    const [totalPaginas, setTotalPaginas] = useState(1);
 
     const conversaoCheck = {
         filme: 'Filme',
@@ -29,22 +29,21 @@ export default function ListarSessao() {
         data: 'Mais Recente'
     };
 
-
-    const buscarSessoes = async () => {
+    const buscarSessoes = async (pagina = 1) => {
         setLoading(true);
         try {
-            let url = "http://localhost:5000/sessao/listar_sessao";
-
-
+            let queryParams = `page_number=${pagina}&page_size=10`;
             if (buscaTexto) {
-                url += `?${filtroTipo}=${encodeURIComponent(buscaTexto)}`;
+                queryParams += `&${filtroTipo}=${encodeURIComponent(buscaTexto)}`;
             }
 
-            const response = await fetch(url);
+            const response = await fetch(`http://localhost:5000/sessao/listar_sessao_paginacao?${queryParams}`);
             const data = await response.json();
 
             if (response.ok) {
-                setSessoes(data);
+                setSessoes(data.sessoes);
+                setTotalPaginas(data.total_pages);
+                setPaginaAtual(pagina);
             } else {
                 setSessoes([]);
                 if (buscaTexto) {
@@ -61,14 +60,14 @@ export default function ListarSessao() {
     };
 
     useEffect(() => {
-        buscarSessoes();
-    }, []);
-
+        buscarSessoes(paginaAtual);
+    }, [paginaAtual]);
 
     const dispararBusca = (e) => {
         e.preventDefault();
-        setMensagem(""); // Limpa avisos antes de nova busca
-        buscarSessoes();
+        setMensagem("");
+        setPaginaAtual(1);
+        buscarSessoes(1);
     };
 
     const gatilhoExcluir = (id) => {
@@ -89,7 +88,14 @@ export default function ListarSessao() {
             if (response.ok) {
                 setMensagem("Sessão excluída com sucesso!");
                 setTipoMensagem("sucesso");
-                buscarSessoes();
+                setAberta(null);
+
+                const paginaVaiFicarVazia = sessoes.length === 1 && paginaAtual > 1;
+                if (paginaVaiFicarVazia) {
+                    setPaginaAtual(p => p - 1);
+                } else {
+                    await buscarSessoes(paginaAtual);
+                }
             } else {
                 setMensagem(data.error || "Erro ao excluir sessão.");
                 setTipoMensagem("erro");
@@ -129,7 +135,6 @@ export default function ListarSessao() {
                 <button className={css.voltar} onClick={() => navigate("/app")}>←</button>
                 <h1 className={css.formTitulo}>SESSÕES</h1>
             </section>
-
 
             <section className={`${css.filtroBarra} d-flex align-items-center justify-content-between w-100 gap-3`}>
                 <form className="d-flex align-items-center gap-2" onSubmit={dispararBusca}>
@@ -221,7 +226,6 @@ export default function ListarSessao() {
                                             >
                                                 Editar
                                             </button>
-
                                             <button
                                                 className="px-2 py-1 rounded-3 fw-semibold"
                                                 onClick={(e) => {
@@ -239,6 +243,14 @@ export default function ListarSessao() {
                     ))
                 )}
             </section>
+
+            {totalPaginas > 1 && (
+                <section className={css.paginacao + " d-flex justify-content-center align-items-center gap-3 mt-5"}>
+                    <button className="px-2 py-1 rounded-3" disabled={paginaAtual === 1} onClick={() => setPaginaAtual(p => p - 1)}>Anterior</button>
+                    <span>{paginaAtual} / {totalPaginas}</span>
+                    <button className="px-2 py-1 rounded-3" disabled={paginaAtual === totalPaginas} onClick={() => setPaginaAtual(p => p + 1)}>Próxima</button>
+                </section>
+            )}
 
             <button
                 className={css.btnAdd}

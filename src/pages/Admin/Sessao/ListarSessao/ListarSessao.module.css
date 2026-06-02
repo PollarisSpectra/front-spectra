@@ -362,6 +362,41 @@
     color: var(--COR_TEXTO);
 }
 
+/* =========================================
+   PAGINAÇÃO
+========================================= */
+.paginacao button {
+    background-color: var(--COR_ALERTA);
+    border: 1px solid var(--COR_SECUNDARIA);
+    color: var(--COR_TEXTO);
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 4px;
+
+    transition:
+            background-color var(--T_MED),
+            border-color var(--T_FAST),
+            transform var(--T_SPRING),
+            box-shadow var(--T_MED);
+}
+
+.paginacao button:hover:not(:disabled) {
+    background-color: var(--COR_SECUNDARIA);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+.paginacao button:active:not(:disabled) {
+    transform: translateY(0) scale(0.96);
+    box-shadow: none;
+}
+
+.paginacao button:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
 /* ================= RESPONSIVO 320PX ================= */
 @media (max-width: 320px) {
     .container {

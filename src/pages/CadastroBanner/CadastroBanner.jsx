@@ -74,7 +74,7 @@ export default function CadastroBanner() {
                 navigate("/login");
                 return;
             }
-            
+
             const data = await response.json();
 
             console.log(data);

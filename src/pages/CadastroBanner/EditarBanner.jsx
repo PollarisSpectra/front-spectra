@@ -34,6 +34,11 @@ export default function EditarBanner() {
                 }
             );
 
+            if (response.status === 401) {
+                navigate("/login"); // ou "/"
+                return;
+            }
+
             const data = await response.json();
 
             console.log(data);

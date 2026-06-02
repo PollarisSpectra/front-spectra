@@ -65,7 +65,9 @@ export default function EditarFilme() {
                 setFilme(estado);
                 setEstadoInicial(estado);
                 setCapaOriginal(capa);
-                setPreviewCapa(capa ? `http://localhost:5000/filmes${capa}` : null);
+                setPreviewCapa(
+                    capa ? `http://localhost:5000${capa}` : null
+                );
             } catch (err) {
                 setMensagem("Erro de conexão com o servidor.");
                 setTipoMensagem("erro");

@@ -75,6 +75,7 @@
 ========================================= */
 .dashboard {
     min-height: 100vh;
+    width: 125% ;
     background-color: var(--COR_FUNDO);
     color: var(--COR_TEXTO);
     font-family: system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
@@ -82,6 +83,13 @@
     max-width: 1400px;
     margin: 0 auto;
     animation: fadeIn 0.45s ease both;
+}
+
+.dashboard {
+    width: 150%;
+    max-width: 100%;
+    margin: 0;
+    padding: 20px 30px;
 }
 
 /* =========================================

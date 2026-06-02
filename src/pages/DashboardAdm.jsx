@@ -105,7 +105,7 @@
 
         const registros = [
             { nome: "SESSÕES", rota: "/app/sessoes" },
-            { nome: "CLIENTES" },
+            { nome: "CLIENTES", rota: "/app/usuarios"  },
             { nome: "FILMES", rota: "/app/filmes" },
             { nome: "SALAS", rota: "/app/salas" },
             { nome: "EMPRESA", rota: idEmpresa ? `/app/editar_empresa/${idEmpresa}` : "#" },
@@ -144,10 +144,6 @@
                     </div>
 
                     <div className="d-flex gap-2">
-                        <button className={css.iconButton}>
-                            <Settings size={16} />
-                        </button>
-
                         {idEmpresa && (
                             <Link
                                 to={`/app/editar_empresa/${idEmpresa}`}

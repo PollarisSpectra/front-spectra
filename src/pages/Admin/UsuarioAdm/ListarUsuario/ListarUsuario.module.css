@@ -1,0 +1,338 @@
+.container {
+    min-height: 100vh;
+    padding: 40px 10%;
+    background-color: var(--COR_FUNDO);
+    color: var(--COR_TEXTO);
+    font-family: 'Montserrat', sans-serif;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 60px;
+    position: relative;
+}
+
+.voltar {
+    position: absolute;
+    left: 0;
+    background: none;
+    border: none;
+    color: var(--COR_TEXTO);
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.voltar:hover {
+    color: var(--COR_PRINCIPAL);
+}
+
+.formTitulo {
+    font-size: 2.5rem;
+    letter-spacing: 5px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.filtroBarra {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    gap: 20px;
+}
+
+.formBusca {
+    display: flex;
+    gap: 10px;
+}
+
+.inputBusca {
+    min-width: 250px;
+    outline: none;
+    background: transparent;
+    color: var(--COR_TEXTO);
+    border: 1px solid var(--COR_SECUNDARIA);
+    padding: 8px 12px;
+    border-radius: 4px;
+}
+
+.inputBusca:focus {
+    border-color: var(--COR_PRINCIPAL);
+}
+
+.btnFiltro {
+    background-color: var(--COR_BOTAO);
+    color: var(--COR_TEXTO_FORMULARIO);
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.areaFiltro {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.textoFiltro {
+    color: #aaa;
+    font-size: 0.85rem;
+}
+
+.ordenarWrapper {
+    position: relative;
+    width: 160px;
+}
+
+.ordenarHeader {
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: var(--COR_TEXTO);
+    border: 1px solid var(--COR_SECUNDARIA);
+    padding: 8px 12px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.ordenarOpcoes {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 100%;
+    list-style: none;
+    background-color: #09090b;
+    padding: 4px;
+    border: 1px solid #27272a;
+    z-index: 1000;
+}
+
+.ordenarOpcoes li {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    color: #a1a1aa;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.ordenarOpcoes li:hover {
+    background-color: #27272a;
+    color: var(--COR_TEXTO);
+}
+
+.lista {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.usuarioCard {
+    background-color: var(--COR_ALERTA);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid transparent;
+}
+
+.usuarioCard:hover {
+    border-color: rgba(255, 26, 26, 0.3);
+}
+
+.usuarioHeader {
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.usuarioHeader:hover {
+    background-color: rgba(255, 255, 255, 0.04);
+}
+
+.usuarioLabel {
+    font-weight: bold;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+}
+
+.usuarioLabel span {
+    background-color: var(--COR_BOTAO);
+    color: var(--COR_TEXTO_FORMULARIO);
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 10px;
+    font-size: 0.8rem;
+}
+
+.seta {
+    color: var(--COR_TEXTO);
+    font-size: 0.85rem;
+}
+
+.usuarioDetalhes {
+    background-color: var(--COR_FUNDO);
+    padding: 30px;
+    border-top: 1px solid var(--COR_SECUNDARIA);
+}
+
+.infoGrid {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.infoGrid h3 {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+}
+
+.infoGrid p {
+    font-size: 0.9rem;
+    color: #ccc;
+    margin-bottom: 8px;
+}
+
+.acoes {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+}
+
+.acoes button {
+    background-color: var(--COR_BOTAO);
+    color: var(--COR_TEXTO_FORMULARIO);
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btnDelete {
+    background-color: transparent !important;
+    color: var(--COR_BOTAO) !important;
+}
+
+.btnDelete:hover {
+    color: var(--COR_PRINCIPAL) !important;
+}
+
+.paginacao {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 40px;
+}
+
+.paginacao button {
+    background-color: var(--COR_ALERTA);
+    border: 1px solid var(--COR_SECUNDARIA);
+    color: var(--COR_TEXTO);
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 4px;
+}
+
+.paginacao button:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.mensagem {
+    text-align: center;
+    color: #888;
+    margin-top: 20px;
+}
+
+.btnAdd {
+    position: fixed;
+    right: 60px;
+    bottom: 40px;
+    background-color: var(--COR_BOTAO);
+    color: var(--COR_TEXTO_FORMULARIO);
+    border: none;
+    padding: 10px 10px 10px 25px;
+    border-radius: 40px;
+    font-weight: 900;
+    font-size: 14px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 1000;
+}
+
+.btnAdd span {
+    background-color: var(--COR_ICONE);
+    color: var(--COR_BOTAO);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+
+@media (max-width: 700px) {
+    .container {
+        padding: 25px 20px 100px;
+    }
+
+    .formTitulo {
+        font-size: 1.6rem;
+        letter-spacing: 3px;
+    }
+
+    .filtroBarra {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .formBusca {
+        flex-direction: column;
+    }
+
+    .inputBusca,
+    .btnFiltro,
+    .ordenarWrapper {
+        width: 100%;
+    }
+
+    .areaFiltro {
+        justify-content: space-between;
+    }
+
+    .usuarioHeader {
+        padding: 15px;
+    }
+
+    .usuarioLabel span {
+        display: block;
+        margin-left: 0;
+        margin-top: 6px;
+        width: fit-content;
+    }
+
+    .infoGrid {
+        flex-direction: column;
+    }
+
+    .acoes {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btnAdd {
+        left: 20px;
+        right: 20px;
+        bottom: 20px;
+        justify-content: center;
+    }
+}

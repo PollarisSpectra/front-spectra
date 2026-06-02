@@ -21,8 +21,16 @@ export default function ListarBanner() {
         try {
 
             const response = await fetch(
-                "http://localhost:5000/banner/listar"
+                "http://localhost:5000/banner/listar",
+                {
+                    credentials: "include"
+                }
             );
+
+            if (response.status === 401) {
+                navigate("/login");
+                return;
+            }
 
             const data = await response.json();
 
@@ -31,10 +39,10 @@ export default function ListarBanner() {
         } catch (error) {
 
             console.log(error);
+            navigate("/login");
 
         }
     }
-
     function toggleBanner(id) {
 
         if (aberto === id) {
@@ -117,12 +125,6 @@ export default function ListarBanner() {
                                         <strong>Texto:</strong> {banner.texto}
                                     </p>
 
-                                    <p>
-                                        <strong>Status:</strong>{" "}
-                                        {banner.situacao === "1"
-                                            ? "ATIVO"
-                                            : "INATIVO"}
-                                    </p>
 
                                 </div>
 

@@ -102,7 +102,7 @@ export default function CadastroSessao() {
             {/* O CABEÇALHO AGORA FICA AQUI: Fora do formCard */}
             <div className={css.header}>
                 <button className={css.btnVoltar} onClick={() => navigate("/app/sessoes")}>←</button>
-                <h1 className={css.formTitulo}>CADASTRO DE SALA</h1>
+                <h1 className={css.formTitulo}>CADASTRO DE SESSÃO</h1>
 
             </div>
 

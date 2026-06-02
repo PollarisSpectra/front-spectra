@@ -65,6 +65,22 @@
     gap: 18px;
 }
 
+.voltar {
+    position: absolute;
+    left: 0;
+    background: none;
+    border: none;
+    color: var(--COR_TEXTO);
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 6px 10px;
+    border-radius: 8px;
+
+}
+
+
 .card-banner h1 {
     font-size: 22px;
     font-weight: 900;
@@ -164,6 +180,9 @@
 .cancelar {
     background: black !important;
 }
+
+
+
 
 /* PREVIEW */
 .preview-banner {

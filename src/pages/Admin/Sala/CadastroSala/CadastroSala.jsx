@@ -89,7 +89,7 @@ export default function CadastroSala() {
 
             {/* CABEÇALHO COM TÍTULO E SETA */}
             <div className={css.header}>
-
+                <button className={css.voltar} onClick={() => navigate("/app/salas")}>←</button>
                 <h1 className={css.titulo}>CADASTRO DE SALA</h1>
             </div>
 

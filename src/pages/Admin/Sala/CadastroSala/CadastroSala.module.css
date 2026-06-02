@@ -290,3 +290,21 @@
         font-size: 14px;
     }
 }
+.voltar {
+    position: absolute;
+    left: 0;
+    background: none;
+    border: none;
+    color: var(--COR_TEXTO);
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 6px 10px;
+    border-radius: 8px;
+
+    transition:
+            color var(--T_FAST),
+            background-color var(--T_FAST),
+            transform var(--T_SPRING);
+}

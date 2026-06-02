@@ -61,7 +61,7 @@ export default function ListarBanner() {
 
                 <button
                     className={css["voltar"]}
-                    onClick={() => navigate(-1)}
+                    onClick={() => navigate("/app")}
                 >
                     ←
                 </button>

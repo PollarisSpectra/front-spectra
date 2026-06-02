@@ -8,23 +8,26 @@
     --COR_DESTAQUE_TEXTO: #ffffff;
     --COR_HOVER: #e61919;
     --COR_TEXTO_DESTAQUE: #ff1a1a;
-    --COR_CARD: #31333880;
+    --COR_CARD: #1e1e1e; /* Ajustado para um cinza premium condizente com o dashboard */
     --COR_FORMULARIO: #ffffff;
     --COR_LINHA: #000;
     --COR_MODAL: #31333880;
     --COR_ICONE: #000;
     --COR_TEXTO_FORMULARIO: #000;
+
+    --TRANSITION_MED: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --TRANSITION_FAST: 0.18s ease;
 }
 
-/* --- DEFINE AS ANIMAÇÕES (KEYFRAMES) --- */
+/* --- DEFINE AS ANIMAÇÕES (KEYFRAMES OPTIMIZADOS) --- */
 @keyframes fadeInPage {
     from {
         opacity: 0;
-        transform: translateY(-12px);
+        transform: translateY(-16px);
     }
     to {
         opacity: 1;
-        transform: translateX(0);
+        transform: translateY(0);
     }
 }
 
@@ -50,69 +53,198 @@
     }
 }
 
+/* =========================================
+   CONTAINER (ESTILO DASHBOARD PREMIUM)
+========================================= */
 .container {
     min-height: 100vh;
-    padding: 40px 10%;
+    padding: 40px 6%; /* Ajustado para melhor aproveitamento em telas grandes */
+    max-width: 1400px;
+    margin: 0 auto;
     background-color: var(--COR_FUNDO);
     color: var(--COR_TEXTO);
-    font-family: 'Montserrat', sans-serif;
-    /* Aplica Fade-In suave na página inteira ao carregar */
-    animation: fadeInPage 3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Montserrat', sans-serif;
+    animation: fadeInPage 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+/* =========================================
+   HEADER
+========================================= */
 .header {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 60px;
+    margin-bottom: 50px;
     position: relative;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 20px;
 }
 
 .voltar {
     position: absolute;
     left: 0;
-    background: none;
+    background: transparent;
     border: none;
     color: var(--COR_TEXTO);
-    font-size: 24px;
+    font-size: 28px; /* Ícone de voltar maior */
     cursor: pointer;
-    transition: transform 0.2s ease, color 0.2s ease;
+    transition: transform var(--TRANSITION_FAST), color var(--TRANSITION_FAST);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 50%;
 }
 
 .voltar:hover {
     color: var(--COR_PRINCIPAL);
-    transform: translateX(-4px);
+    background-color: rgba(255, 26, 26, 0.1);
+    transform: translateX(-6px);
 }
 
 .formTitulo {
-    font-size: 2.5rem;
-    letter-spacing: 5px;
-    font-weight: 700;
+    font-size: 2.8rem; /* Título imponente */
+    letter-spacing: 4px;
+    font-weight: 800;
     margin: 0;
     color: var(--COR_TEXTO);
     text-transform: uppercase;
 }
 
+/* =========================================
+   BARRA DE FILTROS (AMPLIADA)
+========================================= */
+.filtroBarra {
+    margin-bottom: 40px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.inputBusca {
+    outline: none;
+    background: var(--COR_CARD);
+    color: var(--COR_TEXTO);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 14px 20px; /* Inputs mais altos e confortáveis */
+    font-size: 15px;
+    font-family: inherit;
+    border-radius: 8px;
+    flex: 1;
+    transition: border-color var(--TRANSITION_FAST), background-color var(--TRANSITION_FAST);
+}
+
+.inputBusca:focus {
+    border-color: var(--COR_PRINCIPAL) !important;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.btnLupa {
+    height: 50px; /* Alinhado com a altura do input */
+    padding: 0 26px;
+    background-color: var(--COR_PRINCIPAL);
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: transform var(--TRANSITION_FAST), filter var(--TRANSITION_FAST);
+    font-weight: 700;
+    color: var(--COR_TEXTO);
+}
+
+.btnLupa:hover {
+    filter: brightness(1.1);
+    transform: scale(1.03);
+}
+
+.btnLupa:active {
+    transform: scale(0.98);
+}
+
+/* SELETOR ORDENAR */
+.ordenarWrapper {
+    position: relative;
+    width: 200px; /* Um pouco mais largo para acomodar o texto maior */
+}
+
+.ordenarHeader {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--COR_TEXTO);
+    background-color: var(--COR_CARD);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0 16px;
+    border-radius: 8px;
+    transition: all var(--TRANSITION_FAST);
+}
+
+.ordenarHeader:hover {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.ordenarOpcoes {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 100%;
+    list-style: none;
+    background-color: #121214;
+    padding: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 1000;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+    border-radius: 8px;
+    transform-origin: top right;
+    animation: scaleDropdown 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.ordenarOpcoes li {
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #a1a1aa;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    border-radius: 6px;
+}
+
+.ordenarOpcoes li:hover {
+    background-color: var(--COR_PRINCIPAL);
+    color: var(--COR_TEXTO);
+}
+
+/* =========================================
+   LISTA E CARDS DE SESSÃO
+========================================= */
 .lista {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px; /* Mais respiro entre as linhas */
 }
 
 .sessaoCard {
-    background-color: var(--COR_ALERTA);
-    border-radius: 8px;
+    background-color: var(--COR_CARD);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px; /* Cantos mais arredondados e modernos */
     overflow: hidden;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform var(--TRANSITION_MED), box-shadow var(--TRANSITION_MED), border-color var(--TRANSITION_MED);
 }
 
 .sessaoCard:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 26, 26, 0.05);
+    transform: translateY(-4px);
+    border-color: rgba(255, 26, 26, 0.3);
+    box-shadow: 0 12px 24px rgba(255, 26, 26, 0.08);
 }
 
 .sessaoHeader {
-    padding: 15px 30px;
+    padding: 24px 32px; /* Muito mais espaçoso */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -120,56 +252,73 @@
 }
 
 .sessaoLabel {
-    font-weight: bold;
-    font-size: 0.9rem;
-    letter-spacing: 2px;
+    font-weight: 800;
+    font-size: 1.1rem; /* Aumentado */
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1; /* SOLUÇÃO DO ALINHAMENTO: Faz a label ocupar todo o espaço restante e joga o horário de forma fixa para o lado */
 }
 
 .sessaoLabel span {
-    background-color: var(--COR_DESTAQUE_TEXTO);
+    background-color: var(--COR_DESTAQUE_TEXTO); /* Badge em destaque vermelho */
     color: var(--COR_TEXTO_FORMULARIO);
-    padding: 2px 8px;
-    border-radius: 4px;
-    margin-left: 10px;
+    padding: 4px 12px;
+    border-radius: 6px;
+    margin-left: 4px;
     font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
 }
 
 .horarioSessao {
     color: var(--COR_TEXTO);
-    font-weight: 600;
+    font-size: 1.2rem; /* Destaque na hora */
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 6px 14px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    margin-left: auto; /* Garante que empurre para a direita de forma consistente */
 }
 
 .seta {
     color: var(--COR_TEXTO);
-    font-size: 0.9rem;
+    font-size: 1.2rem;
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    margin-left: 20px;
 }
 
-/* Se você adicionar uma classe dinamicamente no React para quando o card estiver aberto, a seta gira suavemente */
 .sessaoCard[data-state="open"] .seta {
     transform: rotate(180deg);
+    color: var(--COR_PRINCIPAL);
 }
 
+/* =========================================
+   DETALHES DA SESSÃO (CONTEÚDO INTERNO)
+========================================= */
 .sessaoDetalhes {
-    background-color: var(--COR_FUNDO);
-    padding: 30px;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 40px; /* Interior robusto */
     display: flex;
     gap: 40px;
-    border-top: 1px solid var(--COR_SECUNDARIA);
-    /* Animação suave quando os detalhes aparecem na tela */
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
     animation: expandDetails 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .poster {
-    width: 150px;
-    height: 220px;
+    width: 180px; /* Poster maior e mais imponente */
+    height: 260px;
     object-fit: cover;
-    border-radius: 4px;
-    transition: transform 0.3s ease;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .poster:hover {
-    transform: scale(1.03);
+    transform: scale(1.04) rotate(1deg);
+    box-shadow: 0 12px 28px rgba(255, 26, 26, 0.2);
 }
 
 .infoGrid {
@@ -179,383 +328,202 @@
 }
 
 .sessaoTitulo {
-    font-size: 1.4rem;
-    margin-bottom: 20px;
+    font-size: 2rem; /* Nome do filme gigante */
+    font-weight: 800;
+    margin-bottom: 24px;
     color: var(--COR_TEXTO);
+    letter-spacing: -0.5px;
 }
 
 .colEsquerda p {
-    font-size: 0.85rem;
-    color: #ccc;
-    margin-bottom: 8px;
+    font-size: 15px; /* Altamente legível */
+    color: #bbb;
+    margin-bottom: 12px;
+    line-height: 1.5;
 }
 
+.colEsquerda p strong {
+    color: #fff;
+}
+
+/* BOTÕES DE AÇÃO EDITAR/DELETAR */
 .acoes {
     display: flex;
     align-items: flex-end;
-    gap: 15px;
+    gap: 16px;
 }
 
 .btnEdit,
 .btnDelete {
-    background-color: var(--COR_BOTAO);
-    border: none;
-    width: 35px;
-    height: 35px;
+    background-color: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 48px; /* Botões circulares bem maiores para clique facilitado */
+    height: 48px;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
-    color: var(--COR_ICONE);
-    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, color 0.2s ease;
-}
-
-.btnEdit:hover,
-.btnDelete:hover {
-    transform: scale(1.15);
+    font-size: 1.3rem;
+    color: #fff;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .btnEdit:hover {
-    background-color: var(--COR_TEXTO);
-    color: var(--COR_FUNDO);
+    transform: scale(1.12);
+    background-color: var(--COR_FORMULARIO);
+    color: #000;
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
 }
 
 .btnDelete:hover {
+    transform: scale(1.12);
     background-color: var(--COR_PRINCIPAL);
-    color: var(--COR_BOTAO);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(255, 26, 26, 0.4);
 }
 
+/* =========================================
+   BOTÃO FLUTUANTE ADICIONAR (Sincronizado)
+========================================= */
 .btnAdd {
     position: fixed;
-    right: 60px;
+    right: 50px;
     bottom: 40px;
-    background-color: var(--COR_BOTAO);
-    color: var(--COR_TEXTO_FORMULARIO);
+    background-color: var(--COR_BOTAO); /* Vermelho para dar match perfeito com o tema */
+    color: #000000;
     border: none;
-    padding: 10px 10px 10px 25px;
-    border-radius: 40px;
-    font-weight: 900;
-    font-size: 14px;
+    padding: 0 28px;
+    height: 56px; /* Botão flutuante mais encorpado */
+    border-radius: 30px;
+    font-weight: 800;
+    font-size: 15px;
     letter-spacing: 1px;
+    text-transform: uppercase;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 15px;
-    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, background-color 0.2s ease;
+    gap: 16px;
+    box-shadow: 0 8px 24px rgba(255, 26, 26, 0.3);
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, filter 0.2s ease;
     z-index: 1000;
 }
 
 .plusIcon {
-    background-color: var(--COR_ICONE);
-    color: var(--COR_BOTAO);
+    background-color: rgba(0, 0, 0, 0.2);
+    color: var(--COR_ICONE); /* Corrigido o erro de sintaxe anterior */
     border-radius: 50%;
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: bold;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, background-color 0.2s ease;
 }
 
 .btnAdd:hover {
-    transform: scale(1.05) translateY(-2px);
-    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.15);
+    transform: scale(1.05) translateY(-3px);
+    filter: brightness(1.1);
+    box-shadow: 0 12px 28px rgba(255, 26, 26, 0.45);
 }
 
 .btnAdd:hover .plusIcon {
     transform: rotate(90deg);
+    background-color: #fff;
+    color: var(--COR_PRINCIPAL);
 }
 
 .mensagem {
     text-align: center;
-    color: #888;
-    margin-top: 20px;
-}
-
-/* --- BARRA DE FILTROS --- */
-.filtroBarra {
-    margin-bottom: 40px;
-}
-
-.inputBusca {
-    outline: none;
-    background: transparent;
-    color: var(--COR_TEXTO);
-    border: 1px solid var(--COR_SECUNDARIA);
-    padding: 8px 12px;
-    border-radius: 4px;
-    transition: border-color 0.2s ease, background-color 0.2s ease;
-}
-
-.inputBusca:focus {
-    border-color: var(--COR_PRINCIPAL) !important;
-    background-color: rgba(255, 255, 255, 0.03);
-}
-
-.btnLupa {
-    transition: opacity 0.2s ease, transform 0.1s ease;
-    font-weight: 600;
-    font-size: 0.9rem;
-    color: var(--COR_TEXTO);
-}
-
-.btnLupa:hover {
-    opacity: 0.9;
-}
-
-.btnLupa:active {
-    transform: scale(0.98);
-}
-
-/* --- SELETOR ESTILO SHADCN (COM ANIMAÇÃO) --- */
-.ordenarWrapper {
-    position: relative;
-    width: 160px;
-}
-
-.ordenarHeader {
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-size: 0.85rem;
-    color: var(--COR_TEXTO);
-    border: 1px solid var(--COR_SECUNDARIA);
-    padding: 8px;
-    border-radius: 4px;
-}
-
-.ordenarHeader:hover {
-    background-color: rgba(255, 255, 255, 0.1) !important;
-}
-
-.ordenarOpcoes {
-    position: absolute;
-    top: calc(100% + 8px);
-    right: 0;
-    width: 100%;
-    list-style: none;
-    background-color: #09090b;
-    padding: 4px;
-    border: 1px solid #27272a;
-    z-index: 1000;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
-    border-radius: 6px;
-    transform-origin: top right;
-    /* Adiciona entrada suave e moderna ao abrir as opções de ordenação */
-    animation: scaleDropdown 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-.ordenarOpcoes li {
-    padding: 8px 12px;
-    font-size: 0.8rem;
-    color: #a1a1aa;
-    cursor: pointer;
-    transition: all 0.15s ease;
-    border-radius: 4px;
-}
-
-.ordenarOpcoes li:hover {
-    background-color: #27272a;
-    color: var(--COR_TEXTO);
+    color: #666;
+    font-size: 16px;
+    margin-top: 40px;
 }
 
 /* =========================================
-   PAGINAÇÃO
+   RESPONSIVO APERFEIÇOADO (MOBILE)
 ========================================= */
-.paginacao button {
-    background-color: var(--COR_ALERTA);
-    border: 1px solid var(--COR_SECUNDARIA);
-    color: var(--COR_TEXTO);
-    cursor: pointer;
-    padding: 8px 16px;
-    border-radius: 4px;
-
-    transition:
-            background-color var(--T_MED),
-            border-color var(--T_FAST),
-            transform var(--T_SPRING),
-            box-shadow var(--T_MED);
-}
-
-.paginacao button:hover:not(:disabled) {
-    background-color: var(--COR_SECUNDARIA);
-    border-color: rgba(255, 255, 255, 0.3);
-    transform: translateY(-1px);
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-}
-
-.paginacao button:active:not(:disabled) {
-    transform: translateY(0) scale(0.96);
-    box-shadow: none;
-}
-
-.paginacao button:disabled {
-    opacity: 0.35;
-    cursor: not-allowed;
-}
-
-/* ================= RESPONSIVO 320PX ================= */
-@media (max-width: 320px) {
+@media (max-width: 600px) {
     .container {
-        padding: 20px 12px 90px;
-    }
-
-    .header {
-        margin-bottom: 30px;
+        padding: 24px 16px 100px;
     }
 
     .formTitulo {
-        font-size: 1.2rem;
-        letter-spacing: 2px;
-        text-align: center;
+        font-size: 1.8rem;
     }
 
-    .voltar {
-        font-size: 18px;
-        left: -4px;
-    }
-
-    .voltar:hover {
-        transform: translateX(-2px);
-    }
-
-    /* FILTROS */
     .filtroBarra {
-        flex-direction: column !important;
-        align-items: stretch !important;
-        gap: 14px;
-    }
-
-    .filtroBarra form {
         flex-direction: column;
-        width: 100%;
-    }
-
-    .inputBusca {
-        width: 100%;
-        font-size: 12px;
-        padding: 10px;
-    }
-
-    .btnLupa {
-        width: 100%;
-        font-size: 12px;
-        padding: 10px;
+        align-items: stretch;
+        gap: 12px;
     }
 
     .ordenarWrapper {
         width: 100%;
     }
 
-    .ordenarHeader {
-        width: 100%;
-        font-size: 12px;
-    }
-
-    .ordenarOpcoes {
-        width: 100%;
-        transform-origin: top center;
-    }
-
-    /* CARDS */
     .sessaoHeader {
-        padding: 12px;
-        gap: 8px;
-        align-items: flex-start;
+        padding: 16px;
         flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        position: relative;
     }
 
     .sessaoLabel {
-        font-size: 0.7rem;
-        line-height: 18px;
-    }
-
-    .sessaoLabel span {
-        display: inline-block;
-        margin-left: 0;
-        margin-top: 6px;
-        font-size: 0.65rem;
+        flex: none; /* Reseta o flex no mobile para quebrar em linhas de forma natural */
+        width: 100%;
     }
 
     .horarioSessao {
-        font-size: 12px;
+        font-size: 14px;
+        align-self: flex-start;
+        margin-left: 0; /* Remove o recuo da direita no mobile */
     }
 
     .seta {
-        align-self: flex-end;
-        margin-top: -22px;
+        position: absolute;
+        right: 16px;
+        top: 22px;
+        margin: 0;
     }
 
-    /* DETALHES */
     .sessaoDetalhes {
         flex-direction: column;
-        padding: 16px;
-        gap: 18px;
+        padding: 24px 16px;
         align-items: center;
-    }
-
-    .poster {
-        width: 120px;
-        height: 180px;
+        gap: 24px;
     }
 
     .infoGrid {
         flex-direction: column;
         width: 100%;
-        gap: 20px;
+        gap: 24px;
     }
 
     .sessaoTitulo {
-        font-size: 1rem;
-        margin-bottom: 12px;
+        font-size: 1.5rem;
         text-align: center;
     }
 
     .colEsquerda p {
-        font-size: 12px;
         text-align: center;
     }
 
     .acoes {
         justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-
-    .acoes button {
         width: 100%;
-        font-size: 12px;
-        padding: 10px;
     }
 
-    /* BOTÃO FLUTUANTE */
     .btnAdd {
-        right: 12px;
-        left: 12px;
-        bottom: 15px;
-        width: auto;
+        right: 16px;
+        left: 16px;
+        bottom: 20px;
         justify-content: center;
-        padding: 10px 14px;
-        font-size: 11px;
-        gap: 10px;
-        border-radius: 14px;
-    }
-
-    .btnAdd:hover {
-        transform: scale(1.02);
-    }
-
-    .plusIcon {
-        width: 24px;
-        height: 24px;
-        font-size: 16px;
-    }
-
-    .mensagem {
+        height: 50px;
         font-size: 13px;
+        border-radius: 12px;
     }
 }

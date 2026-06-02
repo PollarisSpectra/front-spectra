@@ -1,6 +1,3 @@
-/* =========================================
-   VARIÁVEIS
-========================================= */
 :root {
     --COR_BOTAO: #ffffff;
     --COR_PRINCIPAL: #ff1a1a;
@@ -11,72 +8,63 @@
     --COR_DESTAQUE_TEXTO: #ffffff;
     --COR_HOVER: #e61919;
     --COR_TEXTO_DESTAQUE: #ff1a1a;
-    --COR_CARD: #31333880;
+    --COR_CARD: #1e1e1e; /* Sincronizado para o cinza premium do dashboard */
     --COR_FORMULARIO: #ffffff;
     --COR_LINHA: #000;
     --COR_MODAL: #31333880;
     --COR_ICONE: #000;
     --COR_TEXTO_FORMULARIO: #000;
 
-    --T_FAST: 0.18s ease;
-    --T_MED:  0.28s cubic-bezier(0.4, 0, 0.2, 1);
-    --T_SPRING: 0.35s cubic-bezier(0.34, 1.30, 0.64, 1);
+    --TRANSITION_MED: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --TRANSITION_FAST: 0.18s ease;
+}
+
+/* --- DEFINE AS ANIMAÇÕES (SINCRO COM O DASHBOARD) --- */
+@keyframes fadeInPage {
+    from {
+        opacity: 0;
+        transform: translateY(-16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes expandDetails {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleDropdown {
+    from {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 /* =========================================
-   KEYFRAMES
-========================================= */
-@keyframes pageFadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes headerSlideDown {
-    from { opacity: 0; transform: translateY(-18px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes cardSlideUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes detailsExpand {
-    from { opacity: 0; transform: translateY(-10px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes menuDropIn {
-    from { opacity: 0; transform: translateY(-8px) scale(0.97); }
-    to   { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-@keyframes posterReveal {
-    from { opacity: 0; transform: scale(0.94); }
-    to   { opacity: 1; transform: scale(1); }
-}
-
-@keyframes btnAddFloat {
-    0%, 100% { transform: translateY(0); }
-    50%       { transform: translateY(-4px); }
-}
-
-@keyframes msgSlideIn {
-    from { opacity: 0; transform: translateY(-12px) scaleY(0.9); }
-    to   { opacity: 1; transform: translateY(0) scaleY(1); }
-}
-
-/* =========================================
-   CONTAINER PRINCIPAL
+   CONTAINER (ESTILO DASHBOARD PREMIUM)
 ========================================= */
 .container {
     min-height: 100vh;
-    padding: 40px 10%;
+    padding: 40px 6%;
+    max-width: 1400px;
+    margin: 0 auto;
     background-color: var(--COR_FUNDO);
     color: var(--COR_TEXTO);
-    font-family: 'Montserrat', sans-serif;
-
-    animation: pageFadeIn 3s ease both;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Montserrat', sans-serif;
+    animation: fadeInPage 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* =========================================
@@ -86,144 +74,127 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 60px;
+    margin-bottom: 50px;
     position: relative;
-
-    animation: headerSlideDown 0.38s ease both;
-    animation-delay: 0.05s;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 20px;
 }
 
 .voltar {
     position: absolute;
     left: 0;
-    background: none;
+    background: transparent;
     border: none;
     color: var(--COR_TEXTO);
-    font-size: 24px;
+    font-size: 28px;
     cursor: pointer;
-    padding: 6px 10px;
-    border-radius: 8px;
-
-    transition:
-            color var(--T_FAST),
-            background-color var(--T_FAST),
-            transform var(--T_SPRING);
+    transition: transform var(--TRANSITION_FAST), color var(--TRANSITION_FAST);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 50%;
 }
 
 .voltar:hover {
     color: var(--COR_PRINCIPAL);
     background-color: rgba(255, 26, 26, 0.1);
-    transform: translateX(-3px);
-}
-
-.voltar:active {
-    transform: translateX(0) scale(0.92);
+    transform: translateX(-6px);
 }
 
 .formTitulo {
-    font-size: 2.5rem;
-    letter-spacing: 5px;
-    font-weight: 700;
+    font-size: 2.8rem;
+    letter-spacing: 4px;
+    font-weight: 800;
     margin: 0;
+    color: var(--COR_TEXTO);
     text-transform: uppercase;
-    transition: letter-spacing var(--T_MED);
 }
 
 /* =========================================
-   BARRA DE FILTROS
+   BARRA DE FILTROS (AMPLIADA)
 ========================================= */
 .filtroBarra {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
     margin-bottom: 40px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
 
-    animation: pageFadeIn 0.4s ease both;
-    animation-delay: 0.10s;
+.filtroBarra form {
+    display: flex;
+    flex: 1;
+    gap: 20px;
 }
 
 .inputBusca {
-    min-width: 250px;
     outline: none;
-    background: transparent;
-    border-bottom: 2px solid var(--COR_TEXTO);
+    background: var(--COR_CARD);
     color: var(--COR_TEXTO);
-
-    transition:
-            border-color var(--T_MED),
-            box-shadow var(--T_MED);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 12px 16px; /* Inputs mais altos e confortáveis */
+    font-size: 15px;
+    font-family: inherit;
+    border-radius: 8px;
+    flex: 1;
+    max-width: 223px;
+    transition: border-color var(--TRANSITION_FAST), background-color var(--TRANSITION_FAST);
 }
 
 .inputBusca:focus {
     border-color: var(--COR_PRINCIPAL) !important;
-    box-shadow: 0 2px 0 rgba(255, 26, 26, 0.25);
+    background-color: rgba(255, 255, 255, 0.05);
 }
 
 .btnLupa {
-    font-weight: 600;
-    font-size: 0.9rem;
-    color: var(--COR_TEXTO_FORMULARIO);
+    height: 50px;
+    padding: 0 26px;
+    background-color: var(--COR_PRINCIPAL);
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     cursor: pointer;
-    position: relative;
-    overflow: hidden;
-
-    transition:
-            opacity var(--T_FAST),
-            transform var(--T_SPRING),
-            box-shadow var(--T_MED),
-            filter var(--T_FAST);
+    transition: transform var(--TRANSITION_FAST), filter var(--TRANSITION_FAST);
+    font-weight: 700;
+    color: var(--COR_TEXTO);
 }
-
-.btnLupa::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.08);
-    opacity: 0;
-    transition: opacity var(--T_FAST);
-}
-
-.btnLupa:hover::after { opacity: 1; }
 
 .btnLupa:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    filter: brightness(0.96);
+    filter: brightness(1.1);
+    transform: scale(1.03);
 }
 
 .btnLupa:active {
-    transform: translateY(0) scale(0.96);
-    filter: brightness(0.9);
-    transition: transform 0.10s ease;
+    transform: scale(0.98);
 }
 
-/* =========================================
-   SELETOR DE FILTRO (DROPDOWN)
-========================================= */
+/* SELETOR ORDENAR / FILTRAR */
 .ordenarWrapper {
     position: relative;
-    width: 160px;
+    width: 200px;
 }
 
 .ordenarHeader {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     cursor: pointer;
-    font-size: 0.85rem;
+    font-size: 14px;
+    font-weight: 600;
     color: var(--COR_TEXTO);
-    border: 1px solid var(--COR_SECUNDARIA);
-    padding: 8px 12px;
-    border-radius: 4px;
-
-    transition:
-            background-color var(--T_MED),
-            border-color var(--T_FAST),
-            box-shadow var(--T_MED);
+    background-color: var(--COR_CARD);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0 16px;
+    border-radius: 8px;
+    transition: all var(--TRANSITION_FAST);
 }
 
 .ordenarHeader:hover {
-    background-color: rgba(255, 255, 255, 0.1) !important;
-    border-color: rgba(255, 255, 255, 0.5);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(255, 255, 255, 0.2);
 }
 
 .filtroDestaque {
@@ -237,125 +208,104 @@
     right: 0;
     width: 100%;
     list-style: none;
-    background-color: #09090b;
-    padding: 4px;
-    border: 1px solid #27272a;
+    background-color: #121214;
+    padding: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     z-index: 1000;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
-
-    animation: menuDropIn 0.22s ease both;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+    border-radius: 8px;
+    transform-origin: top right;
+    animation: scaleDropdown 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .ordenarOpcoes li {
-    padding: 8px 12px;
-    font-size: 0.8rem;
+    padding: 12px 16px;
+    font-size: 14px;
     color: #a1a1aa;
     cursor: pointer;
-    border-radius: 4px;
-
-    transition:
-            background-color var(--T_FAST),
-            color var(--T_FAST),
-            transform var(--T_FAST);
+    transition: all 0.15s ease;
+    border-radius: 6px;
 }
 
 .ordenarOpcoes li:hover {
-    background-color: #27272a;
+    background-color: var(--COR_PRINCIPAL);
     color: var(--COR_TEXTO);
-    transform: translateX(3px);
 }
 
 /* =========================================
-   LISTA E CARDS
+   LISTA E CARDS DE FILMES
 ========================================= */
 .lista {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
 }
 
 .filmeCard {
-    background-color: var(--COR_ALERTA);
-    border-radius: 8px;
+    background-color: var(--COR_CARD);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
     overflow: hidden;
-    border: 1px solid transparent;
-
-    animation: cardSlideUp 0.38s ease both;
-    transition:
-            border-color var(--T_MED),
-            box-shadow var(--T_MED),
-            transform var(--T_MED);
+    transition: transform var(--TRANSITION_MED), box-shadow var(--TRANSITION_MED), border-color var(--TRANSITION_MED);
 }
-
-/* Stagger nos cards */
-.filmeCard:nth-child(1)  { animation-delay: 0.06s; }
-.filmeCard:nth-child(2)  { animation-delay: 0.10s; }
-.filmeCard:nth-child(3)  { animation-delay: 0.14s; }
-.filmeCard:nth-child(4)  { animation-delay: 0.18s; }
-.filmeCard:nth-child(5)  { animation-delay: 0.22s; }
-.filmeCard:nth-child(6)  { animation-delay: 0.26s; }
-.filmeCard:nth-child(7)  { animation-delay: 0.30s; }
-.filmeCard:nth-child(8)  { animation-delay: 0.34s; }
-.filmeCard:nth-child(9)  { animation-delay: 0.38s; }
-.filmeCard:nth-child(10) { animation-delay: 0.42s; }
 
 .filmeCard:hover {
-    border-color: rgba(255, 26, 26, 0.2);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-    transform: translateY(-2px);
+    transform: translateY(-4px);
+    border-color: rgba(255, 26, 26, 0.3);
+    box-shadow: 0 12px 24px rgba(255, 26, 26, 0.08);
 }
 
-/* =========================================
-   HEADER DO CARD
-========================================= */
-/* =========================================
-   HEADER DO CARD (ALTERADO PARA GRID)
-========================================= */
 .filmeHeader {
-    padding: 15px 30px;
-    display: grid; /* Mudado de flex para grid */
-    grid-template-columns: 1fr auto 1fr; /* 3 colunas: esquerda e direita iguais, meio centralizado */
+    padding: 24px 32px;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
     cursor: pointer;
-    transition: background-color var(--T_MED);
-}
-
-.filmeHeader:hover {
-    background-color: rgba(255, 255, 255, 0.04);
 }
 
 .filmeLabel {
-    font-weight: bold;
-    font-size: 0.9rem;
-    letter-spacing: 2px;
-    color: var(--COR_TEXTO);
-    justify-self: start; /* Garante o alinhamento totalmente à esquerda */
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
 }
 
-/* Alinhamento do horário caso use a classe diretamente */
-.horarioSessao {
-    justify-self: center; /* Força o horário a ficar no centro absoluto */
-    font-weight: 600;
+.filmeLabel span {
+    background-color: var(--COR_DESTAQUE_TEXTO);
+    color: var(--COR_TEXTO_FORMULARIO);
+    padding: 4px 12px;
+    border-radius: 6px;
+    margin-left: 4px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
 }
 
 .seta {
     color: var(--COR_TEXTO);
-    font-size: 0.85rem;
-    transition: transform var(--T_MED), color var(--T_FAST);
-    justify-self: end; /* Garante a seta totalmente à direita */
+    font-size: 1.2rem;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    margin-left: 20px;
+}
+
+.filmeCard[data-state="open"] .seta {
+    transform: rotate(180deg);
+    color: var(--COR_PRINCIPAL);
 }
 
 /* =========================================
-   DETALHES DO CARD (ACCORDION)
+   DETALHES DO FILME (CONTEÚDO INTERNO)
 ========================================= */
 .filmeDetalhes {
-    background-color: var(--COR_FUNDO);
-    padding: 30px;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 40px;
     display: flex;
     gap: 40px;
-    border-top: 1px solid var(--COR_SECUNDARIA);
-
-    animation: detailsExpand 0.3s ease both;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    animation: expandDetails 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .posterContainer {
@@ -363,24 +313,17 @@
 }
 
 .poster {
-    width: 150px;
-    height: 220px;
+    width: 180px;
+    height: 260px;
     object-fit: cover;
-    border-radius: 4px;
-
-    animation: posterReveal 0.4s ease both;
-    animation-delay: 0.08s;
-
-    transition:
-            transform var(--T_MED),
-            box-shadow var(--T_MED),
-            filter var(--T_MED);
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .poster:hover {
-    transform: scale(1.03);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
-    filter: brightness(1.08);
+    transform: scale(1.04) rotate(1deg);
+    box-shadow: 0 12px 28px rgba(255, 26, 26, 0.2);
 }
 
 .infoGrid {
@@ -389,42 +332,45 @@
     justify-content: space-between;
 }
 
-.colEsquerda h3,
 .filmeTitulo {
-    font-size: 1.4rem;
-    margin-bottom: 20px;
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 24px;
     color: var(--COR_TEXTO);
+    letter-spacing: -0.5px;
 }
 
 .colEsquerda p,
 .colDireita p {
-    font-size: 0.85rem;
-    color: #ccc;
-    margin-bottom: 8px;
-    transition: color var(--T_FAST);
+    font-size: 15px;
+    color: #bbb;
+    margin-bottom: 12px;
+    line-height: 1.5;
 }
 
-.colEsquerda p:hover,
-.colDireita p:hover {
+.colEsquerda p strong,
+.colDireita p strong {
     color: #fff;
 }
 
-/* =========================================
-   BADGES DE CLASSIFICAÇÃO
-========================================= */
-.classifBadge {
-    display: inline-block;
-    padding: 5px 12px;
-    border-radius: 4px;
-    font-weight: bold;
-    margin-top: 10px;
-    font-size: 0.8rem;
-    transition: transform var(--T_SPRING), filter var(--T_FAST);
+.sinopse {
+    line-height: 1.6;
+    text-align: justify;
+    overflow-wrap: break-word;
+    color: var(--COR_TEXTO);
+    margin-top: 15px;
 }
 
-.classifBadge:hover {
-    transform: scale(1.06);
-    filter: brightness(1.15);
+/* BADGES DE CLASSIFICAÇÃO */
+.classifBadge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-weight: bold;
+    margin-top: 12px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
 .badgeL  { background-color: #00a650; color: #fff; }
@@ -434,113 +380,69 @@
 .badge16 { background-color: #ef4123; color: #fff; }
 .badge18 { background-color: #1d1d1b; color: #fff; }
 
-.sinopse {
-    line-height: 1.6;
-    text-align: justify;
-    overflow-wrap: break-word;
-    color: var(--COR_TEXTO);
-}
-
-/* =========================================
-   AÇÕES — BOTÕES EDITAR / EXCLUIR
-========================================= */
+/* BOTÕES DE AÇÃO EDITAR/DELETAR */
 .acoes {
     display: flex;
     align-items: flex-end;
-    gap: 12px;
+    gap: 16px;
 }
 
-.acoes button {
-    transition:
-            background-color var(--T_FAST),
-            color var(--T_FAST),
-            transform var(--T_SPRING),
-            box-shadow var(--T_MED);
-}
-
-.acoes button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
-}
-
-.acoes button:active {
-    transform: translateY(0) scale(0.95);
-    transition: transform 0.10s ease;
-}
-
-.btnEdit {
-    background-color: var(--COR_BOTAO);
-    border: none;
-    width: 35px;
-    height: 35px;
+.btnEdit,
+.btnDelete {
+    background-color: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
-
-    transition: transform var(--T_SPRING), box-shadow var(--T_MED), filter var(--T_FAST);
+    font-size: 1.3rem;
+    color: #fff;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .btnEdit:hover {
     transform: scale(1.12);
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
-    filter: brightness(0.95);
-}
-
-.btnEdit:active {
-    transform: scale(0.94);
-}
-
-.btnDelete {
-    color: var(--COR_BOTAO);
-    border: none;
-    background: transparent;
-    cursor: pointer;
-
-    transition:
-            color var(--T_FAST),
-            transform var(--T_SPRING);
+    background-color: var(--COR_FORMULARIO);
+    color: #000;
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
 }
 
 .btnDelete:hover {
-    color: var(--COR_PRINCIPAL);
-    transform: scale(1.06);
-}
-
-.btnDelete:active {
-    transform: scale(0.94);
+    transform: scale(1.12);
+    background-color: var(--COR_PRINCIPAL);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(255, 26, 26, 0.4);
 }
 
 /* =========================================
    PAGINAÇÃO
 ========================================= */
+.paginacao {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 40px;
+}
+
 .paginacao button {
-    background-color: var(--COR_ALERTA);
-    border: 1px solid var(--COR_SECUNDARIA);
+    background-color: var(--COR_CARD);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     color: var(--COR_TEXTO);
     cursor: pointer;
-    padding: 8px 16px;
-    border-radius: 4px;
-
-    transition:
-            background-color var(--T_MED),
-            border-color var(--T_FAST),
-            transform var(--T_SPRING),
-            box-shadow var(--T_MED);
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all var(--TRANSITION_FAST);
 }
 
 .paginacao button:hover:not(:disabled) {
-    background-color: var(--COR_SECUNDARIA);
-    border-color: rgba(255, 255, 255, 0.3);
-    transform: translateY(-1px);
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-}
-
-.paginacao button:active:not(:disabled) {
-    transform: translateY(0) scale(0.96);
-    box-shadow: none;
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: var(--COR_PRINCIPAL);
+    transform: translateY(-2px);
 }
 
 .paginacao button:disabled {
@@ -549,212 +451,143 @@
 }
 
 /* =========================================
-   MENSAGEM (VAZIO / LOADING)
-========================================= */
-.mensagem {
-    text-align: center;
-    color: #888;
-    margin-top: 20px;
-
-    animation: pageFadeIn 0.35s ease both;
-    transition: color var(--T_FAST);
-}
-
-/* =========================================
-   BOTÃO FLUTUANTE ADICIONAR
+   BOTÃO FLUTUANTE ADICIONAR (Sincronizado)
 ========================================= */
 .btnAdd {
     position: fixed;
-    right: 60px;
+    right: 50px;
     bottom: 40px;
     background-color: var(--COR_BOTAO);
-    color: var(--COR_TEXTO_FORMULARIO);
+    color: #000000;
     border: none;
-    padding: 10px 10px 10px 25px;
-    border-radius: 40px;
-    font-weight: 900;
-    font-size: 14px;
+    padding: 0 28px;
+    height: 56px;
+    border-radius: 30px;
+    font-weight: 800;
+    font-size: 15px;
     letter-spacing: 1px;
+    text-transform: uppercase;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 16px;
+    box-shadow: 0 8px 24px rgba(255, 26, 26, 0.3);
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, filter 0.2s ease;
     z-index: 1000;
-
-    animation: btnAddFloat 3s ease-in-out 1s infinite;
-
-    transition:
-            transform var(--T_SPRING),
-            box-shadow var(--T_MED),
-            filter var(--T_FAST);
-}
-
-.btnAdd:hover {
-    animation-play-state: paused;
-    transform: scale(1.07) translateY(-3px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-    filter: brightness(0.96);
-}
-
-.btnAdd:active {
-    transform: scale(0.97) translateY(0);
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
 }
 
 .plusIcon {
-    background-color: var(--COR_ICONE);
-    color: var(--COR_BOTAO);
+    background-color: rgba(0, 0, 0, 0.2);
+    color: var(--COR_ICONE);
     border-radius: 50%;
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: bold;
+    transition: transform 0.3s ease, background-color 0.2s ease;
+}
 
-    transition: transform var(--T_SPRING);
+.btnAdd:hover {
+    transform: scale(1.05) translateY(-3px);
+    filter: brightness(1.1);
+    box-shadow: 0 12px 28px rgba(255, 26, 26, 0.45);
 }
 
 .btnAdd:hover .plusIcon {
-    transform: rotate(90deg) scale(1.1);
+    transform: rotate(90deg);
+    background-color: #fff;
+    color: var(--COR_PRINCIPAL);
+}
+
+.mensagem {
+    text-align: center;
+    color: #666;
+    font-size: 16px;
+    margin-top: 40px;
 }
 
 /* =========================================
-   BARRA DE FILTROS (MODO RESPONSIVO — OVERRIDE)
+   RESPONSIVO APERFEIÇOADO (MOBILE)
 ========================================= */
-.filtroBarra {
-    margin-bottom: 40px;
-}
-
-.inputBusca {
-    outline: none;
-    background: transparent;
-    color: var(--COR_TEXTO);
-    border: 1px solid var(--COR_SECUNDARIA);
-    padding: 8px 12px;
-    border-radius: 4px;
-    transition: border-color var(--T_MED), box-shadow var(--T_MED);
-}
-
-.inputBusca:focus {
-    border-color: var(--COR_PRINCIPAL) !important;
-    box-shadow: 0 0 0 2px rgba(255, 26, 26, 0.18);
-}
-
-.btnLupa {
-    transition: opacity var(--T_FAST), transform var(--T_SPRING), box-shadow var(--T_MED);
-    font-weight: 600;
-    font-size: 0.9rem;
-    color: var(--COR_TEXTO);
-}
-
-.btnLupa:hover {
-    opacity: 0.85;
-    transform: translateY(-1px);
-}
-
-.ordenarWrapper {
-    position: relative;
-    width: 160px;
-}
-
-.ordenarHeader {
-    cursor: pointer;
-    transition: background-color var(--T_MED), border-color var(--T_FAST);
-    font-size: 0.85rem;
-    color: var(--COR_TEXTO);
-    border: 1px solid var(--COR_SECUNDARIA);
-    padding: 8px;
-    border-radius: 4px;
-}
-
-.ordenarHeader:hover {
-    background-color: rgba(255, 255, 255, 0.1) !important;
-    border-color: rgba(255, 255, 255, 0.35);
-}
-
-.ordenarOpcoes {
-    position: absolute;
-    top: calc(100% + 8px);
-    right: 0;
-    width: 100%;
-    list-style: none;
-    background-color: #09090b;
-    padding: 4px;
-    border: 1px solid #27272a;
-    z-index: 1000;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
-
-    animation: menuDropIn 0.22s ease both;
-}
-
-.ordenarOpcoes li {
-    padding: 8px 12px;
-    font-size: 0.8rem;
-    color: #a1a1aa;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color var(--T_FAST), color var(--T_FAST), transform var(--T_FAST);
-}
-
-.ordenarOpcoes li:hover {
-    background-color: #27272a;
-    color: var(--COR_TEXTO);
-    transform: translateX(3px);
-}
-
-/* =========================================
-   RESPONSIVO 320px
-========================================= */
-@media (max-width: 320px) {
-    .container { padding: 20px 12px 90px; }
-    .header { margin-bottom: 30px; }
+@media (max-width: 600px) {
+    .container {
+        padding: 24px 16px 100px;
+    }
 
     .formTitulo {
-        font-size: 1.2rem;
-        letter-spacing: 2px;
+        font-size: 1.8rem;
+    }
+
+    .filtroBarra,
+    .filtroBarra form {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        width: 100%;
+    }
+
+    .ordenarWrapper {
+        width: 100%;
+    }
+
+    .filmeHeader {
+        padding: 16px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        position: relative;
+    }
+
+    .filmeLabel {
+        flex: none;
+        width: 100%;
+    }
+
+    .seta {
+        position: absolute;
+        right: 16px;
+        top: 22px;
+        margin: 0;
+    }
+
+    .filmeDetalhes {
+        flex-direction: column;
+        padding: 24px 16px;
+        align-items: center;
+        gap: 24px;
+    }
+
+    .infoGrid {
+        flex-direction: column;
+        width: 100%;
+        gap: 24px;
+    }
+
+    .filmeTitulo {
+        font-size: 1.5rem;
         text-align: center;
     }
 
-    .voltar { font-size: 18px; left: -4px; }
-
-    .filtroBarra {
-        flex-direction: column !important;
-        align-items: stretch !important;
-        gap: 14px;
+    .colEsquerda p,
+    .colDireita p {
+        text-align: center;
     }
 
-    .filtroBarra form { flex-direction: column; width: 100%; }
-
-    .inputBusca { width: 100%; font-size: 12px; padding: 10px; }
-    .btnLupa { width: 100%; font-size: 12px; padding: 10px; }
-    .ordenarWrapper { width: 100%; }
-    .ordenarHeader { width: 100%; font-size: 12px; }
-    .ordenarOpcoes { width: 100%; }
-
-    .sessaoHeader { padding: 12px; gap: 8px; align-items: flex-start; flex-direction: column; }
-    .sessaoLabel { font-size: 0.7rem; line-height: 18px; }
-    .sessaoLabel span { display: inline-block; margin-left: 0; margin-top: 6px; font-size: 0.65rem; }
-    .horarioSessao { font-size: 12px; }
-    .seta { align-self: flex-end; margin-top: -22px; }
-
-    .sessaoDetalhes { flex-direction: column; padding: 16px; gap: 18px; align-items: center; }
-    .poster { width: 120px; height: 180px; }
-    .infoGrid { flex-direction: column; width: 100%; gap: 20px; }
-    .sessaoTitulo { font-size: 1rem; margin-bottom: 12px; text-align: center; }
-    .colEsquerda p { font-size: 12px; text-align: center; }
-
-    .acoes { justify-content: center; align-items: center; flex-wrap: wrap; gap: 10px; }
-    .acoes button { width: 100%; font-size: 12px; padding: 10px; }
+    .acoes {
+        justify-content: center;
+        width: 100%;
+    }
 
     .btnAdd {
-        right: 12px; left: 12px; bottom: 15px;
-        width: auto; justify-content: center;
-        padding: 10px 14px; font-size: 11px;
-        gap: 10px; border-radius: 14px;
+        right: 16px;
+        left: 16px;
+        bottom: 20px;
+        justify-content: center;
+        height: 50px;
+        font-size: 13px;
+        border-radius: 12px;
     }
-
-    .plusIcon { width: 24px; height: 24px; font-size: 16px; }
-    .mensagem { font-size: 13px; }
 }

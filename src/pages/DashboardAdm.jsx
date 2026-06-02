@@ -115,11 +115,11 @@
         // ROTAS DO PYTHON ADICIONADAS AQUI (Certifique-se de que os nomes batem com o seu backend)
         const relatorios = [
             { titulo: "FILMES MAIS ASSISTIDOS", icon: <Film size={18} />, rota: "/filmes/relatorio_filmes" },
-            { titulo: "SESSÕES COM MAIOR OCUPAÇÃO", icon: <Ticket size={18} />, rota: "/sessao/relatorio_ocupacao" },
+            { titulo: "SESSÕES COM MAIOR LOTAÇÃO", icon: <Ticket size={18} />, rota: "/sessao/relatorio_ocupacao" },
             { titulo: "RESERVAS REALIZADAS", icon: <CircleDollarSign size={18} />, rota: "/reservas/relatorio_reservas" },
         ];
 
-        const grafico = [
+        const graficoS  = [
             { dia: "Domingo", valor: 150 },
             { dia: "Segunda", valor: 90 },
             { dia: "Terça", valor: 70 },

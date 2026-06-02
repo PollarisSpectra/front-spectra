@@ -36,7 +36,7 @@ export default function Header({ usuario, setUsuario }) {
         if (resposta.ok) {
             localStorage.removeItem("usuario");
             setUsuario(null);
-            navigate("/");
+            navigate("/home");
         }
     }
 
@@ -59,7 +59,7 @@ export default function Header({ usuario, setUsuario }) {
                     " d-flex align-items-center justify-content-between gap-1"
                 }>
                     <Link
-                        to={usuario ? "/app" : "/cadastro"}
+                        to={usuario ? (usuario?.tipo == 0 ? "/app" : "/dashboard") : "/cadastro"}
                         className={
                             styles.link +
                             " text-white px-2 py-1 rounded-3"

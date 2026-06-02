@@ -31,6 +31,8 @@ import ReservaUsuario from "./pages/Reserva/ReservaUsuario.jsx";
 import CadastroBanner from "./pages/CadastroBanner/CadastroBanner.jsx";
 import EditarBanner from "./pages/CadastroBanner/EditarBanner.jsx";
 import ListarBanner from "./pages/CadastroBanner/ListarBanner.jsx";
+import ListarUsuario from "./pages/Admin/UsuarioAdm/ListarUsuario/ListarUsuario.jsx";
+import EditarUsuario from "./pages/Admin/UsuarioAdm/EditarUsuario/EditarUsuario.jsx";
 
 
 
@@ -96,6 +98,7 @@ function App() {
         <Route path="/ListarBanner" element={<ListarBanner />} />
 
 
+
         {/* Rotas Administrativas - Protegidas por AdminLayout */}
         <Route path="/app" element={<AdminLayout />}>
           <Route index element={<DashboardAdm />} />
@@ -136,6 +139,9 @@ function App() {
         <Route path="/banner/editar/:id" element={<EditarBanner />}/>
         <Route path="/banners" element={<ListarBanner />}/>
         <Route path="/app/banners" element={<ListarBanner />} />
+
+        <Route path="/app/usuarios" element={<ListarUsuario />} />
+        <Route path="/app/usuarios/:id/editar" element={<EditarUsuario />} />
 
 
         <Route path="*" element={<NotFound />} />

@@ -144,10 +144,6 @@
                     </div>
 
                     <div className="d-flex gap-2">
-                        <button className={css.iconButton}>
-                            <Settings size={16} />
-                        </button>
-
                         {idEmpresa && (
                             <Link
                                 to={`/app/editar_empresa/${idEmpresa}`}

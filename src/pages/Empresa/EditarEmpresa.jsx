@@ -78,9 +78,73 @@ export default function EditarEmpresa() {
 
             const data = await response.json();
 
+            const rootStyles = getComputedStyle(document.documentElement);
+
+            const coresComFallback = {
+                COR_BOTAO:
+                    data.COR_BOTAO ||
+                    rootStyles.getPropertyValue('--COR_BOTAO').trim(),
+
+                COR_PRINCIPAL:
+                    data.COR_PRINCIPAL ||
+                    rootStyles.getPropertyValue('--COR_PRINCIPAL').trim(),
+
+                COR_ALERTA:
+                    data.COR_ALERTA ||
+                    rootStyles.getPropertyValue('--COR_ALERTA').trim(),
+
+                COR_FUNDO:
+                    data.COR_FUNDO ||
+                    rootStyles.getPropertyValue('--COR_FUNDO').trim(),
+
+                COR_SECUNDARIA:
+                    data.COR_SECUNDARIA ||
+                    rootStyles.getPropertyValue('--COR_SECUNDARIA').trim(),
+
+                COR_TEXTO:
+                    data.COR_TEXTO ||
+                    rootStyles.getPropertyValue('--COR_TEXTO').trim(),
+
+                COR_DESTAQUE_TEXTO:
+                    data.COR_DESTAQUE_TEXTO ||
+                    rootStyles.getPropertyValue('--COR_DESTAQUE_TEXTO').trim(),
+
+                COR_HOVER:
+                    data.COR_HOVER ||
+                    rootStyles.getPropertyValue('--COR_HOVER').trim(),
+
+                COR_TEXTO_DESTAQUE:
+                    data.COR_TEXTO_DESTAQUE ||
+                    rootStyles.getPropertyValue('--COR_TEXTO_DESTAQUE').trim(),
+
+                COR_CARD:
+                    data.COR_CARD ||
+                    rootStyles.getPropertyValue('--COR_CARD').trim(),
+
+                COR_FORMULARIO:
+                    data.COR_FORMULARIO ||
+                    rootStyles.getPropertyValue('--COR_FORMULARIO').trim(),
+
+                COR_LINHA:
+                    data.COR_LINHA ||
+                    rootStyles.getPropertyValue('--COR_LINHA').trim(),
+
+                COR_MODAL:
+                    data.COR_MODAL ||
+                    rootStyles.getPropertyValue('--COR_MODAL').trim(),
+
+                COR_ICONE:
+                    data.COR_ICONE ||
+                    rootStyles.getPropertyValue('--COR_ICONE').trim(),
+
+                COR_TEXTO_FORMULARIO:
+                    data.COR_TEXTO_FORMULARIO ||
+                    rootStyles.getPropertyValue('--COR_TEXTO_FORMULARIO').trim()
+            };
+
             setEmpresa((prev) => ({
                 ...prev,
-                ...data
+                ...coresComFallback
             }));
 
         } catch (error) {
@@ -112,11 +176,13 @@ export default function EditarEmpresa() {
     }
 
     function alterarCor(nome, valor) {
-
-        setEmpresa({
+        const novasCores = {
             ...empresa,
             [nome]: valor
-        });
+        };
+
+        setEmpresa(novasCores);
+        aplicarCoresNoRoot(novasCores);
     }
 
     async function salvar(e) {

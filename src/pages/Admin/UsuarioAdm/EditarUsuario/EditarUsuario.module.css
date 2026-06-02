@@ -1,0 +1,139 @@
+.container {
+    min-height: 100vh;
+    background-color: var(--COR_FUNDO);
+    padding: 40px 10%;
+    color: var(--COR_TEXTO);
+    font-family: 'Montserrat', sans-serif;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-bottom: 50px;
+}
+
+.voltar {
+    position: absolute;
+    left: 0;
+    background: none;
+    border: none;
+    color: var(--COR_TEXTO);
+    font-size: 28px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.voltar:hover {
+    color: var(--COR_PRINCIPAL);
+    transform: translateX(-3px);
+}
+
+.titulo {
+    font-size: 2.3rem;
+    font-weight: 800;
+    letter-spacing: 4px;
+}
+
+.formulario {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: var(--COR_FORMULARIO);
+    padding: 40px;
+    border-radius: 25px;
+    color: var(--COR_TEXTO_FORMULARIO);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+}
+
+.inputGroup label {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.inputGroup input,
+.inputGroup select {
+    border: none;
+    border-bottom: 2px solid var(--COR_LINHA);
+    background: transparent;
+    padding: 10px 0;
+    outline: none;
+    font-size: 16px;
+    color: var(--COR_TEXTO_FORMULARIO);
+}
+
+.inputGroup input:focus,
+.inputGroup select:focus {
+    border-bottom-color: var(--COR_PRINCIPAL);
+}
+
+.btnSalvar {
+    width: 100%;
+    border: none;
+    background-color: var(--COR_PRINCIPAL);
+    color: var(--COR_TEXTO);
+    padding: 15px;
+    border-radius: 10px;
+    font-weight: 900;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.btnSalvar:hover {
+    background-color: var(--COR_HOVER);
+}
+
+@media (max-width: 768px) {
+
+    .container {
+        padding: 25px 20px;
+    }
+
+    .titulo {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    .formulario {
+        padding: 25px 20px;
+    }
+}
+
+@media (max-width: 320px) {
+
+    .container {
+        padding: 15px 10px;
+    }
+
+    .titulo {
+        font-size: 1.2rem;
+        letter-spacing: 2px;
+    }
+
+    .formulario {
+        padding: 20px 15px;
+        border-radius: 15px;
+    }
+
+    .inputGroup label {
+        font-size: 12px;
+    }
+
+    .inputGroup input,
+    .inputGroup select {
+        font-size: 14px;
+    }
+
+    .btnSalvar {
+        padding: 12px;
+        font-size: 0.9rem;
+    }
+}

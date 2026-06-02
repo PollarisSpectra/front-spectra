@@ -70,6 +70,11 @@ export default function CadastroBanner() {
                 }
             );
 
+            if (response.status === 401) {
+                navigate("/login");
+                return;
+            }
+            
             const data = await response.json();
 
             console.log(data);

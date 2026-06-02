@@ -308,13 +308,15 @@
 /* =========================================
    HEADER DO CARD
 ========================================= */
+/* =========================================
+   HEADER DO CARD (ALTERADO PARA GRID)
+========================================= */
 .filmeHeader {
     padding: 15px 30px;
-    display: flex;
-    justify-content: space-between;
+    display: grid; /* Mudado de flex para grid */
+    grid-template-columns: 1fr auto 1fr; /* 3 colunas: esquerda e direita iguais, meio centralizado */
     align-items: center;
     cursor: pointer;
-
     transition: background-color var(--T_MED);
 }
 
@@ -327,28 +329,21 @@
     font-size: 0.9rem;
     letter-spacing: 2px;
     color: var(--COR_TEXTO);
+    justify-self: start; /* Garante o alinhamento totalmente à esquerda */
 }
 
-.filmeLabel span {
-    background-color: var(--COR_BOTAO);
-    color: var(--COR_TEXTO_FORMULARIO);
-    padding: 2px 8px;
-    border-radius: 4px;
-    margin-left: 10px;
-    font-size: 0.8rem;
-
-    transition:
-            background-color var(--T_FAST),
-            color var(--T_FAST);
+/* Alinhamento do horário caso use a classe diretamente */
+.horarioSessao {
+    justify-self: center; /* Força o horário a ficar no centro absoluto */
+    font-weight: 600;
 }
-
 
 .seta {
     color: var(--COR_TEXTO);
     font-size: 0.85rem;
     transition: transform var(--T_MED), color var(--T_FAST);
+    justify-self: end; /* Garante a seta totalmente à direita */
 }
-
 
 /* =========================================
    DETALHES DO CARD (ACCORDION)

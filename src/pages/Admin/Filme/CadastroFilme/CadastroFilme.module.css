@@ -59,6 +59,7 @@
     to   { opacity: 1; transform: translateY(0) scaleY(1); }
 }
 
+/* BASE & LAYOUT PADRÃO (DESKTOP) */
 .containerMain {
     min-height: 100vh;
     padding: 40px 10%;
@@ -68,7 +69,6 @@
     color: var(--COR_TEXTO);
     font-family: 'Montserrat', sans-serif;
     animation: pageFadeIn 2s ease both;
-
 }
 
 /* HEADER PADRONIZADO */
@@ -100,7 +100,7 @@
     font-weight: 700;
     margin: 0;
     text-transform: uppercase;
-
+    text-align: center;
 }
 
 /* CONTEÚDO LADO A LADO */
@@ -109,6 +109,7 @@
     gap: 60px;
     justify-content: center;
     align-items: flex-start;
+    width: 100%;
 }
 
 /* PREVIEW LARGO */
@@ -116,10 +117,11 @@
     flex: 0 0 350px;
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 .cardPreview {
-    background-color: #1a1c20; /* Mantido cinza escuro para contraste do preview */
+    background-color: #1a1c20;
     border-radius: 12px;
     overflow: hidden;
     color: var(--COR_TEXTO);
@@ -145,7 +147,12 @@
     border-radius: 20px;
     flex: 1;
     max-width: 550px;
+    width: 100%;
     color: var(--COR_TEXTO_FORMULARIO);
+}
+
+.formulario {
+    width: 100%;
 }
 
 .inputBox { display: flex; flex-direction: column; margin-bottom: 15px; }
@@ -153,7 +160,7 @@
 
 .inputBox input, .inputBox textarea, .selectStyle {
     border: none;
-    border-bottom: 2px solid #ccc; /* Mantido para visualização no fundo branco */
+    border-bottom: 2px solid #ccc;
     padding: 10px 0;
     outline: none;
     font-family: inherit;
@@ -175,7 +182,7 @@
     transition: 0.3s;
 }
 
-.btnSalvar:hover { background-color: var(--COR_HOVER); }
+.btnCadastrar:hover { background-color: var(--COR_HOVER); }
 
 /* MENSAGENS */
 .msgSucesso { padding: 15px; background: #d4edda; color: #155724; border-radius: 8px; margin-bottom: 20px; font-weight: bold; }
@@ -197,13 +204,44 @@
 .infoPreview { padding: 20px; }
 .sinopseTexto { margin-top: 20px; line-height: 1.5; font-size: 0.9rem; color: #eee; }
 
+.detalhesRow {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-right: 10px;
+}
 
-/* ================= RESPONSIVO 320PX ================= */
 
-@media (max-width: 320px) {
+/* =========================================
+   RESPONSIVIDADE (MEDIA QUERIES)
+========================================= */
 
+/* DISPOSITIVOS MÉDIOS E TABLETS (Até 992px) */
+@media (max-width: 992px) {
     .containerMain {
-        padding: 20px 12px 40px;
+        padding: 40px 5%;
+    }
+
+    .conteudoFlex {
+        flex-direction: column; /* Move o preview para cima do formulário */
+        align-items: center;
+        gap: 40px;
+    }
+
+    .previewContainer {
+        flex: unset;
+        max-width: 450px; /* Evita que o preview fique gigante em tablets */
+    }
+
+    .formCard {
+        max-width: 600px; /* Expande o formulário para aproveitar melhor o espaço central */
+    }
+}
+
+/* SMARTPHONES EM GERAL (Até 576px) */
+@media (max-width: 576px) {
+    .containerMain {
+        padding: 20px 16px 40px;
     }
 
     /* HEADER */
@@ -212,41 +250,24 @@
     }
 
     .formTituloPrincipal {
-        font-size: 1rem;
+        font-size: 1.4rem;
         letter-spacing: 2px;
-        text-align: center;
-        line-height: 22px;
+        line-height: 28px;
     }
 
     .voltar {
-        left: -4px;
-        font-size: 20px;
-    }
-
-    /* LAYOUT */
-    .conteudoFlex {
-        flex-direction: column;
-        gap: 25px;
-        align-items: center;
+        position: relative;
+        font-size: 24px;
+        margin-right: 15px;
     }
 
     /* PREVIEW */
-    .previewContainer {
-        width: 100%;
-        flex: unset;
-    }
-
-    .cardPreview {
-        width: 100%;
-        border-radius: 10px;
-    }
-
     .capaArea {
-        height: 260px;
+        height: 280px;
     }
 
     .uploadPlaceholder span {
-        font-size: 12px;
+        font-size: 13px;
         text-align: center;
         padding: 0 10px;
     }
@@ -259,40 +280,34 @@
     }
 
     .infoPreview {
-        padding: 14px;
+        padding: 16px;
     }
 
     .tituloRow h3 {
-        font-size: 15px;
+        font-size: 16px;
         text-align: center;
         line-height: 22px;
     }
 
     .detalhesRow {
-        display: flex;
-        flex-direction: column;
         gap: 6px;
         margin-top: 10px;
-        font-size: 12px;
+        font-size: 13px;
         text-align: center;
+        margin-right: 0;
     }
 
     .sinopseTexto {
-        font-size: 12px;
-        line-height: 18px;
+        font-size: 13px;
+        line-height: 19px;
         text-align: left;
         margin-top: 14px;
     }
 
-    /* FORM */
+    /* FORMULÁRIO */
     .formCard {
-        width: 100%;
-        padding: 20px 14px;
+        padding: 24px 18px;
         border-radius: 14px;
-    }
-
-    .formulario {
-        width: 100%;
     }
 
     .inputBox {
@@ -306,8 +321,8 @@
     .inputBox input,
     .inputBox textarea,
     .selectStyle {
-        font-size: 12px;
-        padding: 10px 0;
+        font-size: 13px;
+        padding: 8px 0;
     }
 
     .inputBox textarea {
@@ -315,25 +330,31 @@
     }
 
     .btnCadastrar {
-        padding: 12px;
-        font-size: 12px;
+        padding: 14px;
+        font-size: 14px;
         border-radius: 8px;
     }
 
     /* MENSAGENS */
-    .message {
-        font-size: 12px;
+    .message, .msgSucesso, .msgErro {
+        font-size: 13px;
+        padding: 12px;
         line-height: 18px;
     }
 
-    .msgSucesso,
-    .msgErro {
-        font-size: 12px;
-        padding: 12px;
+    .carregando {
+        font-size: 1.2rem;
+        margin-top: 50px;
+    }
+}
+
+/* MICRO DISPOSITIVOS (Até 320px) */
+@media (max-width: 320px) {
+    .formTituloPrincipal {
+        font-size: 1.1rem;
     }
 
-    .carregando {
-        font-size: 1rem;
-        margin-top: 40px;
+    .capaArea {
+        height: 230px;
     }
 }

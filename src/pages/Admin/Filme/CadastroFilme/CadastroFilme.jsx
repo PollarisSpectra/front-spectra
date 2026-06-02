@@ -126,8 +126,8 @@ export default function CadastroFilme() {
                                 <h3>{filme.titulo || "TÍTULO DO FILME"}</h3>
                             </div>
                             <div className={css.detalhesRow}>
-                                <span><strong>Gênero:</strong> {filme.genero || "..."}</span>
-                                <span><strong>Duração:</strong> {filme.duracao || "...."}</span>
+                                <span><strong className={css.genero}>Gênero:</strong> {filme.genero || "..."}</span>
+                                <span><strong className={css.duracao}>Duração:</strong> {filme.duracao || "...."}</span>
                             </div>
                         </div>
                     </div>

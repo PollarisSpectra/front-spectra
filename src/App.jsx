@@ -96,6 +96,7 @@ function App() {
         <Route path="/CadastroBanner" element={<CadastroBanner />} />
         <Route path="/EditarBanner/:id" element={<EditarBanner />} />
         <Route path="/ListarBanner" element={<ListarBanner />} />
+        <Route path="app/dashboard" element={<Dashboard />} />
 
 
 

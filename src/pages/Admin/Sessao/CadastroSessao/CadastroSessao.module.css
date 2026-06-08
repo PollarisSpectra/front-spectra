@@ -15,18 +15,16 @@
     --COR_ICONE: #000;
     --COR_TEXTO_FORMULARIO: #000;
 }
-
 .containerMain {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 60px;
-    background-color: var(--COR_FUNDO); /* Conectado ao root */
+    background-color: var(--COR_FUNDO);
     min-height: 100vh;
-    padding: 20px;
+    padding: 120px 20px 20px;
     position: relative;
     animation: pageFadeIn 2s ease both;
-
 }
 @keyframes pageFadeIn {
     from { opacity: 0; transform: translateY(10px); }
@@ -66,22 +64,27 @@
 /* =========================================
    CABEÇALHO (Título e Botão Voltar)
 ========================================= */
+/* =========================================
+   CABEÇALHO (Título e Botão Voltar)
+========================================= */
 .header {
     position: absolute;
-    top: 50px;
+    top: 20px;
     left: 0;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 100;
 }
 
 .formTitulo {
-    color: var(--COR_TEXTO); /* Conectado ao root */
+    color: var(--COR_TEXTO);
     font-weight: 800;
     font-size: 32px;
     letter-spacing: 2px;
     margin: 0;
+    text-align: center;
 }
 
 .btnVoltar {
@@ -89,7 +92,7 @@
     left: 50px;
     background: transparent;
     border: none;
-    color: var(--COR_TEXTO); /* Conectado ao root */
+    color: var(--COR_TEXTO);
     font-size: 30px;
     cursor: pointer;
     transition: opacity 0.2s ease-in-out;
@@ -98,7 +101,6 @@
 .btnVoltar:hover {
     opacity: 0.7;
 }
-
 
 /* =========================================
    LADO ESQUERDO (Preview)
